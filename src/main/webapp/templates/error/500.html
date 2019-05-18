@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <title> - 500错误</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+
+    <link rel="shortcut icon" href="/static/vendor/admin/img/favicon.ico">
+    <link href="/static/vendor/bootstrap/css/bootstrap.min.css?v=3.3.7" rel="stylesheet">
+    <link href="/static/vendor/font-awesome/css/font-awesome.css?v=4.7.0" rel="stylesheet">
+
+    <link href="/static/vendor/animate/animate.css" rel="stylesheet">
+
+</head>
+
+<style type="text/css">
+    body{
+        background-color: #f0f3f4;
+        color: #676a6c;
+        height: 100%;
+        font-family: "open sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+        font-size: 16px;
+        overflow-x: hidden;
+    }
+
+    .error-div {
+        max-width: 400px;
+        z-index: 100;
+        margin: 0 auto;
+        padding-top: 50px;
+    }
+    .error-div .error_code{
+        font-size: 170px;
+    }
+
+    .error-div .error_title{
+        font-size: 24px;
+    }
+
+    .font-bold {
+        font-weight: 600;
+    }
+
+
+    .go_home{
+        margin-top: 30px;
+    }
+    .go_home_btn{
+        margin-top: 10px;
+    }
+    .btn-primary {
+        color: #ffffff !important;
+        background-color: #7266ba;
+        border-color: #7266ba;
+    }
+</style>
+
+
+<body>
+
+    <div class="error-div text-center animated fadeInDown">
+
+        <div class="error_code">500</div>
+
+        <div class="error_title font-bold">服务器内部错误！</div>
+
+        <div>服务器好像出错了...</div>
+
+        <div class="go_home">
+            <div class="go_home_btn">
+                <a href="/view/index" class="btn btn-primary"><i class="fa fa-home"></i>&nbsp;&nbsp;&nbsp;返回主页</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 全局js -->
+    <script src="/static/vendor/jquery/jquery.min.js?v=2.2.4"></script>
+    <script src="/static/vendor/bootstrap/js/bootstrap.min.js?v=3.3.7"></script>
+
+</body>
+
+</html>

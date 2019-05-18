@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.java.business.menu.mapper.MenuBasicFaceMapper">
+  <resultMap id="BaseResultMap" type="com.java.business.menu.entity.MenuBasicFace">
+    <!--
+      WARNING - @mbggenerated
+    -->
+    <result column="id" jdbcType="INTEGER" property="id" />
+    <result column="menu_code" jdbcType="VARCHAR" property="menuCode" />
+    <result column="menu_name" jdbcType="VARCHAR" property="menuName" />
+    <result column="menu_icon" jdbcType="VARCHAR" property="menuIcon" />
+    <result column="menu_action" jdbcType="VARCHAR" property="menuAction" />
+    <result column="parent_menu_code" jdbcType="VARCHAR" property="parentMenuCode" />
+    <result column="is_display" jdbcType="VARCHAR" property="isDisplay" />
+    <result column="display_index" jdbcType="INTEGER" property="displayIndex" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="update_user" jdbcType="VARCHAR" property="updateUser" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_user" jdbcType="VARCHAR" property="createUser" />
+    <result column="delete_flag" jdbcType="VARCHAR" property="deleteFlag" />
+  </resultMap>
+  <select id="selectUserMenu" resultMap="BaseResultMap">
+        SELECT
+            menu_basic_face.id,
+            menu_basic_face.menu_name,
+            menu_basic_face.menu_icon,
+            menu_basic_face.menu_action,
+            menu_basic_face.parent_menu_code,
+            menu_basic_face.is_display,
+            menu_basic_face.display_index,
+            menu_basic_face.update_time,
+            menu_basic_face.update_user,
+            menu_basic_face.create_time,
+            menu_basic_face.create_user,
+            menu_basic_face.delete_flag,
+            menu_basic_face.menu_code
+        FROM
+            menu_basic_face
+        INNER JOIN role_menu_relation ON role_menu_relation.menu_code = menu_basic_face.menu_code
+        <where>
+          <if test="list != null and list.size() > 0">
+            role_menu_relation.role_code IN
+            <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+              #{item.roleCode}
+            </foreach>
+          </if>
+        </where>
+        group by menu_basic_face.id
+  </select>
+</mapper>

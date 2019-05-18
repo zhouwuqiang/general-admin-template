@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.java.business.user.mapper.UserBasicFaceMapper">
+  <resultMap id="BaseResultMap" type="com.java.business.user.entity.UserBasicFace">
+    <!--
+      WARNING - @mbggenerated
+    -->
+    <result column="id" jdbcType="INTEGER" property="id" />
+    <result column="user_code" jdbcType="VARCHAR" property="userCode" />
+    <result column="user_label" jdbcType="VARCHAR" property="userLabel" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="login_password" jdbcType="VARCHAR" property="loginPassword" />
+    <result column="security_password" jdbcType="VARCHAR" property="securityPassword" />
+    <result column="is_lock" jdbcType="VARCHAR" property="isLock" />
+    <result column="is_remember" jdbcType="VARCHAR" property="isRemember" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="update_user" jdbcType="VARCHAR" property="updateUser" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_user" jdbcType="VARCHAR" property="createUser" />
+    <result column="delete_flag" jdbcType="VARCHAR" property="deleteFlag" />
+  </resultMap>
+</mapper>

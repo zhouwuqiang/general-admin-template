@@ -1,0 +1,220 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-cn">
+<head>
+    <title>轩辕财务管理系统</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Language" content="zh-CN"/>
+    <meta name="Author" content="alger"/>
+    <meta name="Copyright" content="网站版权"/>
+    <meta name="keywords" content="网站关键字"/>
+    <meta name="description" content="网站描述"/>
+
+    <!--[if lt IE 9]>
+    <meta http-equiv="refresh" content="0;ie.html"/>
+    <![endif]-->
+
+    <script type="text/javascript">
+        if (window.top !== window.self) {
+            window.top.location = window.location;
+        }
+    </script>
+
+    <link rel="shortcut icon" href="/static/img/favicon.ico">
+    <link rel="stylesheet" href="/static/vendor/admin/css/reset.css?v=2.0">
+    <link rel="stylesheet" href="/static/vendor/bootstrap/css/bootstrap.css?v=3.3.7">
+    <link rel="stylesheet" href="/static/vendor/bootstrap-validator/css/formValidation.min.css">
+    <link rel="stylesheet" href="/static/vendor/font-awesome/css/font-awesome.css?v=4.7.0">
+    <link rel="stylesheet" href="/static/vendor/sweetalert/css/sweetalert2.min.css">
+
+    <style type="text/css">
+        .login_background {
+            width: 100%;
+            background: url(/static/image/login.jpg) no-repeat center fixed;
+            background-size: cover;
+        }
+
+        .login_label_container {
+            width: 100%;
+            height: 200px;
+            background: rgba(52, 126, 188, 0.7);
+            position: absolute;
+            left: 0;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            margin: auto;
+        }
+
+        .login_label {
+            position: relative;
+            height: 100%;
+            padding: 0 50% 0 15%;
+            text-align: center;
+        }
+
+        .login_label .login_label_body {
+            padding: 30px 0 10px 0;
+            height: 100%;
+        }
+
+        .login_label .label_title {
+            color: #FFFFFF;
+            font-size: 4em;;
+            height: 65%;
+        }
+
+        .login_label .label_description {
+            color: #FFFFFF;
+            font-size: 18px;
+            height: 35%;
+        }
+
+
+        .login_form_title {
+            width: 100%;
+            height: 35px;
+            color: #347ebc;
+            font-size: 24px;
+            text-align: center;
+            margin: 20px 0 30px 0;
+            letter-spacing: 10px;
+        }
+
+        .password_forget {
+            font-size: 12px;
+        }
+
+
+        /********************************** 移动端样式 ********************************/
+        @media screen and (max-width: 768px) {
+            .login_label_container , .password_forget {
+                display: none;
+            }
+
+            .login_form .form-group .control-label{
+                display: none;
+            }
+
+            .login_form {
+                width: 80%;
+                height: 50%;
+                max-width: 375px;
+                max-height: 337px;
+                background: #fff;
+                position: fixed;
+                left: 0;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                margin: auto;
+                z-index: 1;
+                box-shadow: 0 0 50px rgba(0, 0, 0, 0.4);
+                border-radius: 5px;
+                padding: 20px 35px 20px 35px;
+                font-size: 16px;
+            }
+        }
+
+        /********************************** 桌面 ********************************/
+        @media screen and (min-width: 769px) {
+            .login_form {
+                width: 375px;
+                height: 337px;
+                background: #fff;
+                position: fixed;
+                left: 40%;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                margin: auto;
+                z-index: 1;
+                box-shadow: 0 0 50px rgba(0, 0, 0, 0.4);
+                border-radius: 5px;
+                padding: 20px 35px 20px 35px;
+                font-size: 16px;
+            }
+        }
+
+    </style>
+</head>
+<body class="login_background">
+<!--标题-->
+<div class="login_label_container">
+    <div class="login_label">
+        <div class="login_label_body">
+            <div class="label_title">轩辕财务管理系统</div>
+            <div class="label_description">轩辕财务管理系统</div>
+        </div>
+    </div>
+</div>
+
+<!--登录表单-->
+<div class=" container login_form">
+
+    <div class="row">
+        <div class="login_form_title">
+            用户登录
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 column">
+            <form id="user_login_form" action="/login" class="form-horizontal" method="post">
+                <div class="form-group">
+                    <label for="username" class="col-md-3 control-label">
+                        <span>用户名:</span>
+                    </label>
+                    <div class="col-md-9 col-xs-12 validate-group">
+                        <input id="username" type="text" name="username" class="form-control"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="password" class="col-sm-3 control-label">
+                        <span>密&nbsp;&nbsp;&nbsp;&nbsp;码:</span>
+                    </label>
+                    <div class="col-md-9 col-xs-12 validate-group">
+                        <input id="password" type="password" name="password" class="form-control"/>
+                    </div>
+                </div>
+                <div class="form-group hidden">
+                    <label class="col-xs-3 control-label">验证码:</label>
+                    <div class="col-xs-5">
+                        <input type="text" class="form-control"/>
+                    </div>
+                    <div class="col-xs-4">
+                        <input type="text" class="form-control"/>
+                    </div>
+                </div>
+               <!--  <div class="form-group password_forget">
+                    <div class="col-xs-8">
+                    </div>
+                    <div class="col-xs-4">
+                        <a href="javascript:void(0)">忘记密码?</a>
+                    </div>
+                </div> -->
+                <div class="form-group">
+                    <div class="col-xs-12">
+                        <a type="submit" onclick="userLogin()" class="btn btn-primary col-xs-12">登&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;录</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="/static/vendor/jquery/jquery.js?v=2.2.4"></script>
+<script type="text/javascript" src="/static/vendor/bootstrap/js/bootstrap.js?v=3.3.7"></script>
+<script type="text/javascript" src="/static/vendor/bootstrap-validator/js/formValidation.min.js"></script>
+<script type="text/javascript" src="/static/vendor/bootstrap-validator/js/framework/bootstrap.js"></script>
+<script type="text/javascript" src="/static/vendor/bootstrap-validator/js/language/zh_CN.js"></script>
+<script type="text/javascript" src="/static/vendor/sweetalert/js/sweetalert2.min.js"></script>
+
+<script type="text/javascript" src="/static/vendor/admin/js/common.js?v=1.0.0"></script>
+<script type="text/javascript" src="/static/js/login.js"></script>
+<script type="text/javascript" src="/static/js/loginValidate.js"></script>
+
+
+</body>
+</html>

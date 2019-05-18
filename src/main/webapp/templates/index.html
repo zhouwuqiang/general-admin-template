@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit">
+
+    <title>轩辕财务管理系统</title>
+
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+
+    <link rel="shortcut icon" href="/static/img/favicon.ico">
+    <link rel="stylesheet" href="/static/vendor/admin/css/reset.css?v=2.0">
+    <link rel="stylesheet" href="/static/vendor/bootstrap/css/bootstrap.css?v=3.3.7">
+    <link rel="stylesheet" href="/static/vendor/font-awesome/css/font-awesome.css?v=4.7.0">
+    <link rel="stylesheet" href="/static/vendor/admin/css/style.css?v=1.0.0">
+    <link rel="stylesheet" href="/static/vendor/pace/themes/red/pace-theme-flash.css" >
+</head>
+
+<body>
+<!-- 主体容器 -->
+<div class="wrapper">
+
+    <!-- 左侧导航栏开始 -->
+    <div class="nav-wrapper">
+        <div class="nav-top">
+            <div class="logo">
+                <div style="display: inline-block">
+                    <span>轩辕财务管理系统</span>
+                </div>
+            </div>
+        </div>
+        <div class="nav-body">
+            <ul class="menu">
+
+            </ul>
+        </div>
+    </div>
+    <!-- 左侧导航栏结束 -->
+
+    <!-- 顶部导航栏开始 -->
+    <div class="head-wrapper">
+        <div class="head-nav">
+            <div class="head-nav-hover pull-left mini-button-div">
+                <div class="mini-button head-nav-item">
+                    <i class="fa fa-bars"></i>
+                </div>
+            </div>
+
+
+            <div class="head-nav-hover pull-right">
+                <div class="full-screen-button head-nav-item">
+                    <i class="fa fa-arrows-alt"></i>
+                </div>
+            </div>
+            <!--登录用户信息-->
+            <div class="pull-right head-nav-hover head-nav-item dropdown">
+                <div class="dropdown-toggle" id="login_user" >
+                    <span sec:authentication="principal.userLabel"></span>
+                </div>
+                <ul class="dropdown-menu" role="menu" aria-labelledby="login_user" style="min-width:100px" >
+                    <!-- <li role="presentation">
+                        <a role="menuitem" tabindex="-1" href="#">修改密码</a>
+                    </li> -->
+                    <li role="presentation">
+                        <a role="menuitem" tabindex="-1" href="/logout">退出登录</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="head-tabs">
+            <div class="head-nav-hover pull-left">
+                <div class="left-button head-tabs-item">
+                    <i class="fa fa-angle-double-left"></i>
+                </div>
+            </div>
+            <div class="pull-left">
+                <div class="head-tabs-div">
+                    <div class="head-tabs-menu">
+                        <!--标签页-->
+                    </div>
+                </div>
+            </div>
+
+            <div class="head-nav-hover pull-right">
+                <div class="right-button head-tabs-item">
+                    <i class="fa fa-angle-double-right"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 顶部导航栏结束 -->
+
+    <!-- 页面容器开始 -->
+    <div class="page-wrapper">
+        <!--基础页面-->
+        <div class="page-item page-active" id="body_welcome" data-tab_id="welcome" data-tab_url="/view/welcome"
+             data-tab_param="{}" data-tab_title="welcome">
+            <iframe id="iframe_welcome" data-tab_id="welcome" frameborder="0" src="/view/welcome" style="width:100%"
+                    onscroll="scroll"></iframe>
+        </div>
+    </div>
+    <!-- 页面容器结束 -->
+
+    <!-- 底部导航栏开始 -->
+    <div class="foot-wrapper">
+
+    </div>
+    <!-- 底部导航栏结束 -->
+
+    <!-- 右侧导航栏开始 -->
+    <div class="right-wrapper">
+
+    </div>
+    <!-- 右侧导航栏结束 -->
+</div>
+</body>
+<script type="text/javascript" src="/static/vendor/jquery/jquery.js?v=2.2.4"></script>
+<script type="text/javascript" src="/static/vendor/jquery/contextmenu/jquery.contextmenu.r2.main.js"></script>
+<script type="text/javascript" src="/static/vendor/pace/pace.min.js"></script>
+<script type="text/javascript" src="/static/vendor/bootstrap/js/bootstrap.js?v=3.3.7"></script>
+<script type="text/javascript" src="/static/vendor/admin/js/common.js?v=1.0.0"></script>
+<script type="text/javascript" src="/static/vendor/fullscreen/jquery.fullscreen.js"></script>
+<script type="text/javascript" src="/static/vendor/admin/js/navigation.js?v=1.0.0"></script>
+<script type="text/javascript" src="/static/js/index.js"></script>
+
+<!--<script type="text/javascript">-->
+    <!--$(function () {-->
+        <!--var height = window.document.body.clientHeight - 90;-->
+        <!--$("#iframe_welcome").css("height", height + "px");-->
+    <!--})-->
+<!--</script>-->
+</html>
