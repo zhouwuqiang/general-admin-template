@@ -5,12 +5,15 @@ import com.java.general.config.security.handler.AjaxAuthSuccessHandler;
 import com.java.general.config.security.service.CustomUserService;
 import com.java.general.config.security.service.MyPasswordEncoder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.session.SessionRegistry;
+import org.springframework.security.core.session.SessionRegistryImpl;
 
 /**
  * description :
@@ -48,6 +51,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .csrf().disable() //禁用csrf
                 .headers().frameOptions().sameOrigin();
+
+        //只允许登录1个用户
+//        http.sessionManagement().invalidSessionUrl("/view/login").maximumSessions(1).maxSessionsPreventsLogin(true).sessionRegistry(sessionRegistry);
     }
 
     /**
@@ -83,4 +89,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         auth.userDetailsService(customUserService).passwordEncoder(new MyPasswordEncoder());
     }
 
+
+    @Autowired
+    private SessionRegistry sessionRegistry;
+
+    /**
+     * session 保存
+     * @return
+     */
+    @Bean
+    public SessionRegistry sessionRegistry() {
+        return new SessionRegistryImpl();
+    }
 }

@@ -80,4 +80,21 @@ public class User implements UserDetails {
      * 用户菜单集合
      */
     List<Menu> menus = new ArrayList<>();
+
+
+
+    @Override
+    public String toString() {
+        return userCode;
+    }
+
+    @Override
+    public int hashCode() {
+        return userCode.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return this.toString().equals(obj.toString());
+    }
 }
