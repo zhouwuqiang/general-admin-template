@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit">
 
-    <title>轩辕财务管理系统</title>
+    <title>后台管理系统</title>
 
     <meta name="keywords" content="">
     <meta name="description" content="">
@@ -66,9 +66,10 @@
                     <span sec:authentication="principal.userLabel"></span>
                 </div>
                 <ul class="dropdown-menu" role="menu" aria-labelledby="login_user" style="min-width:100px" >
-                    <!-- <li role="presentation">
-                        <a role="menuitem" tabindex="-1" href="#">修改密码</a>
-                    </li> -->
+                    <li role="presentation">
+                        <a role="menuitem" tabindex="-1" href="#">个人中心</a>
+                    </li>
+                    <li role="presentation" class="divider"></li>
                     <li role="presentation">
                         <a role="menuitem" tabindex="-1" href="/logout">退出登录</a>
                     </li>
