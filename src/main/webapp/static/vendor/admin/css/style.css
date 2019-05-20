@@ -64,6 +64,14 @@ html, body {
     color: white;
 }
 
+.logo .logo_title{
+     display: inline-block;
+}
+
+.logo .logo_ico{
+    display: none;
+}
+
 /* 导航菜单样式 */
 .nav-body {
     margin: 50px 0 0 0;
@@ -286,8 +294,13 @@ html, body {
     .page-wrapper.nav-mini {
         padding: 50px 0 0 0;
     }
-    .nav-mini .nav-top span {
-        display: block;
+
+    .nav-mini .nav-top .logo_title {
+        display: inline-block;
+    }
+
+    .nav-mini .nav-top .logo_ico {
+        display: none;
     }
 
     .head-wrapper .head-tabs{
@@ -303,8 +316,12 @@ html, body {
 /********************************** 桌面 ********************************/
 @media screen and (min-width: 769px){
     /* nav-mini */
-    .nav-mini .nav-top span {
+    .nav-mini .nav-top .logo_title {
         display: none;
+    }
+
+    .nav-mini .nav-top .logo_ico {
+        display: inline-block;
     }
 
     .nav-mini.nav-wrapper {
