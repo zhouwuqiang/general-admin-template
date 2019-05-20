@@ -17,15 +17,15 @@ import tk.mybatis.spring.annotation.MapperScan;
 @SpringBootApplication
 @MapperScan(basePackages = {"com.java.business.*.mapper"})
 @ServletComponentScan
-public class AdminApplication extends SpringBootServletInitializer {
+public class AppApplication extends SpringBootServletInitializer {
 
     public static void main(String[] args) {
-        SpringApplication.run(AdminApplication.class, args);
+        SpringApplication.run(AppApplication.class, args);
     }
 
     @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
-        return builder.sources(AdminApplication.class);
+        return builder.sources(AppApplication.class);
     }
 
 }
