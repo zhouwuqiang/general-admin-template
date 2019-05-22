@@ -23,15 +23,17 @@ $(document).keydown(function (event) {
  */
 function userLogin() {
 
+    $('#login_but').attr("disabled", true);
 
-    var $form = $('#user_login_form');
+    $('#user_login_form').validationEngine("attach",{
+        promptPosition: 'topRight',
+        addFailureCssClassToField:'validationFailure',
+        onFieldFailure: function () {
+            $('#login_but').attr("disabled", false);
+        }
+    });
 
-    if ($.isNull($form.data("formValidation"))) {
-        userLoginFormValidate();
-        $form.data("formValidation").validate();
-    }
-
-    if (!$form.data("formValidation").isValid()) {
+    if (!$('#user_login_form').validationEngine('validate')) {
         return 0;
     }
 
@@ -50,6 +52,7 @@ function userLogin() {
                     type: 'error',
                     confirmButtonText: '确定'
                 });
+                $('#login_but').attr("disabled", false);
             }
         },
         error: function (res, status) {
