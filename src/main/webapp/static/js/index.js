@@ -1,6 +1,6 @@
 $(function () {
 
-    $(".full-screen-button").click(function(e){
+    $(".full-screen-button").click(function (e) {
         $(".wrapper").fullScreen();
         e.preventDefault();
     });
@@ -40,6 +40,11 @@ function getMenu() {
  */
 function buildMenu(item) {
     var html = "";
+
+    if (item.isDisplay === "01") {
+        return html;
+    }
+
     if (item.hasChild) {
         html = html +
             "<li class='nav-item'>" +
