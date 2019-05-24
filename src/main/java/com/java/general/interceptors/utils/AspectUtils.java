@@ -1,7 +1,7 @@
 package com.java.general.interceptors.utils;
 
 import com.java.general.exception.BusinessException;
-import com.java.general.interceptors.log.LoggerAspect;
+import com.java.general.interceptors.log.LoggerRecorderAspect;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.slf4j.Logger;
@@ -20,7 +20,7 @@ import java.lang.reflect.Method;
  */
 public class AspectUtils {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(LoggerAspect.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(LoggerRecorderAspect.class);
 
     /**
      * 切点中获取切点注解

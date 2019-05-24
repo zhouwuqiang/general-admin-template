@@ -24,7 +24,7 @@ public enum ResponseEnum implements ResponseCode {
     /**
      * 参数校验失败
      */
-    PARAM_ERROR(-2,"参数异常!",true),
+    PARAM_ERROR(-2,"参数异常!",false),
 
     /**
      * 处理失败

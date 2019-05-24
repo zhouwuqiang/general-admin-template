@@ -1,19 +1,13 @@
 package com.java.general.interceptors.log;
 
 import com.alibaba.fastjson.JSON;
-import com.java.general.exception.BusinessException;
-import com.java.general.interceptors.stopwatch.Stopwatch;
 import com.java.general.interceptors.utils.AspectUtils;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
-import org.aspectj.lang.reflect.MethodSignature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.stereotype.Component;
-
-import java.lang.reflect.Method;
 
 /**
  * description :
@@ -25,9 +19,9 @@ import java.lang.reflect.Method;
 
 @Aspect
 @Component
-public class LoggerAspect {
+public class LoggerRecorderAspect {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(LoggerAspect.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(LoggerRecorderAspect.class);
 
     /**
      * 定义切点
@@ -78,7 +72,6 @@ public class LoggerAspect {
         LOGGER.info("目标方法名为:{}", joinPoint.getSignature().getName());
         LOGGER.info("目标方法所属类的类名:{}", joinPoint.getSignature().getDeclaringTypeName());
         LOGGER.info("目标方法传入参数:{}", joinPoint.getArgs());
-
         LoggerRecorder loggerRecorder = AspectUtils.getDeclaredAnnotation(joinPoint, LoggerRecorder.class);
 
         LOGGER.info("环绕通知:目标执行前");

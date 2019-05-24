@@ -85,11 +85,16 @@ $.extend({
             },
             responseHandler: function (res) {
 
-                return {
-                    "total": res.data.total,//总页数
-                    "rows": res.data.list   //数据
-                };
+                if(res.success){
+                    return {
+                        "total": res.data.total,//总页数
+                        "rows": res.data.list   //数据
+                    };
+                }
 
+                $.ajaxMassage(res);
+
+                return {};
             },
             onLoadSuccess: function (data) {
                 //console.log("表格加载成功!" + JSON.stringify(data));

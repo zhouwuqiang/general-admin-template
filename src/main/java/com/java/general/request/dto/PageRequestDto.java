@@ -25,4 +25,14 @@ public class PageRequestDto {
      */
     private int pageNum;
 
+    /**
+     * 排序字段
+     */
+    private String sort;
+
+    /**
+     * 排序方式
+     */
+    private String order;
+
 }

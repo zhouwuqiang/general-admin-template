@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <title>角色管理</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+
+    <link rel="shortcut icon" href="/static/img/favicon.ico">
+    <link rel="stylesheet" href="/static/vendor/admin/css/reset.css?v=2.0">
+    <link rel="stylesheet" href="/static/vendor/bootstrap/css/bootstrap.css?v=3.3.7">
+    <link rel="stylesheet" href="/static/vendor/font-awesome/css/font-awesome.css?v=4.7.0">
+    <link rel="stylesheet" href="/static/vendor/bootstrap-table/bootstrap-table.min.css">
+    <link rel="stylesheet" href="/static/vendor/jquery-toast-plugin/jquery.toast.min.css">
+
+
+</head>
+
+<body class="gray-bg">
+
+<div class="container-fluid">
+    <div class="row clearfix">
+        <div class="col-md-12 column">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="search-form-div clearfix">
+                        <form role="form" id="main_table_search_form">
+                            <div class="col-xs-2">
+                                <input type="text" autocomplete="off" id="search_user_name" name="userName" placeholder="用户编号"
+                                       class="form-control"/>
+                            </div>
+                            <div class="col-xs-2">
+                                <input type="text" autocomplete="off" id="search_user_label" name="userLabel"
+                                       placeholder="用户名称" class="form-control"/>
+                            </div>
+                            <div class="col-md-1">
+                                <a href="javascript:void(0);" class="btn btn-info" onclick="refreshTable('main_table')">
+                                    <i class="fa fa-search fa-icon"></i>搜索
+                                </a>
+                            </div>
+                            <div class="col-md-1">
+                                <a href="javascript:void(0);" class="btn btn-warning" onclick="refreshTable('main_table')">
+                                    <i class="fa fa-undo fa-icon"></i>重置
+                                </a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row clearfix">
+        <div class="col-md-12 column">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="main-table-div clearfix">
+                        <div id="toolbar">
+                            <button id="add_button" class="btn btn-info" onclick="addUser()">
+                                <i class="fa fa-plus fa-icon"></i>添加
+                            </button>
+                        </div>
+                        <table id="main_table"></table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--数据模态框-->
+<div class="modal fade" id="main_mode" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-hidden="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="modal_title">
+                    用户信息
+                </h4>
+            </div>
+
+            <div class="modal-body">
+                <form class="form-horizontal" role="form" id="main_form">
+
+                    <input type="hidden"  name="userCode"/>
+
+                    <div class="form-group">
+                        <label for="user_name" class="col-sm-4 control-label">用户账号:</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="user_name" name="userName" placeholder="请输入用户账号">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="user_label" class="col-sm-4 control-label">用户名称:</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="user_label" name="userLabel" placeholder="请输入用户名称">
+                        </div>
+                    </div>
+
+                    <div class="form-group add-show init-hidden">
+                        <label for="user_password" class="col-sm-4 control-label">登录密码:</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="user_password" name="loginPassword" placeholder="请输入登录密码">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="user_password" class="col-sm-4 control-label">是否锁定:</label>
+                        <div class="col-sm-6">
+                            <label class="radio-inline">
+                                <input type="radio" name="isLock" id="is_lock" value="00" checked> 未锁定
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="isLock" id="is_unlock"  value="01"> 锁定
+                            </label>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <button id="cancel_button" type="button" class="btn btn-default add-show edit-show" data-dismiss="modal">
+                    取消
+                </button>
+                <button id="define_button" type="button" class="btn btn-default detail-show" data-dismiss="modal">
+                    确定
+                </button>
+                <button id="save_button" type="button" class="btn btn-primary  add-show edit-show" onclick="saveUser()">
+                    保存
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--数据模态框 字段多显示两行-->
+<!--<div class="modal fade" id="main_mode_lg" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static" data-keyboard="false" aria-hidden="false">-->
+    <!--<div class="modal-dialog modal-lg">-->
+        <!--<div class="modal-content">-->
+            <!--<div class="modal-header">-->
+                <!--<button type="button" class="close" data-dismiss="modal" aria-hidden="true">-->
+                    <!--&times;-->
+                <!--</button>-->
+                <!--<h4 class="modal-title" id="myModalLabel">-->
+                    <!--用户信息-->
+                <!--</h4>-->
+            <!--</div>-->
+            <!--<div class="modal-body">-->
+
+                <!--<form class="form-horizontal" role="form" id="main_form">-->
+
+                    <!--<div class="form-group">-->
+                        <!--<div class="col-sm-6">-->
+                            <!--<label for="firstname" class="col-sm-4 control-label">用户账号:</label>-->
+                            <!--<div class="col-sm-6">-->
+                                <!--<input type="text" class="form-control" id="firstname" placeholder="请输入用户账号">-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div class="col-sm-6">-->
+                            <!--<label for="lastname" class="col-sm-4 control-label">用户名称:</label>-->
+                            <!--<div class="col-sm-6">-->
+                                <!--<input type="text" class="form-control" id="lastname" placeholder="请输入用户名称">-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</form>-->
+
+            <!--</div>-->
+            <!--<div class="modal-footer">-->
+                <!--<button type="button" class="btn btn-default" data-dismiss="modal">取消-->
+                <!--</button>-->
+                <!--<button type="button" class="btn btn-primary">-->
+                    <!--提交更改-->
+                <!--</button>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</div>-->
+
+
+</body>
+<!-- 全局js -->
+<script src="/static/vendor/jquery/jquery.js?v=2.2.4"></script>
+<script src="/static/vendor/bootstrap/js/bootstrap.js?v=3.3.7"></script>
+<script src="/static/vendor/bootstrap-table/bootstrap-table.min.js"></script>
+<script src="/static/vendor/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
+<script src="/static/vendor/jquery-toast-plugin/jquery.toast.min.js"></script>
+<script src="/static/vendor/admin/js/common.js?v=1.0.0"></script>
+<script src="/static/js/user/manager.js"></script>
+</html>
