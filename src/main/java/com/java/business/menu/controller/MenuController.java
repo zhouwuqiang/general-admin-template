@@ -45,13 +45,11 @@ public class MenuController {
      *
      * @return
      */
-    @LoggerRecorder
     @RequestMapping(value = "/list")
+    @ControllerRecorder(path = "/menu/list")
     public ResponseDto table() {
-        LOGGER.info("/menu/list >>");
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User userDetails = (User) authentication.getPrincipal();
-        LOGGER.info("/menu/list >> response:{}", JSON.toJSONString(userDetails.getMenus()));
         return ResponseUtil.bindSuccessResponse(userDetails.getMenus());
     }
 
@@ -62,8 +60,8 @@ public class MenuController {
      * @param requestDto
      * @return
      */
-    @ControllerRecorder(path = "/menu/table", validateClass = MenuTableRequestDto.class)
     @RequestMapping(value = "/table")
+    @ControllerRecorder(path = "/menu/table", validateClass = MenuTableRequestDto.class)
     public ResponseDto table(@RequestBody MenuTableRequestDto requestDto) {
 
         PageInfo pageInfo = menuFacade.queryTable(requestDto);

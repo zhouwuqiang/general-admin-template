@@ -44,15 +44,25 @@ public class ControllerRecorderAspect {
 
         ControllerRecorder controllerRecorder = AspectUtils.getDeclaredAnnotation(joinPoint, ControllerRecorder.class);
         Class<?> validateClass = controllerRecorder.validateClass();
-        Object requestDto = new Object();
 
         Object[] params = joinPoint.getArgs();
+
+        //没有参数的方法
+        boolean isEmptyParam = validateClass.equals(Object.class) && (params == null || params.length == 0);
+        if (isEmptyParam) {
+            LOGGER.info("{} >> requestDto:not parameters", controllerRecorder.path());
+            Object object = joinPoint.proceed();
+            LOGGER.info("{} >> responseDto:{}", controllerRecorder.path(), JSON.toJSONString(object));
+            return object;
+        }
+
+
+        Object requestDto = new Object();
         for (Object temp : params) {
             if (temp.getClass().equals(validateClass)) {
                 requestDto = temp;
             }
         }
-
 
         ValidResult validResult;
         if (Object.class != controllerRecorder.validateTypeClass()) {
@@ -60,7 +70,6 @@ public class ControllerRecorderAspect {
         } else {
             validResult = ValidationUtils.validateGroup(requestDto);
         }
-
 
         if (validResult.isHasErrors()) {
             LOGGER.info("{} >> 参数校验错误:{},传入参数{}", controllerRecorder.path(), validResult.getErrors(), JSON.toJSONString(requestDto));
