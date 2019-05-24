@@ -18,7 +18,7 @@ import java.io.IOException;
 @WebFilter(urlPatterns = "/*", filterName = "ExecutorTimeFilter")
 public class ExecutorTimeFilter implements Filter {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(AccessFilter.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ExecutorTimeFilter.class);
 
 
     @Override

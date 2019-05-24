@@ -33,8 +33,8 @@ public class AccessFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        HttpServletRequest request = (HttpServletRequest) servletRequest;
 
+//        HttpServletRequest request = (HttpServletRequest) servletRequest;
 //        LOGGER.info("协议:{}",request.getProtocol());
 //        LOGGER.info("客户端IP:{}",request.getRemoteAddr());
 //        LOGGER.info("客户端主机名:{}",request.getRemoteHost());
@@ -51,10 +51,10 @@ public class AccessFilter implements Filter {
 //        LOGGER.info("Referer:{}",request.getHeader("Referer"));
 //        LOGGER.info("Host:{}",request.getHeader("Host"));
 //        LOGGER.info("协议名称:{}",request.getScheme());
-        LOGGER.info("Web服务器名字:{}",request.getServerName());
+//        LOGGER.info("Web服务器名字:{}",request.getServerName());
 //        LOGGER.info("服务器监听的端口:{}",request.getServerPort());
-        LOGGER.info("请求URL:{},当前线程数据库:{}",request.getRequestURI(),MultipleDataSource.getDataSourceKey());
-        MultipleDataSource.removeDataSourceKey();
+//        LOGGER.info("请求URL:{},当前线程数据库:{}",request.getRequestURI(),MultipleDataSource.getDataSourceKey());
+
         filterChain.doFilter(servletRequest, servletResponse);
     }
 
