@@ -1,6 +1,7 @@
 package com.java.business.user.facade;
 
 import com.github.pagehelper.PageInfo;
+import com.java.business.user.dto.UserSaveRequestDto;
 import com.java.business.user.dto.UserTableRequestDto;
 
 /**
@@ -19,4 +20,10 @@ public interface UserFacade {
      * @return
      */
     PageInfo queryTable(UserTableRequestDto requestDto);
+
+    /**
+     * 保存用户
+     * @param requestDto
+     */
+    void save(UserSaveRequestDto requestDto);
 }

@@ -1,9 +1,12 @@
 package com.java.general.utils;
 
+import com.java.general.config.security.dto.User;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -96,5 +99,16 @@ public class SpringContextUtil implements ApplicationContextAware {
      */
     public static String[] getAliases(String name) throws NoSuchBeanDefinitionException {
         return applicationContext.getAliases(name);
+    }
+
+
+    /**
+     * 获取当前登录用户
+     * @return
+     */
+    public static User getLoginUser(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User userDetails = (User) authentication.getPrincipal();
+        return userDetails;
     }
 }

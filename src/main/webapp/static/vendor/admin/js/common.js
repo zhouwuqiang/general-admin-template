@@ -104,7 +104,7 @@ $.extend({
 
 
 /**
- * form表单操作
+ * 表单操作
  */
 $.extend({
     "formRest": function (formId) {
@@ -290,5 +290,41 @@ $.extend({
         if ($.isNotNull(show)) {
             model.find("." + show).show();
         }
+    }
+});
+
+
+/**
+ * ajax请求返回提示
+ */
+$.extend({
+    "ajaxMassage": function (responseDto) {
+        if (responseDto.success) {
+            $.toast({
+                text: responseDto.message,
+                allowToastClose: true,
+                hideAfter: 1000,
+                position: 'top-right',
+                bgColor: '#5bc0de'
+            });
+        } else {
+            $.toast({
+                text: responseDto.message,
+                allowToastClose: true,
+                hideAfter: 1000,
+                position: 'top-right',
+                bgColor: '#AC2925'
+            });
+        }
+    },
+    "errorMassage": function (message) {
+
+        $.toast({
+            text: message,
+            allowToastClose: true,
+            hideAfter: 1000,
+            position: 'top-right',
+            bgColor: '#AC2925'
+        });
     }
 });

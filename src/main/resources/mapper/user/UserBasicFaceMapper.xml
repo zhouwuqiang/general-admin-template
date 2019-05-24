@@ -3,16 +3,16 @@
 <mapper namespace="com.java.business.user.mapper.UserBasicFaceMapper">
   <resultMap id="BaseResultMap" type="com.java.business.user.entity.UserBasicFace">
     <!--
-      WARNING - @mbggenerated
+      WARNING - @mbg.generated
     -->
-    <result column="id" jdbcType="INTEGER" property="id" />
+    <id column="id" jdbcType="INTEGER" property="id" />
     <result column="user_code" jdbcType="VARCHAR" property="userCode" />
     <result column="user_label" jdbcType="VARCHAR" property="userLabel" />
     <result column="user_name" jdbcType="VARCHAR" property="userName" />
     <result column="login_password" jdbcType="VARCHAR" property="loginPassword" />
     <result column="security_password" jdbcType="VARCHAR" property="securityPassword" />
-    <result column="is_lock" jdbcType="VARCHAR" property="isLock" />
     <result column="is_remember" jdbcType="VARCHAR" property="isRemember" />
+    <result column="is_lock" jdbcType="VARCHAR" property="isLock" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
     <result column="update_user" jdbcType="VARCHAR" property="updateUser" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />

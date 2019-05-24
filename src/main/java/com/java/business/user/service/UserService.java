@@ -2,6 +2,7 @@ package com.java.business.user.service;
 
 import com.github.pagehelper.PageInfo;
 import com.java.business.user.dto.UserTableRequestDto;
+import com.java.business.user.entity.UserBasicFace;
 
 /**
  * description :
@@ -18,4 +19,11 @@ public interface UserService {
      * @return
      */
     PageInfo queryTable(UserTableRequestDto requestDto);
+
+    /**
+     * 保存用户
+     * @param userBasicFace
+     * @return
+     */
+    int save(UserBasicFace userBasicFace);
 }

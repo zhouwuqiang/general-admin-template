@@ -16,27 +16,28 @@
         </plugin>
 
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql://10.60.53.40:3306/finance?serverTimezone=GMT"
+                        connectionURL="jdbc:mysql://127.0.0.1:3306/admin?useUnicode=true&amp;characterEncoding=utf-8&amp;useSSL=false&amp;serverTimezone=GMT%2B8"
                         userId="root"
-                        password="123456">
+                        password="root">
+            <property name="useInformationSchema" value="true"/>
         </jdbcConnection>
 
 
 
         <!--entity 生成位置-->
-        <javaModelGenerator targetPackage="com.java.business.creditscore.entity"
+        <javaModelGenerator targetPackage="com.java.business.user.entity"
                             targetProject="src/main/java"/>
         <!--xml 文件生成位置-->
-        <sqlMapGenerator targetPackage="mapper.creditscore"
+        <sqlMapGenerator targetPackage="mapper.user"
                          targetProject="src/main/resources"/>
         <!--mapper接口生成位置-->
-        <javaClientGenerator targetPackage="com.java.business.creditscore.mapper"
+        <javaClientGenerator targetPackage="com.java.business.user.mapper"
                              targetProject="src/main/java"
                              type="XMLMAPPER"/>
 
 
         <!--需要生成的表-->
-        <table tableName="cw_credit_score_account">
+        <table tableName="user_basic_face">
             <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
         </table>
 

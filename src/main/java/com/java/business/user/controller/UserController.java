@@ -2,6 +2,7 @@ package com.java.business.user.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.PageInfo;
+import com.java.business.user.dto.UserSaveRequestDto;
 import com.java.business.user.dto.UserTableRequestDto;
 import com.java.business.user.facade.UserFacade;
 import com.java.general.response.dto.ResponseDto;
@@ -57,6 +58,27 @@ public class UserController {
 
         LOGGER.info("/user/table >> response:{}", JSON.toJSONString(pageInfo));
         return ResponseUtil.bindSuccessResponse(pageInfo);
+    }
+
+
+    /**
+     * 保存用户
+     * @param requestDto
+     * @return
+     */
+    @RequestMapping(value = "/save")
+    public ResponseDto save(@RequestBody UserSaveRequestDto requestDto) {
+        LOGGER.info("/user/save >> request:{}", JSON.toJSONString(requestDto));
+
+        ValidResult validResult = ValidationUtils.validateGroup(requestDto, UserSaveRequestDto.Insert.class);
+        if (validResult.isHasErrors()) {
+            LOGGER.info("/user/table >> 参数校验错误:{},传入参数{}", validResult.getErrors(),JSON.toJSONString(requestDto));
+            return ResponseUtil.bindValidFailResponse(validResult.getErrors());
+        }
+
+        userFacade.save(requestDto);
+
+        return ResponseUtil.bindSuccessResponse();
     }
 
 

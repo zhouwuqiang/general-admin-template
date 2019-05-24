@@ -20,16 +20,17 @@ import javax.validation.constraints.NotNull;
 public class UserTableRequestDto extends PageRequestDto {
 
     /**
+     * 用户账号
+     */
+    @NotNull(message = "用户账号不能为空!",groups = {UserTableRequestDto.Insert.class,UserTableRequestDto.Update.class})
+    private String userName;
+
+    /**
      * 用户中文名
      */
     @NotNull(message = "用户中文名不能为空!",groups = {UserTableRequestDto.Insert.class,UserTableRequestDto.Update.class})
     private String userLabel;
 
-    /**
-     * 用户名称
-     */
-    @NotNull(message = "用户账号不能为空!",groups = {UserTableRequestDto.Insert.class,UserTableRequestDto.Update.class})
-    private String userName;
 
 
 
