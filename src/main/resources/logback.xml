@@ -7,12 +7,12 @@
 	<!-- <property name="LOG_HOME" value="D:/data/logs" /> -->
 
 	<!-- 应用名称：和统一配置中的项目代码保持一致（小写） -->
-	<property name="APP_NAME" value="statistics" />
+	<property name="APP_NAME" value="admin" />
 	<!--日志文件保留天数 -->
 	<property name="LOG_MAX_HISTORY" value="30" />
 	<!--定义日志文件的存储地址 勿在 LogBack 的配置中使用相对路径 -->
 	<!--应用日志文件保存路径 -->
-	<property name="LOG_APP_HOME" value="${APP_NAME}/%d{yyyy-MM-dd}" />
+	<property name="LOG_APP_HOME" value="log/${APP_NAME}/%d{yyyy-MM-dd}" />
 
 	<!--=========================== 按照每天生成日志文件：默认配置=================================== -->
 	<!-- 控制台输出 -->
@@ -27,8 +27,7 @@
 	<appender name="APP" class="ch.qos.logback.core.rolling.RollingFileAppender">
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
 			<!--日志文件输出的文件名 -->
-			<FileNamePattern>/home/app/logs/${LOG_APP_HOME}/base.%d{yyyy-MM-dd}.log
-			</FileNamePattern>
+			<FileNamePattern>${LOG_APP_HOME}/base.%d{yyyy-MM-dd}.log</FileNamePattern>
 			<!--日志文件保留天数 -->
 			<MaxHistory>${LOG_MAX_HISTORY}</MaxHistory>
 		</rollingPolicy>
@@ -42,7 +41,7 @@
 	<appender name="ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
 			<!--日志文件输出的文件名 -->
-			<FileNamePattern>/home/app/logs/${LOG_APP_HOME}/error.%d{yyyy-MM-dd}.log</FileNamePattern>
+			<FileNamePattern>${LOG_APP_HOME}/error.%d{yyyy-MM-dd}.log</FileNamePattern>
 			<!--日志文件保留天数 -->
 			<MaxHistory>${LOG_MAX_HISTORY}</MaxHistory>
 		</rollingPolicy>
