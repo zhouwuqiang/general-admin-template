@@ -94,9 +94,9 @@ html, body {
 }
 
 /*字体和图标拉开距离*/
-.menu a span {
-    margin-left: 10px;
-}
+/*.menu a span {*/
+    /*margin-left: 10px;*/
+/*}*/
 
 .menu .nav-item {
     position: relative;
@@ -402,16 +402,6 @@ html, body {
         position: absolute
     }
 
-}
-
-/**********************************样式********************************/
-.gray-bg {
-    background-color: #F0F3F4;
-    padding: 20px 0;
-}
-
-.page-content {
-    padding: 20px 20px 20px 20px;
 }
 
 

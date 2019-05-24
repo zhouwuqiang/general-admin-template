@@ -23,6 +23,7 @@ $(function () {
     $("[data-toggle='tooltip']").tooltip();
 });
 
+
 /**
  * 表格刷 >> 新当前页
  */
@@ -70,7 +71,7 @@ $.extend({
             columns: data.columns,
             queryParams: function (params) {
 
-                var param ={};
+                var param = {};
 
                 if ($.isNotNull(data.searchFormId)) {
                     param = $.formSerializeObject(data.searchFormId);
@@ -103,26 +104,89 @@ $.extend({
 
 
 /**
- * 时间戳格式化显示
- * @param value
- * @returns {string}
+ * form表单操作
  */
-function timeStampFormatter(value) {
-    var date = new Date();
-    date.setTime(value);
-    var y = date.getFullYear();
-    var m = date.getMonth() + 1;
-    m = m < 10 ? ('0' + m) : m;
-    var d = date.getDate();
-    d = d < 10 ? ('0' + d) : d;
-    var h = date.getHours();
-    h = h < 10 ? ('0' + h) : h;
-    var minute = date.getMinutes();
-    var second = date.getSeconds();
-    minute = minute < 10 ? ('0' + minute) : minute;
-    second = second < 10 ? ('0' + second) : second;
-    return y + '-' + m + '-' + d + ' ' + h + ':' + minute + ':' + second;
-}
+$.extend({
+    "formRest": function (formId) {
+        let formElement = document.getElementById(formId);
+
+        if ($.isNull(formElement)) {
+            return;
+        }
+
+        for (let i = 0; i < formElement.length; i++) {
+            // radio 选中第一个
+            if (formElement.elements[i].type === "radio") {
+                let name = formElement.elements[i].name;
+                let radioList = document.getElementsByName(name);
+                radioList[0].checked = true;
+                continue;
+            }
+
+            formElement.elements[i].value = "";
+        }
+    },
+    "formReview": function (formId, data) {
+        let formElement = document.getElementById(formId);
+        for (let i = 0; i < formElement.length; i++) {
+
+            if (formElement.elements[i].type === "radio") {
+                if (formElement.elements[i].value === data[formElement.elements[i].name]) {
+                    formElement.elements[i].checked = true;
+                }
+                continue;
+            }
+
+            formElement.elements[i].value = data[formElement.elements[i].name];
+
+            if ("function" === typeof formElement.elements[i].onchange) {
+                formElement.elements[i].onchange()
+            }
+
+        }
+    },
+    "formReadOnly": function (formId) {
+        let formElement = document.getElementById(formId);
+        for (let i = 0; i < formElement.length; i++) {
+            formElement.elements[i].readOnly = true;
+
+            if ("SELECT" === formElement.elements[i].tagName) {
+                formElement.elements[i].disabled = true;
+            }
+            if ("radio" === formElement.elements[i].type) {
+                formElement.elements[i].disabled = true;
+            }
+        }
+    },
+    "formWrite": function (formId) {
+        let formElement = document.getElementById(formId);
+        for (let i = 0; i < formElement.length; i++) {
+            formElement.elements[i].readOnly = false;
+
+            if ("SELECT" === formElement.elements[i].tagName) {
+                formElement.elements[i].disabled = false;
+            }
+
+            if ("radio" === formElement.elements[i].type) {
+                formElement.elements[i].disabled = false;
+            }
+        }
+    },
+    "formSerializeObject": function (formId) {
+        let result = {};
+        let formElement = document.getElementById(formId);
+        for (let i = 0; i < formElement.length; i++) {
+
+            if ("radio" === formElement.elements[i].type && formElement.elements[i].checked !== true) {
+                continue;
+            }
+
+            result[formElement.elements[i].name] = formElement.elements[i].value;
+        }
+
+        return result;
+    }
+});
 
 
 /**
@@ -131,7 +195,7 @@ function timeStampFormatter(value) {
 $.extend({
     "isNull": function (data) {
 
-        if (data === undefined || data == null || data == "") {
+        if (data === undefined || data === null || data === "") {
             return true;
         }
 
@@ -139,99 +203,17 @@ $.extend({
     },
     "isNotNull": function (data) {
         return !$.isNull(data)
-    }
-});
-
-
-/**
- * form表单数据格式化
- */
-$.extend({
-    "formSerializeObject": function (formId) {
-        var result = {};
-        var formElement = document.getElementById(formId);
-        for (var i = 0; i < formElement.length; i++) {
-            result[formElement.elements[i].name] = formElement.elements[i].value;
-        }
-
-        return result;
-    }
-});
-
-/**
- * form重置
- */
-$.extend({
-    "formRest": function (formId) {
-        var formElement = document.getElementById(formId);
-        for (var i = 0; i < formElement.length; i++) {
-            formElement.elements[i].value = "";
-        }
-    }
-});
-
-/**
- * form表单数据反显
- */
-$.extend({
-    "formReview": function (formId, data) {
-        var formElement = document.getElementById(formId);
-        for (var i = 0; i < formElement.length; i++) {
-            formElement.elements[i].value = data[formElement.elements[i].name];
-
-            if ("function" === typeof formElement.elements[i].onchange) {
-                formElement.elements[i].onchange()
-            }
-
-        }
-    }
-});
-
-/**
- * form表单只读
- */
-$.extend({
-    "formReadOnly": function (formId) {
-        var formElement = document.getElementById(formId);
-        for (var i = 0; i < formElement.length; i++) {
-            formElement.elements[i].readOnly = true;
-
-            if ("SELECT" === formElement.elements[i].tagName) {
-                formElement.elements[i].disabled = true;
-            }
-        }
-    }
-});
-
-/**
- * form可以填写
- */
-$.extend({
-    "formWrite": function (formId) {
-        var formElement = document.getElementById(formId);
-        for (var i = 0; i < formElement.length; i++) {
-            formElement.elements[i].readOnly = false;
-
-            if ("SELECT" === formElement.elements[i].tagName) {
-                formElement.elements[i].disabled = false;
-            }
-        }
-    }
-});
-
-/**
- * 删除空白字段
- */
-$.extend({
+    },
     "deleteEmptyKey": function (data) {
-        for (var item in data) {
-            if (data[item] == "") {
+        for (let item in data) {
+            if (data[item] === "") {
                 delete data[item];
             }
         }
         return data;
     }
 });
+
 
 /**
  * 格式化表格操作数组显示
@@ -257,11 +239,10 @@ $.extend({
  */
 $.extend({
     "getUrlPath": function (variable) {
-
-        var query = window.location.search.substring(1);
-        var vars = query.split("&");
-        for (var i = 0; i < vars.length; i++) {
-            var pair = vars[i].split("=");
+        let query = window.location.search.substring(1);
+        let vars = query.split("&");
+        for (let i = 0; i < vars.length; i++) {
+            let pair = vars[i].split("=");
             if (pair[0] === variable) {
                 return pair[1];
             }
@@ -283,7 +264,7 @@ $.extend({
         return flag;
     },
     "isNotMobile": function () {
-        var flag = true;
+        let flag = true;
         if (window.top.document.body.clientWidth < 769) {
             flag = false;
         }
@@ -291,13 +272,23 @@ $.extend({
     }
 });
 
+
+/**
+ * 新增,修改,查看 model初始化
+ */
 $.extend({
-    "getUrlParam": function (name) {
-        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
-        var r = window.location.search.substr(1).match(reg);
-        if (r != null){
-            return unescape(r[2]);
+    "initModel": function (modeId, title, formId, show) {
+        let model = $("#" + modeId);
+        model.find(".modal-header").find(".modal-title").html(title);
+
+        $.formRest(formId);
+        $.formWrite(formId);
+
+        model.find(".modal-footer").find("button").hide();
+        model.find(".init-hidden").hide();
+
+        if ($.isNotNull(show)) {
+            model.find("." + show).show();
         }
-        return null;
     }
 });
