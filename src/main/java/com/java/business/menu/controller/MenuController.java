@@ -2,6 +2,7 @@ package com.java.business.menu.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.java.general.config.security.dto.User;
+import com.java.general.interceptors.log.LoggerRecorder;
 import com.java.general.response.dto.ResponseDto;
 import com.java.general.response.utils.ResponseUtil;
 import org.slf4j.Logger;
@@ -29,6 +30,7 @@ public class MenuController {
      *
      * @return
      */
+    @LoggerRecorder
     @RequestMapping(value = "/list")
     public ResponseDto table() {
         LOGGER.info("/menu/list >>");
