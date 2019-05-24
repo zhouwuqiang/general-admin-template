@@ -10,7 +10,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
  * @version 1.0.0
  * @date 2019/3/6 15:37
  */
-public class MyPasswordEncoder  implements PasswordEncoder {
+public class CustomPasswordEncoder implements PasswordEncoder {
     @Override
     public String encode(CharSequence charSequence) {
         return  MD5Util.MD5(charSequence.toString());

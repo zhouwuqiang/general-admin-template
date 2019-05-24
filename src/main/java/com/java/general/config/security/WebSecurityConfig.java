@@ -2,8 +2,8 @@ package com.java.general.config.security;
 
 import com.java.general.config.security.handler.AjaxAuthFailHandler;
 import com.java.general.config.security.handler.AjaxAuthSuccessHandler;
+import com.java.general.config.security.service.CustomPasswordEncoder;
 import com.java.general.config.security.service.CustomUserService;
-import com.java.general.config.security.service.MyPasswordEncoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -75,7 +75,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //    @Override
 //    public void configure(AuthenticationManagerBuilder auth) throws Exception {
 //        auth
-//                .inMemoryAuthentication().passwordEncoder(new MyPasswordEncoder())
+//                .inMemoryAuthentication().passwordEncoder(new CustomPasswordEncoder())
 //                .withUser("admin").password("admin").roles("USER");
 //    }
 
@@ -86,7 +86,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
      */
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(customUserService).passwordEncoder(new MyPasswordEncoder());
+        auth.userDetailsService(customUserService).passwordEncoder(new CustomPasswordEncoder());
     }
 
 

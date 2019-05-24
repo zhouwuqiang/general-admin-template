@@ -34,6 +34,11 @@ function initTable() {
                 align: 'center',
                 valign: 'middle'
             }, {
+                field: 'isLock',
+                title: '是否需要重置密码',
+                align: 'center',
+                valign: 'middle'
+            }, {
                 field: 'createTime',
                 title: '创建时间',
                 align: 'center',

@@ -43,6 +43,12 @@ public class UserSaveRequestDto{
     private String isLock;
 
     /**
+     * 密码
+     */
+    @NotNull(message = "用户密码不能为空!",groups = {UserSaveRequestDto.Insert.class, UserSaveRequestDto.Update.class})
+    private String loginPassword;
+
+    /**
      * 删除数据
      */
     @NotNull(message = "删除状态不能为空!",groups = {UserSaveRequestDto.Delete.class})

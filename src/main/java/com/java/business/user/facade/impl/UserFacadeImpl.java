@@ -7,11 +7,10 @@ import com.java.business.user.entity.UserBasicFace;
 import com.java.business.user.facade.UserFacade;
 import com.java.business.user.service.UserService;
 import com.java.general.config.security.dto.User;
+import com.java.general.utils.MD5Util;
 import com.java.general.utils.SpringContextUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 /**
@@ -47,7 +46,9 @@ public class UserFacadeImpl implements UserFacade {
         if (StringUtils.isNotBlank(requestDto.getUserCode())){
             User loginUser = SpringContextUtil.getLoginUser();
             userBasicFace.setCreateUser(loginUser.getUsername());
+            userBasicFace.setLoginPassword(MD5Util.MD5(requestDto.getLoginPassword()));
         }
+
 
         if (StringUtils.isNotBlank(requestDto.getDeleteFlag())){
             userBasicFace.setDeleteFlag(requestDto.getDeleteFlag());
