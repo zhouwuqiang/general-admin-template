@@ -50,7 +50,7 @@ public class DruidConfiguration {
     public MultipleDataSource druidDataSource() throws SQLException {
         MultipleDataSource multipleDataSource=new MultipleDataSource();
         DruidDataSource druidDataSource = DruidDataSourceBuilder.create().build();
-        druidDataSource.setUrl("jdbc:mysql://127.0.0.1:3306/db0?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=GMT%2B8");
+        druidDataSource.setUrl("jdbc:mysql://127.0.0.1:3306/admin?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=GMT%2B8");
         druidDataSource.setUsername("root");
         druidDataSource.setPassword("root");
         druidDataSource.setFilters("stat,wall,log4j");
