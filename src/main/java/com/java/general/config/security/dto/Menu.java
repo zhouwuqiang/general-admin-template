@@ -57,9 +57,9 @@ public class Menu {
     private String parentMenuCode;
 
     /**
-     * 是否显示(00-显示 01-不显示)
+     * 菜单类型(00-目录 01-菜单 02-按钮)
      */
-    private String isDisplay;
+    private String menuType;
 
     /**
      * 显示顺序
