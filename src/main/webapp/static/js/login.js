@@ -1,22 +1,13 @@
 $(function () {
 
-    var error = $.getUrlParam("error");
-
-    if($.isNotNull(error)){
-
-
-        if ("2"===error){
-            swal("登录超时,请重新登录!");
+    $(document).keydown(function (event) {
+        if (event.keyCode === 13) {
+            userLogin();
         }
-    }
+    });
 
 });
 
-$(document).keydown(function (event) {
-	if (event.keyCode === 13) {
-		userLogin();
-	}
-});
 
 /**
  * 用户登录

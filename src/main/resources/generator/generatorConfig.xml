@@ -25,19 +25,19 @@
 
 
         <!--entity 生成位置-->
-        <javaModelGenerator targetPackage="com.java.business.user.entity"
+        <javaModelGenerator targetPackage="com.java.business.menu.entity"
                             targetProject="src/main/java"/>
         <!--xml 文件生成位置-->
-        <sqlMapGenerator targetPackage="mapper.user"
+        <sqlMapGenerator targetPackage="mapper.menu"
                          targetProject="src/main/resources"/>
         <!--mapper接口生成位置-->
-        <javaClientGenerator targetPackage="com.java.business.user.mapper"
+        <javaClientGenerator targetPackage="com.java.business.menu.mapper"
                              targetProject="src/main/java"
                              type="XMLMAPPER"/>
 
 
         <!--需要生成的表-->
-        <table tableName="user_basic_face">
+        <table tableName="menu_basic_face">
             <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
         </table>
 

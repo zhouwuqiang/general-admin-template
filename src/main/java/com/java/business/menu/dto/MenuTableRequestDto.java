@@ -1,10 +1,9 @@
 package com.java.business.menu.dto;
 
-import com.java.business.user.dto.UserTableRequestDto;
 import com.java.general.request.dto.PageRequestDto;
 import lombok.Data;
 
-import javax.validation.constraints.NotNull;
+
 
 /**
  * description :
@@ -17,9 +16,7 @@ import javax.validation.constraints.NotNull;
 public class MenuTableRequestDto extends PageRequestDto {
 
     /**
-     * 用户账号
+     * 菜单名称
      */
-    @NotNull(message = "用户账号不能为空!")
-    private String userName;
-
+    private String menuName;
 }

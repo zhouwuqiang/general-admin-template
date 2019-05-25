@@ -31,7 +31,8 @@
                     <div class="search-form-div clearfix">
                         <form role="form" id="main_table_search_form">
                             <div class="col-xs-2">
-                                <input type="text" autocomplete="off" id="search_user_name" name="userName" placeholder="用户编号"
+                                <input type="text" autocomplete="off" id="search_user_name" name="userName"
+                                       placeholder="用户编号"
                                        class="form-control"/>
                             </div>
                             <div class="col-xs-2">
@@ -44,7 +45,8 @@
                                 </a>
                             </div>
                             <div class="col-md-1">
-                                <a href="javascript:void(0);" class="btn btn-warning" onclick="refreshTable('main_table')">
+                                <a href="javascript:void(0);" class="btn btn-warning"
+                                   onclick="refreshTable('main_table')">
                                     <i class="fa fa-undo fa-icon"></i>重置
                                 </a>
                             </div>
@@ -75,7 +77,8 @@
 
 
 <!--数据模态框-->
-<div class="modal fade" id="main_mode" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-hidden="false">
+<div class="modal fade" id="main_mode" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false"
+     aria-hidden="false">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -90,26 +93,29 @@
             <div class="modal-body">
                 <form class="form-horizontal" role="form" id="main_form">
 
-                    <input type="hidden"  name="userCode"/>
+                    <input type="hidden" name="userCode"/>
 
                     <div class="form-group">
                         <label for="user_name" class="col-sm-4 control-label">用户账号:</label>
                         <div class="col-sm-6">
-                            <input type="text" class="form-control" id="user_name" name="userName" placeholder="请输入用户账号">
+                            <input type="text" class="form-control" id="user_name" name="userName"
+                                   placeholder="请输入用户账号">
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label for="user_label" class="col-sm-4 control-label">用户名称:</label>
                         <div class="col-sm-6">
-                            <input type="text" class="form-control" id="user_label" name="userLabel" placeholder="请输入用户名称">
+                            <input type="text" class="form-control" id="user_label" name="userLabel"
+                                   placeholder="请输入用户名称">
                         </div>
                     </div>
 
                     <div class="form-group add-show init-hidden">
                         <label for="user_password" class="col-sm-4 control-label">登录密码:</label>
                         <div class="col-sm-6">
-                            <input type="text" class="form-control" id="user_password" name="loginPassword" placeholder="请输入登录密码">
+                            <input type="text" class="form-control" id="user_password" name="loginPassword"
+                                   placeholder="请输入登录密码">
                         </div>
                     </div>
 
@@ -120,7 +126,7 @@
                                 <input type="radio" name="isLock" id="is_lock" value="00" checked> 未锁定
                             </label>
                             <label class="radio-inline">
-                                <input type="radio" name="isLock" id="is_unlock"  value="01"> 锁定
+                                <input type="radio" name="isLock" id="is_unlock" value="01"> 锁定
                             </label>
                         </div>
                     </div>
@@ -129,7 +135,8 @@
             </div>
 
             <div class="modal-footer">
-                <button id="cancel_button" type="button" class="btn btn-default add-show edit-show" data-dismiss="modal">
+                <button id="cancel_button" type="button" class="btn btn-default add-show edit-show"
+                        data-dismiss="modal">
                     取消
                 </button>
                 <button id="define_button" type="button" class="btn btn-default detail-show" data-dismiss="modal">
@@ -146,46 +153,46 @@
 
 <!--数据模态框 字段多显示两行-->
 <!--<div class="modal fade" id="main_mode_lg" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static" data-keyboard="false" aria-hidden="false">-->
-    <!--<div class="modal-dialog modal-lg">-->
-        <!--<div class="modal-content">-->
-            <!--<div class="modal-header">-->
-                <!--<button type="button" class="close" data-dismiss="modal" aria-hidden="true">-->
-                    <!--&times;-->
-                <!--</button>-->
-                <!--<h4 class="modal-title" id="myModalLabel">-->
-                    <!--用户信息-->
-                <!--</h4>-->
-            <!--</div>-->
-            <!--<div class="modal-body">-->
+<!--<div class="modal-dialog modal-lg">-->
+<!--<div class="modal-content">-->
+<!--<div class="modal-header">-->
+<!--<button type="button" class="close" data-dismiss="modal" aria-hidden="true">-->
+<!--&times;-->
+<!--</button>-->
+<!--<h4 class="modal-title" id="myModalLabel">-->
+<!--用户信息-->
+<!--</h4>-->
+<!--</div>-->
+<!--<div class="modal-body">-->
 
-                <!--<form class="form-horizontal" role="form" id="main_form">-->
+<!--<form class="form-horizontal" role="form" id="main_form">-->
 
-                    <!--<div class="form-group">-->
-                        <!--<div class="col-sm-6">-->
-                            <!--<label for="firstname" class="col-sm-4 control-label">用户账号:</label>-->
-                            <!--<div class="col-sm-6">-->
-                                <!--<input type="text" class="form-control" id="firstname" placeholder="请输入用户账号">-->
-                            <!--</div>-->
-                        <!--</div>-->
-                        <!--<div class="col-sm-6">-->
-                            <!--<label for="lastname" class="col-sm-4 control-label">用户名称:</label>-->
-                            <!--<div class="col-sm-6">-->
-                                <!--<input type="text" class="form-control" id="lastname" placeholder="请输入用户名称">-->
-                            <!--</div>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                <!--</form>-->
+<!--<div class="form-group">-->
+<!--<div class="col-sm-6">-->
+<!--<label for="firstname" class="col-sm-4 control-label">用户账号:</label>-->
+<!--<div class="col-sm-6">-->
+<!--<input type="text" class="form-control" id="firstname" placeholder="请输入用户账号">-->
+<!--</div>-->
+<!--</div>-->
+<!--<div class="col-sm-6">-->
+<!--<label for="lastname" class="col-sm-4 control-label">用户名称:</label>-->
+<!--<div class="col-sm-6">-->
+<!--<input type="text" class="form-control" id="lastname" placeholder="请输入用户名称">-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+<!--</form>-->
 
-            <!--</div>-->
-            <!--<div class="modal-footer">-->
-                <!--<button type="button" class="btn btn-default" data-dismiss="modal">取消-->
-                <!--</button>-->
-                <!--<button type="button" class="btn btn-primary">-->
-                    <!--提交更改-->
-                <!--</button>-->
-            <!--</div>-->
-        <!--</div>-->
-    <!--</div>-->
+<!--</div>-->
+<!--<div class="modal-footer">-->
+<!--<button type="button" class="btn btn-default" data-dismiss="modal">取消-->
+<!--</button>-->
+<!--<button type="button" class="btn btn-primary">-->
+<!--提交更改-->
+<!--</button>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
 <!--</div>-->
 
 
