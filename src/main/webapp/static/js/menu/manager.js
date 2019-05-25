@@ -8,36 +8,34 @@ $(function () {
  * 初始化表格
  */
 function initTable() {
-    $('#main_table').bootstrapTable('destroy').bootstrapTable({
-        url: "/menu/table",
-        method: 'post',
-        contentType: "application/json",       //修改为json请求
-        uniqueId: 'id',                        // 绑定ID，不显示
-        striped: false,                         //是否显示行间隔色
-        cache: false,                          //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
-        sortable: false,                        //是否启用排序
-        sortOrder: "asc",                      //排序方式
-        sidePagination: "server",              //分页方式：client客户端分页，server服务端分页（*）
-        undefinedText: '--',
-        singleSelect: true,                  // 单选checkbox，默认为复选
-        showRefresh: false,                  // 显示刷新按钮
-        showColumns: false,                  // 选择显示的列
-        toolbar: '#toolbar',                // 搜索框位置
-        search: false,                      // 搜索开启,
-        strictSearch: false,
-        clickToSelect: true,                   // 点击选中行
-        pagination: false,                      //是否显示分页
-        smartDisplay:false,
-        // pageNumber: 1,                          //初始化加载第一页，默认第一页,并记录
-        // pageSize: 10,                           //默认每页显示的数量
-        // pageList: [5, 10, 20, 50, 100],         //设置每页显示的数量
-        paginationPreText: "上一页",
-        paginationNextText: "下一页",
-        paginationLoop: false,              //分页条无限循环
-        showToggle: false,                   //是否显示详细视图和列表视图的切换按钮
-        cardView: false,                    //是否显示详细视图
-        detailView: false,                  //是否显示父子表
-        showPaginationSwitch: false,        //是否显示切换分页按钮
+    let param = $.formSerializeObject("main_table_search_form");
+
+    $("#main_table").bootstrapTreeTable({
+        toolbar: "#toolbar",      //顶部工具条
+        id: 'menuCode',                                                   // 选取记录返回的值,用于设置父子关系
+        parentId: 'parentMenuCode',                                       // 用于设置父子关系
+        rootIdValue: null,                                          // 设置根节点id值----可指定根节点，默认为null,"",0,"0"
+        data: null,                                                 // 构造table的数据集合
+        type: "POST",                                              // 请求数据的ajax类型
+        contentType: "application/json",
+        url: "/menu/table",                                         // 请求数据的ajax的url
+        ajaxParams: JSON.stringify(param),                                             // 请求数据的ajax的data属性
+        expandColumn: 1,                                            // 在哪一列上面显示展开按钮
+        expandAll: false,                                           // 是否全部展开
+        expandFirst: true,                                          // 是否默认第一级展开--expandAll为false时生效
+        striped: false,                                             // 是否各行渐变色
+        bordered: true,                                             // 是否显示边框
+        hover: true,                                                // 是否鼠标悬停
+        condensed: false,                                           // 是否紧缩表格
+        width: 0,                                                   // 表格宽度
+        height: 0,                                                  // 表格高度
+        showTitle: true,                                            // 是否采用title属性显示字段内容（被formatter格式化的字段不会显示）
+        showColumns: false,                                          // 是否显示内容列下拉框
+        showRefresh: false,                                          // 是否显示刷新按钮
+        expanderExpandedClass: 'bstt-icon bstt-chevron-down',       // 展开的按钮的图标
+        expanderCollapsedClass: 'bstt-icon bstt-chevron-right',     // 缩起的按钮的图标
+        toolRefreshClass: 'bstt-icon bstt-refresh',                 // 工具栏刷新按钮
+        toolColumnsClass: 'bstt-icon bstt-columns',                 // 工具栏列按钮
         columns: [
             {
                 field: 'menuCode',
@@ -94,28 +92,7 @@ function initTable() {
                 width: '20%',
                 formatter: operateFormatter
             }
-        ],
-        queryParams: function (params) {
-
-            let param = $.formSerializeObject("main_table_search_form");
-
-            return param;
-        },
-        responseHandler: function (res) {
-
-            if (res.success) {
-                return  res.data.list
-            }
-
-            $.ajaxMassage(res);
-
-            return {};
-        },
-        onLoadSuccess: function (data) {
-        },
-        onLoadError: function () {
-            alert("网络异常!请稍候再试!");
-        }
+        ]
     });
 }
 

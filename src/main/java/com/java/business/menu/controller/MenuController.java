@@ -66,7 +66,7 @@ public class MenuController {
 
         PageInfo pageInfo = menuFacade.queryTable(requestDto);
 
-        return ResponseUtil.bindSuccessResponse(pageInfo);
+        return ResponseUtil.bindSuccessResponse(pageInfo.getList());
     }
 
 
