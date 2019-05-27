@@ -33,15 +33,16 @@
                             <div class="col-xs-2">
                                 <input type="text" autocomplete="off" id="search_workbook_code" name="userName"
                                        placeholder="字典编号"
-                                       class="form-control"/>
+                                       class="col-sm-6  form-control"/>
                             </div>
                             <div class="col-xs-2">
                                 <input type="text" autocomplete="off" id="search_workbook_name" name="userLabel"
                                        placeholder="字典名称" class="form-control"/>
                             </div>
                             <div class="col-xs-2">
-                                <input type="text" autocomplete="off" id="search_workbook_type" name="userLabel"
-                                       placeholder="字典类型" class="form-control"/>
+                                <select type="text" autocomplete="off" id="search_workbook_type" name="workbookType" class="form-control">
+                                    <option value="">--字典类型--</option>
+                                </select>
                             </div>
                             <div class="col-md-1">
                                 <a href="javascript:void(0);" class="btn btn-info" onclick="refreshTable('main_table')">
@@ -97,41 +98,35 @@
             <div class="modal-body">
                 <form class="form-horizontal" role="form" id="main_form">
 
-                    <input type="hidden" name="userCode"/>
+                    <input type="hidden" name="id"/>
 
                     <div class="form-group">
-                        <label for="user_name" class="col-sm-4 control-label">用户账号:</label>
+                        <label for="attribute_code" class="col-sm-4 control-label">字典编码:</label>
                         <div class="col-sm-6">
-                            <input type="text" class="form-control" id="user_name" name="userName"
-                                   placeholder="请输入用户账号">
+                            <input type="text" class="form-control" id="attribute_code" name="attributeCode">
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="user_label" class="col-sm-4 control-label">用户名称:</label>
+                        <label for="attribute_name" class="col-sm-4 control-label">字典名称:</label>
                         <div class="col-sm-6">
-                            <input type="text" class="form-control" id="user_label" name="userLabel"
-                                   placeholder="请输入用户名称">
-                        </div>
-                    </div>
-
-                    <div class="form-group add-show init-hidden">
-                        <label for="user_password" class="col-sm-4 control-label">登录密码:</label>
-                        <div class="col-sm-6">
-                            <input type="text" class="form-control" id="user_password" name="loginPassword"
-                                   placeholder="请输入登录密码">
+                            <input type="text" class="form-control" id="attribute_name" name="attributeName">
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="user_password" class="col-sm-4 control-label">是否锁定:</label>
+                        <label for="attribute_type" class="col-sm-4 control-label">字典类型:</label>
                         <div class="col-sm-6">
-                            <label class="radio-inline">
-                                <input type="radio" name="isLock" id="is_lock" value="00" checked> 未锁定
-                            </label>
-                            <label class="radio-inline">
-                                <input type="radio" name="isLock" id="is_unlock" value="01"> 锁定
-                            </label>
+                            <select type="text" class="form-control" id="attribute_type" name="attributeType">
+                                <option value="">--字典类型--</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="attribute_memo" class="col-sm-4 control-label">备注:</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="attribute_memo" name="memo">
                         </div>
                     </div>
 
@@ -208,5 +203,5 @@
 <script src="/static/vendor/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
 <script src="/static/vendor/jquery-toast-plugin/jquery.toast.min.js"></script>
 <script src="/static/vendor/admin/js/common.js?v=1.0.0"></script>
-<script src="/static/js/user/manager.js"></script>
+<script src="/static/js/wordbook/manager.js"></script>
 </html>

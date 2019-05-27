@@ -53,7 +53,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .headers().frameOptions().sameOrigin();
 
         //只允许登录1个用户
-//        http.sessionManagement().invalidSessionUrl("/view/login").maximumSessions(1).maxSessionsPreventsLogin(true).sessionRegistry(sessionRegistry);
+        http.sessionManagement().invalidSessionUrl("/view/login").maximumSessions(1).maxSessionsPreventsLogin(true).sessionRegistry(sessionRegistry);
     }
 
     /**

@@ -61,14 +61,23 @@ public class UserController {
      * @return
      */
     @RequestMapping(value = "/save")
+    @ControllerRecorder(path = "/user/table", validateClass = UserSaveRequestDto.class, validateTypeClass = UserSaveRequestDto.Insert.class)
     public ResponseDto save(@RequestBody UserSaveRequestDto requestDto) {
-        LOGGER.info("/user/save >> request:{}", JSON.toJSONString(requestDto));
 
-        ValidResult validResult = ValidationUtils.validateGroup(requestDto, UserSaveRequestDto.Insert.class);
-        if (validResult.isHasErrors()) {
-            LOGGER.info("/user/table >> 参数校验错误:{},传入参数{}", validResult.getErrors(), JSON.toJSONString(requestDto));
-            return ResponseUtil.bindValidFailResponse(validResult.getErrors());
-        }
+        userFacade.save(requestDto);
+
+        return ResponseUtil.bindSuccessResponse();
+    }
+
+    /**
+     * 保存用户
+     *
+     * @param requestDto
+     * @return
+     */
+    @RequestMapping(value = "/delete")
+    @ControllerRecorder(path = "/user/delete", validateClass = UserSaveRequestDto.class, validateTypeClass = UserSaveRequestDto.Delete.class)
+    public ResponseDto delete(@RequestBody UserSaveRequestDto requestDto) {
 
         userFacade.save(requestDto);
 
