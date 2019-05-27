@@ -41,27 +41,23 @@
                             <div class="search-form-div clearfix">
                                 <form role="form" id="main_table_search_form">
                                     <div class="col-xs-2">
-                                        <input type="text" autocomplete="off" id="user_name" name="userName"
-                                               placeholder="模块名称"
-                                               class="form-control"/>
-                                    </div>
-                                    <div class="col-xs-2">
-                                        <input type="text" autocomplete="off" id="user_label" name="userLabel"
+                                        <input type="text" autocomplete="off" id="menu_name" name="menuName"
                                                placeholder="菜单名称" class="form-control"/>
                                     </div>
                                     <div class="col-xs-2">
-                                        <input type="text" autocomplete="off" id="user_label" name="userLabel"
-                                               placeholder="菜单类型" class="form-control"/>
+                                        <input type="text" autocomplete="off" id="menu_action" name="menuAction"
+                                               placeholder="访问地址" class="form-control"/>
                                     </div>
                                     <div class="col-md-1">
-                                        <button class="btn btn-info" onclick="refreshTable('main_table')">
+                                        <a class="btn btn-info" onclick="refreshTable()">
                                             <i class="fa fa-search fa-icon"></i>搜索
-                                        </button>
+                                        </a>
                                     </div>
+
                                     <div class="col-md-1">
-                                        <button class="btn btn-warning" onclick="refreshTable('main_table')">
+                                        <a class="btn btn-warning" onclick="$.formRest('main_table_search_form')">
                                             <i class="fa fa-undo fa-icon"></i>重置
-                                        </button>
+                                        </a>
                                     </div>
                                 </form>
                             </div>
@@ -79,6 +75,9 @@
                                 <div id="toolbar">
                                     <button id="add_button" class="btn btn-info" onclick="addUser()">
                                         <i class="fa fa-plus fa-icon"></i>添加
+                                    </button>
+                                    <button id="exchange_button" class="btn btn-info" onclick="addUser()">
+                                        <i class="fa fa-exchange fa-icon"></i>展开/折叠
                                     </button>
                                 </div>
                                 <table id="main_table"></table>

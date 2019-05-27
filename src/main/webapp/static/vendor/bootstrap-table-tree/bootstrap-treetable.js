@@ -348,7 +348,6 @@
         var _leftNum = self.leftFixedColumns.length;
         $table.find("td").attr("noWrap","nowrap");
         if(self.leftFixedColumns.length>0){
-            debugger;
             // 创建固定列盒子-start
             self.$leftBox = $("<div class='treetable-fixed treetable-fixed-l'></div>");
             var $_bodyBox = $("<div></div>");
@@ -842,41 +841,40 @@
                     });
                 }
             }
-            // 有固定   FIXME 有问题
-            // if(self.hasFixedColumn){
-            //
-            //     var $left_tr = self.$leftBox.find("tr[rid='" + _rowData.row_id+ "']");
-            //     var _left_ls = self.$leftBox.find(".treetable-body-box table tbody").find("tr[rid^='" + row_id + "_']"); //下所有
-            //     if (_isExpanded) {
-            //         if (_left_ls && _left_ls.length > 0) {
-            //             $.each(_left_ls, function(index, item) {
-            //                 $(item).css("display", "none");
-            //             });
-            //         }
-            //     } else {
-            //         if (_left_ls && _left_ls.length > 0) {
-            //             $.each(_left_ls, function(index, item) {
-            //                 // 父icon
-            //                 var _p_icon = $("tr[rid='" + $(item).attr("pid")+"']").find(".treetable-expander");
-            //                 if (_p_icon.hasClass(self.options.expanderExpandedClass)) {
-            //                     $(item).css("display", "table");
-            //                 }
-            //             });
-            //         }
-            //     }
-            //     // 固定列中有展开列
-            //     if(self.expandColumnIsFixed){
-            //         var $left_row_expander = $left_tr.find(".treetable-expander");
-            //         if (_isExpanded) {
-            //             $left_row_expander.removeClass(self.options.expanderExpandedClass);
-            //             $left_row_expander.addClass(self.options.expanderCollapsedClass);
-            //         } else {
-            //             $left_row_expander.removeClass(self.options.expanderCollapsedClass);
-            //             $left_row_expander.addClass(self.options.expanderExpandedClass);
-            //         }
-            //     }
-            // }
-            // self.autoReSize();
+            // 有固定
+            if(self.hasFixedColumn){
+                var $left_tr = self.$leftBox.find("tr[rid='" + _rowData.row_id+ "']");
+                var _left_ls = self.$leftBox.find(".treetable-body-box table tbody").find("tr[rid^='" + row_id + "_']"); //下所有
+                if (_isExpanded) {
+                    if (_left_ls && _left_ls.length > 0) {
+                        $.each(_left_ls, function(index, item) {
+                            $(item).css("display", "none");
+                        });
+                    }
+                } else {
+                    if (_left_ls && _left_ls.length > 0) {
+                        $.each(_left_ls, function(index, item) {
+                            // 父icon
+                            var _p_icon = $("tr[rid='" + $(item).attr("pid")+"']").find(".treetable-expander");
+                            if (_p_icon.hasClass(self.options.expanderExpandedClass)) {
+                                $(item).css("display", "table");
+                            }
+                        });
+                    }
+                }
+                // 固定列中有展开列
+                if(self.expandColumnIsFixed){
+                    var $left_row_expander = $left_tr.find(".treetable-expander");
+                    if (_isExpanded) {
+                        $left_row_expander.removeClass(self.options.expanderExpandedClass);
+                        $left_row_expander.addClass(self.options.expanderCollapsedClass);
+                    } else {
+                        $left_row_expander.removeClass(self.options.expanderCollapsedClass);
+                        $left_row_expander.addClass(self.options.expanderExpandedClass);
+                    }
+                }
+            }
+            self.autoReSize();
         }
     };
     // 展开指定的行

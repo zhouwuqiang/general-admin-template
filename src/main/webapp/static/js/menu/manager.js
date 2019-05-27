@@ -4,11 +4,21 @@ $(function () {
 
 });
 
+
+/**
+ * 刷新表格
+ */
+function refreshTable(){
+    let params = $.formSerializeObject("main_table_search_form");
+    $('#main_table').bootstrapTreeTable('refresh', JSON.stringify(params));
+}
+
 /**
  * 初始化表格
  */
 function initTable() {
-    let param = $.formSerializeObject("main_table_search_form");
+
+    let params = $.formSerializeObject("main_table_search_form");
 
     $("#main_table").bootstrapTreeTable({
         toolbar: "#toolbar",      //顶部工具条
@@ -19,10 +29,10 @@ function initTable() {
         type: "POST",                                              // 请求数据的ajax类型
         contentType: "application/json",
         url: "/menu/table",                                         // 请求数据的ajax的url
-        ajaxParams: JSON.stringify(param),                                             // 请求数据的ajax的data属性
+        ajaxParams: JSON.stringify(params),                          // 请求数据的ajax的data属性
         expandColumn: 1,                                            // 在哪一列上面显示展开按钮
         expandAll: false,                                           // 是否全部展开
-        expandFirst: true,                                          // 是否默认第一级展开--expandAll为false时生效
+        expandFirst: false,                                          // 是否默认第一级展开--expandAll为false时生效
         striped: false,                                             // 是否各行渐变色
         bordered: true,                                             // 是否显示边框
         hover: true,                                                // 是否鼠标悬停
@@ -31,7 +41,7 @@ function initTable() {
         height: 0,                                                  // 表格高度
         showTitle: true,                                            // 是否采用title属性显示字段内容（被formatter格式化的字段不会显示）
         showColumns: false,                                          // 是否显示内容列下拉框
-        showRefresh: false,                                          // 是否显示刷新按钮
+        showRefresh: true,                                          // 是否显示刷新按钮
         expanderExpandedClass: 'bstt-icon bstt-chevron-down',       // 展开的按钮的图标
         expanderCollapsedClass: 'bstt-icon bstt-chevron-right',     // 缩起的按钮的图标
         toolRefreshClass: 'bstt-icon bstt-refresh',                 // 工具栏刷新按钮
@@ -99,24 +109,24 @@ function initTable() {
 
 function operateFormatter(value, row, index) {
     let result = [];
-    result.push("<a href='javascript:void(0)' class='btn btn-info' onclick='deleteUser(" + JSON.stringify(row) + ")'><i class='fa fa-trash-o fa-icon'></i>添加</a>");
-    result.push("<a href='javascript:void(0)' class='btn btn-warning' onclick='editUser(" + JSON.stringify(row) + ")'><i class='fa fa-edit fa-icon'></i>修改</a>");
-    result.push("<a href='javascript:void(0)' class='btn btn-danger' onclick='deleteUser(" + JSON.stringify(row) + ")'><i class='fa fa-trash-o fa-icon'></i>删除</a>");
+    result.push("<a href='javascript:void(0)' class='btn btn-info' onclick='addMenu(" + JSON.stringify(row) + ")'><i class='fa fa-trash-o fa-icon'></i>添加</a>");
+    result.push("<a href='javascript:void(0)' class='btn btn-warning' onclick='editMenu(" + JSON.stringify(row) + ")'><i class='fa fa-edit fa-icon'></i>修改</a>");
+    result.push("<a href='javascript:void(0)' class='btn btn-danger' onclick='deleteMenu(" + JSON.stringify(row) + ")'><i class='fa fa-trash-o fa-icon'></i>删除</a>");
     return $.formatterOperateButton(result);
 }
 
 /**
  * 添加
  */
-function addUser() {
-    $.initModel("main_mode", "添加用户", "main_form", "add-show");
+function addMenu() {
+    $.initModel("main_mode", "添加菜单", "main_form", "add-show");
     $('#main_mode').modal('show');
 }
 
 /**
  * 编辑
  */
-function editUser(user) {
+function editMenu(user) {
     $.initModel("main_mode", "编辑用户", "main_form", "edit-show");
     $.formReview("main_form", user);
     $('#main_mode').modal('show');
@@ -135,7 +145,7 @@ function detailUser(user) {
 /**
  * 保存
  */
-function saveUser() {
+function deleteMenu() {
     let param = $.formSerializeObject("main_form");
     $.ajax({
         url: "/user/save",
