@@ -87,3 +87,19 @@ html, body {
 .page-content {
 	padding: 20px 20px 20px 20px;
 }
+
+/*ios兼容*/
+
+.clickable {
+	cursor: pointer;
+}
+
+.ios-welcome-scroll{
+	-webkit-overflow-scrolling: touch;
+	overflow-y: scroll;
+	position: fixed;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	top: 50px;
+}

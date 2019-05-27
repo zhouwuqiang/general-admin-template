@@ -49,7 +49,7 @@
     <div class="head-wrapper">
         <div class="head-nav">
             <div class="head-nav-hover pull-left mini-button-div">
-                <div class="mini-button head-nav-item">
+                <div class="mini-button head-nav-item clickable">
                     <i class="fa fa-bars"></i>
                 </div>
             </div>
@@ -62,7 +62,7 @@
             </div>
             <!--登录用户信息-->
             <div class="pull-right head-nav-hover head-nav-item dropdown">
-                <div class="dropdown-toggle" id="login_user" >
+                <div class="dropdown-toggle clickable" id="login_user" >
                     <span sec:authentication="principal.userLabel"></span>
                 </div>
                 <ul class="dropdown-menu" role="menu" aria-labelledby="login_user" style="min-width:100px" >
