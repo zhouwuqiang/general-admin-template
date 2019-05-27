@@ -8,7 +8,7 @@ $(function () {
 /**
  * 刷新表格
  */
-function refreshTable(){
+function refreshTable() {
     let params = $.formSerializeObject("main_table_search_form");
     $('#main_table').bootstrapTreeTable('refresh', JSON.stringify(params));
 }
@@ -41,7 +41,7 @@ function initTable() {
         height: 0,                                                  // 表格高度
         showTitle: true,                                            // 是否采用title属性显示字段内容（被formatter格式化的字段不会显示）
         showColumns: false,                                          // 是否显示内容列下拉框
-        showRefresh: true,                                          // 是否显示刷新按钮
+        showRefresh: false,                                          // 是否显示刷新按钮
         expanderExpandedClass: 'bstt-icon bstt-chevron-down',       // 展开的按钮的图标
         expanderCollapsedClass: 'bstt-icon bstt-chevron-right',     // 缩起的按钮的图标
         toolRefreshClass: 'bstt-icon bstt-refresh',                 // 工具栏刷新按钮
@@ -51,13 +51,13 @@ function initTable() {
                 field: 'menuCode',
                 title: '菜单编号',
                 align: 'center',
-                valign: 'left',
                 visible: false
             }, {
                 field: 'menuName',
                 title: '菜单名称',
                 align: 'left',
-                valign: 'middle'
+                valign: 'middle',
+                fixed: 'left'
             }, {
                 field: 'menuIcon',
                 title: '菜单图标',
@@ -109,10 +109,25 @@ function initTable() {
 
 function operateFormatter(value, row, index) {
     let result = [];
-    result.push("<a href='javascript:void(0)' class='btn btn-info' onclick='addMenu(" + JSON.stringify(row) + ")'><i class='fa fa-trash-o fa-icon'></i>添加</a>");
+    result.push("<a href='javascript:void(0)' class='btn btn-info' onclick='addSubMenu(" + JSON.stringify(row) + ")'><i class='fa fa-trash-o fa-icon'></i>添加</a>");
     result.push("<a href='javascript:void(0)' class='btn btn-warning' onclick='editMenu(" + JSON.stringify(row) + ")'><i class='fa fa-edit fa-icon'></i>修改</a>");
     result.push("<a href='javascript:void(0)' class='btn btn-danger' onclick='deleteMenu(" + JSON.stringify(row) + ")'><i class='fa fa-trash-o fa-icon'></i>删除</a>");
     return $.formatterOperateButton(result);
+}
+
+
+/**
+ * 展开/折叠
+ */
+expandAll = true;
+
+function exchangeMenu() {
+    if (expandAll) {
+        $('#main_table').bootstrapTreeTable('expandAll');
+    } else {
+        $('#main_table').bootstrapTreeTable('collapseAll');
+    }
+    expandAll = !expandAll;
 }
 
 /**
@@ -123,21 +138,26 @@ function addMenu() {
     $('#main_mode').modal('show');
 }
 
+function addSubMenu(menu) {
+    $.initModel("main_mode", "添加子菜单", "main_form", "add-show");
+    $('#main_mode').modal('show');
+}
+
 /**
  * 编辑
  */
-function editMenu(user) {
-    $.initModel("main_mode", "编辑用户", "main_form", "edit-show");
-    $.formReview("main_form", user);
+function editMenu(menu) {
+    $.initModel("main_mode", "编辑菜单", "main_form", "edit-show");
+    $.formReview("main_form", menu);
     $('#main_mode').modal('show');
 }
 
 /**
  * 显示
  */
-function detailUser(user) {
-    $.initModel("main_mode", "用户信息", "main_form", "detail-show");
-    $.formReview("main_form", user);
+function detailUser(menu) {
+    $.initModel("main_mode", "菜单详情", "main_form", "detail-show");
+    $.formReview("main_form", menu);
     $.formReadOnly("main_form");
     $('#main_mode').modal('show');
 }
@@ -145,7 +165,7 @@ function detailUser(user) {
 /**
  * 保存
  */
-function deleteMenu() {
+function saveMenu() {
     let param = $.formSerializeObject("main_form");
     $.ajax({
         url: "/user/save",
@@ -170,14 +190,14 @@ function deleteMenu() {
 /**
  * 删除
  */
-function deleteUser(user) {
-    user.deleteFlag = "01";
+function deleteMenu(menu) {
+    menu.deleteFlag = "01";
     $.ajax({
         url: "/user/save",
         type: 'post',
         dataType: 'json',
         contentType: 'application/json',
-        data: JSON.stringify(user),
+        data: JSON.stringify(menu),
         success: function (responseDto) {
             $.ajaxMassage(responseDto);
             if (responseDto.success) {
