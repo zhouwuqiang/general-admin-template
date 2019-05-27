@@ -19,6 +19,7 @@
     background-color: #367fa9;
     color: #ABB1B7;
     transition: all .3s;
+    font-size: 16px;
 }
 
 
@@ -60,8 +61,8 @@
     display: block;
     overflow: hidden;
     padding-left: 20px;
-    line-height: 46px;
-    max-height: 46px;
+    line-height: 40px;
+    max-height: 40px;
     color: #ABB1B7;
     transition: all .3s;
     text-decoration: none;
