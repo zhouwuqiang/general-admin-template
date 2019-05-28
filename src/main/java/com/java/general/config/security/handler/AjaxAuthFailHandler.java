@@ -5,6 +5,7 @@ import com.java.general.response.utils.ResponseUtil;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 import org.springframework.security.web.authentication.session.SessionAuthenticationException;
+import org.springframework.stereotype.Component;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -19,6 +20,7 @@ import java.io.PrintWriter;
  * @version 1.0.0
  * @date 2019/3/13 10:57
  */
+@Component
 public class AjaxAuthFailHandler extends SimpleUrlAuthenticationFailureHandler {
 
     @Override
