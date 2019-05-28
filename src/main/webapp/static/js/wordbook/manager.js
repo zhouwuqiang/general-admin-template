@@ -1,7 +1,7 @@
 $(function () {
 
     initTable();
-
+    initAttributeTable();
 });
 
 /**
@@ -14,28 +14,23 @@ function initTable() {
         searchFormId: "main_table_search_form",
         columns: [
             {
-                field: 'userCode',
-                title: '用户编号',
+                field: 'attributeCode',
+                title: '属性编码',
                 align: 'center',
                 valign: 'middle'
             }, {
-                field: 'userName',
-                title: '用户账号',
+                field: 'attributeName',
+                title: '属性名称',
                 align: 'center',
                 valign: 'middle'
             }, {
-                field: 'userLabel',
-                title: '用户名称',
+                field: 'attributeType',
+                title: '属性类型',
                 align: 'center',
                 valign: 'middle'
             }, {
-                field: 'isLock',
-                title: '是否锁定',
-                align: 'center',
-                valign: 'middle'
-            }, {
-                field: 'isLock',
-                title: '是否需要重置密码',
+                field: 'memo',
+                title: '备注',
                 align: 'center',
                 valign: 'middle'
             }, {
@@ -65,7 +60,6 @@ function operateFormatter(value, row, index) {
     let result = [];
     result.push("<a href='javascript:void(0)' class='btn btn-info' onclick='editUser(" + JSON.stringify(row) + ")'><i class='fa fa-edit fa-icon'></i>修改</a>");
     result.push("<a href='javascript:void(0)' class='btn btn-info' onclick='detailUser(" + JSON.stringify(row) + ")'><i class='fa fa-th-list fa-icon'></i>详情</a>");
-    result.push("<a href='javascript:void(0)' class='btn btn-danger' onclick='deleteUser(" + JSON.stringify(row) + ")'><i class='fa fa-trash-o fa-icon'></i>删除</a>");
     return $.formatterOperateButton(result);
 }
 
@@ -144,4 +138,76 @@ function deleteUser(user) {
             $.errorMassage("请求处理失败!");
         }
     });
+}
+
+
+/******************************************************** 具体属性 ****************************************************/
+
+function initAttributeTable() {
+
+    $.tableExpand({
+        tableId: "attribute_table",
+        url: "/wordbook/table",
+        searchFormId: "main_table_search_form",
+        toolbar:"",
+        pagination: false,
+        columns: [
+            {
+                field: 'attributeCode',
+                title: '属性编码',
+                align: 'center',
+                valign: 'middle',
+                visible: false
+            }, {
+                field: 'attributeValue',
+                title: '枚举值',
+                align: 'center',
+                valign: 'middle'
+            }, {
+                field: 'attributeName',
+                title: '名称',
+                align: 'center',
+                valign: 'middle'
+            }, {
+                field: 'attributeName',
+                title: '状态',
+                align: 'center',
+                valign: 'middle'
+            }, {
+                title: '操作',
+                align: 'center',
+                valign: 'middle',
+                width: '30%',
+                formatter: attributeOperateFormatter
+            }
+        ]
+    });
+}
+
+function attributeOperateFormatter(value, row, index) {
+    let result = [];
+    result.push("<a href='javascript:void(0)' class='btn btn-info' onclick='editAttribute(" + JSON.stringify(row) + ")'><i class='fa fa-edit fa-icon'></i>修改</a>");
+    result.push("<a href='javascript:void(0)' class='btn btn-danger' onclick='deleteAttribute(" + JSON.stringify(row) + ")'><i class='fa fa-trash-o fa-icon'></i>删除</a>");
+    return $.formatterOperateButton(result);
+}
+
+/**
+ * 添加属性
+ */
+function addAttribute() {
+
+}
+
+/**
+ * 添加属性
+ */
+function editAttribute() {
+
+}
+
+/**
+ * 添加属性
+ */
+function deleteAttribute() {
+
 }

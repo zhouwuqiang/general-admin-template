@@ -1,6 +1,10 @@
 package com.java.business.wordbook.dto;
 
+import com.java.general.request.dto.PageRequestDto;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 /**
  * description :
@@ -9,6 +13,24 @@ import lombok.Data;
  * @version 1.0.0
  * @date 2019/5/27 19:40
  */
-@Data
-public class WordbookAttributeTableRequestDto {
+@Setter
+@Getter
+@ToString
+public class WordbookAttributeTableRequestDto extends PageRequestDto {
+    /**
+     * 属性编码
+     */
+    private String attributeCode;
+
+    /**
+     * 属性值
+     */
+    private String attributeValue;
+
+    /**
+     * 属性名称
+     */
+    private String attributeName;
+
+
 }

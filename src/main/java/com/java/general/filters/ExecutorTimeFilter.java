@@ -6,6 +6,7 @@ import org.springframework.core.annotation.Order;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
 /**
@@ -29,9 +30,9 @@ public class ExecutorTimeFilter implements Filter {
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         long start = System.currentTimeMillis();
-
+        HttpServletRequest request = (HttpServletRequest) servletRequest;
         filterChain.doFilter(servletRequest,servletResponse);
-        LOGGER.info("执行时间 :{}" ,(System.currentTimeMillis()-start));
+        LOGGER.info("{} >> 执行时间 :{}" ,request.getRequestURI(),(System.currentTimeMillis()-start));
     }
 
     @Override

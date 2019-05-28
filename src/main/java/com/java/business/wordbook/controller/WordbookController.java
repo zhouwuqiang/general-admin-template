@@ -1,9 +1,7 @@
 package com.java.business.wordbook.controller;
 
-import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.PageInfo;
 import com.java.business.user.dto.UserSaveRequestDto;
-import com.java.business.user.dto.UserTableRequestDto;
 import com.java.business.wordbook.dto.WordbookAttributeSaveRequestDto;
 import com.java.business.wordbook.dto.WordbookAttributeTableRequestDto;
 import com.java.business.wordbook.dto.WordbookSaveRequestDto;
@@ -12,8 +10,6 @@ import com.java.business.wordbook.facade.WordbookFacade;
 import com.java.general.interceptors.controller.ControllerRecorder;
 import com.java.general.response.dto.ResponseDto;
 import com.java.general.response.utils.ResponseUtil;
-import com.java.general.validation.dto.ValidResult;
-import com.java.general.validation.utils.ValidationUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

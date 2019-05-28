@@ -84,7 +84,7 @@
 <!--数据模态框-->
 <div class="modal fade" id="main_mode" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false"
      aria-hidden="false">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
@@ -102,21 +102,21 @@
 
                     <div class="form-group">
                         <label for="attribute_code" class="col-sm-4 control-label">字典编码:</label>
-                        <div class="col-sm-6">
+                        <div class="col-sm-4">
                             <input type="text" class="form-control" id="attribute_code" name="attributeCode">
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label for="attribute_name" class="col-sm-4 control-label">字典名称:</label>
-                        <div class="col-sm-6">
+                        <div class="col-sm-4">
                             <input type="text" class="form-control" id="attribute_name" name="attributeName">
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label for="attribute_type" class="col-sm-4 control-label">字典类型:</label>
-                        <div class="col-sm-6">
+                        <div class="col-sm-4">
                             <select type="text" class="form-control" id="attribute_type" name="attributeType">
                                 <option value="">--字典类型--</option>
                             </select>
@@ -125,9 +125,18 @@
 
                     <div class="form-group">
                         <label for="attribute_memo" class="col-sm-4 control-label">备注:</label>
-                        <div class="col-sm-6">
+                        <div class="col-sm-4">
                             <input type="text" class="form-control" id="attribute_memo" name="memo">
                         </div>
+                    </div>
+
+                    <div class="form-group panel-body">
+                        <!--<div id="attribute_toolbar">-->
+                            <!--<button id="attribute_add_button" class="btn btn-info" onclick="addAttribute()">-->
+                                <!--<i class="fa fa-plus fa-icon"></i>添加-->
+                            <!--</button>-->
+                        <!--</div>-->
+                        <table id="attribute_table"></table>
                     </div>
 
                 </form>
@@ -150,49 +159,8 @@
 </div>
 
 
-<!--数据模态框 字段多显示两行-->
-<!--<div class="modal fade" id="main_mode_lg" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static" data-keyboard="false" aria-hidden="false">-->
-<!--<div class="modal-dialog modal-lg">-->
-<!--<div class="modal-content">-->
-<!--<div class="modal-header">-->
-<!--<button type="button" class="close" data-dismiss="modal" aria-hidden="true">-->
-<!--&times;-->
-<!--</button>-->
-<!--<h4 class="modal-title" id="myModalLabel">-->
-<!--用户信息-->
-<!--</h4>-->
-<!--</div>-->
-<!--<div class="modal-body">-->
 
-<!--<form class="form-horizontal" role="form" id="main_form">-->
 
-<!--<div class="form-group">-->
-<!--<div class="col-sm-6">-->
-<!--<label for="firstname" class="col-sm-4 control-label">用户账号:</label>-->
-<!--<div class="col-sm-6">-->
-<!--<input type="text" class="form-control" id="firstname" placeholder="请输入用户账号">-->
-<!--</div>-->
-<!--</div>-->
-<!--<div class="col-sm-6">-->
-<!--<label for="lastname" class="col-sm-4 control-label">用户名称:</label>-->
-<!--<div class="col-sm-6">-->
-<!--<input type="text" class="form-control" id="lastname" placeholder="请输入用户名称">-->
-<!--</div>-->
-<!--</div>-->
-<!--</div>-->
-<!--</form>-->
-
-<!--</div>-->
-<!--<div class="modal-footer">-->
-<!--<button type="button" class="btn btn-default" data-dismiss="modal">取消-->
-<!--</button>-->
-<!--<button type="button" class="btn btn-primary">-->
-<!--提交更改-->
-<!--</button>-->
-<!--</div>-->
-<!--</div>-->
-<!--</div>-->
-<!--</div>-->
 
 
 </body>

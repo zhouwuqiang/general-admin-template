@@ -31,6 +31,37 @@ function refreshTable(tableId) {
     $('#' + tableId).bootstrapTable('refresh');
 }
 
+bootStrapTableConfig = {
+    url: '',
+    method: 'post',
+    contentType: "application/json",       //修改为json请求
+    uniqueId: 'id',                        // 绑定ID，不显示
+    striped: true,                         //是否显示行间隔色
+    cache: false,                          //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+    sortable: false,                        //是否启用排序
+    sortOrder: "asc",                      //排序方式
+    sidePagination: "server",              //分页方式：client客户端分页，server服务端分页（*）
+    undefinedText: '--',
+    singleSelect: true,                  // 单选checkbox，默认为复选
+    showRefresh: false,                  // 显示刷新按钮
+    showColumns: false,                  // 选择显示的列
+    toolbar: '#toolbar',               // 搜索框位置
+    search: false,                      // 搜索开启,
+    strictSearch: false,
+    clickToSelect: true,                   // 点击选中行
+    pagination: true,                      //是否显示分页
+    pageNumber: 1,                          //初始化加载第一页，默认第一页,并记录
+    pageSize: 10,                           //默认每页显示的数量
+    pageList: [5, 10, 20, 50, 100],         //设置每页显示的数量
+    paginationPreText: "上一页",
+    paginationNextText: "下一页",
+    paginationLoop: false,              //分页条无限循环
+    showToggle: false,                   //是否显示详细视图和列表视图的切换按钮
+    cardView: false,                    //是否显示详细视图
+    detailView: false,                  //是否显示父子表
+    showPaginationSwitch: false,        //是否显示切换分页按钮
+    columns: []
+};
 /**
  * tableId 表格id
  * url 请求地址
@@ -39,42 +70,49 @@ function refreshTable(tableId) {
  */
 $.extend({
     "tableExpand": function (data) {
+
+        let config = Object.assign(bootStrapTableConfig, data);
+
         $('#' + data.tableId).bootstrapTable('destroy').bootstrapTable({
-            url: data.url,
-            method: 'post',
-            contentType: "application/json",       //修改为json请求
-            uniqueId: 'id',                        // 绑定ID，不显示
-            striped: true,                         //是否显示行间隔色
-            cache: false,                          //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
-            sortable: false,                        //是否启用排序
-            sortOrder: "asc",                      //排序方式
-            sidePagination: "server",              //分页方式：client客户端分页，server服务端分页（*）
-            undefinedText: '--',
-            singleSelect: true,                  // 单选checkbox，默认为复选
-            showRefresh: false,                  // 显示刷新按钮
-            showColumns: false,                  // 选择显示的列
-            toolbar: '#toolbar',                // 搜索框位置
-            search: false,                      // 搜索开启,
-            strictSearch: false,
-            clickToSelect: true,                   // 点击选中行
-            pagination: true,                      //是否显示分页
-            pageNumber: 1,                          //初始化加载第一页，默认第一页,并记录
-            pageSize: 10,                           //默认每页显示的数量
-            pageList: [5, 10, 20, 50, 100],         //设置每页显示的数量
-            paginationPreText: "上一页",
-            paginationNextText: "下一页",
-            paginationLoop: false,              //分页条无限循环
-            showToggle: false,                   //是否显示详细视图和列表视图的切换按钮
-            cardView: false,                    //是否显示详细视图
-            detailView: false,                  //是否显示父子表
-            showPaginationSwitch: false,        //是否显示切换分页按钮
-            columns: data.columns,
+            url: config.url,
+            method: config.method,
+            contentType: config.contentType,
+            uniqueId: config.uniqueId,
+            striped: config.striped,
+            cache: config.cache,
+            sortable: config.sortable,
+            sortOrder: config.sortOrder,
+            sidePagination: config.sidePagination,
+            undefinedText: config.undefinedText,
+            singleSelect: config.singleSelect,
+            showRefresh: config.showRefresh,
+            showColumns: config.showColumns,
+            toolbar: config.toolbar,
+            search: config.search,
+            strictSearch: config.strictSearch,
+            clickToSelect: config.clickToSelect,
+            pagination: config.pagination,
+            pageNumber: config.pageNumber,
+            pageSize: config.pageSize,
+            pageList: config.pageList,
+            paginationPreText: config.paginationPreText,
+            paginationNextText: config.paginationNextText,
+            paginationLoop: config.paginationLoop,
+            showToggle: config.showToggle,
+            cardView: config.cardView,
+            detailView: config.detailView,
+            showPaginationSwitch: config.showPaginationSwitch,
+            columns: config.columns,
             queryParams: function (params) {
 
-                var param = {};
+                let param = {};
 
                 if ($.isNotNull(data.searchFormId)) {
                     param = $.formSerializeObject(data.searchFormId);
+                }
+
+                if ($.isNotNull(data.params)) {
+                    Object.assign(data.params, param)
                 }
 
                 param.pageSize = params.limit;
@@ -85,7 +123,7 @@ $.extend({
             },
             responseHandler: function (res) {
 
-                if(res.success){
+                if (res.success) {
                     return {
                         "total": res.data.total,//总页数
                         "rows": res.data.list   //数据

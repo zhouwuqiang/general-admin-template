@@ -1,7 +1,18 @@
 package com.java.business.wordbook.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.java.business.wordbook.dto.WordbookAttributeTableRequestDto;
+import com.java.business.wordbook.dto.WordbookTableRequestDto;
+import com.java.business.wordbook.entity.Wordbook;
+import com.java.business.wordbook.mapper.WordbookMapper;
 import com.java.business.wordbook.service.WordbookService;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import tk.mybatis.mapper.entity.Example;
+
+import java.util.List;
 
 /**
  * description :
@@ -12,4 +23,46 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class WordbookServiceImpl implements WordbookService {
+
+    @Autowired
+    private WordbookMapper wordbookMapper;
+
+    @Override
+    public PageInfo queryTable(WordbookTableRequestDto requestDto) {
+
+        Example example = new Example(Wordbook.class);
+        Example.Criteria criteria = example.createCriteria();
+
+        criteria.andEqualTo("deleteFlag", "00");
+        criteria.andEqualTo("attributeCode",requestDto.getAttributeCode());
+        criteria.andEqualTo("attributeType",requestDto.getAttributeType());
+
+        if (StringUtils.isNotBlank(requestDto.getAttributeName())) {
+            criteria.andCondition("ATTRIBUTE_NAME like", "%" + requestDto.getAttributeName() + "%");
+        }
+
+        PageHelper.startPage(requestDto.getPageNum(), requestDto.getPageSize());
+        List<Wordbook> queryList = wordbookMapper.selectByExample(example);
+
+        return  new PageInfo<>(queryList);
+    }
+
+    @Override
+    public PageInfo queryAttributeTable(WordbookAttributeTableRequestDto requestDto) {
+        Example example = new Example(Wordbook.class);
+        Example.Criteria criteria = example.createCriteria();
+
+        criteria.andEqualTo("deleteFlag", "00");
+        criteria.andEqualTo("attributeCode",requestDto.getAttributeCode());
+        criteria.andEqualTo("attributeValue",requestDto.getAttributeValue());
+
+        if (StringUtils.isNotBlank(requestDto.getAttributeName())) {
+            criteria.andCondition("ATTRIBUTE_NAME like", "%" + requestDto.getAttributeName() + "%");
+        }
+
+        PageHelper.startPage(requestDto.getPageNum(), requestDto.getPageSize());
+        List<Wordbook> queryList = wordbookMapper.selectByExample(example);
+
+        return  new PageInfo<>(queryList);
+    }
 }

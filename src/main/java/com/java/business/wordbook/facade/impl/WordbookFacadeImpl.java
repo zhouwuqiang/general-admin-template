@@ -7,6 +7,8 @@ import com.java.business.wordbook.dto.WordbookAttributeTableRequestDto;
 import com.java.business.wordbook.dto.WordbookSaveRequestDto;
 import com.java.business.wordbook.dto.WordbookTableRequestDto;
 import com.java.business.wordbook.facade.WordbookFacade;
+import com.java.business.wordbook.service.WordbookService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -19,9 +21,14 @@ import org.springframework.stereotype.Service;
 @Service
 public class WordbookFacadeImpl implements WordbookFacade {
 
+
+    @Autowired
+    private WordbookService wordbookService;
+
     @Override
     public PageInfo queryTable(WordbookTableRequestDto requestDto) {
-        return null;
+
+        return wordbookService.queryTable(requestDto);
     }
 
     @Override
@@ -36,7 +43,7 @@ public class WordbookFacadeImpl implements WordbookFacade {
 
     @Override
     public PageInfo queryAttributeTable(WordbookAttributeTableRequestDto requestDto) {
-        return null;
+        return wordbookService.queryAttributeTable(requestDto);
     }
 
     @Override
