@@ -2,6 +2,7 @@ $(function () {
 
     initTable();
 
+    initTree();
 });
 
 /**
@@ -63,9 +64,9 @@ function initTable() {
 
 function operateFormatter(value, row, index) {
     let result = [];
-    result.push("<a href='javascript:void(0)' class='btn btn-info' onclick='editUser(" + JSON.stringify(row) + ")'><i class='fa fa-edit fa-icon'></i>修改</a>");
-    result.push("<a href='javascript:void(0)' class='btn btn-info' onclick='detailUser(" + JSON.stringify(row) + ")'><i class='fa fa-th-list fa-icon'></i>详情</a>");
-    result.push("<a href='javascript:void(0)' class='btn btn-danger' onclick='deleteUser(" + JSON.stringify(row) + ")'><i class='fa fa-trash-o fa-icon'></i>删除</a>");
+    result.push("<a href='javascript:void(0)' class='' onclick='editUser(" + JSON.stringify(row) + ")'>修改</a>");
+    result.push("<a href='javascript:void(0)' class='' onclick='detailUser(" + JSON.stringify(row) + ")'>详情</a>");
+    result.push("<a href='javascript:void(0)' class='' onclick='deleteUser(" + JSON.stringify(row) + ")'>删除</a>");
     return $.formatterOperateButton(result);
 }
 
@@ -144,4 +145,45 @@ function deleteUser(user) {
             $.errorMassage("请求处理失败!");
         }
     });
+}
+
+
+/****************************************** 初始化组织树 ***************************************/
+
+var tree = [
+    {
+        text: "Parent 1",
+        nodes: [
+            {
+                text: "Child 1",
+                nodes: [
+                    {
+                        text: "Grandchild 1"
+                    },
+                    {
+                        text: "Grandchild 2"
+                    }
+                ]
+            },
+            {
+                text: "Child 2"
+            }
+        ]
+    },
+    {
+        text: "Parent 2"
+    },
+    {
+        text: "Parent 3"
+    },
+    {
+        text: "Parent 4"
+    },
+    {
+        text: "Parent 5"
+    }
+];
+
+function initTree(){
+    $('#organization_tree').treeview({data: tree});
 }
