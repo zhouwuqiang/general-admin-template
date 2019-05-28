@@ -11,7 +11,7 @@
  Target Server Version : 50714
  File Encoding         : 65001
 
- Date: 25/05/2019 19:03:39
+ Date: 28/05/2019 19:05:32
 */
 
 SET NAMES utf8mb4;
@@ -36,25 +36,28 @@ CREATE TABLE `menu_basic_face`  (
   `CREATE_USER` varchar(64) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT 'sys' COMMENT '创建用户编号',
   `DELETE_FLAG` varchar(2) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT '00' COMMENT '删除标识(00-正常 01-删除)',
   PRIMARY KEY (`ID`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 15 CHARACTER SET = utf8 COLLATE = utf8_bin COMMENT = '菜单基础信息表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 18 CHARACTER SET = utf8 COLLATE = utf8_bin COMMENT = '菜单基础信息表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of menu_basic_face
 -- ----------------------------
-INSERT INTO `menu_basic_face` VALUES (1, 'MENUCO07500120190314161720782115', '系统设置', 'fa fa-cog', '#', '', '00', 0, '2019-05-24 18:35:41', 'sys', '2019-03-14 16:18:00', 'sys', '00');
+INSERT INTO `menu_basic_face` VALUES (1, 'MENUCO07500120190314161720782115', '系统设置', 'fa fa-cog', '#', '', '00', 0, '2019-05-27 14:47:41', 'sys', '2019-03-14 16:18:00', 'sys', '00');
 INSERT INTO `menu_basic_face` VALUES (2, 'MENUCO07500120190314161720782116', '用户管理', 'fa fa-user-o', '/view/user/manager', 'MENUCO07500120190314161720782115', '00', 0, '2019-03-14 16:26:46', 'sys', '2019-03-14 16:18:00', 'sys', '00');
 INSERT INTO `menu_basic_face` VALUES (3, 'MENUCO07500120190314161720782117', '菜单管理', 'fa fa-user-o', '/view/menu/manager', 'MENUCO07500120190314161720782115', '00', 0, '2019-03-14 16:26:46', 'sys', '2019-03-14 16:18:00', 'sys', '00');
-INSERT INTO `menu_basic_face` VALUES (4, 'MENUCO07500120190314161720782118', '顶级目录', 'fa fa-user-o', '/view/menu/manager', '', '00', 0, '2019-05-25 18:37:02', 'sys', '2019-03-14 16:18:00', 'sys', '00');
+INSERT INTO `menu_basic_face` VALUES (4, 'MENUCO07500120190314161720782118', '顶级目录', 'fa fa-user-o', '/view/menu/manager', '', '00', 0, '2019-05-27 14:47:39', 'sys', '2019-03-14 16:18:00', 'sys', '00');
 INSERT INTO `menu_basic_face` VALUES (5, 'MENUCO07500120190314161720782119', '二级', 'fa fa-user-o', '/view/menu/manager', 'MENUCO07500120190314161720782118', '00', 0, '2019-03-14 16:26:46', 'sys', '2019-03-14 16:18:00', 'sys', '00');
 INSERT INTO `menu_basic_face` VALUES (6, 'MENUCO07500120190314161720782219', '二级', 'fa fa-user-o', '/view/menu/manager', 'MENUCO07500120190314161720782118', '00', 0, '2019-03-14 16:26:46', 'sys', '2019-03-14 16:18:00', 'sys', '00');
 INSERT INTO `menu_basic_face` VALUES (7, 'MENUCO07500120190314161720782319', '二级', 'fa fa-user-o', '/view/menu/manager', 'MENUCO07500120190314161720782118', '00', 0, '2019-05-25 18:37:57', 'sys', '2019-03-14 16:18:00', 'sys', '00');
 INSERT INTO `menu_basic_face` VALUES (8, 'MENUCO07500120190314161720782311', '三级', 'fa fa-user-o', '/view/menu/manager', 'MENUCO07500120190314161720782219', '00', 0, '2019-05-25 18:38:03', 'sys', '2019-03-14 16:18:00', 'sys', '00');
 INSERT INTO `menu_basic_face` VALUES (9, 'MENUCO07500120190314161720782312', '三级', 'fa fa-user-o', '/view/menu/manager', 'MENUCO07500120190314161720782219', '00', 0, '2019-05-25 18:38:08', 'sys', '2019-03-14 16:18:00', 'sys', '00');
-INSERT INTO `menu_basic_face` VALUES (10, 'MENUCO07500120190314162720782311', '一级A', 'fa fa-user-o', '/view/menu/manager', '', '00', 0, '2019-05-25 18:40:38', 'sys', '2019-03-14 16:18:00', 'sys', '00');
-INSERT INTO `menu_basic_face` VALUES (11, 'MENUCO075023120190312162720782311', '一级B', 'fa fa-user-o', '/view/menu/manager', '', '00', 0, '2019-05-25 18:46:51', 'sys', '2019-03-14 16:18:00', 'sys', '00');
+INSERT INTO `menu_basic_face` VALUES (10, 'MENUCO07500120190314162720782311', '一级A', 'fa fa-user-o', '/view/menu/manager', '', '00', 0, '2019-05-27 14:47:38', 'sys', '2019-03-14 16:18:00', 'sys', '00');
+INSERT INTO `menu_basic_face` VALUES (11, 'MENUCO075023120190312162720782311', '一级B', 'fa fa-user-o', '/view/menu/manager', '', '00', 0, '2019-05-27 14:47:36', 'sys', '2019-03-14 16:18:00', 'sys', '00');
 INSERT INTO `menu_basic_face` VALUES (12, 'MENUCO07500120190312162720782311', '二级', 'fa fa-user-o', '/view/menu/manager', 'MENUCO075023120190312162720782311', '00', 0, '2019-05-25 18:46:52', 'sys', '2019-03-14 16:18:00', 'sys', '00');
 INSERT INTO `menu_basic_face` VALUES (13, 'MENUCO07500120190312162720782312', '二级', 'fa fa-user-o', '/view/menu/manager', 'MENUCO075023120190312162720782311', '00', 0, '2019-05-25 18:46:53', 'sys', '2019-03-14 16:18:00', 'sys', '00');
 INSERT INTO `menu_basic_face` VALUES (14, 'MENUCO07500120190312162720782313', '二级', 'fa fa-user-o', '/view/menu/manager', 'MENUCO075023120190312162720782311', '00', 0, '2019-05-25 18:46:54', 'sys', '2019-03-14 16:18:00', 'sys', '00');
+INSERT INTO `menu_basic_face` VALUES (15, 'MENUCO07500120190314161720782121', '组织管理', 'fa fa-user-o', '/view/organization/manager', 'MENUCO07500120190314161720782115', '00', 0, '2019-05-27 16:28:43', 'sys', '2019-03-14 16:18:00', 'sys', '00');
+INSERT INTO `menu_basic_face` VALUES (16, 'MENUCO07500120190314161720782122', '角色管理', 'fa fa-user-o', '/view/organization/manager', 'MENUCO07500120190314161720782115', '00', 0, '2019-05-27 16:28:43', 'sys', '2019-03-14 16:18:00', 'sys', '00');
+INSERT INTO `menu_basic_face` VALUES (17, 'MENUCO07500120190314161720782123', '字典管理', 'fa fa-user-o', '/view/wordbook/manager', 'MENUCO07500120190314161720782115', '00', 0, '2019-05-27 16:28:43', 'sys', '2019-03-14 16:18:00', 'sys', '00');
 
 -- ----------------------------
 -- Table structure for organization_basic_face
@@ -110,7 +113,7 @@ CREATE TABLE `role_menu_relation`  (
   `CREATE_USER` varchar(64) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT 'sys' COMMENT '创建用户编号',
   `DELETE_FLAG` varchar(2) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT '00' COMMENT '删除标识(00-正常 01-删除)',
   PRIMARY KEY (`ID`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_bin COMMENT = '角色菜单关联表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8 COLLATE = utf8_bin COMMENT = '角色菜单关联表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of role_menu_relation
@@ -118,6 +121,8 @@ CREATE TABLE `role_menu_relation`  (
 INSERT INTO `role_menu_relation` VALUES (1, 'ROLECO07500120190314161720782115', 'MENUCO07500120190314161720782115', '2019-03-14 16:22:35', 'sys', '2019-03-14 16:22:35', 'sys', '00');
 INSERT INTO `role_menu_relation` VALUES (2, 'ROLECO07500120190314161720782115', 'MENUCO07500120190314161720782116', '2019-03-14 16:22:35', 'sys', '2019-03-14 16:22:35', 'sys', '00');
 INSERT INTO `role_menu_relation` VALUES (3, 'ROLECO07500120190314161720782115', 'MENUCO07500120190314161720782117', '2019-03-14 16:22:35', 'sys', '2019-03-14 16:22:35', 'sys', '00');
+INSERT INTO `role_menu_relation` VALUES (4, 'ROLECO07500120190314161720782115', 'MENUCO07500120190314161720782121', '2019-05-27 16:29:03', 'sys', '2019-05-27 16:29:01', 'sys', '00');
+INSERT INTO `role_menu_relation` VALUES (5, 'ROLECO07500120190314161720782115', 'MENUCO07500120190314161720782123', '2019-05-27 16:34:50', 'sys', '2019-05-27 16:34:48', 'sys', '00');
 
 -- ----------------------------
 -- Table structure for user_basic_face
@@ -139,15 +144,24 @@ CREATE TABLE `user_basic_face`  (
   `CREATE_USER` varchar(64) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT 'sys' COMMENT '创建用户编号',
   `DELETE_FLAG` varchar(2) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT '00' COMMENT '删除标识(00-正常 01-删除)',
   PRIMARY KEY (`ID`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 40 CHARACTER SET = utf8 COLLATE = utf8_bin COMMENT = '用户基础信息表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 49 CHARACTER SET = utf8 COLLATE = utf8_bin COMMENT = '用户基础信息表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of user_basic_face
 -- ----------------------------
-INSERT INTO `user_basic_face` VALUES (1, 'USER21100120190524180222553000', '管理员', 'admin', 'e10adc3949ba59abbe56e057f20f883e', 'e10adc3949ba59abbe56e057f20f883e', '00', '00', '01', '2019-05-25 14:36:38', 'sys', '2019-03-07 12:31:02', 'admin', '00');
-INSERT INTO `user_basic_face` VALUES (37, 'USER21100120190524180222558000', '测试用', 'ceshi', '14e1b600b1fd579f47433b88e8d85291', '', '00', '00', '01', '2019-05-24 18:09:44', 'sys', '2019-05-24 18:02:22', 'admin', '01');
-INSERT INTO `user_basic_face` VALUES (38, 'USER21100120190525100457224000', '用户', 'user', '', '', '00', '00', '01', '2019-05-25 10:04:57', 'sys', '2019-05-25 10:04:57', 'sys', '00');
-INSERT INTO `user_basic_face` VALUES (39, 'USER21100120190525100528043000', '用户A', 'userA', 'd41d8cd98f00b204e9800998ecf8427e', '', '01', '00', '01', '2019-05-25 10:05:36', 'sys', '2019-05-25 10:05:28', 'admin', '00');
+INSERT INTO `user_basic_face` VALUES (1, 'USER21100120190524180222553000', '管理员', 'admin', 'e10adc3949ba59abbe56e057f20f883e', 'e10adc3949ba59abbe56e057f20f883e', '00', '00', '01', '2019-05-28 16:51:11', 'sys', '2019-03-07 12:31:02', 'admin', '00');
+INSERT INTO `user_basic_face` VALUES (37, 'USER21100120190524180222558000', '测试用', 'ceshi', 'e10adc3949ba59abbe56e057f20f883e', 'e10adc3949ba59abbe56e057f20f883e', '00', '00', '01', '2019-05-28 16:57:47', 'sys', '2019-05-24 18:02:22', 'admin', '01');
+INSERT INTO `user_basic_face` VALUES (38, 'USER21100120190525100457224000', '用户', 'user', 'e10adc3949ba59abbe56e057f20f883e', 'e10adc3949ba59abbe56e057f20f883e', '00', '00', '01', '2019-05-28 16:57:47', 'sys', '2019-05-25 10:04:57', 'sys', '00');
+INSERT INTO `user_basic_face` VALUES (39, 'USER21100120190525100528043000', '用户A', 'userA', 'e10adc3949ba59abbe56e057f20f883e', 'e10adc3949ba59abbe56e057f20f883e', '01', '00', '01', '2019-05-28 16:57:48', 'sys', '2019-05-25 10:05:28', 'admin', '00');
+INSERT INTO `user_basic_face` VALUES (40, 'USER21100120190528164121464000', '1', '1', 'e10adc3949ba59abbe56e057f20f883e', 'e10adc3949ba59abbe56e057f20f883e', '00', '00', '01', '2019-05-28 16:57:48', 'sys', '2019-05-28 16:41:21', 'sys', '00');
+INSERT INTO `user_basic_face` VALUES (41, 'USER21100120190528164125844000', '2', '2', 'e10adc3949ba59abbe56e057f20f883e', 'e10adc3949ba59abbe56e057f20f883e', '00', '00', '01', '2019-05-28 16:57:50', 'sys', '2019-05-28 16:41:25', 'sys', '00');
+INSERT INTO `user_basic_face` VALUES (42, 'USER21100120190528164129229000', '3', '3', 'e10adc3949ba59abbe56e057f20f883e', 'e10adc3949ba59abbe56e057f20f883e', '00', '00', '01', '2019-05-28 16:57:49', 'sys', '2019-05-28 16:41:29', 'sys', '00');
+INSERT INTO `user_basic_face` VALUES (43, 'USER21100120190528164132943000', '4', '4', 'e10adc3949ba59abbe56e057f20f883e', 'e10adc3949ba59abbe56e057f20f883e', '00', '00', '01', '2019-05-28 16:57:51', 'sys', '2019-05-28 16:41:32', 'sys', '00');
+INSERT INTO `user_basic_face` VALUES (44, 'USER21100120190528164135933000', '5', '5', 'e10adc3949ba59abbe56e057f20f883e', 'e10adc3949ba59abbe56e057f20f883e', '00', '00', '01', '2019-05-28 16:57:52', 'sys', '2019-05-28 16:41:35', 'sys', '00');
+INSERT INTO `user_basic_face` VALUES (45, 'USER21100120190528164139388000', '6', '6', 'e10adc3949ba59abbe56e057f20f883e', 'e10adc3949ba59abbe56e057f20f883e', '00', '00', '01', '2019-05-28 16:57:53', 'sys', '2019-05-28 16:41:39', 'sys', '00');
+INSERT INTO `user_basic_face` VALUES (46, 'USER21100120190528164143360000', '7', '7', 'e10adc3949ba59abbe56e057f20f883e', 'e10adc3949ba59abbe56e057f20f883e', '00', '00', '01', '2019-05-28 16:57:53', 'sys', '2019-05-28 16:41:43', 'sys', '00');
+INSERT INTO `user_basic_face` VALUES (47, 'USER21100120190528164146611000', '8', '8', 'e10adc3949ba59abbe56e057f20f883e', 'e10adc3949ba59abbe56e057f20f883e', '00', '00', '01', '2019-05-28 16:57:55', 'sys', '2019-05-28 16:41:46', 'sys', '00');
+INSERT INTO `user_basic_face` VALUES (48, 'USER21100120190528164151162000', '9', '9', 'e10adc3949ba59abbe56e057f20f883e', 'e10adc3949ba59abbe56e057f20f883e', '00', '00', '01', '2019-05-28 16:57:57', 'sys', '2019-05-28 16:41:51', 'sys', '00');
 
 -- ----------------------------
 -- Table structure for user_role_relation
@@ -163,11 +177,52 @@ CREATE TABLE `user_role_relation`  (
   `CREATE_USER` varchar(64) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT 'sys' COMMENT '创建用户编号',
   `DELETE_FLAG` varchar(2) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT '00' COMMENT '删除标识(00-正常 01-删除)',
   PRIMARY KEY (`ID`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_bin COMMENT = '用户角色关联表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_bin COMMENT = '用户角色关联表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of user_role_relation
 -- ----------------------------
 INSERT INTO `user_role_relation` VALUES (1, 'ROLECO07500120190314161720782115', 'USER21100120190524180222553000', '2019-05-25 13:22:19', 'sys', '2019-03-13 14:39:19', 'sys', '00');
+INSERT INTO `user_role_relation` VALUES (2, 'ROLECO07500120190314161720782115', 'USER21100120190524180222558000', '2019-05-25 13:22:19', 'sys', '2019-03-13 14:39:19', 'sys', '00');
+
+-- ----------------------------
+-- Table structure for wordbook
+-- ----------------------------
+DROP TABLE IF EXISTS `wordbook`;
+CREATE TABLE `wordbook`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `attribute_code` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT '' COMMENT '属性编码',
+  `attribute_name` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '属性名称',
+  `attribute_type` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '属性类型(00-枚举,01-开关)',
+  `memo` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '备注',
+  `update_time` datetime(0) DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '更新时间',
+  `update_user` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT 'sys' COMMENT '更新用户编号',
+  `create_time` datetime(0) DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `create_user` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT 'sys' COMMENT '创建用户编号',
+  `delete_flag` varchar(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT '00' COMMENT '删除标识(00-正常 01-删除)',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of wordbook
+-- ----------------------------
+INSERT INTO `wordbook` VALUES (4, '000001', '类型', '01', '枚举值类型', '2019-05-28 14:26:05', 'sys', '2019-05-28 14:26:05', 'sys', '00');
+
+-- ----------------------------
+-- Table structure for wordbook_attribute
+-- ----------------------------
+DROP TABLE IF EXISTS `wordbook_attribute`;
+CREATE TABLE `wordbook_attribute`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `attribute_code` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '属性编码',
+  `attribute_value` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '属性值',
+  `attribute_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '属性名称',
+  `update_time` datetime(0) DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '更新时间',
+  `update_user` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT 'sys' COMMENT '更新用户编号',
+  `create_time` datetime(0) DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `create_user` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT 'sys' COMMENT '创建用户编号',
+  `delete_flag` varchar(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT '00' COMMENT '删除标识(00-正常 01-删除)',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
 
 SET FOREIGN_KEY_CHECKS = 1;
