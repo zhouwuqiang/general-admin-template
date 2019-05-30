@@ -1,8 +1,9 @@
 package com.java.business.menu.dto;
 
 import com.java.general.request.dto.PageRequestDto;
-import lombok.Data;
-
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 
 /**
@@ -12,7 +13,9 @@ import lombok.Data;
  * @version 1.0.0
  * @date 2019/5/24 18:27
  */
-@Data
+@Getter
+@Setter
+@ToString
 public class MenuTableRequestDto extends PageRequestDto {
 
     /**
