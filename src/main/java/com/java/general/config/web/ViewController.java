@@ -1,4 +1,4 @@
-package com.java.general.controller;
+package com.java.general.config.web;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
