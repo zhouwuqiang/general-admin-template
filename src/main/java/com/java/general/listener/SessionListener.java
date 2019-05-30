@@ -8,7 +8,7 @@ import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
 
 /**
- * description :
+ * description : 监听session对象的创建以及销毁
  *
  * @author alger
  * @version 1.0.0
@@ -16,15 +16,16 @@ import javax.servlet.http.HttpSessionListener;
  */
 @WebListener
 public class SessionListener implements HttpSessionListener {
-    private Logger logger = LoggerFactory.getLogger(SessionListener.class);
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(SessionListener.class);
 
     @Override
     public void sessionCreated(HttpSessionEvent httpSessionEvent) {
-        logger.info("监听器：Session >>>> 创建");
+        LOGGER.info("监听器：Session >>>> 创建");
     }
 
     @Override
     public void sessionDestroyed(HttpSessionEvent httpSessionEvent) {
-        logger.info("监听器：Session >>>> 销毁");
+        LOGGER.info("监听器：Session >>>> 销毁");
     }
 }
