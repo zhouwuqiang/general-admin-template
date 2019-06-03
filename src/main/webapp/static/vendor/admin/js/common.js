@@ -31,7 +31,7 @@ function refreshTable(tableId) {
     $('#' + tableId).bootstrapTable('refresh');
 }
 
-bootStrapTableConfig = {
+const bootStrapTableConfig = {
     url: '',
     method: 'post',
     contentType: "application/json",       //修改为json请求
@@ -70,8 +70,7 @@ bootStrapTableConfig = {
  */
 $.extend({
     "tableExpand": function (data) {
-
-        let config = Object.assign(bootStrapTableConfig, data);
+        let config = Object.assign({},bootStrapTableConfig, data);
 
         $('#' + config.tableId).bootstrapTable('destroy').bootstrapTable({
             url: config.url,
@@ -104,6 +103,7 @@ $.extend({
             showPaginationSwitch: config.showPaginationSwitch,
             columns: config.columns,
             queryParams: function (params) {
+                debugger;
                 let param = {};
 
                 if ($.isNotNull(config.searchFormId)) {

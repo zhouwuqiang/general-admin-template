@@ -1,8 +1,8 @@
 $(function () {
 
     initTable();
-    $.initSelect("wordbook_status", "000001", true)
-    $.initSelect("attribute_status", "000001", true)
+    $.initSelect("wordbook_status", "000001", true);
+    $.initSelect("attribute_status", "000001", true);
 });
 
 /**
