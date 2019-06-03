@@ -41,12 +41,16 @@
                             <div class="search-form-div clearfix">
                                 <form role="form" id="main_table_search_form">
                                     <div class="col-xs-2">
-                                        <input type="text" autocomplete="off" id="param_menu_name" name="menuName"
-                                               placeholder="菜单名称" class="form-control"/>
+                                        <input type="text" autocomplete="off" id="param_organization_name" name="organizationName"
+                                               placeholder="组织名称" class="form-control"/>
                                     </div>
                                     <div class="col-xs-2">
-                                        <input type="text" autocomplete="off" id="param_menu_action" name="menuAction"
-                                               placeholder="访问地址" class="form-control"/>
+                                        <input type="text" autocomplete="off" id="param_paren_code" name="parenCode"
+                                               placeholder="上级编号" class="form-control"/>
+                                    </div>
+                                    <div class="col-xs-2">
+                                        <input type="text" autocomplete="off" id="param_organization_type" name="organizationType"
+                                               placeholder="组织类型" class="form-control"/>
                                     </div>
                                     <div class="col-md-1">
                                         <a class="btn btn-info" onclick="refreshTable()">
@@ -99,46 +103,35 @@
                             &times;
                         </button>
                         <h4 class="modal-title" id="myModalLabel">
-                            用户信息
+                            组织信息
                         </h4>
                     </div>
                     <div class="modal-body">
 
                         <form class="form-horizontal" role="form" id="main_form">
+                            <input type="hidden" id="id" name="id">
                             <input type="hidden" id="menu_code" name="menuCode">
 
+
                             <div class="form-group">
-                                <label for="parent_menu_code" class="col-sm-4 control-label">上级菜单:</label>
+                                <label for="paren_code" class="col-sm-4 control-label">上级菜单:</label>
                                 <div class="col-sm-6">
-                                    <input type="text" class="form-control" id="parent_menu_code" name="parentMenuCode">
+                                    <input type="text" class="form-control" id="paren_code" name="parenCode">
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <label for="menu_name" class="col-sm-4 control-label">菜单名称:</label>
+                                <label for="organization_name" class="col-sm-4 control-label">组织名称:</label>
                                 <div class="col-sm-6">
-                                    <input type="text" class="form-control" id="menu_name" name="menuName">
+                                    <input type="text" class="form-control" id="organization_name" name="organizationName">
                                 </div>
                             </div>
 
-                            <div class="form-group">
-                                <label for="menu_icon" class="col-sm-4 control-label">菜单图标:</label>
-                                <div class="col-sm-6">
-                                    <input type="text" class="form-control" id="menu_icon" name="menuIcon">
-                                </div>
-                            </div>
 
                             <div class="form-group">
-                                <label for="menu_action" class="col-sm-4 control-label">访问地址:</label>
+                                <label for="organization_type" class="col-sm-4 control-label">组织类型:</label>
                                 <div class="col-sm-6">
-                                    <input type="text" class="form-control" id="menu_action" name="menuAction">
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="menu_type" class="col-sm-4 control-label">菜单类型:</label>
-                                <div class="col-sm-6">
-                                    <select class="form-control" id="menu_type" name="menuType" >
+                                    <select class="form-control" id="organization_type" name="organizationType" >
                                         <option value="">--请选择--</option>
                                         <option value="01">目录</option>
                                         <option value="02">菜单</option>
@@ -146,14 +139,6 @@
                                     </select>
                                 </div>
                             </div>
-
-                            <div class="form-group">
-                                <label for="display_index" class="col-sm-4 control-label">显示序号:</label>
-                                <div class="col-sm-6">
-                                    <input type="text" class="form-control" id="display_index" name="displayIndex">
-                                </div>
-                            </div>
-
                         </form>
 
                     </div>
