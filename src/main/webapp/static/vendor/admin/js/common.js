@@ -73,7 +73,7 @@ $.extend({
 
         let config = Object.assign(bootStrapTableConfig, data);
 
-        $('#' + data.tableId).bootstrapTable('destroy').bootstrapTable({
+        $('#' + config.tableId).bootstrapTable('destroy').bootstrapTable({
             url: config.url,
             method: config.method,
             contentType: config.contentType,
@@ -106,12 +106,12 @@ $.extend({
             queryParams: function (params) {
                 let param = {};
 
-                if ($.isNotNull(data.searchFormId)) {
-                    param = $.formSerializeObject(data.searchFormId);
+                if ($.isNotNull(config.searchFormId)) {
+                    param = $.formSerializeObject(config.searchFormId);
                 }
 
-                if ($.isNotNull(data.params)) {
-                    Object.assign(param,data.params)
+                if ($.isNotNull(config.params)) {
+                    Object.assign(param,config.params)
                 }
 
                 param.pageSize = params.limit;
@@ -121,12 +121,16 @@ $.extend({
                 return param;
             },
             responseHandler: function (res) {
-                debugger;
+
                 if (res.success) {
-                    return {
-                        "total": res.data.total,//总页数
-                        "rows": res.data.list   //数据
-                    };
+                    if (config.pagination){
+                        return {
+                            "total": res.data.total,//总页数
+                            "rows": res.data.list   //数据
+                        };
+                    }else{
+                        return res.data.list;
+                    }
                 }
 
                 $.ajaxMassage(res);

@@ -103,3 +103,7 @@ html, body {
 	left: 0;
 	top: 50px;
 }
+
+.pointer{
+	cursor: pointer;
+}

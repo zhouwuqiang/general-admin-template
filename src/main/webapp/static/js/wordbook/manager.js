@@ -93,7 +93,7 @@ function editWordbook(wordbook) {
  */
 function detailWordbook(wordbook) {
     $.initModel("main_mode", "字典信息", "main_form", "detail-show");
-    $.formReview("main_form", user);
+    $.formReview("main_form", wordbook);
     $.formReadOnly("main_form");
     $('#main_mode').modal('show');
 }
@@ -156,7 +156,7 @@ function initAttributeTable(attributeCode) {
                 align: 'center',
                 valign: 'middle'
             }, {
-                title: '操作',
+                title: '操作 <a class="pointer"  onclick="addAttribute()">添加</a>',
                 align: 'center',
                 valign: 'middle',
                 width: '30%',
@@ -164,12 +164,12 @@ function initAttributeTable(attributeCode) {
             }
         ]
     });
+
 }
 
 function attributeOperateFormatter(value, row, index) {
     let result = [];
     result.push("<a href='javascript:void(0)' class='btn btn-info' onclick='editAttribute(" + JSON.stringify(row) + ")'><i class='fa fa-edit fa-icon'></i>修改</a>");
-    result.push("<a href='javascript:void(0)' class='btn btn-danger' onclick='deleteAttribute(" + JSON.stringify(row) + ")'><i class='fa fa-trash-o fa-icon'></i>删除</a>");
     return $.formatterOperateButton(result);
 }
 
@@ -177,14 +177,18 @@ function attributeOperateFormatter(value, row, index) {
  * 添加属性
  */
 function addAttribute() {
-
+    $.initModel("attribute_mode", "新增属性", "attribute_form", "edit-show");
+    $('#attribute_mode').modal('show');
 }
 
 /**
  * 添加属性
  */
-function editAttribute() {
+function editAttribute(attribute) {
+    $.initModel("attribute_mode", "编辑属性", "attribute_form", "edit-show");
+    $.formReview("attribute_form", attribute);
 
+    $('#attribute_mode').modal('show');
 }
 
 /**
