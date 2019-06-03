@@ -5,6 +5,8 @@ import com.github.pagehelper.PageInfo;
 import com.java.business.wordbook.dto.WordbookAttributeTableRequestDto;
 import com.java.business.wordbook.dto.WordbookTableRequestDto;
 import com.java.business.wordbook.entity.Wordbook;
+import com.java.business.wordbook.entity.WordbookAttribute;
+import com.java.business.wordbook.mapper.WordbookAttributeMapper;
 import com.java.business.wordbook.mapper.WordbookMapper;
 import com.java.business.wordbook.service.WordbookService;
 import org.apache.commons.lang3.StringUtils;
@@ -26,6 +28,9 @@ public class WordbookServiceImpl implements WordbookService {
 
     @Autowired
     private WordbookMapper wordbookMapper;
+
+    @Autowired
+    private WordbookAttributeMapper wordbookAttributeMapper;
 
     @Override
     public PageInfo queryTable(WordbookTableRequestDto requestDto) {
@@ -49,7 +54,7 @@ public class WordbookServiceImpl implements WordbookService {
 
     @Override
     public PageInfo queryAttributeTable(WordbookAttributeTableRequestDto requestDto) {
-        Example example = new Example(Wordbook.class);
+        Example example = new Example(WordbookAttribute.class);
         Example.Criteria criteria = example.createCriteria();
 
         criteria.andEqualTo("deleteFlag", "00");
@@ -61,8 +66,15 @@ public class WordbookServiceImpl implements WordbookService {
         }
 
         PageHelper.startPage(requestDto.getPageNum(), requestDto.getPageSize());
-        List<Wordbook> queryList = wordbookMapper.selectByExample(example);
+        List<WordbookAttribute> queryList = wordbookAttributeMapper.selectByExample(example);
 
         return  new PageInfo<>(queryList);
+    }
+
+    @Override
+    public List<WordbookAttribute> querySelect(String code) {
+        WordbookAttribute wordbook=new WordbookAttribute();
+        wordbook.setAttributeCode(code);
+        return wordbookAttributeMapper.select(wordbook);
     }
 }

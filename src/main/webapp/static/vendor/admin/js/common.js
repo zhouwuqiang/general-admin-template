@@ -104,7 +104,6 @@ $.extend({
             showPaginationSwitch: config.showPaginationSwitch,
             columns: config.columns,
             queryParams: function (params) {
-
                 let param = {};
 
                 if ($.isNotNull(data.searchFormId)) {
@@ -112,7 +111,7 @@ $.extend({
                 }
 
                 if ($.isNotNull(data.params)) {
-                    Object.assign(data.params, param)
+                    Object.assign(param,data.params)
                 }
 
                 param.pageSize = params.limit;
@@ -122,7 +121,7 @@ $.extend({
                 return param;
             },
             responseHandler: function (res) {
-
+                debugger;
                 if (res.success) {
                     return {
                         "total": res.data.total,//总页数
@@ -371,3 +370,43 @@ $.extend({
         });
     }
 });
+
+/**
+ * 初始化下拉框
+ * selectId 下拉框id
+ * code 属性code
+ * needEmpty 是否需要空选型
+ */
+$.extend({
+    "initSelect": function (selectId, code, needEmpty) {
+
+        if (needEmpty) {
+            $("#" + selectId).append("<option value=''>--请选择--</option>");
+        }
+
+        $.ajax({
+            url: "/wordbook/select/" + code,
+            type: 'post',
+            dataType: 'json',
+            contentType: 'application/json',
+            success: function (responseDto) {
+                let $select = $("#" + selectId);
+                if (responseDto.success) {
+                    let option = responseDto.data;
+                    for (let i in option) {
+                        $select.append("<option value='" + option[i].attributeValue + "'>" + option[i].attributeName + "</option>");
+                    }
+                }
+            },
+            error: function () {
+                console.log("请求处理失败!");
+                $.errorMassage("请求处理失败!");
+            }
+        });
+
+
+    }
+});
+
+
+

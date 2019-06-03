@@ -6,16 +6,19 @@ import com.java.business.wordbook.dto.WordbookAttributeSaveRequestDto;
 import com.java.business.wordbook.dto.WordbookAttributeTableRequestDto;
 import com.java.business.wordbook.dto.WordbookSaveRequestDto;
 import com.java.business.wordbook.dto.WordbookTableRequestDto;
+import com.java.business.wordbook.entity.WordbookAttribute;
 import com.java.business.wordbook.facade.WordbookFacade;
 import com.java.general.interceptors.controller.ControllerRecorder;
 import com.java.general.response.dto.ResponseDto;
 import com.java.general.response.utils.ResponseUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * description :
@@ -32,6 +35,21 @@ public class WordbookController {
     @Autowired
     private WordbookFacade wordbookFacade;
 
+
+    /**
+     * 加载select数据
+     *
+     * @param code
+     * @return
+     */
+    @RequestMapping(value = "/select/{code}")
+    @ControllerRecorder(path = "/wordbook/select/{code}")
+    public ResponseDto select(@PathVariable("code") String code) {
+
+        List<WordbookAttribute> attributeList = wordbookFacade.querySelect(code);
+
+        return ResponseUtil.bindSuccessResponse(attributeList);
+    }
 
     /**
      * 获取字典数据
@@ -88,7 +106,7 @@ public class WordbookController {
      * @author temdy
      */
     @RequestMapping(value = "/attribute/table")
-    @ControllerRecorder(path = "/wordbook/attribute/table")
+    @ControllerRecorder(path = "/wordbook/attribute/table", validateClass = WordbookAttributeTableRequestDto.class)
     public ResponseDto attributeTable(@RequestBody WordbookAttributeTableRequestDto requestDto, HttpServletRequest request) {
 
         PageInfo pageInfo = wordbookFacade.queryAttributeTable(requestDto);

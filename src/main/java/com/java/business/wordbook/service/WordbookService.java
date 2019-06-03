@@ -3,6 +3,10 @@ package com.java.business.wordbook.service;
 import com.github.pagehelper.PageInfo;
 import com.java.business.wordbook.dto.WordbookAttributeTableRequestDto;
 import com.java.business.wordbook.dto.WordbookTableRequestDto;
+import com.java.business.wordbook.entity.Wordbook;
+import com.java.business.wordbook.entity.WordbookAttribute;
+
+import java.util.List;
 
 /**
  * description :
@@ -26,4 +30,11 @@ public interface WordbookService {
      * @return
      */
     PageInfo queryAttributeTable(WordbookAttributeTableRequestDto requestDto);
+
+    /**
+     * select 枚举查询
+     * @param code
+     * @return
+     */
+    List<WordbookAttribute> querySelect(String code);
 }

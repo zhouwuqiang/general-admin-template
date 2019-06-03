@@ -6,6 +6,10 @@ import com.java.business.wordbook.dto.WordbookAttributeSaveRequestDto;
 import com.java.business.wordbook.dto.WordbookAttributeTableRequestDto;
 import com.java.business.wordbook.dto.WordbookSaveRequestDto;
 import com.java.business.wordbook.dto.WordbookTableRequestDto;
+import com.java.business.wordbook.entity.Wordbook;
+import com.java.business.wordbook.entity.WordbookAttribute;
+
+import java.util.List;
 
 /**
  * description :
@@ -47,4 +51,11 @@ public interface WordbookFacade {
      * @param requestDto
      */
     void deleteAttribute(WordbookAttributeSaveRequestDto requestDto);
+
+    /**
+     * 页面select 查询
+     * @param code
+     * @return
+     */
+    List<WordbookAttribute> querySelect(String code);
 }

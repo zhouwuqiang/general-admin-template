@@ -1,7 +1,10 @@
 $(function () {
 
     initTable();
-    initAttributeTable();
+
+    $.initSelect("search_workbook_type", "000001");
+    $.initSelect("attribute_type", "000001", true);
+
 });
 
 /**
@@ -58,15 +61,15 @@ function initTable() {
 
 function operateFormatter(value, row, index) {
     let result = [];
-    result.push("<a href='javascript:void(0)' class='btn btn-info' onclick='editUser(" + JSON.stringify(row) + ")'><i class='fa fa-edit fa-icon'></i>修改</a>");
-    result.push("<a href='javascript:void(0)' class='btn btn-info' onclick='detailUser(" + JSON.stringify(row) + ")'><i class='fa fa-th-list fa-icon'></i>详情</a>");
+    result.push("<a href='javascript:void(0)' class='btn btn-info' onclick='editWordbook(" + JSON.stringify(row) + ")'><i class='fa fa-edit fa-icon'></i>修改</a>");
+    result.push("<a href='javascript:void(0)' class='btn btn-info' onclick='detailWordbook(" + JSON.stringify(row) + ")'><i class='fa fa-th-list fa-icon'></i>详情</a>");
     return $.formatterOperateButton(result);
 }
 
 /**
  * 添加
  */
-function addUser() {
+function addWordbook() {
     $.initModel("main_mode", "添加字典", "main_form", "add-show");
     $('#main_mode').modal('show');
 }
@@ -74,16 +77,21 @@ function addUser() {
 /**
  * 编辑
  */
-function editUser(user) {
+function editWordbook(wordbook) {
     $.initModel("main_mode", "编辑字典", "main_form", "edit-show");
-    $.formReview("main_form", user);
+    $.formReview("main_form", wordbook);
+
+    if ("01" === wordbook.attributeType) {
+        initAttributeTable(wordbook.attributeCode);
+    }
+
     $('#main_mode').modal('show');
 }
 
 /**
  * 显示
  */
-function detailUser(user) {
+function detailWordbook(wordbook) {
     $.initModel("main_mode", "字典信息", "main_form", "detail-show");
     $.formReview("main_form", user);
     $.formReadOnly("main_form");
@@ -115,41 +123,15 @@ function saveUser() {
     });
 }
 
-/**
- * 删除
- */
-function deleteUser(user) {
-    user.deleteFlag = "01";
-    $.ajax({
-        url: "/wordbook/delete",
-        type: 'post',
-        dataType: 'json',
-        contentType: 'application/json',
-        data: JSON.stringify(user),
-        success: function (responseDto) {
-            $.ajaxMassage(responseDto);
-            if (responseDto.success) {
-                $('#main_mode').modal('hide');
-                initTable();
-            }
-        },
-        error: function () {
-            console.log("请求处理失败!");
-            $.errorMassage("请求处理失败!");
-        }
-    });
-}
-
-
 /******************************************************** 具体属性 ****************************************************/
 
-function initAttributeTable() {
+function initAttributeTable(attributeCode) {
 
     $.tableExpand({
         tableId: "attribute_table",
-        url: "/wordbook/table",
-        searchFormId: "main_table_search_form",
-        toolbar:"",
+        url: "/wordbook/attribute/table",
+        params: {"attributeCode": attributeCode},
+        toolbar: "",
         pagination: false,
         columns: [
             {
