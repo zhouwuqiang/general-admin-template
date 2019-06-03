@@ -22,13 +22,12 @@ function initTable() {
 
     $("#main_table").bootstrapTreeTable({
         toolbar: "#toolbar",      //顶部工具条
-        id: 'menuCode',                                                   // 选取记录返回的值,用于设置父子关系
-        parentId: 'parentMenuCode',                                       // 用于设置父子关系
+        id: 'organizationCode',                                                   // 选取记录返回的值,用于设置父子关系
+        parentId: 'parenCode',                                       // 用于设置父子关系
         rootIdValue: null,                                          // 设置根节点id值----可指定根节点，默认为null,"",0,"0"
-        data: null,                                                 // 构造table的数据集合
         type: "POST",                                              // 请求数据的ajax类型
         contentType: "application/json",
-        url: "/menu/table",                                         // 请求数据的ajax的url
+        url: "/organization/table",                                         // 请求数据的ajax的url
         ajaxParams: JSON.stringify(params),                          // 请求数据的ajax的data属性
         expandColumn: 1,                                            // 在哪一列上面显示展开按钮
         expandAll: false,                                           // 是否全部展开
@@ -48,42 +47,37 @@ function initTable() {
         toolColumnsClass: 'bstt-icon bstt-columns',                 // 工具栏列按钮
         columns: [
             {
-                field: 'menuCode',
-                title: '菜单编号',
+                field: 'id',
+                title: 'id',
                 align: 'center',
                 visible: false
             }, {
-                field: 'menuName',
-                title: '菜单名称',
+                field: 'organizationCode',
+                title: '组织编号',
                 align: 'left',
                 valign: 'middle',
                 fixed: 'left'
             }, {
-                field: 'menuIcon',
-                title: '菜单图标',
+                field: 'organizationName',
+                title: '组织名称',
                 align: 'center',
                 valign: 'middle'
             }, {
-                field: 'menuAction',
-                title: '访问地址',
+                field: 'organizationType',
+                title: '组织类型',
+                align: 'center',
+                valign: 'middle'
+            }, {
+                field: 'parenCode',
+                title: '上级编号',
                 align: 'left',
                 valign: 'middle'
             }, {
-                field: 'parentMenuCode',
-                title: '上级菜单编号',
+                field: 'organizationStatus',
+                title: '状态',
                 align: 'center',
                 valign: 'middle',
                 visible: false
-            }, {
-                field: 'menuType',
-                title: '菜单类型',
-                align: 'center',
-                valign: 'middle'
-            }, {
-                field: 'displayIndex',
-                title: '显示序号',
-                align: 'center',
-                valign: 'middle'
             }, {
                 field: 'createTime',
                 title: '创建时间',

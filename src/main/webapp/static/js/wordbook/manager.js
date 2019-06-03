@@ -1,8 +1,8 @@
 $(function () {
 
     initTable();
-    $.initSelect("wordbook_status", "000001", true);
-    $.initSelect("attribute_status", "000001", true);
+    $.initSelect("wordbook_status", "wordbook_status", true);
+    $.initSelect("attribute_status", "wordbook_status", true);
 });
 
 /**
@@ -18,17 +18,17 @@ function initTable() {
         columns: [
             {
                 field: 'wordbookCode',
-                title: '属性编码',
+                title: '字典编码',
                 align: 'center',
                 valign: 'middle'
             }, {
                 field: 'wordbookName',
-                title: '属性名称',
+                title: '字典名称',
                 align: 'center',
                 valign: 'middle'
             }, {
                 field: 'wordbookStatus',
-                title: '属性状态',
+                title: '字典状态',
                 align: 'center',
                 valign: 'middle'
             }, {
