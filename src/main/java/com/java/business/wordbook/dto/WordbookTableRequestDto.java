@@ -18,18 +18,18 @@ import lombok.ToString;
 public class WordbookTableRequestDto extends PageRequestDto {
 
     /**
-     * 属性编码
+     * 字典编码
      */
-    private String attributeCode;
+    private String wordbookCode;
 
     /**
-     * 属性名称
+     * 字典名称
      */
-    private String attributeName;
+    private String wordbookName;
 
     /**
-     * 属性类型(00-枚举,01-开关)
+     * 字典状态(00-正常 01-禁用)
      */
-    private String attributeType;
+    private String wordbookStatus;
 
 }

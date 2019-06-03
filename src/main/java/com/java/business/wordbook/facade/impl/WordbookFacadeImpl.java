@@ -37,7 +37,7 @@ public class WordbookFacadeImpl implements WordbookFacade {
 
     @Override
     public void save(WordbookSaveRequestDto requestDto) {
-
+        wordbookService.save(requestDto);
     }
 
     @Override

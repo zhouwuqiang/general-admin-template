@@ -31,18 +31,13 @@
                     <div class="search-form-div clearfix">
                         <form role="form" id="main_table_search_form">
                             <div class="col-xs-2">
-                                <input type="text" autocomplete="off" id="search_workbook_code" name="userName"
+                                <input type="text" autocomplete="off" id="search_workbook_code" name="wordbookCode"
                                        placeholder="字典编号"
                                        class="col-sm-6  form-control"/>
                             </div>
                             <div class="col-xs-2">
-                                <input type="text" autocomplete="off" id="search_workbook_name" name="userLabel"
+                                <input type="text" autocomplete="off" id="search_workbook_name" name="wordbookName"
                                        placeholder="字典名称" class="form-control"/>
-                            </div>
-                            <div class="col-xs-2">
-                                <select type="text" autocomplete="off" id="search_workbook_type" name="workbookType" class="form-control">
-                                    <option value="">--字典类型--</option>
-                                </select>
                             </div>
                             <div class="col-md-1">
                                 <a href="javascript:void(0);" class="btn btn-info" onclick="refreshTable('main_table')">
@@ -84,7 +79,7 @@
 <!--数据模态框-->
 <div class="modal fade" id="main_mode" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false"
      aria-hidden="false">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
@@ -101,34 +96,34 @@
                     <input type="hidden" name="id"/>
 
                     <div class="form-group">
-                        <label for="attribute_code" class="col-sm-4 control-label">字典编码:</label>
+                        <label for="wordbook_code" class="col-sm-4 control-label">字典编码:</label>
                         <div class="col-sm-4">
-                            <input type="text" class="form-control" id="attribute_code" name="attributeCode">
+                            <input type="text" class="form-control" id="wordbook_code" name="wordbookCode">
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="attribute_name" class="col-sm-4 control-label">字典名称:</label>
+                        <label for="wordbook_name" class="col-sm-4 control-label">字典名称:</label>
                         <div class="col-sm-4">
-                            <input type="text" class="form-control" id="attribute_name" name="attributeName">
+                            <input type="text" class="form-control" id="wordbook_name" name="wordbookName">
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="attribute_type" class="col-sm-4 control-label">字典类型:</label>
+                        <label for="wordbook_status" class="col-sm-4 control-label">字典状态:</label>
                         <div class="col-sm-4">
-                            <select type="text" class="form-control" id="attribute_type" name="attributeType"></select>
+                            <select type="text" class="form-control" id="wordbook_status" name="wordbookStatus"></select>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="attribute_memo" class="col-sm-4 control-label">备注:</label>
+                        <label for="wordbook_memo" class="col-sm-4 control-label">备注:</label>
                         <div class="col-sm-4">
-                            <input type="text" class="form-control" id="attribute_memo" name="memo">
+                            <input type="text" class="form-control" id="wordbook_memo" name="memo">
                         </div>
                     </div>
 
-                    <div class="form-group panel-body">
+                    <div class="form-group panel-body" id="attribute_table_div">
                         <!--<div id="attribute_toolbar">-->
                             <!--<button id="attribute_add_button" class="btn btn-info" onclick="addAttribute()">-->
                                 <!--<i class="fa fa-plus fa-icon"></i>添加-->
@@ -148,7 +143,7 @@
                 <button id="attribute_define_button" type="button" class="btn btn-default detail-show" data-dismiss="modal">
                     确定
                 </button>
-                <button id="attribute_save_button" type="button" class="btn btn-primary  add-show edit-show" onclick="saveUser()">
+                <button id="attribute_save_button" type="button" class="btn btn-primary  add-show edit-show" onclick="saveWordbook()">
                     保存
                 </button>
             </div>
@@ -177,6 +172,8 @@
 
                     <input type="hidden" name="id"/>
 
+                    <input type="hidden" name="number"/>
+
                     <div class="form-group">
                         <label for="attribute_value" class="col-sm-4 control-label">枚举值:</label>
                         <div class="col-sm-4">
@@ -190,6 +187,20 @@
                             <input type="text" class="form-control" id="attribute_name" name="attributeName">
                         </div>
                     </div>
+
+                    <div class="form-group">
+                        <label for="attribute_status" class="col-sm-4 control-label">字典状态:</label>
+                        <div class="col-sm-4">
+                            <select type="text" class="form-control" id="attribute_status" name="attributeStatus"></select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="attribute_memo" class="col-sm-4 control-label">备注:</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="attribute_memo" name="attributeMemo">
+                        </div>
+                    </div>
                 </form>
             </div>
 
@@ -201,7 +212,7 @@
                 <button id="define_button" type="button" class="btn btn-default detail-show" data-dismiss="modal">
                     确定
                 </button>
-                <button id="save_button" type="button" class="btn btn-primary  add-show edit-show" onclick="saveUser()">
+                <button id="save_button" type="button" class="btn btn-primary  add-show edit-show" onclick="saveAttribute()">
                     保存
                 </button>
             </div>

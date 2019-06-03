@@ -13,22 +13,22 @@ public class Wordbook {
     private Integer id;
 
     /**
-     * 属性编码
+     * 字典编码
      */
-    @Column(name = "attribute_code")
-    private String attributeCode;
+    @Column(name = "wordbook_code")
+    private String wordbookCode;
 
     /**
-     * 属性名称
+     * 字典名称
      */
-    @Column(name = "attribute_name")
-    private String attributeName;
+    @Column(name = "wordbook_name")
+    private String wordbookName;
 
     /**
-     * 属性类型(00-枚举,01-开关)
+     * 字典状态(00-正常 01-禁用)
      */
-    @Column(name = "attribute_type")
-    private String attributeType;
+    @Column(name = "wordbook_status")
+    private String wordbookStatus;
 
     /**
      * 备注

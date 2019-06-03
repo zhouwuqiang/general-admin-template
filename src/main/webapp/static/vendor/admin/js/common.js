@@ -111,7 +111,7 @@ $.extend({
                 }
 
                 if ($.isNotNull(config.params)) {
-                    Object.assign(param,config.params)
+                    Object.assign(param, config.params)
                 }
 
                 param.pageSize = params.limit;
@@ -123,12 +123,12 @@ $.extend({
             responseHandler: function (res) {
 
                 if (res.success) {
-                    if (config.pagination){
+                    if (config.pagination) {
                         return {
                             "total": res.data.total,//总页数
                             "rows": res.data.list   //数据
                         };
-                    }else{
+                    } else {
                         return res.data.list;
                     }
                 }
@@ -145,6 +145,16 @@ $.extend({
                 alert("网络异常!请稍候再试!");
             }
         });
+    },
+    "tableSaveRow": function (tableId, row, id) {
+        if ($.isNull(id)) {
+            $('#' + tableId).bootstrapTable('append', row);
+        } else {
+            $('#' + tableId).bootstrapTable('updateByUniqueId', {
+                'id': id,
+                'row': row
+            });
+        }
     }
 });
 

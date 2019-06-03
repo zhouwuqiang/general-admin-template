@@ -15,8 +15,8 @@ public class WordbookAttribute {
     /**
      * 属性编码
      */
-    @Column(name = "attribute_code")
-    private String attributeCode;
+    @Column(name = "wordbook_code")
+    private String wordbookCode;
 
     /**
      * 属性值
@@ -29,6 +29,18 @@ public class WordbookAttribute {
      */
     @Column(name = "attribute_name")
     private String attributeName;
+
+    /**
+     * 属性状态(00-正常 01-禁用)
+     */
+    @Column(name = "attribute_status")
+    private String attributeStatus;
+
+    /**
+     * 属性备注
+     */
+    @Column(name = "attribute_memo")
+    private String attributeMemo;
 
     /**
      * 更新时间

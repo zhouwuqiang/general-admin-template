@@ -2,6 +2,7 @@ package com.java.business.wordbook.service;
 
 import com.github.pagehelper.PageInfo;
 import com.java.business.wordbook.dto.WordbookAttributeTableRequestDto;
+import com.java.business.wordbook.dto.WordbookSaveRequestDto;
 import com.java.business.wordbook.dto.WordbookTableRequestDto;
 import com.java.business.wordbook.entity.Wordbook;
 import com.java.business.wordbook.entity.WordbookAttribute;
@@ -37,4 +38,10 @@ public interface WordbookService {
      * @return
      */
     List<WordbookAttribute> querySelect(String code);
+
+    /**
+     * 保存字典
+     * @param requestDto
+     */
+    void save(WordbookSaveRequestDto requestDto);
 }

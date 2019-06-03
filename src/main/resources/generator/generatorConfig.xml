@@ -37,9 +37,9 @@
 
 
         <!--需要生成的表-->
-        <table tableName="wordbook">
-            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
-        </table>
+        <!--<table tableName="wordbook">-->
+            <!--<generatedKey column="id" sqlStatement="Mysql" identity="true"/>-->
+        <!--</table>-->
         <table tableName="wordbook_attribute">
             <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
         </table>

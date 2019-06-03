@@ -3,6 +3,7 @@ package com.java.business.wordbook.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.java.business.wordbook.dto.WordbookAttributeTableRequestDto;
+import com.java.business.wordbook.dto.WordbookSaveRequestDto;
 import com.java.business.wordbook.dto.WordbookTableRequestDto;
 import com.java.business.wordbook.entity.Wordbook;
 import com.java.business.wordbook.entity.WordbookAttribute;
@@ -10,6 +11,7 @@ import com.java.business.wordbook.mapper.WordbookAttributeMapper;
 import com.java.business.wordbook.mapper.WordbookMapper;
 import com.java.business.wordbook.service.WordbookService;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;
@@ -39,17 +41,16 @@ public class WordbookServiceImpl implements WordbookService {
         Example.Criteria criteria = example.createCriteria();
 
         criteria.andEqualTo("deleteFlag", "00");
-        criteria.andEqualTo("attributeCode",requestDto.getAttributeCode());
-        criteria.andEqualTo("attributeType",requestDto.getAttributeType());
+        criteria.andEqualTo("wordbookCode", requestDto.getWordbookCode());
 
-        if (StringUtils.isNotBlank(requestDto.getAttributeName())) {
-            criteria.andCondition("ATTRIBUTE_NAME like", "%" + requestDto.getAttributeName() + "%");
+        if (StringUtils.isNotBlank(requestDto.getWordbookName())) {
+            criteria.andCondition("ATTRIBUTE_NAME like", "%" + requestDto.getWordbookName() + "%");
         }
 
         PageHelper.startPage(requestDto.getPageNum(), requestDto.getPageSize());
         List<Wordbook> queryList = wordbookMapper.selectByExample(example);
 
-        return  new PageInfo<>(queryList);
+        return new PageInfo<>(queryList);
     }
 
     @Override
@@ -58,8 +59,8 @@ public class WordbookServiceImpl implements WordbookService {
         Example.Criteria criteria = example.createCriteria();
 
         criteria.andEqualTo("deleteFlag", "00");
-        criteria.andEqualTo("attributeCode",requestDto.getAttributeCode());
-        criteria.andEqualTo("attributeValue",requestDto.getAttributeValue());
+        criteria.andEqualTo("wordbookCode", requestDto.getWordbookCode());
+        criteria.andEqualTo("attributeValue", requestDto.getAttributeValue());
 
         if (StringUtils.isNotBlank(requestDto.getAttributeName())) {
             criteria.andCondition("ATTRIBUTE_NAME like", "%" + requestDto.getAttributeName() + "%");
@@ -68,13 +69,38 @@ public class WordbookServiceImpl implements WordbookService {
         PageHelper.startPage(requestDto.getPageNum(), requestDto.getPageSize());
         List<WordbookAttribute> queryList = wordbookAttributeMapper.selectByExample(example);
 
-        return  new PageInfo<>(queryList);
+        return new PageInfo<>(queryList);
     }
 
     @Override
     public List<WordbookAttribute> querySelect(String code) {
-        WordbookAttribute wordbook=new WordbookAttribute();
-        wordbook.setAttributeCode(code);
+        WordbookAttribute wordbook = new WordbookAttribute();
+        wordbook.setWordbookCode(code);
         return wordbookAttributeMapper.select(wordbook);
+    }
+
+    @Override
+    public void save(WordbookSaveRequestDto requestDto) {
+        Wordbook wordbook = new Wordbook();
+        BeanUtils.copyProperties(requestDto,wordbook);
+        if (requestDto.getId() == null) {
+            wordbookMapper.insertSelective(wordbook);
+        } else {
+            wordbookMapper.updateByPrimaryKeySelective(wordbook);
+        }
+
+        List<WordbookAttribute> attributeList = requestDto.getAttributeList();
+
+        for (WordbookAttribute attribute : attributeList) {
+            WordbookAttribute wordbookAttribute= new WordbookAttribute();
+            BeanUtils.copyProperties(attribute,wordbookAttribute);
+
+            if (wordbookAttribute.getId() == null) {
+                wordbookAttributeMapper.insertSelective(wordbookAttribute);
+            } else {
+                wordbookAttributeMapper.updateByPrimaryKeySelective(wordbookAttribute);
+            }
+        }
+
     }
 }

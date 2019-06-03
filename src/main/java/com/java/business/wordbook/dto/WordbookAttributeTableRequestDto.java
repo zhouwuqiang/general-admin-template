@@ -18,9 +18,9 @@ import lombok.ToString;
 @ToString
 public class WordbookAttributeTableRequestDto extends PageRequestDto {
     /**
-     * 属性编码
+     * 字典编码
      */
-    private String attributeCode;
+    private String wordbookCode;
 
     /**
      * 属性值

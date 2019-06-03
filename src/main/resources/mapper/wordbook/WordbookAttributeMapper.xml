@@ -6,9 +6,11 @@
       WARNING - @mbg.generated
     -->
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="attribute_code" jdbcType="VARCHAR" property="attributeCode" />
+    <result column="wordbook_code" jdbcType="VARCHAR" property="wordbookCode" />
     <result column="attribute_value" jdbcType="VARCHAR" property="attributeValue" />
     <result column="attribute_name" jdbcType="VARCHAR" property="attributeName" />
+    <result column="attribute_status" jdbcType="VARCHAR" property="attributeStatus" />
+    <result column="attribute_memo" jdbcType="VARCHAR" property="attributeMemo" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
     <result column="update_user" jdbcType="VARCHAR" property="updateUser" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
