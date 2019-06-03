@@ -14,6 +14,7 @@ function initTable() {
         url: "/wordbook/table",
         searchFormId: "main_table_search_form",
         uniqueId: "wordbookCode",
+        pagination: true,
         columns: [
             {
                 field: 'wordbookCode',
@@ -106,8 +107,7 @@ function detailWordbook(wordbook) {
  */
 function saveWordbook() {
     let param = $.formSerializeObject("main_form");
-    let tableData = $('#attribute_table').bootstrapTable('getData');
-    param.attributeList = tableData;
+    param.attributeList = $('#attribute_table').bootstrapTable('getData');
     $.ajax({
         url: "/wordbook/save",
         type: 'post',
@@ -196,9 +196,7 @@ function initAttributeTable(wordbookCode) {
 function attributeOperateFormatter(value, row, index) {
     let result = [];
     result.push("<a href='javascript:void(0)' class='' onclick='editAttribute(" + JSON.stringify(row) + ")'>修改</a>");
-    if ($.isNotNull(row.id)) {
-        result.push("<a href='javascript:void(0)' class='' onclick='deleteAttribute(" + JSON.stringify(row) + ")'>禁用</a>");
-    } else {
+    if ($.isNull(row.id)) {
         result.push("<a href='javascript:void(0)' class='' onclick='deleteAttribute(" + JSON.stringify(row) + ")'>移除</a>");
     }
     return $.formatterOperateButton(result);

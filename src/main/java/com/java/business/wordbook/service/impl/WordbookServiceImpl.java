@@ -44,7 +44,7 @@ public class WordbookServiceImpl implements WordbookService {
         criteria.andEqualTo("wordbookCode", requestDto.getWordbookCode());
 
         if (StringUtils.isNotBlank(requestDto.getWordbookName())) {
-            criteria.andCondition("ATTRIBUTE_NAME like", "%" + requestDto.getWordbookName() + "%");
+            criteria.andCondition("wordbook_name like", "%" + requestDto.getWordbookName() + "%");
         }
 
         PageHelper.startPage(requestDto.getPageNum(), requestDto.getPageSize());
@@ -94,7 +94,7 @@ public class WordbookServiceImpl implements WordbookService {
         for (WordbookAttribute attribute : attributeList) {
             WordbookAttribute wordbookAttribute= new WordbookAttribute();
             BeanUtils.copyProperties(attribute,wordbookAttribute);
-
+            wordbookAttribute.setWordbookCode(wordbook.getWordbookCode());
             if (wordbookAttribute.getId() == null) {
                 wordbookAttributeMapper.insertSelective(wordbookAttribute);
             } else {

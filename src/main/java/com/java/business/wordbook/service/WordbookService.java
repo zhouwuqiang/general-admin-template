@@ -4,7 +4,6 @@ import com.github.pagehelper.PageInfo;
 import com.java.business.wordbook.dto.WordbookAttributeTableRequestDto;
 import com.java.business.wordbook.dto.WordbookSaveRequestDto;
 import com.java.business.wordbook.dto.WordbookTableRequestDto;
-import com.java.business.wordbook.entity.Wordbook;
 import com.java.business.wordbook.entity.WordbookAttribute;
 
 import java.util.List;
