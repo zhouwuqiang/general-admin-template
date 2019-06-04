@@ -1,8 +1,8 @@
 package com.java.business.role.service;
 
 import com.github.pagehelper.PageInfo;
-import com.java.business.role.dto.RoleSaveRequestDto;
 import com.java.business.role.dto.RoleTableRequestDto;
+import com.java.business.role.entity.RoleBasicFace;
 
 /**
  * description :
@@ -23,5 +23,5 @@ public interface RoleService {
      * 角色保存
      * @param requestDto
      */
-    void save(RoleSaveRequestDto requestDto);
+    RoleBasicFace save(RoleBasicFace requestDto);
 }

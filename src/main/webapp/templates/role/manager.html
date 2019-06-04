@@ -32,12 +32,12 @@
                     <div class="search-form-div clearfix">
                         <form role="form" id="main_table_search_form">
                             <div class="col-xs-2">
-                                <input type="text" autocomplete="off" id="search_user_name" name="userName"
+                                <input type="text" autocomplete="off" id="search_role_code" name="roleCode"
                                        placeholder="角色编号"
                                        class="form-control"/>
                             </div>
                             <div class="col-xs-2">
-                                <input type="text" autocomplete="off" id="search_user_label" name="userLabel"
+                                <input type="text" autocomplete="off" id="search_role_name" name="roleName"
                                        placeholder="角色名称" class="form-control"/>
                             </div>
                             <div class="col-md-1">
@@ -64,7 +64,7 @@
                 <div class="panel-body">
                     <div class="main-table-div clearfix">
                         <div id="toolbar">
-                            <button id="add_button" class="btn btn-info" onclick="addUser()">
+                            <button id="add_button" class="btn btn-info" onclick="addRole()">
                                 <i class="fa fa-plus fa-icon"></i>添加
                             </button>
                         </div>
@@ -94,41 +94,26 @@
             <div class="modal-body">
                 <form class="form-horizontal" role="form" id="main_form">
 
-                    <input type="hidden" name="userCode"/>
+                    <input type="hidden" name="id"/>
 
-                    <div class="form-group">
-                        <label for="user_name" class="col-sm-4 control-label">用户账号:</label>
+                    <div class="form-group" hidden>
+                        <label for="role_code" class="col-sm-4 control-label">角色编号:</label>
                         <div class="col-sm-6">
-                            <input type="text" class="form-control" id="user_name" name="userName"
-                                   placeholder="请输入用户账号">
+                            <input type="text" class="form-control" id="role_code" name="roleCode">
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="user_label" class="col-sm-4 control-label">用户名称:</label>
+                        <label for="role_name" class="col-sm-4 control-label">角色名称:</label>
                         <div class="col-sm-6">
-                            <input type="text" class="form-control" id="user_label" name="userLabel"
-                                   placeholder="请输入用户名称">
-                        </div>
-                    </div>
-
-                    <div class="form-group add-show init-hidden">
-                        <label for="user_password" class="col-sm-4 control-label">登录密码:</label>
-                        <div class="col-sm-6">
-                            <input type="text" class="form-control" id="user_password" name="loginPassword"
-                                   placeholder="请输入登录密码">
+                            <input type="text" class="form-control" id="role_name" name="roleName">
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="user_password" class="col-sm-4 control-label">是否锁定:</label>
+                        <label for="role_memo" class="col-sm-4 control-label">角色备注:</label>
                         <div class="col-sm-6">
-                            <label class="radio-inline">
-                                <input type="radio" name="isLock" id="is_lock" value="00" checked> 未锁定
-                            </label>
-                            <label class="radio-inline">
-                                <input type="radio" name="isLock" id="is_unlock" value="01"> 锁定
-                            </label>
+                            <input type="text" class="form-control" id="role_memo" name="roleMemo">
                         </div>
                     </div>
 

@@ -2,7 +2,6 @@ $(function () {
 
     initTable();
 
-    initTree();
 });
 
 /**
@@ -11,32 +10,22 @@ $(function () {
 function initTable() {
     $.tableExpand({
         tableId: "main_table",
-        url: "/user/table",
+        url: "/role/table",
         searchFormId: "main_table_search_form",
         columns: [
             {
-                field: 'userCode',
-                title: '用户编号',
+                field: 'roleCode',
+                title: '角色编号',
                 align: 'center',
                 valign: 'middle'
             }, {
-                field: 'userName',
-                title: '用户账号',
+                field: 'roleName',
+                title: '角色名称',
                 align: 'center',
                 valign: 'middle'
             }, {
-                field: 'userLabel',
-                title: '用户名称',
-                align: 'center',
-                valign: 'middle'
-            }, {
-                field: 'isLock',
-                title: '是否锁定',
-                align: 'center',
-                valign: 'middle'
-            }, {
-                field: 'isLock',
-                title: '是否需要重置密码',
+                field: 'roleMemo',
+                title: '角色备注',
                 align: 'center',
                 valign: 'middle'
             }, {
@@ -64,35 +53,36 @@ function initTable() {
 
 function operateFormatter(value, row, index) {
     let result = [];
-    result.push("<a href='javascript:void(0)' class='btn btn-info' onclick='editUser(" + JSON.stringify(row) + ")'><i class='fa fa-edit fa-icon'></i>修改</a>");
-    result.push("<a href='javascript:void(0)' class='btn btn-warning' onclick='detailUser(" + JSON.stringify(row) + ")'><i class='fa fa-trash-o fa-icon'></i>详情</a>");
-    result.push("<a href='javascript:void(0)' class='btn btn-danger' onclick='deleteUser(" + JSON.stringify(row) + ")'><i class='fa fa-trash-o fa-icon'></i>删除</a>");
+    result.push("<a href='javascript:void(0)' class='' onclick='editRole(" + JSON.stringify(row) + ")'>修改</a>");
+    result.push("<a href='javascript:void(0)' class='' onclick='roleAuthorization(" + JSON.stringify(row) + ")'>授权</a>");
+    result.push("<a href='javascript:void(0)' class='' onclick='detailRole(" + JSON.stringify(row) + ")'>详情</a>");
+    result.push("<a href='javascript:void(0)' class='' onclick='deleteRole(" + JSON.stringify(row) + ")'>删除</a>");
     return $.formatterOperateButton(result);
 }
 
 /**
  * 添加
  */
-function addUser() {
-    $.initModel("main_mode", "添加用户", "main_form", "add-show");
+function addRole() {
+    $.initModel("main_mode", "添加角色", "main_form", "add-show");
     $('#main_mode').modal('show');
 }
 
 /**
  * 编辑
  */
-function editUser(user) {
-    $.initModel("main_mode", "编辑用户", "main_form", "edit-show");
-    $.formReview("main_form", user);
+function editRole(row) {
+    $.initModel("main_mode", "编辑角色", "main_form", "edit-show");
+    $.formReview("main_form", row);
     $('#main_mode').modal('show');
 }
 
 /**
  * 显示
  */
-function detailUser(user) {
-    $.initModel("main_mode", "用户信息", "main_form", "detail-show");
-    $.formReview("main_form", user);
+function detailRole(row) {
+    $.initModel("main_mode", "角色信息", "main_form", "detail-show");
+    $.formReview("main_form", row);
     $.formReadOnly("main_form");
     $('#main_mode').modal('show');
 }
@@ -103,7 +93,7 @@ function detailUser(user) {
 function saveUser() {
     let param = $.formSerializeObject("main_form");
     $.ajax({
-        url: "/user/save",
+        url: "/role/save",
         type: 'post',
         dataType: 'json',
         contentType: 'application/json',
@@ -125,10 +115,10 @@ function saveUser() {
 /**
  * 删除
  */
-function deleteUser(user) {
+function deleteRole(user) {
     user.deleteFlag = "01";
     $.ajax({
-        url: "/user/save",
+        url: "/role/delete",
         type: 'post',
         dataType: 'json',
         contentType: 'application/json',
@@ -148,42 +138,9 @@ function deleteUser(user) {
 }
 
 
-/****************************************** 初始化组织树 ***************************************/
-
-var tree = [
-    {
-        text: "Parent 1",
-        nodes: [
-            {
-                text: "Child 1",
-                nodes: [
-                    {
-                        text: "Grandchild 1"
-                    },
-                    {
-                        text: "Grandchild 2"
-                    }
-                ]
-            },
-            {
-                text: "Child 2"
-            }
-        ]
-    },
-    {
-        text: "Parent 2"
-    },
-    {
-        text: "Parent 3"
-    },
-    {
-        text: "Parent 4"
-    },
-    {
-        text: "Parent 5"
-    }
-];
-
-function initTree(){
-    $('#organization_tree').treeview({data: tree});
+/**
+ * 角色授权菜单
+ */
+function roleAuthorization(row) {
+    alert(JSON.stringify(row));
 }

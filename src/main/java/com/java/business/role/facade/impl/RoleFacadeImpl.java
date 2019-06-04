@@ -32,8 +32,8 @@ public class RoleFacadeImpl implements RoleFacade {
     @Override
     public void save(RoleSaveRequestDto requestDto) {
         RoleBasicFace roleBasicFace= new RoleBasicFace();
-        BeanUtils.copyProperties(roleBasicFace,requestDto);
-        roleService.save(requestDto);
+        BeanUtils.copyProperties(requestDto,roleBasicFace);
+        roleService.save(roleBasicFace);
     }
 
     @Override
@@ -42,6 +42,6 @@ public class RoleFacadeImpl implements RoleFacade {
         roleBasicFace.setId(requestDto.getId());
         roleBasicFace.setDeleteFlag(SystemCommonConstant.DeleteFlag.DELETE);
         BeanUtils.copyProperties(roleBasicFace,requestDto);
-        roleService.save(requestDto);
+        roleService.save(roleBasicFace);
     }
 }
