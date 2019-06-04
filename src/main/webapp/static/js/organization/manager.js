@@ -107,10 +107,10 @@ debugger
 
 function operateFormatter(value, row, index) {
     let result = [];
-    result.push("<a href='javascript:void(0)' class='btn btn-info' onclick='addSubOrganization(" + JSON.stringify(row) + ")'><i class='fa fa-plus fa-icon'></i>添加</a>");
-    result.push("<a href='javascript:void(0)' class='btn btn-warning' onclick='editOrganization(" + JSON.stringify(row) + ")'><i class='fa fa-edit fa-icon'></i>修改</a>");
+    result.push("<a href='javascript:void(0)' class='' onclick='addSubOrganization(" + JSON.stringify(row) + ")'>添加</a>");
+    result.push("<a href='javascript:void(0)' class='' onclick='editOrganization(" + JSON.stringify(row) + ")'>修改</a>");
     // result.push("<a href='javascript:void(0)' class='btn btn-warning' onclick='detailOrganization(" + JSON.stringify(row) + ")'><i class='fa fa-edit fa-icon'></i>详情</a>");
-    result.push("<a href='javascript:void(0)' class='btn btn-danger' onclick='deleteOrganization(" + JSON.stringify(row) + ")'><i class='fa fa-trash-o fa-icon'></i>删除</a>");
+    result.push("<a href='javascript:void(0)' class='' onclick='deleteOrganization(" + JSON.stringify(row) + ")'>删除</a>");
     return $.formatterOperateButton(result);
 }
 

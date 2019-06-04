@@ -113,9 +113,9 @@ function initTable() {
 
 function operateFormatter(value, row, index) {
     let result = [];
-    result.push("<a href='javascript:void(0)' class='btn btn-info' onclick='addSubMenu(" + JSON.stringify(row) + ")'><i class='fa fa-trash-o fa-icon'></i>添加</a>");
-    result.push("<a href='javascript:void(0)' class='btn btn-warning' onclick='editMenu(" + JSON.stringify(row) + ")'><i class='fa fa-edit fa-icon'></i>修改</a>");
-    result.push("<a href='javascript:void(0)' class='btn btn-danger' onclick='deleteMenu(" + JSON.stringify(row) + ")'><i class='fa fa-trash-o fa-icon'></i>删除</a>");
+    result.push("<a href='javascript:void(0)' class='' onclick='addSubMenu(" + JSON.stringify(row) + ")'>添加</a>");
+    result.push("<a href='javascript:void(0)' class='' onclick='editMenu(" + JSON.stringify(row) + ")'>修改</a>");
+    result.push("<a href='javascript:void(0)' class='' onclick='deleteMenu(" + JSON.stringify(row) + ")'>删除</a>");
     return $.formatterOperateButton(result);
 }
 

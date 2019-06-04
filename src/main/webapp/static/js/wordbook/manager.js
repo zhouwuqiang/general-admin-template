@@ -61,8 +61,8 @@ function initTable() {
 
 function operateFormatter(value, row, index) {
     let result = [];
-    result.push("<a href='javascript:void(0)' class='btn btn-info' onclick='editWordbook(" + JSON.stringify(row) + ")'><i class='fa fa-edit fa-icon'></i>修改</a>");
-    result.push("<a href='javascript:void(0)' class='btn btn-info' onclick='detailWordbook(" + JSON.stringify(row) + ")'><i class='fa fa-th-list fa-icon'></i>详情</a>");
+    result.push("<a href='javascript:void(0)' class='' onclick='editWordbook(" + JSON.stringify(row) + ")'>修改</a>");
+    result.push("<a href='javascript:void(0)' class='' onclick='detailWordbook(" + JSON.stringify(row) + ")'>详情</a>");
     return $.formatterOperateButton(result);
 }
 
