@@ -1,6 +1,7 @@
 package com.java.business.menu.facade;
 
 import com.github.pagehelper.PageInfo;
+import com.java.business.menu.dto.MenuSaveRequestDto;
 import com.java.business.menu.dto.MenuTableRequestDto;
 
 /**
@@ -18,4 +19,16 @@ public interface MenuFacade {
      * @return
      */
     PageInfo queryTable(MenuTableRequestDto requestDto);
+
+    /**
+     * 保存菜单
+     * @param requestDto
+     */
+    void save(MenuSaveRequestDto requestDto);
+
+    /**
+     * 删除菜单
+     * @param requestDto
+     */
+    void delete(MenuSaveRequestDto requestDto);
 }

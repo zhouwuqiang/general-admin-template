@@ -28,8 +28,10 @@ public class OrganizationController {
 
     @Autowired
     private OrganizationFacade organizationFacade;
+
+
     /**
-     * 获取字典数据
+     * 获取组织结构数据
      *
      * @param request 请求对象
      * @return 跳转URL
@@ -46,7 +48,7 @@ public class OrganizationController {
 
 
     /**
-     * 保存字典
+     * 保存组织结构
      *
      * @param requestDto
      * @return
@@ -61,7 +63,7 @@ public class OrganizationController {
     }
 
     /**
-     * 保存删除字典参数
+     * 删除组织结构
      *
      * @param requestDto
      * @return

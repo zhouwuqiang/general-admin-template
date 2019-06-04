@@ -10,6 +10,7 @@ $(function () {
  */
 function refreshTable() {
     let params = $.formSerializeObject("main_table_search_form");
+    $.deleteEmptyKey(params);
     $('#main_table').bootstrapTreeTable('refresh', JSON.stringify(params));
 }
 
@@ -17,8 +18,8 @@ function refreshTable() {
  * 初始化表格
  */
 function initTable() {
-
     let params = $.formSerializeObject("main_table_search_form");
+    $.deleteEmptyKey(params);
 
     $("#main_table").bootstrapTreeTable({
         toolbar: "#toolbar",      //顶部工具条

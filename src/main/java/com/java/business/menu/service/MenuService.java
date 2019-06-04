@@ -2,6 +2,7 @@ package com.java.business.menu.service;
 
 import com.github.pagehelper.PageInfo;
 import com.java.business.menu.dto.MenuTableRequestDto;
+import com.java.business.menu.entity.MenuBasicFace;
 
 /**
  * description :
@@ -18,4 +19,10 @@ public interface MenuService {
      * @return
      */
     PageInfo queryTable(MenuTableRequestDto requestDto);
+
+    /**
+     * 保存菜单
+     * @param menuBasicFace
+     */
+    MenuBasicFace save(MenuBasicFace menuBasicFace);
 }

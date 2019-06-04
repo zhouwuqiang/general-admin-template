@@ -2,8 +2,10 @@ package com.java.business.menu.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.PageInfo;
+import com.java.business.menu.dto.MenuSaveRequestDto;
 import com.java.business.menu.dto.MenuTableRequestDto;
 import com.java.business.menu.facade.MenuFacade;
+import com.java.business.organization.dto.OrganizationSaveRequestDto;
 import com.java.business.user.dto.UserTableRequestDto;
 import com.java.general.config.security.dto.User;
 import com.java.general.interceptors.controller.ControllerRecorder;
@@ -69,5 +71,35 @@ public class MenuController {
         return ResponseUtil.bindSuccessResponse(pageInfo.getList());
     }
 
+
+    /**
+     * 保存组织结构
+     *
+     * @param requestDto
+     * @return
+     */
+    @RequestMapping(value = "/save")
+    @ControllerRecorder(path = "/menu/save")
+    public ResponseDto save(@RequestBody MenuSaveRequestDto requestDto) {
+
+        menuFacade.save(requestDto);
+
+        return ResponseUtil.bindSuccessResponse();
+    }
+
+    /**
+     * 删除组织结构
+     *
+     * @param requestDto
+     * @return
+     */
+    @RequestMapping(value = "/delete")
+    @ControllerRecorder(path = "/menu/delete")
+    public ResponseDto delete(@RequestBody MenuSaveRequestDto requestDto) {
+
+        menuFacade.delete(requestDto);
+
+        return ResponseUtil.bindSuccessResponse();
+    }
 
 }
