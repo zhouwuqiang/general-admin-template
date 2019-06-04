@@ -7,6 +7,8 @@ import lombok.Data;
 @Data
 @Table(name = "menu_basic_face")
 public class MenuBasicFace {
+
+    @Id
     @Column(name = "ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;

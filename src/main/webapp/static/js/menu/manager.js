@@ -2,6 +2,8 @@ $(function () {
 
     initTable();
 
+    $.initSelect("menu_type", "menu_type", true);
+
 });
 
 
@@ -52,7 +54,8 @@ function initTable() {
                 field: 'menuCode',
                 title: '菜单编号',
                 align: 'center',
-                visible: false
+                valign: 'middle',
+                // visible: false
             }, {
                 field: 'menuName',
                 title: '菜单名称',
@@ -74,7 +77,7 @@ function initTable() {
                 title: '上级菜单编号',
                 align: 'center',
                 valign: 'middle',
-                visible: false
+                // visible: false
             }, {
                 field: 'menuType',
                 title: '菜单类型',
@@ -139,8 +142,14 @@ function addMenu() {
     $('#main_mode').modal('show');
 }
 
+/**
+ * 添加子菜单
+ * @param menu
+ */
 function addSubMenu(menu) {
     $.initModel("main_mode", "添加子菜单", "main_form", "add-show");
+    $("#parent_menu_code").val(menu.menuCode);
+    $("#parent_menu_code").attr("readonly","readonly");
     $('#main_mode').modal('show');
 }
 
@@ -150,13 +159,14 @@ function addSubMenu(menu) {
 function editMenu(menu) {
     $.initModel("main_mode", "编辑菜单", "main_form", "edit-show");
     $.formReview("main_form", menu);
+    $("#parent_menu_code").attr("readonly","readonly");
     $('#main_mode').modal('show');
 }
 
 /**
  * 显示
  */
-function detailUser(menu) {
+function detailMenu(menu) {
     $.initModel("main_mode", "菜单详情", "main_form", "detail-show");
     $.formReview("main_form", menu);
     $.formReadOnly("main_form");
@@ -169,7 +179,7 @@ function detailUser(menu) {
 function saveMenu() {
     let param = $.formSerializeObject("main_form");
     $.ajax({
-        url: "/user/save",
+        url: "/menu/save",
         type: 'post',
         dataType: 'json',
         contentType: 'application/json',
@@ -178,7 +188,7 @@ function saveMenu() {
             $.ajaxMassage(responseDto);
             if (responseDto.success) {
                 $('#main_mode').modal('hide');
-                initTable();
+                refreshTable();
             }
         },
         error: function () {
@@ -192,9 +202,8 @@ function saveMenu() {
  * 删除
  */
 function deleteMenu(menu) {
-    menu.deleteFlag = "01";
     $.ajax({
-        url: "/user/save",
+        url: "/menu/delete",
         type: 'post',
         dataType: 'json',
         contentType: 'application/json',
@@ -202,8 +211,7 @@ function deleteMenu(menu) {
         success: function (responseDto) {
             $.ajaxMassage(responseDto);
             if (responseDto.success) {
-                $('#main_mode').modal('hide');
-                initTable();
+                refreshTable();
             }
         },
         error: function () {

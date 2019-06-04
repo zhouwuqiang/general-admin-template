@@ -45,7 +45,7 @@ public class MenuSaveRequestDto{
     private String parentMenuCode;
 
     /**
-     * 菜单类型(00-目录 01-菜单 02-按钮)
+     * 菜单类型(01-目录 02-菜单 03-按钮)
      */
     private String menuType;
 

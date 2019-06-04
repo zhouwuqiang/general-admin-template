@@ -240,6 +240,7 @@ $.extend({
             result[formElement.elements[i].name] = formElement.elements[i].value;
         }
 
+        $.deleteEmptyKey(result);
         return result;
     }
 });

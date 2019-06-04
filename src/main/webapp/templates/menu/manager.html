@@ -99,12 +99,15 @@
                             &times;
                         </button>
                         <h4 class="modal-title" id="myModalLabel">
-                            用户信息
+                           菜单信息
                         </h4>
                     </div>
                     <div class="modal-body">
 
                         <form class="form-horizontal" role="form" id="main_form">
+
+                            <input type="hidden" id="menu_id" name="id">
+
                             <input type="hidden" id="menu_code" name="menuCode">
 
                             <div class="form-group">
@@ -138,12 +141,7 @@
                             <div class="form-group">
                                 <label for="menu_type" class="col-sm-4 control-label">菜单类型:</label>
                                 <div class="col-sm-6">
-                                    <select class="form-control" id="menu_type" name="menuType" >
-                                        <option value="">--请选择--</option>
-                                        <option value="01">目录</option>
-                                        <option value="02">菜单</option>
-                                        <option value="03">按钮</option>
-                                    </select>
+                                    <select class="form-control" id="menu_type" name="menuType" ></select>
                                 </div>
                             </div>
 
