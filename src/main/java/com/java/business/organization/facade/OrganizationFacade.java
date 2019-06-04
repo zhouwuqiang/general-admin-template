@@ -13,7 +13,7 @@ import com.java.business.organization.dto.OrganizationTableRequestDto;
  */
 public interface OrganizationFacade {
 
-    /**
+     /**
      * 组织列表查询
      * @param requestDto
      * @return

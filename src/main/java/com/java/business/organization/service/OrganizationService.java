@@ -2,6 +2,7 @@ package com.java.business.organization.service;
 
 import com.github.pagehelper.PageInfo;
 import com.java.business.organization.dto.OrganizationTableRequestDto;
+import com.java.business.organization.entity.OrganizationBasicFace;
 
 /**
  * description :
@@ -18,4 +19,10 @@ public interface OrganizationService {
      * @return
      */
     PageInfo queryTable(OrganizationTableRequestDto requestDto);
+
+    /**
+     * 保存组织
+     * @param requestDto
+     */
+    OrganizationBasicFace save(OrganizationBasicFace requestDto);
 }

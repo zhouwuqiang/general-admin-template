@@ -262,7 +262,7 @@ $.extend({
     },
     "deleteEmptyKey": function (data) {
         for (let item in data) {
-            if (data[item] === "") {
+            if ($.isNull(data[item])) {
                 delete data[item];
             }
         }

@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import javax.persistence.Column;
+
 /**
  * description :
  *
@@ -31,4 +33,9 @@ public class OrganizationTableRequestDto extends PageRequestDto {
      * 上级编号
      */
     private String parenCode;
+
+    /**
+     * 类型(00-部门,01-岗位)
+     */
+    private String organizationType;
 }

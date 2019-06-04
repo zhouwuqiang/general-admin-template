@@ -49,8 +49,7 @@
                                                placeholder="上级编号" class="form-control"/>
                                     </div>
                                     <div class="col-xs-2">
-                                        <input type="text" autocomplete="off" id="param_organization_type" name="organizationType"
-                                               placeholder="组织类型" class="form-control"/>
+                                        <select class="form-control" id="param_organization_type" name="organizationType" ></select>
                                     </div>
                                     <div class="col-md-1">
                                         <a class="btn btn-info" onclick="refreshTable()">
@@ -77,10 +76,10 @@
                         <div class="panel-body">
                             <div class="main-table-div clearfix">
                                 <div id="toolbar">
-                                    <button id="add_button" class="btn btn-info" onclick="addMenu()">
+                                    <button id="add_button" class="btn btn-info" onclick="addOrganization()">
                                         <i class="fa fa-plus fa-icon"></i>添加
                                     </button>
-                                    <button id="exchange_button" class="btn btn-info" onclick="exchangeMenu()">
+                                    <button id="exchange_button" class="btn btn-info" onclick="exchange()">
                                         <i class="fa fa-exchange fa-icon"></i>展开/折叠
                                     </button>
                                 </div>
@@ -110,7 +109,8 @@
 
                         <form class="form-horizontal" role="form" id="main_form">
                             <input type="hidden" id="id" name="id">
-                            <input type="hidden" id="menu_code" name="menuCode">
+
+                            <input type="hidden" id="organization_code" name="organizationCode">
 
 
                             <div class="form-group">
@@ -131,12 +131,7 @@
                             <div class="form-group">
                                 <label for="organization_type" class="col-sm-4 control-label">组织类型:</label>
                                 <div class="col-sm-6">
-                                    <select class="form-control" id="organization_type" name="organizationType" >
-                                        <option value="">--请选择--</option>
-                                        <option value="01">目录</option>
-                                        <option value="02">菜单</option>
-                                        <option value="03">按钮</option>
-                                    </select>
+                                    <select class="form-control" id="organization_type" name="organizationType" ></select>
                                 </div>
                             </div>
                         </form>
@@ -150,7 +145,7 @@
                         <button id="define_button" type="button" class="btn btn-default detail-show" data-dismiss="modal">
                             确定
                         </button>
-                        <button id="save_button" type="button" class="btn btn-primary  add-show edit-show" onclick="saveMenu()">
+                        <button id="save_button" type="button" class="btn btn-primary  add-show edit-show" onclick="saveOrganization()">
                             保存
                         </button>
                     </div>

@@ -2,6 +2,8 @@ $(function () {
 
     initTable();
 
+    $.initSelect("organization_type", "organization_type", true);
+    $.initSelect("param_organization_type", "organization_type", true);
 });
 
 
@@ -10,6 +12,7 @@ $(function () {
  */
 function refreshTable() {
     let params = $.formSerializeObject("main_table_search_form");
+    $.deleteEmptyKey(params);
     $('#main_table').bootstrapTreeTable('refresh', JSON.stringify(params));
 }
 
@@ -19,7 +22,8 @@ function refreshTable() {
 function initTable() {
 
     let params = $.formSerializeObject("main_table_search_form");
-
+    $.deleteEmptyKey(params);
+debugger
     $("#main_table").bootstrapTreeTable({
         toolbar: "#toolbar",      //顶部工具条
         id: 'organizationCode',                                                   // 选取记录返回的值,用于设置父子关系
@@ -31,7 +35,7 @@ function initTable() {
         ajaxParams: JSON.stringify(params),                          // 请求数据的ajax的data属性
         expandColumn: 1,                                            // 在哪一列上面显示展开按钮
         expandAll: false,                                           // 是否全部展开
-        expandFirst: false,                                          // 是否默认第一级展开--expandAll为false时生效
+        expandFirst: true,                                          // 是否默认第一级展开--expandAll为false时生效
         striped: false,                                             // 是否各行渐变色
         bordered: true,                                             // 是否显示边框
         hover: true,                                                // 是否鼠标悬停
@@ -103,9 +107,10 @@ function initTable() {
 
 function operateFormatter(value, row, index) {
     let result = [];
-    result.push("<a href='javascript:void(0)' class='btn btn-info' onclick='addSubMenu(" + JSON.stringify(row) + ")'><i class='fa fa-trash-o fa-icon'></i>添加</a>");
-    result.push("<a href='javascript:void(0)' class='btn btn-warning' onclick='editMenu(" + JSON.stringify(row) + ")'><i class='fa fa-edit fa-icon'></i>修改</a>");
-    result.push("<a href='javascript:void(0)' class='btn btn-danger' onclick='deleteMenu(" + JSON.stringify(row) + ")'><i class='fa fa-trash-o fa-icon'></i>删除</a>");
+    result.push("<a href='javascript:void(0)' class='btn btn-info' onclick='addSubOrganization(" + JSON.stringify(row) + ")'><i class='fa fa-plus fa-icon'></i>添加</a>");
+    result.push("<a href='javascript:void(0)' class='btn btn-warning' onclick='editOrganization(" + JSON.stringify(row) + ")'><i class='fa fa-edit fa-icon'></i>修改</a>");
+    // result.push("<a href='javascript:void(0)' class='btn btn-warning' onclick='detailOrganization(" + JSON.stringify(row) + ")'><i class='fa fa-edit fa-icon'></i>详情</a>");
+    result.push("<a href='javascript:void(0)' class='btn btn-danger' onclick='deleteOrganization(" + JSON.stringify(row) + ")'><i class='fa fa-trash-o fa-icon'></i>删除</a>");
     return $.formatterOperateButton(result);
 }
 
@@ -115,7 +120,7 @@ function operateFormatter(value, row, index) {
  */
 expandAll = true;
 
-function exchangeMenu() {
+function exchange() {
     if (expandAll) {
         $('#main_table').bootstrapTreeTable('expandAll');
     } else {
@@ -124,45 +129,54 @@ function exchangeMenu() {
     expandAll = !expandAll;
 }
 
+
+
 /**
  * 添加
  */
-function addMenu() {
-    $.initModel("main_mode", "添加菜单", "main_form", "add-show");
+function addOrganization() {
+    $.initModel("main_mode", "添加结构", "main_form", "add-show");
     $('#main_mode').modal('show');
 }
 
-function addSubMenu(menu) {
-    $.initModel("main_mode", "添加子菜单", "main_form", "add-show");
-    $('#main_mode').modal('show');
-}
 
 /**
  * 编辑
  */
-function editMenu(menu) {
-    $.initModel("main_mode", "编辑菜单", "main_form", "edit-show");
-    $.formReview("main_form", menu);
+function editOrganization(row) {
+    $.initModel("main_mode", "编辑结构", "main_form", "edit-show");
+    $.formReview("main_form", row);
+    $("#paren_code").attr("readonly","readonly");
     $('#main_mode').modal('show');
 }
 
 /**
  * 显示
  */
-function detailUser(menu) {
-    $.initModel("main_mode", "菜单详情", "main_form", "detail-show");
-    $.formReview("main_form", menu);
+function detailOrganization(row) {
+    $.initModel("main_mode", "结构详情", "main_form", "detail-show");
+    $.formReview("main_form", row);
     $.formReadOnly("main_form");
+    $('#main_mode').modal('show');
+}
+
+/**
+ * 添加子结构
+ */
+function addSubOrganization(row) {
+    $.initModel("main_mode", "添加子结构", "main_form", "add-show");
+    $("#paren_code").val(row.organizationCode);
+    $("#paren_code").attr("readonly","readonly");
     $('#main_mode').modal('show');
 }
 
 /**
  * 保存
  */
-function saveMenu() {
+function saveOrganization() {
     let param = $.formSerializeObject("main_form");
     $.ajax({
-        url: "/user/save",
+        url: "/organization/save",
         type: 'post',
         dataType: 'json',
         contentType: 'application/json',
@@ -171,7 +185,7 @@ function saveMenu() {
             $.ajaxMassage(responseDto);
             if (responseDto.success) {
                 $('#main_mode').modal('hide');
-                initTable();
+                refreshTable();
             }
         },
         error: function () {
@@ -184,19 +198,17 @@ function saveMenu() {
 /**
  * 删除
  */
-function deleteMenu(menu) {
-    menu.deleteFlag = "01";
+function deleteOrganization(row) {
     $.ajax({
-        url: "/user/save",
+        url: "/organization/delete",
         type: 'post',
         dataType: 'json',
         contentType: 'application/json',
-        data: JSON.stringify(menu),
+        data: JSON.stringify(row),
         success: function (responseDto) {
             $.ajaxMassage(responseDto);
             if (responseDto.success) {
-                $('#main_mode').modal('hide');
-                initTable();
+                refreshTable();
             }
         },
         error: function () {

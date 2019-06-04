@@ -3,10 +3,13 @@ package com.java.business.organization.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.java.business.menu.entity.MenuBasicFace;
+import com.java.business.organization.dto.OrganizationSaveRequestDto;
 import com.java.business.organization.dto.OrganizationTableRequestDto;
 import com.java.business.organization.entity.OrganizationBasicFace;
 import com.java.business.organization.mapper.OrganizationBasicFaceMapper;
 import com.java.business.organization.service.OrganizationService;
+import com.java.general.generator.GeneratorUtils;
+import com.java.general.utils.UuidCodeWorker;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,14 +40,28 @@ public class OrganizationServiceImpl implements OrganizationService {
         criteria.andEqualTo("deleteFlag", "00");
         criteria.andEqualTo("organizationCode", requestDto.getOrganizationCode());
         criteria.andEqualTo("parenCode", requestDto.getParenCode());
+        criteria.andEqualTo("organizationType", requestDto.getOrganizationType());
 
         if (StringUtils.isNotBlank(requestDto.getOrganizationName())) {
-            criteria.andCondition("MENU_NAME like", "%" + requestDto.getOrganizationName() + "%");
+            criteria.andCondition("ORGANIZATION_NAME like", "%" + requestDto.getOrganizationName() + "%");
         }
 
         PageHelper.startPage(requestDto.getPageNum(), requestDto.getPageSize());
         List<OrganizationBasicFace> queryList = organizationBasicFaceMapper.selectByExample(example);
 
         return new PageInfo<>(queryList);
+    }
+
+    @Override
+    public OrganizationBasicFace save(OrganizationBasicFace organizationBasicFace) {
+
+        if (organizationBasicFace.getId() == null){
+            organizationBasicFace.setOrganizationCode(UuidCodeWorker.nextCode("ORG"));
+            organizationBasicFaceMapper.insertSelective(organizationBasicFace);
+        }else{
+            organizationBasicFaceMapper.updateByPrimaryKeySelective(organizationBasicFace);
+        }
+
+        return organizationBasicFace;
     }
 }
