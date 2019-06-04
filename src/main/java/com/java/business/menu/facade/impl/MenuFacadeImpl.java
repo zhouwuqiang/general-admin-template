@@ -17,6 +17,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * description :
@@ -54,25 +56,30 @@ public class MenuFacadeImpl implements MenuFacade {
 
     @Override
     public List<Tree> queryListTree(MenuListRequestDto menuListRequestDto) {
+        MenuListRequestDto total = new MenuListRequestDto();
+        List<MenuBasicFace> allMenu = menuService.queryList(total);
 
-        List<MenuBasicFace> menuBasicFaces = menuService.queryList(menuListRequestDto);
+        List<MenuBasicFace> selected = menuService.queryList(menuListRequestDto);
+        Set<String> selectedSet = selected.stream().map(MenuBasicFace::getMenuCode).collect(Collectors.toSet());
 
-        List<Menu> menuList = MenuUtils.buildMenu(menuBasicFaces);
+        List<Menu> menuList = MenuUtils.buildMenu(allMenu);
 
-        return convent(menuList);
+        return convent(menuList, selectedSet);
     }
 
-    private List<Tree> convent(List<Menu> menuList) {
+    private List<Tree> convent(List<Menu> menuList,Set<String> codeSet) {
 
-        List<Tree> result= new ArrayList<>();
+        List<Tree> result = new ArrayList<>();
 
         for (Menu item : menuList) {
             Tree tree = new Tree();
             tree.setText(item.getMenuName());
             tree.setCode(item.getMenuCode());
-            tree.setChecked();
-            if (item.isHasChild()){
-                tree.setNodes(convent(item.getChildMenus()));
+            if (codeSet.contains(item.getMenuCode())){
+                tree.setChecked();
+            }
+            if (item.isHasChild()) {
+                tree.setNodes(convent(item.getChildMenus(),codeSet));
             }
             result.add(tree);
         }
