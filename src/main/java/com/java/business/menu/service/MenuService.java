@@ -1,8 +1,11 @@
 package com.java.business.menu.service;
 
 import com.github.pagehelper.PageInfo;
+import com.java.business.menu.dto.MenuListRequestDto;
 import com.java.business.menu.dto.MenuTableRequestDto;
 import com.java.business.menu.entity.MenuBasicFace;
+
+import java.util.List;
 
 /**
  * description :
@@ -25,4 +28,11 @@ public interface MenuService {
      * @param menuBasicFace
      */
     MenuBasicFace save(MenuBasicFace menuBasicFace);
+
+    /**
+     * 查询菜单结合
+     * @param menuListRequestDto
+     * @return
+     */
+    List<MenuBasicFace> queryList(MenuListRequestDto menuListRequestDto);
 }

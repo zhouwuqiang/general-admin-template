@@ -2,6 +2,7 @@ package com.java.business.menu.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.java.business.menu.dto.MenuListRequestDto;
 import com.java.business.menu.dto.MenuTableRequestDto;
 import com.java.business.menu.entity.MenuBasicFace;
 import com.java.business.menu.mapper.MenuBasicFaceMapper;
@@ -58,6 +59,15 @@ public class MenuServiceImpl implements MenuService {
             menuBasicFaceMapper.updateByPrimaryKeySelective(menuBasicFace);
         }
         return menuBasicFace;
+    }
+
+    @Override
+    public List<MenuBasicFace> queryList(MenuListRequestDto menuListRequestDto) {
+        Example example = new Example(MenuBasicFace.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("deleteFlag", "00");
+
+        return menuBasicFaceMapper.selectByExample(example);
     }
 
 

@@ -8,6 +8,7 @@ import com.java.business.user.entity.UserBasicFace;
 import com.java.business.user.mapper.UserBasicFaceMapper;
 import com.java.general.config.security.dto.Menu;
 import com.java.general.config.security.dto.User;
+import com.java.general.config.security.utils.MenuUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -93,31 +94,7 @@ public class CustomUserService implements UserDetailsService {
             return result;
         }
 
-        result.setMenus(buildMenu(menuList));
-
-        return result;
-    }
-
-    /**
-     * 构建菜单
-     * @param menuList
-     * @return
-     */
-    private List<Menu> buildMenu(List<MenuBasicFace> menuList) {
-        List<Menu> result = new ArrayList<>();
-
-        for (MenuBasicFace item : menuList) {
-            if (StringUtils.isBlank(item.getParentMenuCode())) {
-                Menu menu = new Menu();
-                BeanUtils.copyProperties(item, menu);
-                menu.setRoot(true);
-                result.add(menu);
-            }
-        }
-
-        for (Menu menu : result) {
-            menu.addChild(menuList);
-        }
+        result.setMenus(MenuUtils.buildMenu(menuList));
 
         return result;
     }

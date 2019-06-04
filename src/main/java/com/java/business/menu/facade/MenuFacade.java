@@ -1,8 +1,13 @@
 package com.java.business.menu.facade;
 
 import com.github.pagehelper.PageInfo;
+import com.java.business.menu.dto.MenuListRequestDto;
 import com.java.business.menu.dto.MenuSaveRequestDto;
 import com.java.business.menu.dto.MenuTableRequestDto;
+import com.java.business.menu.entity.MenuBasicFace;
+import com.java.business.utils.tree.dto.Tree;
+
+import java.util.List;
 
 /**
  * description :
@@ -31,4 +36,11 @@ public interface MenuFacade {
      * @param requestDto
      */
     void delete(MenuSaveRequestDto requestDto);
+
+    /**
+     * 查询菜单树
+     * @param menuListRequestDto
+     * @return
+     */
+    List<Tree> queryListTree(MenuListRequestDto menuListRequestDto);
 }

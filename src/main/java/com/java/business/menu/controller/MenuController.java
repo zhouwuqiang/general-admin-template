@@ -2,12 +2,16 @@ package com.java.business.menu.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.PageInfo;
+import com.java.business.menu.dto.MenuListRequestDto;
 import com.java.business.menu.dto.MenuSaveRequestDto;
 import com.java.business.menu.dto.MenuTableRequestDto;
+import com.java.business.menu.entity.MenuBasicFace;
 import com.java.business.menu.facade.MenuFacade;
 import com.java.business.organization.dto.OrganizationSaveRequestDto;
 import com.java.business.user.dto.UserTableRequestDto;
+import com.java.business.utils.tree.dto.Tree;
 import com.java.general.config.security.dto.User;
+import com.java.general.config.security.service.CustomUserService;
 import com.java.general.interceptors.controller.ControllerRecorder;
 import com.java.general.interceptors.log.LoggerRecorder;
 import com.java.general.response.dto.ResponseDto;
@@ -21,9 +25,11 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * description :
@@ -49,12 +55,11 @@ public class MenuController {
      */
     @RequestMapping(value = "/list")
     @ControllerRecorder(path = "/menu/list")
-    public ResponseDto table() {
+    public ResponseDto list() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User userDetails = (User) authentication.getPrincipal();
         return ResponseUtil.bindSuccessResponse(userDetails.getMenus());
     }
-
 
     /**
      * 获取主表数据
@@ -101,5 +106,24 @@ public class MenuController {
 
         return ResponseUtil.bindSuccessResponse();
     }
+
+
+
+    /*************************************************** 角色授权 **********************************************/
+
+    /**
+     * 获取菜单结构树
+     *
+     * @return
+     */
+    @RequestMapping(value = "/list/tree")
+    @ControllerRecorder(path = "/menu/list/tree")
+    public ResponseDto listTree(@RequestBody MenuListRequestDto menuListRequestDto) {
+
+        List<Tree> list = menuFacade.queryListTree(menuListRequestDto);
+
+        return ResponseUtil.bindSuccessResponse(list);
+    }
+
 
 }
