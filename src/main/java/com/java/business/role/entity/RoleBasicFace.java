@@ -5,6 +5,8 @@ import javax.persistence.*;
 
 @Table(name = "role_basic_face")
 public class RoleBasicFace {
+
+    @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
