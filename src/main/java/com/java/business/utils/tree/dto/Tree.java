@@ -20,7 +20,7 @@ import java.util.List;
 public class Tree {
 
     /**
-     * (必选)列表树节点上的文本。
+     * 携带的参数
      */
     private String code;
 

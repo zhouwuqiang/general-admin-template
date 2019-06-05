@@ -150,40 +150,41 @@ function deleteUser(user) {
 
 /****************************************** 初始化组织树 ***************************************/
 
-var tree = [
-    {
-        text: "Parent 1",
-        nodes: [
-            {
-                text: "Child 1",
-                nodes: [
-                    {
-                        text: "Grandchild 1"
-                    },
-                    {
-                        text: "Grandchild 2"
-                    }
-                ]
-            },
-            {
-                text: "Child 2"
-            }
-        ]
-    },
-    {
-        text: "Parent 2"
-    },
-    {
-        text: "Parent 3"
-    },
-    {
-        text: "Parent 4"
-    },
-    {
-        text: "Parent 5"
-    }
-];
-
 function initTree(){
-    $('#organization_tree').treeview({data: tree});
+    $('#organization_tree').treeview({
+        data: getData({}),
+        onNodeSelected:function (event, node) {
+            $("#search_organization_code").val(node.organizationCode);
+            initTable()
+        },
+        onNodeUnselected:function (event, node) {
+            $("#search_organization_code").val("");
+            initTable()
+        }
+    });
+}
+
+function getData(param) {
+
+    let list = [];
+
+    $.ajax({
+        url: "/organization/list/tree",
+        type: 'post',
+        dataType: 'json',
+        async: false,
+        contentType: 'application/json',
+        data: JSON.stringify(param),
+        success: function (responseDto) {
+            if (responseDto.success) {
+                list = responseDto.data;
+            }
+        },
+        error: function () {
+            console.log("请求处理失败!");
+            $.errorMassage("请求处理失败!");
+        }
+    });
+
+    return list;
 }

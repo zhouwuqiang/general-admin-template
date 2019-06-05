@@ -97,4 +97,9 @@ public class OrganizationServiceImpl implements OrganizationService {
     public List<OrganizationMenuRelation> queryRelationList(OrganizationMenuRelation relation) {
         return organizationMenuRelationMapper.select(relation);
     }
+
+    @Override
+    public List<OrganizationBasicFace> selectList(OrganizationBasicFace organizationBasicFace) {
+        return organizationBasicFaceMapper.select(organizationBasicFace);
+    }
 }

@@ -56,4 +56,11 @@ public interface OrganizationService {
      * @return
      */
     List<OrganizationMenuRelation> queryRelationList(OrganizationMenuRelation relation);
+
+    /**
+     * 查询组织列表
+     * @param organizationBasicFace
+     * @return
+     */
+    List<OrganizationBasicFace> selectList(OrganizationBasicFace organizationBasicFace);
 }

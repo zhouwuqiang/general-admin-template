@@ -1,9 +1,10 @@
 package com.java.business.organization.facade;
 
 import com.github.pagehelper.PageInfo;
-import com.java.business.organization.dto.OrganizationSaveRequestDto;
-import com.java.business.organization.dto.OrganizationTableRequestDto;
-import com.java.business.organization.dto.RelationSaveRequestDto;
+import com.java.business.organization.dto.*;
+import com.java.business.utils.tree.dto.Tree;
+
+import java.util.List;
 
 /**
  * description :
@@ -38,4 +39,11 @@ public interface OrganizationFacade {
      * @param requestDto
      */
     void relationSave(RelationSaveRequestDto requestDto);
+
+    /**
+     * 查询组织结构树
+     * @param requestDto
+     * @return
+     */
+    List<Organization> queryListTree(OrganizationTreeRequestDto requestDto);
 }

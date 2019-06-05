@@ -1,17 +1,20 @@
 package com.java.business.organization.facade.impl;
 
 import com.github.pagehelper.PageInfo;
-import com.java.business.organization.dto.OrganizationSaveRequestDto;
-import com.java.business.organization.dto.OrganizationTableRequestDto;
-import com.java.business.organization.dto.RelationSaveRequestDto;
+import com.java.business.organization.dto.*;
 import com.java.business.organization.entity.OrganizationBasicFace;
 import com.java.business.organization.entity.OrganizationMenuRelation;
 import com.java.business.organization.facade.OrganizationFacade;
 import com.java.business.organization.service.OrganizationService;
+import com.java.business.utils.tree.dto.Tree;
 import com.java.general.constant.SystemCommonConstant;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * description :
@@ -69,5 +72,41 @@ public class OrganizationFacadeImpl implements OrganizationFacade {
             relation.setDeleteFlag(SystemCommonConstant.DeleteFlag.NORMAL);
             organizationService.saveRelation(relation);
         }
+    }
+
+    @Override
+    public List<Organization> queryListTree(OrganizationTreeRequestDto requestDto) {
+        OrganizationBasicFace organizationBasicFace = new OrganizationBasicFace();
+        organizationBasicFace.setDeleteFlag(SystemCommonConstant.DeleteFlag.NORMAL);
+        List<OrganizationBasicFace> organizationBasicFaceList = organizationService.selectList(organizationBasicFace);
+
+        List<Organization> organizationTree = builderOrganizationTree(organizationBasicFaceList);
+
+        return organizationTree;
+    }
+
+    private List<Organization> builderOrganizationTree(List<OrganizationBasicFace> organizationBasicFaceList) {
+        //转换为组织对象
+        List<Organization> result = new ArrayList<>();
+        List<Organization> organizationList = new ArrayList<>();
+
+        for (OrganizationBasicFace item : organizationBasicFaceList) {
+            Organization organization = new Organization();
+            BeanUtils.copyProperties(item, organization);
+            organization.setText(item.getOrganizationName());
+            if (StringUtils.isBlank(organization.getParenCode())) {
+                organization.setRoot(true);
+                result.add(organization);
+            } else {
+                organizationList.add(organization);
+            }
+
+        }
+
+        for (Organization item : result) {
+            item.addChild(organizationList);
+        }
+
+        return result;
     }
 }

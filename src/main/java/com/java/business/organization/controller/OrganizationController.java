@@ -1,11 +1,10 @@
 package com.java.business.organization.controller;
 
 import com.github.pagehelper.PageInfo;
-import com.java.business.organization.dto.OrganizationSaveRequestDto;
-import com.java.business.organization.dto.OrganizationTableRequestDto;
-import com.java.business.organization.dto.RelationSaveRequestDto;
+import com.java.business.organization.dto.*;
 import com.java.business.organization.facade.OrganizationFacade;
 import com.java.business.role.dto.RoleRelationSaveRequestDto;
+import com.java.business.utils.tree.dto.Tree;
 import com.java.general.interceptors.controller.ControllerRecorder;
 import com.java.general.response.dto.ResponseDto;
 import com.java.general.response.utils.ResponseUtil;
@@ -15,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * description :
@@ -96,5 +96,22 @@ public class OrganizationController {
 
         return ResponseUtil.bindSuccessResponse();
     }
+
+
+    /**
+     * 获取组织结构树
+     *
+     * @param requestDto
+     * @return
+     */
+    @RequestMapping(value = "/list/tree")
+    @ControllerRecorder(path = "/organization/list/tree")
+    public ResponseDto listTree(@RequestBody OrganizationTreeRequestDto requestDto) {
+
+        List<Organization> list = organizationFacade.queryListTree(requestDto);
+
+        return ResponseUtil.bindSuccessResponse(list);
+    }
+
 
 }
