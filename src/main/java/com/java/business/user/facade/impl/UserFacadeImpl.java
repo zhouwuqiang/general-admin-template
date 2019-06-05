@@ -1,6 +1,8 @@
 package com.java.business.user.facade.impl;
 
 import com.github.pagehelper.PageInfo;
+import com.java.business.user.dto.UserBasicInfoRequestDto;
+import com.java.business.user.dto.UserPowerInfoRequestDto;
 import com.java.business.user.dto.UserSaveRequestDto;
 import com.java.business.user.dto.UserTableRequestDto;
 import com.java.business.user.entity.UserBasicFace;
@@ -35,23 +37,24 @@ public class UserFacadeImpl implements UserFacade {
 
     @Override
     public void save(UserSaveRequestDto requestDto) {
-
+        UserBasicInfoRequestDto basicInfo = requestDto.getBasicInfo();
+        UserPowerInfoRequestDto powerInfo = requestDto.getPowerInfo();
         UserBasicFace userBasicFace = new UserBasicFace();
 
-        userBasicFace.setUserCode(requestDto.getUserCode());
-        userBasicFace.setUserName(requestDto.getUserName());
-        userBasicFace.setUserLabel(requestDto.getUserLabel());
-        userBasicFace.setIsLock(requestDto.getIsLock());
+        userBasicFace.setUserCode(basicInfo.getUserCode());
+        userBasicFace.setUserName(basicInfo.getUserName());
+        userBasicFace.setUserLabel(basicInfo.getUserLabel());
+        userBasicFace.setIsLock(powerInfo.getIsLock());
 
-        if (StringUtils.isNotBlank(requestDto.getUserCode())){
+        if (StringUtils.isNotBlank(basicInfo.getUserCode())){
             User loginUser = SpringContextUtil.getLoginUser();
             userBasicFace.setCreateUser(loginUser.getUsername());
-            userBasicFace.setLoginPassword(MD5Util.MD5(requestDto.getLoginPassword()));
+            userBasicFace.setLoginPassword(MD5Util.MD5(basicInfo.getLoginPassword()));
         }
 
 
-        if (StringUtils.isNotBlank(requestDto.getDeleteFlag())){
-            userBasicFace.setDeleteFlag(requestDto.getDeleteFlag());
+        if (StringUtils.isNotBlank(basicInfo.getDeleteFlag())){
+            userBasicFace.setDeleteFlag(basicInfo.getDeleteFlag());
         }
         userService.save(userBasicFace);
     }

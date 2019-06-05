@@ -28,7 +28,18 @@ function initPage(userCode) {
  * 保存
  */
 function saveUser() {
-    let param = $.formSerializeObject("main_form");
+    let param = {};
+    let mainParam = $.formSerializeObject("main_form");
+    let powerParam = $.formSerializeObject("power_form");
+
+    $.deleteEmptyKey(mainParam);
+    $.deleteEmptyKey(powerParam);
+
+    param.basicInfo = mainParam;
+    param.powerInfo = powerParam;
+
+    console.log(JSON.stringify(param));
+
     $.ajax({
         url: "/user/save",
         type: 'post',
@@ -38,8 +49,7 @@ function saveUser() {
         success: function (responseDto) {
             $.ajaxMassage(responseDto);
             if (responseDto.success) {
-                $('#main_mode').modal('hide');
-                initTable();
+                selfCloseTab();
             }
         },
         error: function () {
@@ -113,4 +123,67 @@ function getData(param) {
     });
 
     return list;
+}
+
+/****************************************** 初始化角色查询 ***************************************/
+
+function selectRole() {
+    initTable();
+    $("#role_mode").modal("show");
+}
+
+
+/**
+ * 初始化表格
+ */
+function initTable() {
+    $.tableExpand({
+        tableId: "role_table",
+        url: "/role/table",
+        clickToSelect: true,
+        columns: [
+            {
+                checkbox: true
+            }, {
+                field: 'roleCode',
+                title: '角色编号',
+                align: 'center',
+                valign: 'middle'
+            }, {
+                field: 'roleName',
+                title: '角色名称',
+                align: 'center',
+                valign: 'middle'
+            }, {
+                field: 'roleMemo',
+                title: '角色备注',
+                align: 'center',
+                valign: 'middle'
+            }
+        ]
+    });
+
+}
+
+function getSelectRole() {
+    let rows = $("#role_table").bootstrapTable('getSelections');
+
+    if (rows.length === 1) {
+
+        console.log(JSON.stringify(rows[0]));
+        $("#role_code").val(rows[0].roleCode);
+        $("#user_role_name").val(rows[0].roleName);
+
+
+        $("#role_mode").modal("hide");
+
+    } else {
+        $.toast({
+            text: "请选择一行数据",
+            allowToastClose: true,
+            hideAfter: 1000,
+            position: 'top-center',
+            bgColor: '#5bc0de'
+        });
+    }
 }

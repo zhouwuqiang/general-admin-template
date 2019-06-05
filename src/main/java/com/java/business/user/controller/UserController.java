@@ -61,7 +61,7 @@ public class UserController {
      * @return
      */
     @RequestMapping(value = "/save")
-    @ControllerRecorder(path = "/user/table", validateClass = UserSaveRequestDto.class, validateTypeClass = UserSaveRequestDto.Insert.class)
+    @ControllerRecorder(path = "/user/save")
     public ResponseDto save(@RequestBody UserSaveRequestDto requestDto) {
 
         userFacade.save(requestDto);
@@ -76,7 +76,7 @@ public class UserController {
      * @return
      */
     @RequestMapping(value = "/delete")
-    @ControllerRecorder(path = "/user/delete", validateClass = UserSaveRequestDto.class, validateTypeClass = UserSaveRequestDto.Delete.class)
+    @ControllerRecorder(path = "/user/delete")
     public ResponseDto delete(@RequestBody UserSaveRequestDto requestDto) {
 
         userFacade.save(requestDto);

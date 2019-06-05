@@ -9,6 +9,18 @@ $(function () {
     menuObj.menuInit();
 });
 
+
+/**
+ * 自己请求关闭
+ * @param self
+ */
+function selfCloseTab() {
+    let closeTabItem = {};
+    let closeId = self.frameElement.getAttribute('id');
+    closeTabItem.tabId = closeId.substring(7, closeId.length);
+    window.top.menu.closeTab(closeTabItem)
+}
+
 /**
  * 菜单
  */
@@ -20,6 +32,7 @@ let menu = function () {
             tabItem.tabUrl = this.dataset.tab_url;
             tabItem.tabParam = this.dataset.tab_param;
             tabItem.tabTitle = this.dataset.tab_title;
+            tabItem.tabSelfClose = this.dataset.tab_self_close;
 
             if ($.isNull(tabItem.tabId)
                 || $.isNull(tabItem.tabUrl)
@@ -33,6 +46,15 @@ let menu = function () {
             } else {
                 window.top.menu.refreshTab(tabItem);
             }
+
+            //需要关闭当前打开
+            if ("01" === tabItem.tabSelfClose && window.top.menu.isNotMobile()) {
+                let closeTabItem = {};
+                let closeId = self.frameElement.getAttribute('id');
+                closeTabItem.tabId = closeId.substring(7, closeId.length);
+                window.top.menu.closeTab(closeTabItem)
+            }
+
         });
     }
 };

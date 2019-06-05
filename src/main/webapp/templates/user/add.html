@@ -68,6 +68,7 @@
                 <form class="form-horizontal" role="form" id="power_form">
 
                     <input type="hidden" id="organization_code" name="organizationCode"/>
+                    <input type="hidden" id="role_code" name="roleCode"/>
 
                     <div class="form-group">
                         <label for="user_name" class="col-sm-2 control-label">组织结构:</label>
@@ -79,7 +80,7 @@
                     <div class="form-group">
                         <label for="user_label" class="col-sm-2 control-label">授权角色:</label>
                         <div class="col-sm-4">
-                            <input type="text" class="form-control" id="user_label" name="userLabel">
+                            <input type="text" class="form-control" id="user_role_name" name="roleName" readonly="readonly" onfocus="selectRole()">
                         </div>
                     </div>
 
@@ -148,11 +149,35 @@
             </div>
 
             <div class="modal-footer">
-                <button id="cancel_button" type="button" class="btn btn-default add-show edit-show"
-                        data-dismiss="modal">
-                    取消
+                <button id="organization_define_button" type="button" class="btn btn-primary add-show" data-dismiss="modal">
+                    确定
                 </button>
-                <button id="define_button" type="button" class="btn btn-default detail-show" data-dismiss="modal">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--角色模态框-->
+<div class="modal fade" id="role_mode" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false"
+     aria-hidden="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="role_modal_title">
+                    角色列表
+                </h4>
+            </div>
+
+            <div class="modal-body">
+                <table id="role_table"></table>
+            </div>
+
+            <div class="modal-footer">
+                <button id="role_define_button" type="button" class="btn btn-primary add-show" onclick="getSelectRole()">
                     确定
                 </button>
             </div>

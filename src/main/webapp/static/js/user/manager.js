@@ -66,7 +66,7 @@ function operateFormatter(value, row, index) {
     let result = [];
     result.push("<a href='javascript:void(0)' class='' onclick='editUser(" + JSON.stringify(row) + ")'>修改</a>");
     result.push("<a href='javascript:void(0)' class='' onclick='detailUser(" + JSON.stringify(row) + ")'>详情</a>");
-    result.push("<a href='javascript:void(0)' class='' onclick='deleteUser(" + JSON.stringify(row) + ")'>删除</a>");
+    result.push("<a href='javascript:void(0)' class='' onclick='deleteUser(" + JSON.stringify(row) + ")'>禁用</a>");
     return $.formatterOperateButton(result);
 }
 
