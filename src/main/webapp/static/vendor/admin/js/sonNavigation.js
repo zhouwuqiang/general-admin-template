@@ -5,17 +5,17 @@
 $(function () {
 
     //创建菜单
-    var menuObj = new menu();
+    let menuObj = new menu();
     menuObj.menuInit();
 });
 
 /**
  * 菜单
  */
-var menu = function () {
+let menu = function () {
     this.menuInit = function () {
         $(window.document).on("click", ".toTab", function () {
-            var tabItem = {};
+            let tabItem = {};
             tabItem.tabId = this.dataset.tab_id;
             tabItem.tabUrl = this.dataset.tab_url;
             tabItem.tabParam = this.dataset.tab_param;
@@ -23,7 +23,6 @@ var menu = function () {
 
             if ($.isNull(tabItem.tabId)
                 || $.isNull(tabItem.tabUrl)
-                || $.isNull(tabItem.tabParam)
                 || $.isNull(tabItem.tabTitle)) {
                 console.log("tab参数不全,请检查数据");
                 return false;

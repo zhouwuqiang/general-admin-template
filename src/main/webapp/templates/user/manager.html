@@ -26,7 +26,6 @@
     <div class="col-sm-2" style="padding-right: 0px;">
         <div class="panel panel-default">
             <div class="panel-body">
-                <div></div>
                 <div id="organization_tree"></div>
             </div>
         </div>
@@ -81,7 +80,8 @@
                     <div class="panel-body">
                         <div class="main-table-div clearfix">
                             <div id="toolbar">
-                                <button id="add_button" class="btn btn-info" onclick="addUser()">
+                                <button id="add_button" class="btn btn-info toTab" data-tab_id="addUser" data-tab_param=""
+                                        data-tab_url="/view/user/add" data-tab_title="添加用户">
                                     <i class="fa fa-plus fa-icon"></i>添加
                                 </button>
                             </div>
@@ -178,4 +178,6 @@
 <script src="/static/vendor/jquery-toast-plugin/jquery.toast.min.js"></script>
 <script src="/static/vendor/admin/js/common.js?v=1.0.0"></script>
 <script src="/static/js/user/manager.js"></script>
+
+<script src="/static/vendor/admin/js/sonNavigation.js"></script>
 </html>

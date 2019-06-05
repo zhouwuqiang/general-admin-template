@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0"/>
+
+
+    <title>用户管理</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+
+    <link rel="shortcut icon" href="/static/img/favicon.ico">
+    <link rel="stylesheet" href="/static/vendor/admin/css/reset.css?v=2.0">
+    <link rel="stylesheet" href="/static/vendor/bootstrap/css/bootstrap.css?v=3.3.7">
+    <link rel="stylesheet" href="/static/vendor/font-awesome/css/font-awesome.css?v=4.7.0">
+    <link rel="stylesheet" href="/static/vendor/bootstrap-table/bootstrap-table.min.css">
+    <link rel="stylesheet" href="/static/vendor/jquery-toast-plugin/jquery.toast.min.css">
+
+
+</head>
+
+<body class="gray-bg">
+
+<input type="hidden" id="page_user_code" name="userCode" th:value="${userCode}"/>
+<input type="hidden" id="page_readonly" name="readonly" th:value="${readonly}"/>
+
+<div class="">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="col-sm-6" style="padding-right: 0px;">
+                <h4>基础信息:</h4>
+                <form class="form-horizontal" role="form" id="main_form">
+
+                    <input type="hidden" name="userCode"/>
+
+                    <div class="form-group">
+                        <label for="user_name" class="col-sm-2 control-label">用户账号:</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="user_name" name="userName"
+                                   placeholder="请输入用户账号">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="user_label" class="col-sm-2 control-label">用户名称:</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="user_label" name="userLabel"
+                                   placeholder="请输入用户名称">
+                        </div>
+                    </div>
+
+                    <div class="form-group add-show init-hidden">
+                        <label for="user_password" class="col-sm-2 control-label">登录密码:</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="user_password" name="loginPassword"
+                                   placeholder="请输入登录密码">
+                        </div>
+                    </div>
+
+                </form>
+
+            </div>
+
+            <div class="col-sm-6">
+                <h4>权限信息:</h4>
+                <form class="form-horizontal" role="form" id="power_form">
+
+                    <input type="hidden" id="organization_code" name="organizationCode"/>
+
+                    <div class="form-group">
+                        <label for="user_name" class="col-sm-2 control-label">组织结构:</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="organization_name" name="organizationName" readonly="readonly" onfocus="selectOrganization()">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="user_label" class="col-sm-2 control-label">授权角色:</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="user_label" name="userLabel">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="user_password" class="col-sm-2 control-label">是否锁定:</label>
+                        <div class="col-sm-4">
+                            <label class="radio-inline">
+                                <input type="radio" name="isLock" id="is_lock" value="00" checked> 未锁定
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="isLock" id="is_unlock" value="01"> 锁定
+                            </label>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+
+            <div class="col-sm-12 text-center">
+                <button id="cancel_button" type="button" class="btn btn-default add-show edit-show toTab"
+                        data-tab_id="MENUCO07500120190314161720782116"
+                        data-tab_url="/view/user/manager"
+                        data-tab_param="{}"
+                        data-tab_title="用户管理"
+                        data-tab_self_close="01"
+                        data-dismiss="modal">
+                    取消
+                </button>
+
+                <button id="define_button" type="button" class="btn btn-default detail-show toTab"
+                        data-tab_id="MENUCO07500120190314161720782116"
+                        data-tab_url="/view/user/manager"
+                        data-tab_param="{}"
+                        data-tab_title="用户管理"
+                        data-tab_self_close="01"
+                        data-dismiss="modal">
+                    确定
+                </button>
+
+                <button id="save_button" type="button" class="btn btn-primary  add-show edit-show" onclick="saveUser()">
+                    保存
+                </button>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<!--组织模态框-->
+<div class="modal fade" id="organization_mode" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false"
+     aria-hidden="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="modal_title">
+                    组织结构
+                </h4>
+            </div>
+
+            <div class="modal-body">
+                <div id="organization_tree"></div>
+            </div>
+
+            <div class="modal-footer">
+                <button id="cancel_button" type="button" class="btn btn-default add-show edit-show"
+                        data-dismiss="modal">
+                    取消
+                </button>
+                <button id="define_button" type="button" class="btn btn-default detail-show" data-dismiss="modal">
+                    确定
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+</body>
+<!-- 全局js -->
+<script src="/static/vendor/jquery/jquery.js?v=2.2.4"></script>
+<script src="/static/vendor/bootstrap/js/bootstrap.js?v=3.3.7"></script>
+<script src="/static/vendor/bootstrap-treeview/js/bootstrap-treeview.min.js"></script>
+<script src="/static/vendor/bootstrap-table/bootstrap-table.min.js"></script>
+<script src="/static/vendor/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
+<script src="/static/vendor/jquery-toast-plugin/jquery.toast.min.js"></script>
+<script src="/static/vendor/admin/js/common.js?v=1.0.0"></script>
+
+<script src="/static/js/user/add.js"></script>
+<script src="/static/vendor/admin/js/sonNavigation.js"></script>
+</html>

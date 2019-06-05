@@ -270,11 +270,14 @@ var menu = function () {
             $(window.document).find(".head-tabs-menu").append(titleHtml);
 
             var paramUrl = tabItem.tabUrl + "?";
-            var params =JSON.parse(tabItem.tabParam);
-            for (var key in params) {
-                paramUrl = paramUrl + key + "=" + params[key] + "&";
+
+            if ($.isNotNull(tabItem.tabParam)) {
+                var params =JSON.parse(tabItem.tabParam);
+                for (var key in params) {
+                    paramUrl = paramUrl + key + "=" + params[key] + "&";
+                }
+                paramUrl = paramUrl.substr(0, paramUrl.length - 1);
             }
-            paramUrl = paramUrl.substr(0, paramUrl.length - 1);
 
             var bodyHtml = "<div class='page-item page-active' id='body_" + tabItem.tabId + "' data-tab_id='" + tabItem.tabId + "' data-tab_url='" + tabItem.tabUrl +
                 "                           ' data-tab_param='" + tabItem.tabParam + "' data-tab_title='" + tabItem.tabTitle + "'>" +
