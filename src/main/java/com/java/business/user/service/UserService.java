@@ -25,5 +25,5 @@ public interface UserService {
      * @param userBasicFace
      * @return
      */
-    int save(UserBasicFace userBasicFace);
+    UserBasicFace save(UserBasicFace userBasicFace);
 }

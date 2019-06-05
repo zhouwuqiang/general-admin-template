@@ -47,7 +47,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public int save(UserBasicFace userBasicFace) {
+    public UserBasicFace save(UserBasicFace userBasicFace) {
         int result;
 
         if (StringUtils.isBlank(userBasicFace.getUserCode())) {
@@ -61,7 +61,7 @@ public class UserServiceImpl implements UserService {
         }
 
         if (result == 1) {
-            return result;
+            return userBasicFace;
         }
 
         throw new BusinessException("保存用户异常!" + JSON.toJSONString(userBasicFace));

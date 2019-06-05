@@ -37,25 +37,32 @@ public class UserFacadeImpl implements UserFacade {
 
     @Override
     public void save(UserSaveRequestDto requestDto) {
+        UserBasicFace userBasicFace = saveBasicInfo(requestDto);
+        savePowerInfo(requestDto,userBasicFace.getUserCode() );
+    }
+
+    private void savePowerInfo(UserSaveRequestDto requestDto,String userCode) {
+        UserPowerInfoRequestDto powerInfo = requestDto.getPowerInfo();
+
+
+
+
+    }
+
+    private UserBasicFace saveBasicInfo(UserSaveRequestDto requestDto) {
         UserBasicInfoRequestDto basicInfo = requestDto.getBasicInfo();
         UserPowerInfoRequestDto powerInfo = requestDto.getPowerInfo();
         UserBasicFace userBasicFace = new UserBasicFace();
-
         userBasicFace.setUserCode(basicInfo.getUserCode());
         userBasicFace.setUserName(basicInfo.getUserName());
         userBasicFace.setUserLabel(basicInfo.getUserLabel());
         userBasicFace.setIsLock(powerInfo.getIsLock());
 
-        if (StringUtils.isNotBlank(basicInfo.getUserCode())){
+        if (StringUtils.isNotBlank(basicInfo.getUserCode())) {
             User loginUser = SpringContextUtil.getLoginUser();
             userBasicFace.setCreateUser(loginUser.getUsername());
             userBasicFace.setLoginPassword(MD5Util.MD5(basicInfo.getLoginPassword()));
         }
-
-
-        if (StringUtils.isNotBlank(basicInfo.getDeleteFlag())){
-            userBasicFace.setDeleteFlag(basicInfo.getDeleteFlag());
-        }
-        userService.save(userBasicFace);
+        return userService.save(userBasicFace);
     }
 }
