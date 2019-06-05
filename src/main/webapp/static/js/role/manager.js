@@ -169,7 +169,7 @@ function initAuthorizationTree() {
  */
 function roleAuthorization(row) {
 
-    initAuthorizationTree();
+    initAuthorizationTree({"roleCode": row.roleCode});
 
     $('#menu_mode').modal('show');
 }
@@ -203,10 +203,18 @@ function getTree(param) {
     return menuList;
 }
 
-
+/**
+ * 保存授权
+ */
 function saveAuthorization() {
     let selected = $('#menu_tree').treeview('getChecked');
-    alert(JSON.stringify(selected))
+    let selectCodeList = [];
+    for(let i in selected){
+        selectCodeList.push(selected[i].code);
+    }
+    console.log(JSON.stringify(selectCodeList));
+
+
 }
 
 /**

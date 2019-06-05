@@ -4,7 +4,9 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.java.business.role.dto.RoleTableRequestDto;
 import com.java.business.role.entity.RoleBasicFace;
+import com.java.business.role.entity.RoleMenuRelation;
 import com.java.business.role.mapper.RoleBasicFaceMapper;
+import com.java.business.role.mapper.RoleMenuRelationMapper;
 import com.java.business.role.service.RoleService;
 import com.java.general.utils.UuidCodeWorker;
 import org.apache.commons.lang3.StringUtils;
@@ -27,6 +29,9 @@ public class RoleServiceImpl implements RoleService {
 
     @Autowired
     private RoleBasicFaceMapper roleBasicFaceMapper;
+
+    @Autowired
+    private RoleMenuRelationMapper roleMenuRelationMapper;
 
     @Override
     public PageInfo queryTable(RoleTableRequestDto requestDto) {
@@ -54,5 +59,10 @@ public class RoleServiceImpl implements RoleService {
             roleBasicFaceMapper.updateByPrimaryKeySelective(requestDto);
         }
         return requestDto;
+    }
+
+    @Override
+    public List<RoleMenuRelation> queryRelationList(RoleMenuRelation roleMenuRelation) {
+        return roleMenuRelationMapper.select(roleMenuRelation);
     }
 }

@@ -7,6 +7,8 @@ import com.java.business.menu.dto.MenuTableRequestDto;
 import com.java.business.menu.entity.MenuBasicFace;
 import com.java.business.menu.facade.MenuFacade;
 import com.java.business.menu.service.MenuService;
+import com.java.business.role.entity.RoleMenuRelation;
+import com.java.business.role.service.RoleService;
 import com.java.business.utils.tree.dto.Tree;
 import com.java.general.config.security.dto.Menu;
 import com.java.general.config.security.utils.MenuUtils;
@@ -32,6 +34,10 @@ public class MenuFacadeImpl implements MenuFacade {
 
     @Autowired
     private MenuService menuService;
+
+    @Autowired
+    private RoleService roleService;
+
 
     @Override
     public PageInfo queryTable(MenuTableRequestDto requestDto) {
@@ -59,8 +65,11 @@ public class MenuFacadeImpl implements MenuFacade {
         MenuListRequestDto total = new MenuListRequestDto();
         List<MenuBasicFace> allMenu = menuService.queryList(total);
 
-        List<MenuBasicFace> selected = menuService.queryList(menuListRequestDto);
-        Set<String> selectedSet = selected.stream().map(MenuBasicFace::getMenuCode).collect(Collectors.toSet());
+        RoleMenuRelation  roleMenuRelation=new RoleMenuRelation();
+        roleMenuRelation.setRoleCode(menuListRequestDto.getRoleCode());
+
+        List<RoleMenuRelation> selected = roleService.queryRelationList(roleMenuRelation);
+        Set<String> selectedSet = selected.stream().map(RoleMenuRelation::getMenuCode).collect(Collectors.toSet());
 
         List<Menu> menuList = MenuUtils.buildMenu(allMenu);
 
