@@ -2,13 +2,12 @@ package com.java.business.organization.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.java.business.menu.entity.MenuBasicFace;
-import com.java.business.organization.dto.OrganizationSaveRequestDto;
 import com.java.business.organization.dto.OrganizationTableRequestDto;
 import com.java.business.organization.entity.OrganizationBasicFace;
+import com.java.business.organization.entity.OrganizationMenuRelation;
 import com.java.business.organization.mapper.OrganizationBasicFaceMapper;
+import com.java.business.organization.mapper.OrganizationMenuRelationMapper;
 import com.java.business.organization.service.OrganizationService;
-import com.java.general.generator.GeneratorUtils;
 import com.java.general.utils.UuidCodeWorker;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +28,9 @@ public class OrganizationServiceImpl implements OrganizationService {
 
     @Autowired
     private OrganizationBasicFaceMapper organizationBasicFaceMapper;
+
+    @Autowired
+    private OrganizationMenuRelationMapper organizationMenuRelationMapper;
 
     @Override
     public PageInfo queryTable(OrganizationTableRequestDto requestDto) {
@@ -63,5 +65,36 @@ public class OrganizationServiceImpl implements OrganizationService {
         }
 
         return organizationBasicFace;
+    }
+
+    @Override
+    public void deleteRelation(String organizationCode) {
+        OrganizationMenuRelation relation = new OrganizationMenuRelation();
+        relation.setDeleteFlag("01");
+
+        Example example = new Example(OrganizationMenuRelation.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("organizationCode", organizationCode);
+        organizationMenuRelationMapper.updateByExampleSelective(relation, example);
+    }
+
+    @Override
+    public OrganizationMenuRelation selectRelation(OrganizationMenuRelation relation) {
+        return organizationMenuRelationMapper.selectOne(relation);
+    }
+
+    @Override
+    public OrganizationMenuRelation saveRelation(OrganizationMenuRelation relation) {
+        if (relation.getId() == null) {
+            organizationMenuRelationMapper.insertSelective(relation);
+        }else{
+            organizationMenuRelationMapper.updateByPrimaryKeySelective(relation);
+        }
+        return relation;
+    }
+
+    @Override
+    public List<OrganizationMenuRelation> queryRelationList(OrganizationMenuRelation relation) {
+        return organizationMenuRelationMapper.select(relation);
     }
 }

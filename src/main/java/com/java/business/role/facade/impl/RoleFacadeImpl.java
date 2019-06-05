@@ -67,6 +67,7 @@ public class RoleFacadeImpl implements RoleFacade {
                 roleMenuRelation.setDeleteFlag(SystemCommonConstant.DeleteFlag.NORMAL);
             }
 
+            roleMenuRelation.setDeleteFlag(SystemCommonConstant.DeleteFlag.NORMAL);
             roleService.saveRelation(roleMenuRelation);
         }
     }

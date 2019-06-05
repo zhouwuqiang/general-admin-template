@@ -3,6 +3,7 @@ package com.java.business.organization.facade;
 import com.github.pagehelper.PageInfo;
 import com.java.business.organization.dto.OrganizationSaveRequestDto;
 import com.java.business.organization.dto.OrganizationTableRequestDto;
+import com.java.business.organization.dto.RelationSaveRequestDto;
 
 /**
  * description :
@@ -31,4 +32,10 @@ public interface OrganizationFacade {
      * @param requestDto
      */
     void delete(OrganizationSaveRequestDto requestDto);
+
+    /**
+     * 保存组织菜单关系
+     * @param requestDto
+     */
+    void relationSave(RelationSaveRequestDto requestDto);
 }

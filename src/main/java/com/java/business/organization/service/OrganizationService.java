@@ -3,6 +3,10 @@ package com.java.business.organization.service;
 import com.github.pagehelper.PageInfo;
 import com.java.business.organization.dto.OrganizationTableRequestDto;
 import com.java.business.organization.entity.OrganizationBasicFace;
+import com.java.business.organization.entity.OrganizationMenuRelation;
+import com.java.business.role.entity.RoleMenuRelation;
+
+import java.util.List;
 
 /**
  * description :
@@ -25,4 +29,31 @@ public interface OrganizationService {
      * @param requestDto
      */
     OrganizationBasicFace save(OrganizationBasicFace requestDto);
+
+    /**
+     * 删除所有组织菜单关联
+     * @param organizationCode
+     */
+    void deleteRelation(String organizationCode);
+
+    /**
+     * 查询组织菜单关系
+     * @param relation
+     * @return
+     */
+    OrganizationMenuRelation selectRelation(OrganizationMenuRelation relation);
+
+    /**
+     * 保存组织菜单关系
+     * @param relation
+     * @return
+     */
+    OrganizationMenuRelation saveRelation(OrganizationMenuRelation relation);
+
+    /**
+     * 查询组织菜单列表
+     * @param relation
+     * @return
+     */
+    List<OrganizationMenuRelation> queryRelationList(OrganizationMenuRelation relation);
 }

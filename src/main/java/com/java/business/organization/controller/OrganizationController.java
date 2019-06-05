@@ -3,7 +3,9 @@ package com.java.business.organization.controller;
 import com.github.pagehelper.PageInfo;
 import com.java.business.organization.dto.OrganizationSaveRequestDto;
 import com.java.business.organization.dto.OrganizationTableRequestDto;
+import com.java.business.organization.dto.RelationSaveRequestDto;
 import com.java.business.organization.facade.OrganizationFacade;
+import com.java.business.role.dto.RoleRelationSaveRequestDto;
 import com.java.general.interceptors.controller.ControllerRecorder;
 import com.java.general.response.dto.ResponseDto;
 import com.java.general.response.utils.ResponseUtil;
@@ -77,5 +79,22 @@ public class OrganizationController {
         return ResponseUtil.bindSuccessResponse();
     }
 
+
+
+
+    /**
+     * 保存组织结构关联菜单
+     *
+     * @param requestDto
+     * @return
+     */
+    @RequestMapping(value = "/relation/save")
+    @ControllerRecorder(path = "/organization/relation/save", validateClass = RelationSaveRequestDto.class)
+    public ResponseDto relationSave(@RequestBody RelationSaveRequestDto requestDto) {
+
+        organizationFacade.relationSave(requestDto);
+
+        return ResponseUtil.bindSuccessResponse();
+    }
 
 }

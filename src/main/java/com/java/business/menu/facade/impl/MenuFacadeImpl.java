@@ -7,6 +7,8 @@ import com.java.business.menu.dto.MenuTableRequestDto;
 import com.java.business.menu.entity.MenuBasicFace;
 import com.java.business.menu.facade.MenuFacade;
 import com.java.business.menu.service.MenuService;
+import com.java.business.organization.entity.OrganizationMenuRelation;
+import com.java.business.organization.service.OrganizationService;
 import com.java.business.role.entity.RoleMenuRelation;
 import com.java.business.role.service.RoleService;
 import com.java.business.utils.tree.dto.Tree;
@@ -40,6 +42,8 @@ public class MenuFacadeImpl implements MenuFacade {
     @Autowired
     private RoleService roleService;
 
+    @Autowired
+    private OrganizationService organizationService;
 
     @Override
     public PageInfo queryTable(MenuTableRequestDto requestDto) {
@@ -68,7 +72,8 @@ public class MenuFacadeImpl implements MenuFacade {
         List<MenuBasicFace> allMenu = menuService.queryList();
         List<Menu> menuList = MenuUtils.buildMenu(allMenu);
 
-        Set<String> selectedSet = getSelectedSet(menuListRequestDto.getRoleCode());
+        Set<String> selectedSet = roleSelectedSet(menuListRequestDto.getRoleCode());
+        selectedSet.addAll(organizationSelectedSet(menuListRequestDto.getOrganizationCode()));
 
         return convent(menuList, selectedSet);
     }
@@ -78,7 +83,7 @@ public class MenuFacadeImpl implements MenuFacade {
      * @param roleCode
      * @return
      */
-    private Set<String> getSelectedSet(String roleCode) {
+    private Set<String> roleSelectedSet(String roleCode) {
         Set<String> selectedSet = new HashSet<>();
         if (StringUtils.isNotBlank(roleCode)) {
             RoleMenuRelation roleMenuRelation = new RoleMenuRelation();
@@ -86,6 +91,23 @@ public class MenuFacadeImpl implements MenuFacade {
             roleMenuRelation.setDeleteFlag(SystemCommonConstant.DeleteFlag.NORMAL);
             List<RoleMenuRelation> selected = roleService.queryRelationList(roleMenuRelation);
             selectedSet = selected.stream().map(RoleMenuRelation::getMenuCode).collect(Collectors.toSet());
+        }
+        return selectedSet;
+    }
+
+    /**
+     * 根据组织编号,查询角色拥有的菜单集合
+     * @param organizationCode
+     * @return
+     */
+    private Set<String> organizationSelectedSet(String organizationCode) {
+        Set<String> selectedSet = new HashSet<>();
+        if (StringUtils.isNotBlank(organizationCode)) {
+            OrganizationMenuRelation relation = new OrganizationMenuRelation();
+            relation.setOrganizationCode(organizationCode);
+            relation.setDeleteFlag(SystemCommonConstant.DeleteFlag.NORMAL);
+            List<OrganizationMenuRelation> selected = organizationService.queryRelationList(relation);
+            selectedSet = selected.stream().map(OrganizationMenuRelation::getMenuCode).collect(Collectors.toSet());
         }
         return selectedSet;
     }

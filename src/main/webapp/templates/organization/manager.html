@@ -153,13 +153,52 @@
             </div>
         </div>
 
+
+        <!--组织授权-->
+        <div class="modal fade" id="organization_relation_mode" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false"
+             aria-hidden="false">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                            &times;
+                        </button>
+                        <h4 class="modal-title" id="menu_mode_title">
+                            授权
+                        </h4>
+                    </div>
+
+                    <div class="modal-body">
+                        <input type="hidden" id="organization_relation_code" name="organizationCode"/>
+                        <div id="menu_tree"></div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button id="menu_cancel_button" type="button" class="btn btn-default add-show edit-show"
+                                data-dismiss="modal">
+                            取消
+                        </button>
+                        <!--<button id="menu_define_button" type="button" class="btn btn-default detail-show" data-dismiss="modal">-->
+                        <!--确定-->
+                        <!--</button>-->
+                        <button id="menu_save_button" type="button" class="btn btn-primary  add-show edit-show" onclick="saveAuthorization()">
+                            保存
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
     </body>
     <!-- 全局js -->
     <script src="/static/vendor/jquery/jquery.js?v=2.2.4"></script>
     <script src="/static/vendor/bootstrap/js/bootstrap.js?v=3.3.7"></script>
+    <script src="/static/vendor/bootstrap-treeview/js/bootstrap-treeview.min.js"></script>
     <script src="/static/vendor/bootstrap-table-tree/bootstrap-treetable.js"></script>
     <script src="/static/vendor/jquery-toast-plugin/jquery.toast.min.js"></script>
     <script src="/static/vendor/admin/js/common.js?v=1.0.0"></script>
 
+    <script src="/static/js/menu/menuTree.js"></script>
     <script src="/static/js/organization/manager.js"></script>
 </html>

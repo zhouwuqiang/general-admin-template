@@ -23,7 +23,7 @@ function initTable() {
 
     let params = $.formSerializeObject("main_table_search_form");
     $.deleteEmptyKey(params);
-debugger
+    debugger
     $("#main_table").bootstrapTreeTable({
         toolbar: "#toolbar",      //顶部工具条
         id: 'organizationCode',                                                   // 选取记录返回的值,用于设置父子关系
@@ -108,8 +108,8 @@ debugger
 function operateFormatter(value, row, index) {
     let result = [];
     result.push("<a href='javascript:void(0)' class='' onclick='addSubOrganization(" + JSON.stringify(row) + ")'>添加</a>");
+    result.push("<a href='javascript:void(0)' class='' onclick='organizationAuthorization(" + JSON.stringify(row) + ")'>授权</a>");
     result.push("<a href='javascript:void(0)' class='' onclick='editOrganization(" + JSON.stringify(row) + ")'>修改</a>");
-    // result.push("<a href='javascript:void(0)' class='btn btn-warning' onclick='detailOrganization(" + JSON.stringify(row) + ")'><i class='fa fa-edit fa-icon'></i>详情</a>");
     result.push("<a href='javascript:void(0)' class='' onclick='deleteOrganization(" + JSON.stringify(row) + ")'>删除</a>");
     return $.formatterOperateButton(result);
 }
@@ -130,7 +130,6 @@ function exchange() {
 }
 
 
-
 /**
  * 添加
  */
@@ -146,17 +145,7 @@ function addOrganization() {
 function editOrganization(row) {
     $.initModel("main_mode", "编辑结构", "main_form", "edit-show");
     $.formReview("main_form", row);
-    $("#paren_code").attr("readonly","readonly");
-    $('#main_mode').modal('show');
-}
-
-/**
- * 显示
- */
-function detailOrganization(row) {
-    $.initModel("main_mode", "结构详情", "main_form", "detail-show");
-    $.formReview("main_form", row);
-    $.formReadOnly("main_form");
+    $("#paren_code").attr("readonly", "readonly");
     $('#main_mode').modal('show');
 }
 
@@ -166,7 +155,7 @@ function detailOrganization(row) {
 function addSubOrganization(row) {
     $.initModel("main_mode", "添加子结构", "main_form", "add-show");
     $("#paren_code").val(row.organizationCode);
-    $("#paren_code").attr("readonly","readonly");
+    $("#paren_code").attr("readonly", "readonly");
     $('#main_mode').modal('show');
 }
 
@@ -216,4 +205,56 @@ function deleteOrganization(row) {
             $.errorMassage("请求处理失败!");
         }
     });
+}
+
+
+/**************************************************授权**************************************/
+
+/**
+ * 角色授权菜单
+ */
+function organizationAuthorization(row) {
+
+    initAuthorizationTree("menu_tree",{"organizationCode": row.organizationCode});
+
+    $("#organization_relation_code").val(row.organizationCode);
+
+    $('#organization_relation_mode').modal('show');
+}
+
+/**
+ * 保存授权
+ */
+function saveAuthorization() {
+    let selected = $('#menu_tree').treeview('getChecked');
+    let selectCodeList = [];
+    for (let i in selected) {
+        selectCodeList.push(selected[i].code);
+    }
+    console.log(JSON.stringify(selectCodeList));
+
+
+    let params = {};
+    params.organizationCode = $("#organization_relation_code").val();
+    params.menuCodeList = selectCodeList;
+
+    $.ajax({
+        url: "/organization/relation/save",
+        type: 'post',
+        dataType: 'json',
+        async: false,
+        contentType: 'application/json',
+        data: JSON.stringify(params),
+        success: function (responseDto) {
+            if (responseDto.success) {
+                $('#organization_relation_mode').modal('hide');
+            }
+        },
+        error: function () {
+            console.log("请求处理失败!");
+            $.errorMassage("请求处理失败!");
+        }
+    });
+
+
 }

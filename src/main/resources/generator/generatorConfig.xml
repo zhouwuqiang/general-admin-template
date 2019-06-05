@@ -40,7 +40,7 @@
         <!--<table tableName="wordbook">-->
             <!--<generatedKey column="id" sqlStatement="Mysql" identity="true"/>-->
         <!--</table>-->
-        <table tableName="organization_basic_face">
+        <table tableName="organization_menu_relation">
             <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
         </table>
 
