@@ -44,7 +44,7 @@ let menu = function () {
             if (!window.top.menu.existsTab(tabItem)) {
                 window.top.menu.addTab(tabItem);
             } else {
-                window.top.menu.refreshTab(tabItem);
+                // window.top.menu.refreshTab(tabItem);
             }
 
             //需要关闭当前打开
