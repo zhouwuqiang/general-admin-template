@@ -5,6 +5,8 @@ import javax.persistence.*;
 
 @Table(name = "role_menu_relation")
 public class RoleMenuRelation {
+
+    @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;

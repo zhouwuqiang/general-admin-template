@@ -103,7 +103,6 @@ $.extend({
             showPaginationSwitch: config.showPaginationSwitch,
             columns: config.columns,
             queryParams: function (params) {
-                debugger;
                 let param = {};
 
                 if ($.isNotNull(config.searchFormId)) {

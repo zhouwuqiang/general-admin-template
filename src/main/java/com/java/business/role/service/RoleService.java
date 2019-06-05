@@ -34,4 +34,23 @@ public interface RoleService {
      * @return
      */
     List<RoleMenuRelation> queryRelationList(RoleMenuRelation roleMenuRelation);
+
+    /**
+     * 逻辑删除所有逻辑关系
+     * @param roleCode
+     */
+    void deleteRelation(String roleCode);
+
+    /**
+     * 查询关联关系
+     * @param roleMenuRelation
+     * @return
+     */
+    RoleMenuRelation selectRelation(RoleMenuRelation roleMenuRelation);
+
+    /**
+     * 保存关联关系
+     * @param roleMenuRelation
+     */
+    void saveRelation(RoleMenuRelation roleMenuRelation);
 }

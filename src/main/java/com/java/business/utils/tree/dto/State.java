@@ -19,19 +19,19 @@ public class State {
     /**
      * 指示一个节点是否处于checked状态，用一个checkbox图标表示
      */
-    private Boolean checked;
+    private Boolean checked = false;
     /**
      * 指示一个节点是否处于disabled状态。（不是selectable，expandable或checkable）
      */
-    private Boolean disabled;
+    private Boolean disabled = false;
     /**
      * 指示一个节点是否处于展开状态。
      */
-    private Boolean expanded;
+    private Boolean expanded = false;
     /**
      * 指示一个节点是否可以被选择。
      */
-    private Boolean selected;
+    private Boolean selected = false;
 
 
 }

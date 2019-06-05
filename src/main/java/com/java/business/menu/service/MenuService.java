@@ -31,8 +31,7 @@ public interface MenuService {
 
     /**
      * 查询菜单结合
-     * @param menuListRequestDto
      * @return
      */
-    List<MenuBasicFace> queryList(MenuListRequestDto menuListRequestDto);
+    List<MenuBasicFace> queryList();
 }

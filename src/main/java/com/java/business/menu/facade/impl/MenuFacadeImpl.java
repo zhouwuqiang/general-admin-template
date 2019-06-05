@@ -13,11 +13,13 @@ import com.java.business.utils.tree.dto.Tree;
 import com.java.general.config.security.dto.Menu;
 import com.java.general.config.security.utils.MenuUtils;
 import com.java.general.constant.SystemCommonConstant;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -62,21 +64,39 @@ public class MenuFacadeImpl implements MenuFacade {
 
     @Override
     public List<Tree> queryListTree(MenuListRequestDto menuListRequestDto) {
-        MenuListRequestDto total = new MenuListRequestDto();
-        List<MenuBasicFace> allMenu = menuService.queryList(total);
 
-        RoleMenuRelation  roleMenuRelation=new RoleMenuRelation();
-        roleMenuRelation.setRoleCode(menuListRequestDto.getRoleCode());
-
-        List<RoleMenuRelation> selected = roleService.queryRelationList(roleMenuRelation);
-        Set<String> selectedSet = selected.stream().map(RoleMenuRelation::getMenuCode).collect(Collectors.toSet());
-
+        List<MenuBasicFace> allMenu = menuService.queryList();
         List<Menu> menuList = MenuUtils.buildMenu(allMenu);
+
+        Set<String> selectedSet = getSelectedSet(menuListRequestDto.getRoleCode());
 
         return convent(menuList, selectedSet);
     }
 
-    private List<Tree> convent(List<Menu> menuList,Set<String> codeSet) {
+    /**
+     * 根据角色编号,查询角色拥有的菜单集合
+     * @param roleCode
+     * @return
+     */
+    private Set<String> getSelectedSet(String roleCode) {
+        Set<String> selectedSet = new HashSet<>();
+        if (StringUtils.isNotBlank(roleCode)) {
+            RoleMenuRelation roleMenuRelation = new RoleMenuRelation();
+            roleMenuRelation.setRoleCode(roleCode);
+            roleMenuRelation.setDeleteFlag(SystemCommonConstant.DeleteFlag.NORMAL);
+            List<RoleMenuRelation> selected = roleService.queryRelationList(roleMenuRelation);
+            selectedSet = selected.stream().map(RoleMenuRelation::getMenuCode).collect(Collectors.toSet());
+        }
+        return selectedSet;
+    }
+
+    /**
+     * 查单转换为页面tree对象
+     * @param menuList
+     * @param codeSet
+     * @return
+     */
+    private List<Tree> convent(List<Menu> menuList, Set<String> codeSet) {
 
         List<Tree> result = new ArrayList<>();
 
@@ -84,11 +104,14 @@ public class MenuFacadeImpl implements MenuFacade {
             Tree tree = new Tree();
             tree.setText(item.getMenuName());
             tree.setCode(item.getMenuCode());
-            if (codeSet.contains(item.getMenuCode())){
+            if (codeSet.contains(item.getMenuCode())) {
                 tree.setChecked();
             }
+            if (item.isRoot()) {
+                tree.setExpanded();
+            }
             if (item.isHasChild()) {
-                tree.setNodes(convent(item.getChildMenus(),codeSet));
+                tree.setNodes(convent(item.getChildMenus(), codeSet));
             }
             result.add(tree);
         }

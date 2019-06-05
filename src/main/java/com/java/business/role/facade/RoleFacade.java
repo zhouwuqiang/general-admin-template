@@ -1,6 +1,7 @@
 package com.java.business.role.facade;
 
 import com.github.pagehelper.PageInfo;
+import com.java.business.role.dto.RoleRelationSaveRequestDto;
 import com.java.business.role.dto.RoleSaveRequestDto;
 import com.java.business.role.dto.RoleTableRequestDto;
 
@@ -31,4 +32,10 @@ public interface RoleFacade {
      * @param requestDto
      */
     void delete(RoleSaveRequestDto requestDto);
+
+    /**
+     * 保存角色菜单关系
+     * @param requestDto
+     */
+    void relationSave(RoleRelationSaveRequestDto requestDto);
 }

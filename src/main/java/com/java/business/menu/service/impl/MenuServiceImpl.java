@@ -62,7 +62,7 @@ public class MenuServiceImpl implements MenuService {
     }
 
     @Override
-    public List<MenuBasicFace> queryList(MenuListRequestDto menuListRequestDto) {
+    public List<MenuBasicFace> queryList() {
         Example example = new Example(MenuBasicFace.class);
         Example.Criteria criteria = example.createCriteria();
         criteria.andEqualTo("deleteFlag", "00");

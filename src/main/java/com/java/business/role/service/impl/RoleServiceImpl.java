@@ -52,10 +52,10 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public RoleBasicFace save(RoleBasicFace requestDto) {
-        if (requestDto.getId() == null){
+        if (requestDto.getId() == null) {
             requestDto.setRoleCode(UuidCodeWorker.nextCode("ROLE"));
             roleBasicFaceMapper.insertSelective(requestDto);
-        }else{
+        } else {
             roleBasicFaceMapper.updateByPrimaryKeySelective(requestDto);
         }
         return requestDto;
@@ -64,5 +64,30 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public List<RoleMenuRelation> queryRelationList(RoleMenuRelation roleMenuRelation) {
         return roleMenuRelationMapper.select(roleMenuRelation);
+    }
+
+    @Override
+    public void deleteRelation(String roleCode) {
+        RoleMenuRelation relation = new RoleMenuRelation();
+        relation.setDeleteFlag("01");
+
+        Example example = new Example(RoleMenuRelation.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("roleCode", roleCode);
+        roleMenuRelationMapper.updateByExampleSelective(relation, example);
+    }
+
+    @Override
+    public RoleMenuRelation selectRelation(RoleMenuRelation roleMenuRelation) {
+        return roleMenuRelationMapper.selectOne(roleMenuRelation);
+    }
+
+    @Override
+    public void saveRelation(RoleMenuRelation roleMenuRelation) {
+        if (roleMenuRelation.getId() == null) {
+            roleMenuRelationMapper.insertSelective(roleMenuRelation);
+        }else{
+            roleMenuRelationMapper.updateByPrimaryKeySelective(roleMenuRelation);
+        }
     }
 }

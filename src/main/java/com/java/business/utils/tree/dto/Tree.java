@@ -83,4 +83,8 @@ public class Tree {
     public void setChecked() {
         this.state.setChecked(true);
     }
+
+    public void setExpanded() {
+        this.state.setExpanded(true);
+    }
 }

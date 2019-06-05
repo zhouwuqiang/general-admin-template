@@ -1,6 +1,7 @@
 package com.java.business.role.controller;
 
 import com.github.pagehelper.PageInfo;
+import com.java.business.role.dto.RoleRelationSaveRequestDto;
 import com.java.business.role.dto.RoleSaveRequestDto;
 import com.java.business.role.dto.RoleTableRequestDto;
 import com.java.business.role.facade.RoleFacade;
@@ -83,6 +84,23 @@ public class RoleController {
 
         return ResponseUtil.bindSuccessResponse();
     }
+
+    /**
+     * 保存角色关联菜单
+     *
+     * @param requestDto
+     * @return
+     */
+    @RequestMapping(value = "/relation/save")
+    @ControllerRecorder(path = "/role/relation/save", validateClass = RoleRelationSaveRequestDto.class)
+    public ResponseDto relationSave(@RequestBody RoleRelationSaveRequestDto requestDto) {
+
+        roleFacade.relationSave(requestDto);
+
+        return ResponseUtil.bindSuccessResponse();
+    }
+
+
 
 
 }

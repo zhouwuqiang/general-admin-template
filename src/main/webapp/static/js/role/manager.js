@@ -138,13 +138,29 @@ function deleteRole(user) {
 }
 
 
+/**************************************************授权**************************************/
+
+/**
+ * 角色授权菜单
+ */
+function roleAuthorization(row) {
+
+    debugger;
+    initAuthorizationTree({"roleCode": row.roleCode});
+
+    $("#role_relation_code").val(row.roleCode);
+
+    $('#role_relation_mode').modal('show');
+}
+
+
 /**
  * 初始化权限菜单
  */
-function initAuthorizationTree() {
+function initAuthorizationTree(param) {
 
-    $('#menu_tree').treeview({
-        data: getTree({}),
+    $('#menu_tree').treeview('remove').treeview({
+        data: getTree(param),
         showCheckbox: true,
         hierarchicalCheck: true,
         showTags: true,
@@ -164,15 +180,6 @@ function initAuthorizationTree() {
     });
 }
 
-/**
- * 角色授权菜单
- */
-function roleAuthorization(row) {
-
-    initAuthorizationTree({"roleCode": row.roleCode});
-
-    $('#menu_mode').modal('show');
-}
 
 /**
  * 获取角色数据
@@ -209,10 +216,33 @@ function getTree(param) {
 function saveAuthorization() {
     let selected = $('#menu_tree').treeview('getChecked');
     let selectCodeList = [];
-    for(let i in selected){
+    for (let i in selected) {
         selectCodeList.push(selected[i].code);
     }
     console.log(JSON.stringify(selectCodeList));
+
+
+    let params = {};
+    params.roleCode = $("#role_relation_code").val();
+    params.menuCodeList = selectCodeList;
+
+    $.ajax({
+        url: "/role/relation/save",
+        type: 'post',
+        dataType: 'json',
+        async: false,
+        contentType: 'application/json',
+        data: JSON.stringify(params),
+        success: function (responseDto) {
+            if (responseDto.success) {
+                $('#role_relation_mode').modal('hide');
+            }
+        },
+        error: function () {
+            console.log("请求处理失败!");
+            $.errorMassage("请求处理失败!");
+        }
+    });
 
 
 }
