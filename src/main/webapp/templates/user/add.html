@@ -26,10 +26,10 @@
 <input type="hidden" id="page_user_code" name="userCode" th:value="${userCode}"/>
 <input type="hidden" id="page_readonly" name="readonly" th:value="${readonly}"/>
 
-<div class="">
+<div class="container-fluid">
     <div class="panel panel-default">
         <div class="panel-body">
-            <div class="col-sm-6" style="padding-right: 0px;">
+            <div class="col-sm-6">
                 <h4>基础信息:</h4>
                 <form class="form-horizontal" role="form" id="main_form">
 
@@ -86,7 +86,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="user_password" class="col-sm-2 control-label">是否锁定:</label>
+                        <label for="is_lock" class="col-sm-2 control-label">是否锁定:</label>
                         <div class="col-sm-4">
                             <label class="radio-inline">
                                 <input type="radio" name="isLock" id="is_lock" value="00" checked> 未锁定

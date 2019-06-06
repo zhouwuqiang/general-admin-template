@@ -9,6 +9,7 @@ import com.java.business.user.facade.UserFacade;
 import com.java.general.interceptors.controller.ControllerRecorder;
 import com.java.general.response.dto.ResponseDto;
 import com.java.general.response.utils.ResponseUtil;
+import com.java.general.utils.SpringContextUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,7 +54,7 @@ public class UserController {
     }
 
     /**
-     * 保存用户
+     * 查询用户详情
      *
      * @param requestDto
      * @return
@@ -67,6 +68,20 @@ public class UserController {
         return ResponseUtil.bindSuccessResponse(responseDto);
     }
 
+    /**
+     * 个人用户中心
+     *
+     * @return
+     */
+    @RequestMapping(value = "/center")
+    @ControllerRecorder(path = "/user/center")
+    public ResponseDto center() {
+        UserDetailRequestDto requestDto = new UserDetailRequestDto();
+        requestDto.setUserCode(SpringContextUtil.getLoginUser().getUserCode());
+        UserDetailResponseDto responseDto = userFacade.detail(requestDto);
+
+        return ResponseUtil.bindSuccessResponse(responseDto);
+    }
 
     /**
      * 保存用户
