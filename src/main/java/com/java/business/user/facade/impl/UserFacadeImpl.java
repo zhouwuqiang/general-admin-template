@@ -1,6 +1,7 @@
 package com.java.business.user.facade.impl;
 
 import com.github.pagehelper.PageInfo;
+import com.java.business.organization.service.OrganizationService;
 import com.java.business.role.entity.RoleBasicFace;
 import com.java.business.role.service.RoleService;
 import com.java.business.user.dto.*;
@@ -36,10 +37,18 @@ public class UserFacadeImpl implements UserFacade {
     @Autowired
     private RoleService roleService;
 
+    @Autowired
+    private OrganizationService organizationService;
+
     @Override
     public PageInfo queryTable(UserTableRequestDto requestDto) {
-        PageInfo result = userService.queryTable(requestDto);
-        return result;
+
+        if(StringUtils.isNotBlank(requestDto.getOrganizationCode())){
+            requestDto.setOrganizationCodeList(organizationService.getSubOrganizationCode(requestDto.getOrganizationCode()));
+        }
+
+
+        return userService.queryTable(requestDto);
     }
 
     @Override

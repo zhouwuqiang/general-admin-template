@@ -39,7 +39,7 @@
                         <div class="search-form-div clearfix">
                             <form role="form" id="main_table_search_form">
 
-                                <div class="col-xs-3">
+                                <div class="col-xs-3 hidden">
                                     <input type="text" autocomplete="off" id="search_organization_code"
                                            name="organizationCode"
                                            placeholder="所属组织"
@@ -63,7 +63,7 @@
                                 </div>
                                 <div class="col-md-1">
                                     <a href="javascript:void(0);" class="btn btn-warning"
-                                       onclick="refreshTable('main_table')">
+                                       onclick="userSearchFormRest()">
                                         <i class="fa fa-undo fa-icon"></i>重置
                                     </a>
                                 </div>

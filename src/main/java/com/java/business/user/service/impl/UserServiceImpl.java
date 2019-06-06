@@ -42,16 +42,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public PageInfo queryTable(UserTableRequestDto requestDto) {
-        Example example = new Example(UserBasicFace.class);
-        Example.Criteria criteria = example.createCriteria();
-        criteria.andEqualTo("userName", requestDto.getUserName());
-        criteria.andEqualTo("deleteFlag", "00");
-        if (StringUtils.isNotBlank(requestDto.getUserName())) {
-            criteria.andCondition("USER_LABEL like", requestDto.getUserName() + "%");
-        }
-
         PageHelper.startPage(requestDto.getPageNum(), requestDto.getPageSize());
-        List<UserBasicFace> queryList = userBasicFaceMapper.selectByExample(example);
+        List<UserBasicFace> queryList = userBasicFaceMapper.selectUserList(requestDto);
         return new PageInfo<>(queryList);
     }
 

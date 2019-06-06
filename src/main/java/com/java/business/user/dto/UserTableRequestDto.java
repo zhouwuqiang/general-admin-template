@@ -6,6 +6,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 /**
  * description :
@@ -22,16 +23,22 @@ public class UserTableRequestDto extends PageRequestDto {
     /**
      * 用户账号
      */
-    @NotNull(message = "用户账号不能为空!",groups = {UserTableRequestDto.Insert.class,UserTableRequestDto.Update.class})
     private String userName;
 
     /**
      * 用户中文名
      */
-    @NotNull(message = "用户中文名不能为空!",groups = {UserTableRequestDto.Insert.class,UserTableRequestDto.Update.class})
     private String userLabel;
 
+    /**
+     * 组织机构编号
+     */
+    private String organizationCode;
 
+    /**
+     * 组织机构编号
+     */
+    private List<String> organizationCodeList;
 
 
     public interface Table{}

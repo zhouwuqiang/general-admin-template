@@ -8,12 +8,14 @@ import com.java.business.organization.entity.OrganizationMenuRelation;
 import com.java.business.organization.mapper.OrganizationBasicFaceMapper;
 import com.java.business.organization.mapper.OrganizationMenuRelationMapper;
 import com.java.business.organization.service.OrganizationService;
+import com.java.general.constant.SystemCommonConstant;
 import com.java.general.utils.UuidCodeWorker;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -57,10 +59,10 @@ public class OrganizationServiceImpl implements OrganizationService {
     @Override
     public OrganizationBasicFace save(OrganizationBasicFace organizationBasicFace) {
 
-        if (organizationBasicFace.getId() == null){
+        if (organizationBasicFace.getId() == null) {
             organizationBasicFace.setOrganizationCode(UuidCodeWorker.nextCode("ORG"));
             organizationBasicFaceMapper.insertSelective(organizationBasicFace);
-        }else{
+        } else {
             organizationBasicFaceMapper.updateByPrimaryKeySelective(organizationBasicFace);
         }
 
@@ -87,7 +89,7 @@ public class OrganizationServiceImpl implements OrganizationService {
     public OrganizationMenuRelation saveRelation(OrganizationMenuRelation relation) {
         if (relation.getId() == null) {
             organizationMenuRelationMapper.insertSelective(relation);
-        }else{
+        } else {
             organizationMenuRelationMapper.updateByPrimaryKeySelective(relation);
         }
         return relation;
@@ -102,4 +104,26 @@ public class OrganizationServiceImpl implements OrganizationService {
     public List<OrganizationBasicFace> selectList(OrganizationBasicFace organizationBasicFace) {
         return organizationBasicFaceMapper.select(organizationBasicFace);
     }
+
+    @Override
+    public List<String> getSubOrganizationCode(String organizationCode) {
+        List<String> result = new ArrayList<>();
+        result.add(organizationCode);
+        getSubCode(result, organizationCode);
+        return result;
+    }
+
+    private void getSubCode(List<String> codes, String organizationCode) {
+        OrganizationBasicFace organizationBasicFace = new OrganizationBasicFace();
+        organizationBasicFace.setParenCode(organizationCode);
+        organizationBasicFace.setDeleteFlag(SystemCommonConstant.DeleteFlag.NORMAL);
+        List<OrganizationBasicFace> basicFaces = organizationBasicFaceMapper.select(organizationBasicFace);
+        if (basicFaces != null && !basicFaces.isEmpty()){
+            for (OrganizationBasicFace item : basicFaces) {
+                codes.add(item.getOrganizationCode());
+                getSubCode(codes,item.getOrganizationCode());
+            }
+        }
+    }
+
 }

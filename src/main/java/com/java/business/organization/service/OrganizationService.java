@@ -63,4 +63,11 @@ public interface OrganizationService {
      * @return
      */
     List<OrganizationBasicFace> selectList(OrganizationBasicFace organizationBasicFace);
+
+    /**
+     * 查询组织code
+     * @param organizationCode
+     * @return
+     */
+    List<String> getSubOrganizationCode(String organizationCode);
 }

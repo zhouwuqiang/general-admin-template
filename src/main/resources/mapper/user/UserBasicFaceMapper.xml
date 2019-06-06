@@ -19,4 +19,43 @@
     <result column="create_user" jdbcType="VARCHAR" property="createUser" />
     <result column="delete_flag" jdbcType="VARCHAR" property="deleteFlag" />
   </resultMap>
+    <select id="selectUserList" resultMap="BaseResultMap">
+        SELECT
+            user_basic_face.ID,
+            user_basic_face.USER_CODE,
+            user_basic_face.USER_LABEL,
+            user_basic_face.USER_NAME,
+            user_basic_face.LOGIN_PASSWORD,
+            user_basic_face.SECURITY_PASSWORD,
+            user_basic_face.IS_LOCK,
+            user_basic_face.IS_REMEMBER,
+            user_basic_face.IS_NEED_RESET_PASSWORD,
+            user_basic_face.UPDATE_TIME,
+            user_basic_face.UPDATE_USER,
+            user_basic_face.CREATE_TIME,
+            user_basic_face.CREATE_USER,
+            user_basic_face.DELETE_FLAG
+        FROM
+            user_basic_face
+            INNER JOIN user_organization_relation ON user_basic_face.USER_CODE = user_organization_relation.USER_CODE
+        WHERE
+            user_basic_face.DELETE_FLAG="00"
+            and user_organization_relation.DELETE_FLAG="00"
+            <if test="userName != null and userName != ''">
+              user_basic_face.USER_NAME like concat('%',#{userName},'%')
+            </if>
+            <if test="userLabel != null and userLabel != ''">
+              user_basic_face.USER_LABEL like concat('%',#{userLabel},'%')
+            </if>
+            <if test="userName != null and userName != ''">
+              user_basic_face.USER_NAME like concat('%',#{userName},'%')
+            </if>
+            <if test="organizationCodeList != null and organizationCodeList.size() &gt; 0">
+                AND user_organization_relation.ORGANIZATION_CODE IN
+                <foreach close=")" collection="organizationCodeList" index="index" item="item" open="(" separator=",">
+                    #{item}
+                </foreach>
+            </if>
+
+    </select>
 </mapper>

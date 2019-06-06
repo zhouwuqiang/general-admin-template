@@ -66,68 +66,79 @@ function operateFormatter(value, row, index) {
     let result = [];
     result.push("<a href='javascript:void(0)' class='' onclick='editUser(" + JSON.stringify(row) + ")'>修改</a>");
     result.push("<a href='javascript:void(0)' class='' onclick='detailUser(" + JSON.stringify(row) + ")'>详情</a>");
-    result.push("<a href='javascript:void(0)' class='' onclick='deleteUser(" + JSON.stringify(row) + ")'>禁用</a>");
+    if ("00" === row.isLock) {
+        result.push("<a href='javascript:void(0)' class='' onclick='disableUser(" + JSON.stringify(row) + ",\"01\")'>锁定</a>");
+    } else {
+        result.push("<a href='javascript:void(0)' class='' onclick='disableUser(" + JSON.stringify(row) + ",\"00\")'>解锁</a>");
+    }
+    result.push("<a href='javascript:void(0)' class='' onclick='deleteUser(" + JSON.stringify(row) + ")'>删除</a>");
     return $.formatterOperateButton(result);
+}
+
+
+function userSearchFormRest() {
+    $.formRest('main_table_search_form');
+    let $_tree = $('#organization_tree');
+    let selectNode = $_tree.treeview('getSelected');
+    $_tree.treeview('unselectNode', [selectNode, {silent: true}]);
+    initTable();
 }
 
 /**
  * 编辑
  */
 function editUser(user) {
-    // $.initModel("main_mode", "编辑用户", "main_form", "edit-show");
-    // $.formReview("main_form", user);
-    // $('#main_mode').modal('show');
-    openTab(user.userCode,"/view/user/add",user.userLabel,{"userCode":user.userCode});
+    openTab(user.userCode, "/view/user/add", user.userLabel, {"userCode": user.userCode});
 }
 
 /**
  * 显示
  */
 function detailUser(user) {
-    openTab(user.userCode,"/view/user/add",user.userLabel,{"userCode":user.userCode,"readonly":"readonly"});
+    openTab(user.userCode, "/view/user/add", user.userLabel, {"userCode": user.userCode, "readonly": "readonly"});
 
-    // $.initModel("main_mode", "用户信息", "main_form", "detail-show");
-    // $.formReview("main_form", user);
-    // $.formReadOnly("main_form");
-    // $('#main_mode').modal('show');
 }
 
-// /**
-//  * 保存
-//  */
-// function saveUser() {
-//     let param = $.formSerializeObject("main_form");
-//     $.ajax({
-//         url: "/user/save",
-//         type: 'post',
-//         dataType: 'json',
-//         contentType: 'application/json',
-//         data: JSON.stringify(param),
-//         success: function (responseDto) {
-//             $.ajaxMassage(responseDto);
-//             if (responseDto.success) {
-//                 $('#main_mode').modal('hide');
-//                 initTable();
-//             }
-//         },
-//         error: function () {
-//             console.log("请求处理失败!");
-//             $.errorMassage("请求处理失败!");
-//         }
-//     });
-// }
+/**
+ * 禁用
+ */
+function disableUser(user, flag) {
+    let params = {};
+    params.userCode = user.userCode;
+    params.isLock = flag;
+    $.ajax({
+        url: "/user/Lock",
+        type: 'post',
+        dataType: 'json',
+        contentType: 'application/json',
+        data: JSON.stringify(params),
+        success: function (responseDto) {
+            $.ajaxMassage(responseDto);
+            if (responseDto.success) {
+                $('#main_mode').modal('hide');
+                initTable();
+            }
+        },
+        error: function () {
+            console.log("请求处理失败!");
+            $.errorMassage("请求处理失败!");
+        }
+    });
+}
 
 /**
  * 删除
  */
-function deleteUser(user) {
-    user.deleteFlag = "01";
+function deleteUser(user, flag) {
+    let params = {};
+    params.userCode = user.userCode;
+    params.isLock = flag;
     $.ajax({
-        url: "/user/save",
+        url: "/user/Lock",
         type: 'post',
         dataType: 'json',
         contentType: 'application/json',
-        data: JSON.stringify(user),
+        data: JSON.stringify(params),
         success: function (responseDto) {
             $.ajaxMassage(responseDto);
             if (responseDto.success) {
@@ -145,14 +156,14 @@ function deleteUser(user) {
 
 /****************************************** 初始化组织树 ***************************************/
 
-function initTree(){
+function initTree() {
     $('#organization_tree').treeview({
         data: getData({}),
-        onNodeSelected:function (event, node) {
+        onNodeSelected: function (event, node) {
             $("#search_organization_code").val(node.organizationCode);
             initTable()
         },
-        onNodeUnselected:function (event, node) {
+        onNodeUnselected: function (event, node) {
             $("#search_organization_code").val("");
             initTable()
         }

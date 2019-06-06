@@ -23,7 +23,6 @@ function initTable() {
 
     let params = $.formSerializeObject("main_table_search_form");
     $.deleteEmptyKey(params);
-    debugger
     $("#main_table").bootstrapTreeTable({
         toolbar: "#toolbar",      //顶部工具条
         id: 'organizationCode',                                                   // 选取记录返回的值,用于设置父子关系
