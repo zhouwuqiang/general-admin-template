@@ -37,6 +37,7 @@ public interface UserFacade {
     /**
      * 更新用户登录密码
      * @param requestDto
+     * @return
      */
     ResponseCode loginPassword(UserPasswordRequestDto requestDto);
 }

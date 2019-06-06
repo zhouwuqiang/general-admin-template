@@ -92,7 +92,7 @@ $.extend({
             search: config.search,
             strictSearch: config.strictSearch,
             clickToSelect: config.clickToSelect,
-            maintainSelected:  config.maintainSelected,
+            maintainSelected: config.maintainSelected,
             pagination: config.pagination,
             pageNumber: config.pageNumber,
             pageSize: config.pageSize,
@@ -357,13 +357,18 @@ $.extend({
  * ajax请求返回提示
  */
 $.extend({
-    "ajaxMassage": function (responseDto) {
+    "ajaxMassage": function (responseDto, messagePosition) {
+
+        if ($.isNull(messagePosition)) {
+            messagePosition = 'top-right';
+        }
+
         if (responseDto.success) {
             $.toast({
                 text: responseDto.message,
                 allowToastClose: true,
                 hideAfter: 1000,
-                position: 'top-right',
+                position: messagePosition,
                 bgColor: '#5bc0de'
             });
         } else {
@@ -371,18 +376,22 @@ $.extend({
                 text: responseDto.message,
                 allowToastClose: true,
                 hideAfter: 1000,
-                position: 'top-right',
+                position: messagePosition,
                 bgColor: '#AC2925'
             });
         }
     },
-    "errorMassage": function (message) {
+    "errorMassage": function (message,messagePosition) {
+
+        if ($.isNull(messagePosition)) {
+            messagePosition = 'top-right';
+        }
 
         $.toast({
             text: message,
             allowToastClose: true,
             hideAfter: 1000,
-            position: 'top-right',
+            position: messagePosition,
             bgColor: '#AC2925'
         });
     }

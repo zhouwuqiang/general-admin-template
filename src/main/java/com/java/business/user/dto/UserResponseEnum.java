@@ -25,7 +25,7 @@ public enum UserResponseEnum implements ResponseCode {
     /**
      * 修改密码相同
      */
-    PASSWORD_SAME(0,"新密码不能和原密码相同!",true),
+    PASSWORD_SAME(0,"新密码不能和原密码相同!",false),
 
 
     ;

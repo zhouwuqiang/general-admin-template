@@ -115,7 +115,7 @@ public class UserFacadeImpl implements UserFacade {
             return UserResponseEnum.PASSWORD_ERROR;
         }
 
-        if (!StringUtils.equals(userBasicFace.getLoginPassword(), MD5Util.MD5(requestDto.getNewPassword()))) {
+        if (StringUtils.equals(userBasicFace.getLoginPassword(), MD5Util.MD5(requestDto.getNewPassword()))) {
             return UserResponseEnum.PASSWORD_SAME;
         }
 
