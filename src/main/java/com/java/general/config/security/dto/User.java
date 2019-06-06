@@ -7,6 +7,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -77,10 +78,14 @@ public class User implements UserDetails {
     List<RoleBasicFace> roleList = new ArrayList<>();
 
     /**
-     * 用户菜单集合
+     * 用户菜单集已整理
      */
     List<Menu> menus = new ArrayList<>();
 
+    /**
+     * 用户菜单地址集合
+     */
+    Set<String> urls = new HashSet<>();
 
 
     @Override

@@ -17,4 +17,22 @@
     <result column="CREATE_USER" jdbcType="VARCHAR" property="createUser" />
     <result column="DELETE_FLAG" jdbcType="VARCHAR" property="deleteFlag" />
   </resultMap>
+    <select id="selectUserOrganization"
+            resultType="com.java.business.organization.entity.OrganizationBasicFace">
+
+      SELECT
+          organization_basic_face.ID id,
+          organization_basic_face.ORGANIZATION_CODE organizationCode,
+          organization_basic_face.ORGANIZATION_NAME organizationName,
+          organization_basic_face.PAREN_CODE parenCode,
+          organization_basic_face.ORGANIZATION_STATUS organizationStatus,
+          organization_basic_face.ORGANIZATION_TYPE organizationType
+      FROM
+          user_organization_relation
+          INNER JOIN organization_basic_face ON user_organization_relation.ORGANIZATION_CODE = organization_basic_face.ORGANIZATION_CODE
+      where
+          user_organization_relation.USER_CODE =#{userCode}
+          and user_organization_relation.DELETE_FLAG="00"
+          and user_organization_relation.DELETE_FLAG="00"
+    </select>
 </mapper>

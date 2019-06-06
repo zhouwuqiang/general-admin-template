@@ -38,14 +38,45 @@
         FROM
             menu_basic_face
         INNER JOIN role_menu_relation ON role_menu_relation.menu_code = menu_basic_face.menu_code
-        <where>
+        where
+              menu_basic_face.delete_flag="00"
+              and role_menu_relation.delete_flag="00"
           <if test="list != null and list.size() &gt; 0">
-            role_menu_relation.role_code IN
+              and  role_menu_relation.role_code IN
             <foreach close=")" collection="list" index="index" item="item" open="(" separator=",">
               #{item.roleCode}
             </foreach>
           </if>
-        </where>
+
         group by menu_basic_face.id
   </select>
+    <select id="selectUserMenuByOrganization" resultMap="BaseResultMap">
+        SELECT
+            menu_basic_face.ID,
+            menu_basic_face.MENU_CODE,
+            menu_basic_face.MENU_NAME,
+            menu_basic_face.MENU_ICON,
+            menu_basic_face.MENU_ACTION,
+            menu_basic_face.PARENT_MENU_CODE,
+            menu_basic_face.MENU_TYPE,
+            menu_basic_face.DISPLAY_INDEX,
+            menu_basic_face.UPDATE_TIME,
+            menu_basic_face.UPDATE_USER,
+            menu_basic_face.CREATE_TIME,
+            menu_basic_face.CREATE_USER,
+            menu_basic_face.DELETE_FLAG
+        FROM
+            organization_menu_relation
+            INNER JOIN menu_basic_face ON organization_menu_relation.MENU_CODE = menu_basic_face.MENU_CODE
+        where
+            menu_basic_face.delete_flag="00"
+            and organization_menu_relation.delete_flag="00"
+            <if test="list != null and list.size() &gt; 0">
+                and organization_menu_relation.ORGANIZATION_CODE IN
+                <foreach close=")" collection="list" index="index" item="item" open="(" separator=",">
+                    #{item.organizationCode}
+                </foreach>
+            </if>
+
+    </select>
 </mapper>

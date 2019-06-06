@@ -38,7 +38,7 @@ function initPage(userCode) {
                 }
 
                 if ($.isNotNull(responseDto.data.basicInfo.id)){
-                    $(".edit-hidden").hide();
+                    $(".edit-hidden").remove();
                 }
             }else{
                 $.ajaxMassage(responseDto);

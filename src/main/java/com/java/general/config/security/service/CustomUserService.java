@@ -2,6 +2,9 @@ package com.java.general.config.security.service;
 
 import com.java.business.menu.entity.MenuBasicFace;
 import com.java.business.menu.mapper.MenuBasicFaceMapper;
+import com.java.business.organization.entity.OrganizationBasicFace;
+import com.java.business.organization.entity.OrganizationMenuRelation;
+import com.java.business.organization.mapper.OrganizationBasicFaceMapper;
 import com.java.business.role.entity.RoleBasicFace;
 import com.java.business.role.mapper.RoleBasicFaceMapper;
 import com.java.business.user.entity.UserBasicFace;
@@ -9,6 +12,7 @@ import com.java.business.user.mapper.UserBasicFaceMapper;
 import com.java.general.config.security.dto.Menu;
 import com.java.general.config.security.dto.User;
 import com.java.general.config.security.utils.MenuUtils;
+import com.java.general.constant.SystemCommonConstant;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,6 +29,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * description :
@@ -46,6 +51,9 @@ public class CustomUserService implements UserDetailsService {
 
     @Autowired
     private MenuBasicFaceMapper menuBasicFaceMapper;
+
+    @Autowired
+    private OrganizationBasicFaceMapper organizationBasicFaceMapper;
 
     /**
      * 重写loadUserByUsername 方法获得 userdetails 类型用户
@@ -71,6 +79,7 @@ public class CustomUserService implements UserDetailsService {
         User result = new User();
         UserBasicFace userBasicFace = new UserBasicFace();
         userBasicFace.setUserName(username);
+        userBasicFace.setDeleteFlag(SystemCommonConstant.DeleteFlag.NORMAL);
         userBasicFace = userBasicFaceMapper.selectOne(userBasicFace);
 
         if (userBasicFace == null) {
@@ -83,19 +92,56 @@ public class CustomUserService implements UserDetailsService {
         result.setPassword(userBasicFace.getLoginPassword());
 
 
+        List<MenuBasicFace> menuList = new ArrayList<>();
+
+        //查询角色菜单
         List<RoleBasicFace> roleList = roleBasicFaceMapper.selectUserRole(userBasicFace);
-        if (roleList == null || roleList.isEmpty()) {
-            return result;
-        }
-        result.setRoleList(roleList);
-
-        List<MenuBasicFace> menuList = menuBasicFaceMapper.selectUserMenu(roleList);
-        if (menuList == null || menuList.isEmpty()) {
-            return result;
+        if (!(roleList == null || roleList.isEmpty())) {
+            result.setRoleList(roleList);
+            List<MenuBasicFace> roleMenuList = menuBasicFaceMapper.selectUserMenu(roleList);
+            if (roleMenuList != null) {
+                addMenu(menuList, roleMenuList);
+            }
         }
 
+        //查询组织菜单
+        List<OrganizationBasicFace> organizationList = organizationBasicFaceMapper.selectUserOrganization(userBasicFace);
+        if (!(organizationList == null || organizationList.isEmpty())) {
+            List<MenuBasicFace> organizationMenuList = menuBasicFaceMapper.selectUserMenuByOrganization(organizationList);
+            if (organizationMenuList != null) {
+                addMenu(menuList, organizationMenuList);
+            }
+        }
+
+
+        if (menuList.isEmpty()) {
+            return result;
+        }
+
+
+        //权限地址结合
+        result.setUrls(menuList.stream().map(MenuBasicFace::getMenuAction).collect(Collectors.toSet()));
+
+        //构建菜单
         result.setMenus(MenuUtils.buildMenu(menuList));
 
         return result;
+    }
+
+    /**
+     * 合并菜单
+     *
+     * @param target
+     * @param menuList
+     * @return
+     */
+    private void addMenu(List<MenuBasicFace> target, List<MenuBasicFace> menuList) {
+        Set<String> menuCodeSet = target.stream().map(MenuBasicFace::getMenuCode).collect(Collectors.toSet());
+        for (MenuBasicFace item : menuList){
+            if (menuCodeSet.contains(item.getMenuCode())){
+                continue;
+            }
+            target.add(item);
+        }
     }
 }
