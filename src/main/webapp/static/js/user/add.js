@@ -3,6 +3,8 @@ $(function () {
 
     if ($.isNull($("#page_readonly").val())) {
         $(".detail-show").hide();
+        $("#organization_name").bind("focus",selectOrganization);
+        $("#user_role_name").bind("focus",selectRole);
     } else {
         $(".add-show").hide();
     }
@@ -27,9 +29,19 @@ function initPage(userCode) {
         contentType: 'application/json',
         data: JSON.stringify({"userCode":userCode}),
         success: function (responseDto) {
-            $.ajaxMassage(responseDto);
             if (responseDto.success) {
-                selfCloseTab();
+                $.formReview("main_form",responseDto.data.basicInfo);
+                $.formReview("power_form",responseDto.data.powerInfo);
+                if ($.isNotNull($("#page_readonly").val())){
+                    $.formReadOnly("main_form");
+                    $.formReadOnly("power_form");
+                }
+
+                if ($.isNotNull(responseDto.data.basicInfo.id)){
+                    $(".edit-hidden").hide();
+                }
+            }else{
+                $.ajaxMassage(responseDto);
             }
         },
         error: function () {

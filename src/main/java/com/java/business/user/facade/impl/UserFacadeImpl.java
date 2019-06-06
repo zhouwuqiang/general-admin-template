@@ -64,21 +64,24 @@ public class UserFacadeImpl implements UserFacade {
         UserRoleRelation roleRelation = new UserRoleRelation();
         roleRelation.setUserCode(requestDto.getUserCode());
         roleRelation = userService.queryRoleRelation(roleRelation);
+        if (roleRelation != null){
+            RoleBasicFace roleBasicFace = new RoleBasicFace();
+            roleBasicFace.setRoleCode(roleRelation.getRoleCode());
+            roleBasicFace = roleService.queryDetail(roleBasicFace);
+            powerInfo.setRoleCode(roleRelation.getRoleCode());
+            powerInfo.setRoleName(roleBasicFace.getRoleName());
+        }
+
 
 
         UserOrganizationRelation organizationRelation = new UserOrganizationRelation();
         organizationRelation.setUserCode(requestDto.getUserCode());
         organizationRelation = userService.queryOrganizationRelation(organizationRelation);
-
-        powerInfo.setIsLock(basicInfo.getIsLock());
-        powerInfo.setOrganizationCode(organizationRelation.getOrganizationCode());
-        powerInfo.setPostName(organizationRelation.getPostName());
-        powerInfo.setRoleCode(roleRelation.getRoleCode());
-
-        RoleBasicFace roleBasicFace = new RoleBasicFace();
-        roleBasicFace.setRoleCode(roleRelation.getRoleCode());
-        roleBasicFace = roleService.queryDetail(roleBasicFace);
-        powerInfo.setRoleName(roleBasicFace.getRoleName());
+        if (organizationRelation != null){
+            powerInfo.setIsLock(basicInfo.getIsLock());
+            powerInfo.setOrganizationCode(organizationRelation.getOrganizationCode());
+            powerInfo.setPostName(organizationRelation.getPostName());
+        }
 
         responseDto.setPowerInfo(powerInfo);
 
@@ -114,9 +117,14 @@ public class UserFacadeImpl implements UserFacade {
         userBasicFace.setUserLabel(basicInfo.getUserLabel());
         userBasicFace.setIsLock(powerInfo.getIsLock());
 
-        if (StringUtils.isNotBlank(basicInfo.getUserCode())) {
-            User loginUser = SpringContextUtil.getLoginUser();
+        User loginUser = SpringContextUtil.getLoginUser();
+        if (StringUtils.isBlank(basicInfo.getUserCode())) {
             userBasicFace.setCreateUser(loginUser.getUsername());
+        }else{
+            userBasicFace.setUpdateUser(loginUser.getUsername());
+        }
+
+        if (StringUtils.isNotBlank(basicInfo.getLoginPassword())){
             userBasicFace.setLoginPassword(MD5Util.MD5(basicInfo.getLoginPassword()));
         }
 

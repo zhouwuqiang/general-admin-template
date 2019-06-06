@@ -33,6 +33,7 @@
                 <h4>基础信息:</h4>
                 <form class="form-horizontal" role="form" id="main_form">
 
+                    <input type="hidden" name="id"/>
                     <input type="hidden" name="userCode"/>
 
                     <div class="form-group">
@@ -51,7 +52,7 @@
                         </div>
                     </div>
 
-                    <div class="form-group add-show init-hidden">
+                    <div class="form-group add-show edit-hidden">
                         <label for="user_password" class="col-sm-2 control-label">登录密码:</label>
                         <div class="col-sm-4">
                             <input type="text" class="form-control" id="user_password" name="loginPassword"
@@ -73,14 +74,14 @@
                     <div class="form-group">
                         <label for="user_name" class="col-sm-2 control-label">组织结构:</label>
                         <div class="col-sm-4">
-                            <input type="text" class="form-control" id="organization_name" name="postName" readonly="readonly" onfocus="selectOrganization()">
+                            <input type="text" class="form-control" id="organization_name" name="postName" readonly="readonly" >
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label for="user_label" class="col-sm-2 control-label">授权角色:</label>
                         <div class="col-sm-4">
-                            <input type="text" class="form-control" id="user_role_name" name="roleName" readonly="readonly" onfocus="selectRole()">
+                            <input type="text" class="form-control" id="user_role_name" name="roleName" readonly="readonly">
                         </div>
                     </div>
 

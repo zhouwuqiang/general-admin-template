@@ -83,7 +83,7 @@ public class UserServiceImpl implements UserService {
         Example example = new Example(UserRoleRelation.class);
         Example.Criteria criteria = example.createCriteria();
         criteria.andEqualTo("userCode", roleRelation.getUserCode());
-        userRoleRelationMapper.updateByExample(deleteRelation,example);
+        userRoleRelationMapper.updateByExampleSelective(deleteRelation,example);
         return roleRelation;
     }
 
@@ -104,7 +104,7 @@ public class UserServiceImpl implements UserService {
         Example example = new Example(UserOrganizationRelation.class);
         Example.Criteria criteria = example.createCriteria();
         criteria.andEqualTo("userCode", organizationRelation.getUserCode());
-        userOrganizationRelationMapper.updateByExample(deleteRelation,example);
+        userOrganizationRelationMapper.updateByExampleSelective(deleteRelation,example);
         return organizationRelation;
     }
 
