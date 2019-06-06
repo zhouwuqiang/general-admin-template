@@ -1,12 +1,10 @@
 package com.java.business.user.controller;
 
 import com.github.pagehelper.PageInfo;
-import com.java.business.user.dto.UserDetailRequestDto;
-import com.java.business.user.dto.UserDetailResponseDto;
-import com.java.business.user.dto.UserSaveRequestDto;
-import com.java.business.user.dto.UserTableRequestDto;
+import com.java.business.user.dto.*;
 import com.java.business.user.facade.UserFacade;
 import com.java.general.interceptors.controller.ControllerRecorder;
+import com.java.general.response.code.ResponseCode;
 import com.java.general.response.dto.ResponseDto;
 import com.java.general.response.utils.ResponseUtil;
 import com.java.general.utils.SpringContextUtil;
@@ -111,6 +109,22 @@ public class UserController {
         userFacade.save(requestDto);
 
         return ResponseUtil.bindSuccessResponse();
+    }
+
+
+    /**
+     * 删除用户
+     *
+     * @param requestDto
+     * @return
+     */
+    @RequestMapping(value = "/update/login/password")
+    @ControllerRecorder(path = "/user/update/login/password")
+    public ResponseDto loginPassword(@RequestBody UserPasswordRequestDto requestDto) {
+
+        ResponseCode response = userFacade.loginPassword(requestDto);
+
+        return ResponseUtil.bindResponseEnum(response);
     }
 
 

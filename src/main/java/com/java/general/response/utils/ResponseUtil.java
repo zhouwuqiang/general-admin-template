@@ -126,7 +126,7 @@ public class ResponseUtil {
      * @param item
      * @return
      */
-    private static <T> ResponseDto <T> bindResponseEnum(ResponseCode item) {
+    public static <T> ResponseDto <T> bindResponseEnum(ResponseCode item) {
         ResponseDto <T> response = new ResponseDto<>();
         response.setCode(item.getCode());
         response.setMessage(item.getMessage());

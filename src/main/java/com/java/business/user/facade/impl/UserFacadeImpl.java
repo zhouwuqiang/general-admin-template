@@ -12,6 +12,8 @@ import com.java.business.user.facade.UserFacade;
 import com.java.business.user.service.UserService;
 import com.java.general.config.security.dto.User;
 import com.java.general.constant.SystemCommonConstant;
+import com.java.general.response.code.ResponseCode;
+import com.java.general.response.code.impl.ResponseEnum;
 import com.java.general.utils.MD5Util;
 import com.java.general.utils.SpringContextUtil;
 import org.apache.commons.lang3.StringUtils;
@@ -43,7 +45,7 @@ public class UserFacadeImpl implements UserFacade {
     @Override
     public PageInfo queryTable(UserTableRequestDto requestDto) {
 
-        if(StringUtils.isNotBlank(requestDto.getOrganizationCode())){
+        if (StringUtils.isNotBlank(requestDto.getOrganizationCode())) {
             requestDto.setOrganizationCodeList(organizationService.getSubOrganizationCode(requestDto.getOrganizationCode()));
         }
 
@@ -73,7 +75,7 @@ public class UserFacadeImpl implements UserFacade {
         UserRoleRelation roleRelation = new UserRoleRelation();
         roleRelation.setUserCode(requestDto.getUserCode());
         roleRelation = userService.queryRoleRelation(roleRelation);
-        if (roleRelation != null){
+        if (roleRelation != null) {
             RoleBasicFace roleBasicFace = new RoleBasicFace();
             roleBasicFace.setRoleCode(roleRelation.getRoleCode());
             roleBasicFace = roleService.queryDetail(roleBasicFace);
@@ -82,11 +84,10 @@ public class UserFacadeImpl implements UserFacade {
         }
 
 
-
         UserOrganizationRelation organizationRelation = new UserOrganizationRelation();
         organizationRelation.setUserCode(requestDto.getUserCode());
         organizationRelation = userService.queryOrganizationRelation(organizationRelation);
-        if (organizationRelation != null){
+        if (organizationRelation != null) {
             powerInfo.setIsLock(basicInfo.getIsLock());
             powerInfo.setOrganizationCode(organizationRelation.getOrganizationCode());
             powerInfo.setPostName(organizationRelation.getPostName());
@@ -95,6 +96,33 @@ public class UserFacadeImpl implements UserFacade {
         responseDto.setPowerInfo(powerInfo);
 
         return responseDto;
+    }
+
+    @Override
+    public ResponseCode loginPassword(UserPasswordRequestDto requestDto) {
+        //检查旧密码
+        User loginUser = SpringContextUtil.getLoginUser();
+        UserBasicFace userBasicFace = new UserBasicFace();
+        userBasicFace.setUserCode(loginUser.getUserCode());
+
+        userBasicFace = userService.queryBasicInfo(userBasicFace);
+
+        if (userBasicFace == null) {
+            return UserResponseEnum.USER_ERROR;
+        }
+
+        if (!StringUtils.equals(userBasicFace.getLoginPassword(), MD5Util.MD5(requestDto.getOldPassword()))) {
+            return UserResponseEnum.PASSWORD_ERROR;
+        }
+
+        if (!StringUtils.equals(userBasicFace.getLoginPassword(), MD5Util.MD5(requestDto.getNewPassword()))) {
+            return UserResponseEnum.PASSWORD_SAME;
+        }
+
+        //更新密码
+        userBasicFace.setLoginPassword(MD5Util.MD5(requestDto.getNewPassword()));
+        userService.save(userBasicFace);
+        return ResponseEnum.SUCCESS;
     }
 
     private void savePowerInfo(UserSaveRequestDto requestDto, String userCode) {
@@ -129,11 +157,11 @@ public class UserFacadeImpl implements UserFacade {
         User loginUser = SpringContextUtil.getLoginUser();
         if (StringUtils.isBlank(basicInfo.getUserCode())) {
             userBasicFace.setCreateUser(loginUser.getUsername());
-        }else{
+        } else {
             userBasicFace.setUpdateUser(loginUser.getUsername());
         }
 
-        if (StringUtils.isNotBlank(basicInfo.getLoginPassword())){
+        if (StringUtils.isNotBlank(basicInfo.getLoginPassword())) {
             userBasicFace.setLoginPassword(MD5Util.MD5(basicInfo.getLoginPassword()));
         }
 

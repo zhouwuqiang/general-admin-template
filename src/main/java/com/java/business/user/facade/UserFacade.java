@@ -1,10 +1,8 @@
 package com.java.business.user.facade;
 
 import com.github.pagehelper.PageInfo;
-import com.java.business.user.dto.UserDetailRequestDto;
-import com.java.business.user.dto.UserDetailResponseDto;
-import com.java.business.user.dto.UserSaveRequestDto;
-import com.java.business.user.dto.UserTableRequestDto;
+import com.java.business.user.dto.*;
+import com.java.general.response.code.ResponseCode;
 
 /**
  * description :
@@ -35,4 +33,10 @@ public interface UserFacade {
      * @return
      */
     UserDetailResponseDto detail(UserDetailRequestDto requestDto);
+
+    /**
+     * 更新用户登录密码
+     * @param requestDto
+     */
+    ResponseCode loginPassword(UserPasswordRequestDto requestDto);
 }
