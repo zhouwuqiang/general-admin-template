@@ -25,13 +25,13 @@
 
 
         <!--entity 生成位置-->
-        <javaModelGenerator targetPackage="com.java.business.organization.entity"
+        <javaModelGenerator targetPackage="com.java.business.user.entity"
                             targetProject="src/main/java"/>
         <!--xml 文件生成位置-->
-        <sqlMapGenerator targetPackage="mapper.organization"
+        <sqlMapGenerator targetPackage="mapper.user"
                          targetProject="src/main/resources"/>
         <!--mapper接口生成位置-->
-        <javaClientGenerator targetPackage="com.java.business.organization.mapper"
+        <javaClientGenerator targetPackage="com.java.business.user.mapper"
                              targetProject="src/main/java"
                              type="XMLMAPPER"/>
 
@@ -40,7 +40,7 @@
         <!--<table tableName="wordbook">-->
             <!--<generatedKey column="id" sqlStatement="Mysql" identity="true"/>-->
         <!--</table>-->
-        <table tableName="organization_menu_relation">
+        <table tableName="user_organization_relation">
             <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
         </table>
 

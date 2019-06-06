@@ -8,6 +8,7 @@ import com.java.business.role.entity.RoleMenuRelation;
 import com.java.business.role.mapper.RoleBasicFaceMapper;
 import com.java.business.role.mapper.RoleMenuRelationMapper;
 import com.java.business.role.service.RoleService;
+import com.java.general.constant.SystemCommonConstant;
 import com.java.general.utils.UuidCodeWorker;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -89,5 +90,11 @@ public class RoleServiceImpl implements RoleService {
         }else{
             roleMenuRelationMapper.updateByPrimaryKeySelective(roleMenuRelation);
         }
+    }
+
+    @Override
+    public RoleBasicFace queryDetail(RoleBasicFace roleBasicFace) {
+        roleBasicFace.setDeleteFlag(SystemCommonConstant.DeleteFlag.NORMAL);
+        return roleBasicFaceMapper.selectOne(roleBasicFace);
     }
 }

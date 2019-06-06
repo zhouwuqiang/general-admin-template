@@ -71,56 +71,51 @@ function operateFormatter(value, row, index) {
 }
 
 /**
- * 添加
- */
-function addUser() {
-    $.initModel("main_mode", "添加用户", "main_form", "add-show");
-    $('#main_mode').modal('show');
-}
-
-/**
  * 编辑
  */
 function editUser(user) {
-    $.initModel("main_mode", "编辑用户", "main_form", "edit-show");
-    $.formReview("main_form", user);
-    $('#main_mode').modal('show');
+    // $.initModel("main_mode", "编辑用户", "main_form", "edit-show");
+    // $.formReview("main_form", user);
+    // $('#main_mode').modal('show');
+    openTab(user.userCode,"/view/user/add",user.userLabel,{"userCode":user.userCode});
 }
 
 /**
  * 显示
  */
 function detailUser(user) {
-    $.initModel("main_mode", "用户信息", "main_form", "detail-show");
-    $.formReview("main_form", user);
-    $.formReadOnly("main_form");
-    $('#main_mode').modal('show');
+    openTab(user.userCode,"/view/user/add",user.userLabel,{"userCode":user.userCode,"readonly":"readonly"});
+
+    // $.initModel("main_mode", "用户信息", "main_form", "detail-show");
+    // $.formReview("main_form", user);
+    // $.formReadOnly("main_form");
+    // $('#main_mode').modal('show');
 }
 
-/**
- * 保存
- */
-function saveUser() {
-    let param = $.formSerializeObject("main_form");
-    $.ajax({
-        url: "/user/save",
-        type: 'post',
-        dataType: 'json',
-        contentType: 'application/json',
-        data: JSON.stringify(param),
-        success: function (responseDto) {
-            $.ajaxMassage(responseDto);
-            if (responseDto.success) {
-                $('#main_mode').modal('hide');
-                initTable();
-            }
-        },
-        error: function () {
-            console.log("请求处理失败!");
-            $.errorMassage("请求处理失败!");
-        }
-    });
-}
+// /**
+//  * 保存
+//  */
+// function saveUser() {
+//     let param = $.formSerializeObject("main_form");
+//     $.ajax({
+//         url: "/user/save",
+//         type: 'post',
+//         dataType: 'json',
+//         contentType: 'application/json',
+//         data: JSON.stringify(param),
+//         success: function (responseDto) {
+//             $.ajaxMassage(responseDto);
+//             if (responseDto.success) {
+//                 $('#main_mode').modal('hide');
+//                 initTable();
+//             }
+//         },
+//         error: function () {
+//             console.log("请求处理失败!");
+//             $.errorMassage("请求处理失败!");
+//         }
+//     });
+// }
 
 /**
  * 删除

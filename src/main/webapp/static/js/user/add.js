@@ -20,7 +20,23 @@ $(function () {
  * @param userCode
  */
 function initPage(userCode) {
-    alert(userCode);
+    $.ajax({
+        url: "/user/detail",
+        type: 'post',
+        dataType: 'json',
+        contentType: 'application/json',
+        data: JSON.stringify({"userCode":userCode}),
+        success: function (responseDto) {
+            $.ajaxMassage(responseDto);
+            if (responseDto.success) {
+                selfCloseTab();
+            }
+        },
+        error: function () {
+            console.log("请求处理失败!");
+            $.errorMassage("请求处理失败!");
+        }
+    });
 }
 
 
@@ -141,6 +157,7 @@ function initTable() {
         tableId: "role_table",
         url: "/role/table",
         clickToSelect: true,
+        maintainSelected: true,
         columns: [
             {
                 checkbox: true

@@ -1,6 +1,8 @@
 package com.java.business.user.facade;
 
 import com.github.pagehelper.PageInfo;
+import com.java.business.user.dto.UserDetailRequestDto;
+import com.java.business.user.dto.UserDetailResponseDto;
 import com.java.business.user.dto.UserSaveRequestDto;
 import com.java.business.user.dto.UserTableRequestDto;
 
@@ -26,4 +28,11 @@ public interface UserFacade {
      * @param requestDto
      */
     void save(UserSaveRequestDto requestDto);
+
+    /**
+     * 查询用户详情
+     * @param requestDto
+     * @return
+     */
+    UserDetailResponseDto detail(UserDetailRequestDto requestDto);
 }

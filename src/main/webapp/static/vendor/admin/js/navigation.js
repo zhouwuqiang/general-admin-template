@@ -4,19 +4,18 @@
 $(function () {
 
     //移动端样式调整
-    if ($.isNotMobile()){
+    if ($.isNotMobile()) {
         var height = window.document.body.clientHeight - 90;
         $("#iframe_welcome").height(height + "px");
-    }else{
+    } else {
         var height = window.document.body.clientHeight - 50;
         $("#iframe_welcome").height(height + "px");
     }
 
 
-
     // 手风琴导航
     $(window.document).on("click", ".nav-item a", function () {
-        if ($.isNotMobile()){
+        if ($.isNotMobile()) {
             if (!$('.nav-wrapper').hasClass('nav-mini')) {
                 if ($(this).hasClass("toTab")) {
                     if ($(this).parent().parent().hasClass("menu")) {
@@ -39,7 +38,7 @@ $(function () {
                     $(this).children(".nav-more-icon").removeClass('expand-more');
                 }
             }
-        }else{
+        } else {
             if ($('.nav-wrapper').hasClass('nav-mini')) {
                 if ($(this).hasClass("toTab")) {
                     if ($(this).parent().parent().hasClass("menu")) {
@@ -245,10 +244,10 @@ var menu = function () {
             var objTab = $(".head-tabs-menu").find("#title_" + tabItem.tabId);
             if (objTab.length > 0) {
                 //如果存在参数需要页面重新打开
-                if (JSON.stringify(tabItem.tabParam.length) === '{}'){
+                if (JSON.stringify(tabItem.tabParam.length) === '{}') {
                     _self.closeTab(tabItem);
                     return false;
-                }else{
+                } else {
                     return true;
                 }
             } else {
@@ -272,7 +271,12 @@ var menu = function () {
             var paramUrl = tabItem.tabUrl + "?";
 
             if ($.isNotNull(tabItem.tabParam)) {
-                var params =JSON.parse(tabItem.tabParam);
+                let params = {};
+                if (typeof tabItem.tabParam == 'object') {
+                    params = tabItem.tabParam;
+                } else {
+                    params = JSON.parse(tabItem.tabParam);
+                }
                 for (var key in params) {
                     paramUrl = paramUrl + key + "=" + params[key] + "&";
                 }

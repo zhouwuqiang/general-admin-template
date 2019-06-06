@@ -23,9 +23,9 @@ public class UserPowerInfoRequestDto {
     private String organizationCode;
 
     /**
-     * 组织名称
+     * 岗位名称
      */
-    private String organizationName;
+    private String postName;
 
     /**
      * 角色编号

@@ -21,6 +21,33 @@ function selfCloseTab() {
     window.top.menu.closeTab(closeTabItem)
 }
 
+
+/**
+ * 打开新的table
+ * @param self
+ */
+function openTab(tabId,tabUrl,tabTitle,tabParam) {
+
+    let tabItem = {};
+    tabItem.tabId = tabId;
+    tabItem.tabUrl = tabUrl;
+    tabItem.tabParam = tabParam;
+    tabItem.tabTitle = tabTitle;
+
+    if ($.isNull(tabItem.tabId)
+        || $.isNull(tabItem.tabUrl)
+        || $.isNull(tabItem.tabTitle)) {
+        console.log("tab参数不全,请检查数据");
+        return false;
+    }
+
+    if (!window.top.menu.existsTab(tabItem)) {
+        window.top.menu.addTab(tabItem);
+    } else {
+        window.top.menu.refreshTab(tabItem);
+    }
+}
+
 /**
  * 菜单
  */

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.java.business.user.mapper.UserOrganizationRelationMapper">
+  <resultMap id="BaseResultMap" type="com.java.business.user.entity.UserOrganizationRelation">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="ORGANIZATION_CODE" jdbcType="VARCHAR" property="organizationCode" />
+    <result column="USER_CODE" jdbcType="VARCHAR" property="userCode" />
+    <result column="POST_NAME" jdbcType="VARCHAR" property="postName" />
+    <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="UPDATE_USER" jdbcType="VARCHAR" property="updateUser" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="CREATE_USER" jdbcType="VARCHAR" property="createUser" />
+    <result column="DELETE_FLAG" jdbcType="VARCHAR" property="deleteFlag" />
+  </resultMap>
+</mapper>

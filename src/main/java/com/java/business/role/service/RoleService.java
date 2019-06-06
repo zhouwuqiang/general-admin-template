@@ -53,4 +53,11 @@ public interface RoleService {
      * @param roleMenuRelation
      */
     void saveRelation(RoleMenuRelation roleMenuRelation);
+
+    /**
+     * 查询角色详情
+     * @param roleBasicFace
+     * @return
+     */
+    RoleBasicFace queryDetail(RoleBasicFace roleBasicFace);
 }

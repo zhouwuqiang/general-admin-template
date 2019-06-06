@@ -49,6 +49,7 @@ const bootStrapTableConfig = {
     search: false,                      // 搜索开启,
     strictSearch: false,
     clickToSelect: true,                   // 点击选中行
+    maintainSelected: false,                 //多选还是单选
     pagination: true,                      //是否显示分页
     pageNumber: 1,                          //初始化加载第一页，默认第一页,并记录
     pageSize: 10,                           //默认每页显示的数量
@@ -70,7 +71,8 @@ const bootStrapTableConfig = {
  */
 $.extend({
     "tableExpand": function (data) {
-        let config = Object.assign({},bootStrapTableConfig, data);
+
+        let config = Object.assign({}, bootStrapTableConfig, data);
 
         $('#' + config.tableId).bootstrapTable('destroy').bootstrapTable({
             url: config.url,
@@ -90,6 +92,7 @@ $.extend({
             search: config.search,
             strictSearch: config.strictSearch,
             clickToSelect: config.clickToSelect,
+            maintainSelected:  config.maintainSelected,
             pagination: config.pagination,
             pageNumber: config.pageNumber,
             pageSize: config.pageSize,
