@@ -181,7 +181,7 @@
 
 
 <!--数据模态框-->
-<div class="modal fade" id="attribute_mode" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false"
+<div class="modal fade" id="form_mode" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false"
      aria-hidden="false">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -190,7 +190,7 @@
                     &times;
                 </button>
                 <h4 class="modal-title" id="attribute_mode_title">
-                    用户信息
+                   表单信息
                 </h4>
             </div>
 
@@ -199,33 +199,35 @@
 
                     <input type="hidden" name="id"/>
 
-                    <input type="hidden" name="number"/>
+                    <input type="hidden" name="taskCode"/>
 
                     <div class="form-group">
-                        <label for="attribute_value" class="col-sm-4 control-label">枚举值:</label>
+                        <label for="input_name" class="col-sm-4 control-label">任务表单名称:</label>
                         <div class="col-sm-4">
-                            <input type="text" class="form-control" id="attribute_value" name="attributeValue">
+                            <input type="text" class="form-control" id="input_name" name="inputName">
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="attribute_name" class="col-sm-4 control-label">名称:</label>
+                        <label for="input_label" class="col-sm-4 control-label">任务表单label:</label>
                         <div class="col-sm-4">
-                            <input type="text" class="form-control" id="attribute_name" name="attributeName">
+                            <input type="text" class="form-control" id="input_label" name="inputLabel">
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="attribute_status" class="col-sm-4 control-label">字典状态:</label>
+                        <label for="input_not_null" class="col-sm-4 control-label">是否必填:</label>
                         <div class="col-sm-4">
-                            <select type="text" class="form-control" id="attribute_status" name="attributeStatus"></select>
+                            <input type="text" class="form-control" id="input_not_null" name="inputNotNull">
                         </div>
                     </div>
 
+
+
                     <div class="form-group">
-                        <label for="attribute_memo" class="col-sm-4 control-label">备注:</label>
+                        <label for="input_memo" class="col-sm-4 control-label">备注:</label>
                         <div class="col-sm-4">
-                            <input type="text" class="form-control" id="attribute_memo" name="attributeMemo">
+                            <input type="text" class="form-control" id="input_memo" name="inputMemo">
                         </div>
                     </div>
                 </form>

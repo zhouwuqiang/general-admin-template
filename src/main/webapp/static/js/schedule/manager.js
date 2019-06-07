@@ -97,9 +97,9 @@ function initTable() {
 function operateFormatter(value, row, index) {
     let result = [];
     result.push("<a href='javascript:void(0)' class='' onclick='editTask(" + JSON.stringify(row) + ")'>修改</a>");
-    result.push("<a href='javascript:void(0)' class='' onclick='editWordbook(" + JSON.stringify(row) + ")'>执行一次</a>");
-    result.push("<a href='javascript:void(0)' class='' onclick='editWordbook(" + JSON.stringify(row) + ")'>添加表单</a>");
-    result.push("<a href='javascript:void(0)' class='' onclick='detailWordbook(" + JSON.stringify(row) + ")'>详情</a>");
+    result.push("<a href='javascript:void(0)' class='' onclick='executeOnce(" + JSON.stringify(row) + ")'>执行一次</a>");
+    result.push("<a href='javascript:void(0)' class='' onclick='initFormMode(" + JSON.stringify(row) + ")'>配置表单</a>");
+    result.push("<a href='javascript:void(0)' class='' onclick='detailTask(" + JSON.stringify(row) + ")'>详情</a>");
     return $.formatterOperateButton(result);
 }
 
@@ -139,7 +139,7 @@ function editTask(row) {
 /**
  * 显示
  */
-function detailWordbook(row) {
+function detailTask(row) {
     $.initModel("main_mode", "任务详情", "main_form", "detail-show");
     $.formReview("main_form", row);
     $.formReadOnly("main_form");
@@ -147,6 +147,13 @@ function detailWordbook(row) {
     $('#attribute_table').bootstrapTable('hideColumn', 'operation');
 
     $('#main_mode').modal('show');
+
+}
+
+/**
+ * 执行一次
+ */
+function executeOnce(row) {
 
 }
 
@@ -173,4 +180,10 @@ function saveTask() {
             $.errorMassage("请求处理失败!");
         }
     });
+}
+
+/******************************************************* 任务参数 ******************************************/
+
+function initFormMode() {
+    $('#form_mode').modal('show');
 }
