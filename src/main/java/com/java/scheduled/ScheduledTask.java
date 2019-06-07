@@ -26,7 +26,7 @@ public class ScheduledTask {
     /**
      * 定时任务开始执行
      */
-    @Scheduled(fixedDelay=1000*60*20)
+    @Scheduled(fixedDelay=1000*5)
     public void pullPlatformStatisticsInfo() {
         log.info("定时任务开始执行");
     }

@@ -21,11 +21,11 @@ public class RequestListener implements ServletRequestListener {
 
     @Override
     public void requestDestroyed(ServletRequestEvent servletRequestEvent) {
-        LOGGER.info("创建时执行");
+        LOGGER.info("销毁时执行");
     }
 
     @Override
     public void requestInitialized(ServletRequestEvent servletRequestEvent) {
-        LOGGER.info("销毁时执行");
+        LOGGER.info("创建时执行");
     }
 }
