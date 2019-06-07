@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" />
+
+
+    <title>字典管理</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+
+    <link rel="shortcut icon" href="/static/img/favicon.ico">
+    <link rel="stylesheet" href="/static/vendor/admin/css/reset.css?v=2.0">
+    <link rel="stylesheet" href="/static/vendor/bootstrap/css/bootstrap.css?v=3.3.7">
+    <link rel="stylesheet" href="/static/vendor/font-awesome/css/font-awesome.css?v=4.7.0">
+    <link rel="stylesheet" href="/static/vendor/bootstrap-table/bootstrap-table.min.css">
+    <link rel="stylesheet" href="/static/vendor/jquery-toast-plugin/jquery.toast.min.css">
+
+
+</head>
+
+<body class="gray-bg">
+
+<div class="container-fluid">
+    <div class="row clearfix">
+        <div class="col-md-12 column">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="search-form-div clearfix">
+                        <form role="form" id="main_table_search_form">
+                            <div class="col-xs-2">
+                                <input type="text" autocomplete="off" id="search_task_code" name="taskCode"
+                                       placeholder="任务编号"
+                                       class="col-sm-6  form-control"/>
+                            </div>
+                            <div class="col-xs-2">
+                                <input type="text" autocomplete="off" id="search_task_name" name="taskName"
+                                       placeholder="任务名称" class="form-control"/>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-xs-2">
+                                    <select type="text" class="form-control" id="search_task_type" name="taskType">
+                                        <option value="">--任务类型--</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-1">
+                                <a href="javascript:void(0);" class="btn btn-info" onclick="initTable()">
+                                    <i class="fa fa-search fa-icon"></i>搜索
+                                </a>
+                            </div>
+                            <div class="col-md-1">
+                                <a href="javascript:void(0);" class="btn btn-warning"
+                                   onclick="$.formRest('main_table_search_form')">
+                                    <i class="fa fa-undo fa-icon"></i>重置
+                                </a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row clearfix">
+        <div class="col-md-12 column">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="main-table-div clearfix">
+                        <div id="toolbar">
+                            <button id="add_button" class="btn btn-info" onclick="addTask()">
+                                <i class="fa fa-plus fa-icon"></i>添加
+                            </button>
+                        </div>
+                        <table id="main_table"></table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--数据模态框-->
+<div class="modal fade" id="main_mode" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false"
+     aria-hidden="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="modal_title">
+                    用户信息
+                </h4>
+            </div>
+
+            <div class="modal-body">
+                <form class="form-horizontal" role="form" id="main_form">
+
+                    <input type="hidden" name="id"/>
+                    <input type="hidden" name="taskCode"/>
+
+                    <div class="form-group">
+                        <label for="task_name" class="col-sm-4 control-label">任务名称:</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="task_name" name="taskName">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="task_type" class="col-sm-4 control-label">任务类型:</label>
+                        <div class="col-sm-6">
+                            <select type="text" class="form-control" id="task_type" name="taskType" onchange="changeTaskType()"></select>
+                        </div>
+                    </div>
+
+                    <div class="form-group remote-show">
+                        <label for="task_url" class="col-sm-4 control-label">远程任务地址:</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="task_url" name="taskUrl">
+                        </div>
+                    </div>
+
+                    <div class="form-group clazz-show">
+                        <label for="task_service_name" class="col-sm-4 control-label">任务类名:</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="task_service_name" name="taskServiceName"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group clazz-show">
+                        <label for="task_service_method" class="col-sm-4 control-label">任务方法:</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="task_service_method" name="taskServiceMethod"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="task_cron" class="col-sm-4 control-label">CRON表达式:</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="task_cron" name="taskCron"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="task_status" class="col-sm-4 control-label">任务状态:</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="task_status" name="taskStatus"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="task_desc" class="col-sm-4 control-label">任务描述:</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="task_desc" name="taskDesc"/>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <button id="attribute_cancel_button" type="button" class="btn btn-default add-show edit-show"
+                        data-dismiss="modal">
+                    取消
+                </button>
+                <button id="attribute_define_button" type="button" class="btn btn-default detail-show" data-dismiss="modal">
+                    确定
+                </button>
+                <button id="attribute_save_button" type="button" class="btn btn-primary  add-show edit-show" onclick="saveTask()">
+                    保存
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!--数据模态框-->
+<div class="modal fade" id="attribute_mode" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false"
+     aria-hidden="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="attribute_mode_title">
+                    用户信息
+                </h4>
+            </div>
+
+            <div class="modal-body">
+                <form class="form-horizontal" role="form" id="attribute_form">
+
+                    <input type="hidden" name="id"/>
+
+                    <input type="hidden" name="number"/>
+
+                    <div class="form-group">
+                        <label for="attribute_value" class="col-sm-4 control-label">枚举值:</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="attribute_value" name="attributeValue">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="attribute_name" class="col-sm-4 control-label">名称:</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="attribute_name" name="attributeName">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="attribute_status" class="col-sm-4 control-label">字典状态:</label>
+                        <div class="col-sm-4">
+                            <select type="text" class="form-control" id="attribute_status" name="attributeStatus"></select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="attribute_memo" class="col-sm-4 control-label">备注:</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="attribute_memo" name="attributeMemo">
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <button id="cancel_button" type="button" class="btn btn-default add-show edit-show"
+                        data-dismiss="modal">
+                    取消
+                </button>
+                <button id="define_button" type="button" class="btn btn-default detail-show" data-dismiss="modal">
+                    确定
+                </button>
+                <button id="save_button" type="button" class="btn btn-primary  add-show edit-show" onclick="saveAttribute()">
+                    保存
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+</body>
+<!-- 全局js -->
+<script src="/static/vendor/jquery/jquery.js?v=2.2.4"></script>
+<script src="/static/vendor/bootstrap/js/bootstrap.js?v=3.3.7"></script>
+<script src="/static/vendor/bootstrap-table/bootstrap-table.min.js"></script>
+<script src="/static/vendor/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
+<script src="/static/vendor/jquery-toast-plugin/jquery.toast.min.js"></script>
+<script src="/static/vendor/admin/js/common.js?v=1.0.0"></script>
+<script src="/static/js/schedule/manager.js"></script>
+</html>

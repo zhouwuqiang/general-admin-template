@@ -25,13 +25,13 @@
 
 
         <!--entity 生成位置-->
-        <javaModelGenerator targetPackage="com.java.business.user.entity"
+        <javaModelGenerator targetPackage="com.java.business.schedule.entity"
                             targetProject="src/main/java"/>
         <!--xml 文件生成位置-->
-        <sqlMapGenerator targetPackage="mapper.user"
+        <sqlMapGenerator targetPackage="mapper.schedule"
                          targetProject="src/main/resources"/>
         <!--mapper接口生成位置-->
-        <javaClientGenerator targetPackage="com.java.business.user.mapper"
+        <javaClientGenerator targetPackage="com.java.business.schedule.mapper"
                              targetProject="src/main/java"
                              type="XMLMAPPER"/>
 
@@ -40,7 +40,10 @@
         <!--<table tableName="wordbook">-->
             <!--<generatedKey column="id" sqlStatement="Mysql" identity="true"/>-->
         <!--</table>-->
-        <table tableName="user_organization_relation">
+        <table tableName="scheduled_task">
+            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
+        </table>
+        <table tableName="scheduled_task_form">
             <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
         </table>
 

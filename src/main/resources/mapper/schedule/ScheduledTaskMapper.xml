@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.java.business.schedule.mapper.ScheduledTaskMapper">
+  <resultMap id="BaseResultMap" type="com.java.business.schedule.entity.ScheduledTask">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="task_code" jdbcType="VARCHAR" property="taskCode" />
+    <result column="task_name" jdbcType="VARCHAR" property="taskName" />
+    <result column="task_type" jdbcType="VARCHAR" property="taskType" />
+    <result column="task_url" jdbcType="VARCHAR" property="taskUrl" />
+    <result column="task_service_name" jdbcType="VARCHAR" property="taskServiceName" />
+    <result column="task_service_method" jdbcType="VARCHAR" property="taskServiceMethod" />
+    <result column="task_desc" jdbcType="VARCHAR" property="taskDesc" />
+    <result column="task_cron" jdbcType="VARCHAR" property="taskCron" />
+    <result column="task_status" jdbcType="VARCHAR" property="taskStatus" />
+    <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="UPDATE_USER" jdbcType="VARCHAR" property="updateUser" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="CREATE_USER" jdbcType="VARCHAR" property="createUser" />
+    <result column="DELETE_FLAG" jdbcType="VARCHAR" property="deleteFlag" />
+  </resultMap>
+</mapper>
