@@ -269,9 +269,9 @@ function initFormTable(taskCode) {
 function attributeOperateFormatter(value, row, index) {
     let result = [];
     if (row.editable) {
-        result.push("<a href='javascript:void(0)' class='' onclick='saveAttribute(" + JSON.stringify(row) + "," + index + ",this)'>保存</a>");
+        result.push("<a href='javascript:void(0)' class='' onclick='saveForm(" + JSON.stringify(row) + "," + index + ",this)'>保存</a>");
     } else {
-        result.push("<a href='javascript:void(0)' class='' onclick='editAttribute(" + JSON.stringify(row) + "," + index + ")'>修改</a>");
+        result.push("<a href='javascript:void(0)' class='' onclick='editForm(" + JSON.stringify(row) + "," + index + ")'>修改</a>");
     }
     result.push("<a href='javascript:void(0)' class='' onclick='deleteRow(" + JSON.stringify(row) + "," + index + ")'>删除</a>");
     return $.formatterOperateButton(result);
@@ -288,7 +288,7 @@ function addForm(taskCode) {
 /**
  * 添加属性
  */
-function editAttribute(row, index) {
+function editForm(row, index) {
     row.editable = true;
     $("#form_table").bootstrapTable('updateRow', {index: index, row: row});
 }
@@ -296,7 +296,7 @@ function editAttribute(row, index) {
 /**
  * 添加属性
  */
-function saveAttribute(row, index, self) {
+function saveForm(row, index, self) {
     debugger;
 
     let tdList = $(self).parents("tr").find("input,select");
@@ -357,4 +357,55 @@ function deleteRow(row, index) {
         field: 'index',
         values: [index]
     })
+}
+
+/**
+ * 初始化input输入框
+ * @param value
+ * @param row
+ * @param index
+ * @returns {string}
+ */
+function inputFormatter(value, row, index) {
+
+    let self = this;
+
+    if ($.isNull(value)) {
+        value = "";
+    }
+
+    if (row.editable) {
+        return "<input type='text' value='" + value + "' class='form-control' id='" + index + self.field + "' name='" + self.field + "' onblur='inputEdit(this)'>";
+    }
+
+    return "<input type='text' readonly='readonly' value='" + value + "' class='form-control' id='" + index + self.field + "' name='" + self.field + "'>";
+}
+
+
+/**
+ * 初始化select输入框
+ * @param value
+ * @param row
+ * @param index
+ * @returns {string}
+ */
+function selectFormatter(value, row, index) {
+    let self = this;
+
+    let selectOption = $.selectOption("is_or_not", value, true);
+
+    if (row.editable) {
+        return "<select class='form-control' id='" + index + self.field + "' name='" + self.field + "' onblur='inputEdit(this)'>" +
+            selectOption +
+            "</select>";
+    }
+
+    return "<select disabled='disabled' class='form-control' id='" + index + self.field + "' name='" + self.field + "' onblur='inputEdit(this)'>" +
+        selectOption +
+        "</select>";
+}
+
+
+function inputEdit(self) {
+    console.log($(self).val());
 }

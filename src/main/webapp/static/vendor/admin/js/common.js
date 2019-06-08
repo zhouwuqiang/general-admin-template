@@ -381,7 +381,7 @@ $.extend({
             });
         }
     },
-    "errorMassage": function (message,messagePosition) {
+    "errorMassage": function (message, messagePosition) {
 
         if ($.isNull(messagePosition)) {
             messagePosition = 'top-right';
@@ -429,6 +429,48 @@ $.extend({
                 $.errorMassage("请求处理失败!");
             }
         });
+    },
+    "selectOption": function (code, value, needEmpty) {
+        let result = "";
+
+        let optionList = [];
+        if (needEmpty) {
+            optionList.push("<option value=''>--请选择--</option>");
+        }
+
+        $.ajax({
+            url: "/wordbook/select/" + code,
+            type: 'post',
+            dataType: 'json',
+            async: false,
+            contentType: 'application/json',
+            success: function (responseDto) {
+                if (responseDto.success) {
+                    let option = responseDto.data;
+                    for (let i in option) {
+                        if (option[i].attributeValue === value) {
+                            optionList.push("<option  selected='selected' value='" + option[i].attributeValue + "'>" + option[i].attributeName + "</option>");
+                        } else {
+                            optionList.push("<option value='" + option[i].attributeValue + "'>" + option[i].attributeName + "</option>");
+                        }
+
+                    }
+
+
+                    for (let item in optionList) {
+                        result += optionList[item];
+                    }
+
+
+                }
+            },
+            error: function () {
+                console.log("请求处理失败!");
+                $.errorMassage("请求处理失败!");
+            }
+        });
+
+        return result;
     }
 });
 
