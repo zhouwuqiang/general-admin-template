@@ -1,10 +1,7 @@
 package com.java.business.schedule.controller;
 
 import com.github.pagehelper.PageInfo;
-import com.java.business.schedule.dto.FormTableRequestDto;
-import com.java.business.schedule.dto.ScheduleSaveRequestDto;
-import com.java.business.schedule.dto.ScheduleTableRequestDto;
-import com.java.business.schedule.dto.TaskFormSaveRequestDto;
+import com.java.business.schedule.dto.*;
 import com.java.business.schedule.entity.ScheduledTaskForm;
 import com.java.business.schedule.facade.DynamicScheduleFacade;
 import com.java.general.interceptors.controller.ControllerRecorder;
@@ -61,6 +58,38 @@ public class DynamicScheduleController {
         return ResponseUtil.bindSuccessResponse();
     }
 
+
+
+
+    /**
+     * 执行一次任务
+     *
+     * @param requestDto
+     * @return
+     */
+    @RequestMapping(value = "/execute/once")
+    @ControllerRecorder(path = "/schedule/execute/once" ,validateTypeClass = ExecuteOneRequestDto.class)
+    public ResponseDto executeOnce(@RequestBody ExecuteOneRequestDto requestDto) {
+
+        return ResponseUtil.bindSuccessResponse();
+    }
+
+    /**
+     * 调整任务状态
+     * 启用/禁用
+     *
+     * @param requestDto
+     * @return
+     */
+    @RequestMapping(value = "/change/status")
+    @ControllerRecorder(path = "/schedule/change/status" ,validateTypeClass = ChangeStatusRequestDto.class)
+    public ResponseDto changeStatus(@RequestBody ChangeStatusRequestDto requestDto) {
+
+        return ResponseUtil.bindSuccessResponse();
+    }
+
+
+
     /**
      * 查询任务列表
      *
@@ -75,6 +104,7 @@ public class DynamicScheduleController {
 
         return ResponseUtil.bindSuccessResponse(pageInfo);
     }
+
 
     /**
      * 保存任务表单

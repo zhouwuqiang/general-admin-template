@@ -100,6 +100,12 @@ function operateFormatter(value, row, index) {
     result.push("<a href='javascript:void(0)' class='' onclick='executeOnce(" + JSON.stringify(row) + ")'>执行一次</a>");
     result.push("<a href='javascript:void(0)' class='' onclick='initFormMode(" + JSON.stringify(row) + ")'>配置表单</a>");
     result.push("<a href='javascript:void(0)' class='' onclick='detailTask(" + JSON.stringify(row) + ")'>详情</a>");
+
+    if (row.taskStatus === "01") {
+        result.push("<a href='javascript:void(0)' class='' onclick='changeStatus(" + JSON.stringify(row) + ",\"01\")'>启用</a>");
+    } else {
+        result.push("<a href='javascript:void(0)' class='' onclick='changeStatus(" + JSON.stringify(row) + ",\"02\")'>禁用</a>");
+    }
     return $.formatterOperateButton(result);
 }
 
@@ -136,6 +142,30 @@ function editTask(row) {
     $('#main_mode').modal('show');
 }
 
+
+/**
+ * 调整状态
+ */
+function changeStatus(row, taskStatus) {
+    let param = {};
+    param.taskCode = row.taskCode;
+    param.taskStatus = taskStatus;
+    $.ajax({
+        url: "/schedule/change/status",
+        type: 'post',
+        dataType: 'json',
+        contentType: 'application/json',
+        data: JSON.stringify(param),
+        success: function (responseDto) {
+            $.ajaxMassage(responseDto);
+        },
+        error: function () {
+            console.log("请求处理失败!");
+            $.errorMassage("请求处理失败!");
+        }
+    });
+}
+
 /**
  * 显示
  */
@@ -154,7 +184,29 @@ function detailTask(row) {
  * 执行一次
  */
 function executeOnce(row) {
+    $("#param_task_code").val(row.taskCode);
+    $('#param_mode').modal('show');
+}
 
+function doExecute() {
+    let param = $.formSerializeObject("param_form");
+    $.ajax({
+        url: "/schedule/execute/once",
+        type: 'post',
+        dataType: 'json',
+        contentType: 'application/json',
+        data: JSON.stringify(param),
+        success: function (responseDto) {
+            $.ajaxMassage(responseDto);
+            if (responseDto.success) {
+                $('#param_mode').modal('hide');
+            }
+        },
+        error: function () {
+            console.log("请求处理失败!");
+            $.errorMassage("请求处理失败!");
+        }
+    });
 }
 
 /**
@@ -181,6 +233,7 @@ function saveTask() {
         }
     });
 }
+
 
 /******************************************************* 任务参数 ******************************************/
 

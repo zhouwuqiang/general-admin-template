@@ -184,6 +184,42 @@
 </div>
 
 
+<!--数据模态框-->
+<div class="modal fade" id="param_mode" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false"
+     aria-hidden="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="param_mode_title">
+                    输入参数
+                </h4>
+            </div>
+
+            <div class="modal-body">
+                <div class="form-group panel-body" id="param_div">
+                    <form class="form-horizontal" role="form" id="param_form">
+                        <input type="hidden" name="taskCode" id="param_task_code">
+                        <div class="form-group">
+                            <label for="json_param" class="sr-only control-label">任务参数:</label>
+                            <textarea id="json_param" name="params"  rows="6" class="form-control"></textarea>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button id="execute_button" type="button" class="btn btn-default add-show edit-show" onclick="doExecute()">
+                    确定
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <!--数据模态框-->
 <div class="modal fade" id="form_mode" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false"
