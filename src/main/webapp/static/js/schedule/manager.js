@@ -117,10 +117,10 @@ function addTask() {
  * 任务类型变化
  */
 function changeTaskType() {
-    if ($("#task_type").val() === "01"){
+    if ($("#task_type").val() === "01") {
         $(".remote-show").show();
         $(".clazz-show").hide();
-    }else{
+    } else {
         $(".remote-show").hide();
         $(".clazz-show").show();
     }
@@ -184,6 +184,177 @@ function saveTask() {
 
 /******************************************************* 任务参数 ******************************************/
 
-function initFormMode() {
+function initFormMode(row) {
+    initFormTable(row.taskCode);
     $('#form_mode').modal('show');
+}
+
+function initFormTable(taskCode) {
+    let path = "";
+    if ($.isNotNull(taskCode)) {
+        path = "/schedule/form/table";
+    }
+
+    $.tableExpand({
+        tableId: "form_table",
+        url: path,
+        params: {"taskCode": taskCode},
+        toolbar: "",
+        uniqueId: "id",
+        pagination: false,
+        columns: [
+            {
+                field: 'index',//可不加
+                title: 'index',//标题  可不加
+                formatter: function (value, row, index) {
+                    row.index = index;
+                    return "<span class='form-control'>" + index + "</span>";
+                },
+                width: '5%'
+            }, {
+                field: 'id',
+                title: '序号',
+                align: 'center',
+                valign: 'middle',
+                // formatter: inputFormatter,
+                visible: false
+            }, {
+                field: 'taskCode',
+                title: '任务编号',
+                align: 'center',
+                valign: 'middle',
+                // formatter: inputFormatter
+                visible: false
+            }, {
+                field: 'inputName',
+                title: '任务表单名称',
+                align: 'center',
+                valign: 'middle',
+                // formatter: inputFormatter,
+                visible: false
+            }, {
+                field: 'inputLabel',
+                title: '任务表单label',
+                align: 'center',
+                valign: 'middle',
+                width: '25%',
+                formatter: inputFormatter
+            }, {
+                field: 'inputMemo',
+                title: '任务表单备注',
+                align: 'center',
+                valign: 'middle',
+                width: '25%',
+                formatter: inputFormatter
+            }, {
+                field: 'inputNotNull',
+                title: '是否必填',
+                align: 'center',
+                valign: 'middle',
+                width: '25%',
+                formatter: selectFormatter
+            }, {
+                field: 'operation',
+                title: "操作 <a class='pointer' onclick='addForm(\"" + taskCode + "\")'>添加</a>",
+                align: 'center',
+                valign: 'middle',
+                width: '20%',
+                formatter: attributeOperateFormatter
+            }
+        ]
+    });
+
+}
+
+function attributeOperateFormatter(value, row, index) {
+    let result = [];
+    if (row.editable) {
+        result.push("<a href='javascript:void(0)' class='' onclick='saveAttribute(" + JSON.stringify(row) + "," + index + ",this)'>保存</a>");
+    } else {
+        result.push("<a href='javascript:void(0)' class='' onclick='editAttribute(" + JSON.stringify(row) + "," + index + ")'>修改</a>");
+    }
+    result.push("<a href='javascript:void(0)' class='' onclick='deleteRow(" + JSON.stringify(row) + "," + index + ")'>删除</a>");
+    return $.formatterOperateButton(result);
+}
+
+
+/**
+ * 添加属性
+ */
+function addForm(taskCode) {
+    $("#form_table").bootstrapTable('append', {"editable": true, "taskCode": taskCode});
+}
+
+/**
+ * 添加属性
+ */
+function editAttribute(row, index) {
+    row.editable = true;
+    $("#form_table").bootstrapTable('updateRow', {index: index, row: row});
+}
+
+/**
+ * 添加属性
+ */
+function saveAttribute(row, index, self) {
+    debugger;
+
+    let tdList = $(self).parents("tr").find("input,select");
+
+    for (let index = 0; index < tdList.length; index++) {
+        let name = tdList[index].name;
+        let value = $(tdList[index]).val();
+        row[name] = value;
+    }
+
+
+    $.ajax({
+        url: "/schedule/form/save",
+        type: 'post',
+        dataType: 'json',
+        contentType: 'application/json',
+        data: JSON.stringify(row),
+        success: function (responseDto) {
+            $.ajaxMassage(responseDto);
+            row = responseDto.data
+            row.editable = false;
+            $("#form_table").bootstrapTable('updateRow', {index: index, row: row});
+        },
+        error: function () {
+            console.log("请求处理失败!");
+            $.errorMassage("请求处理失败!");
+        }
+    });
+
+
+}
+
+/**
+ * 删除
+ */
+function deleteRow(row, index) {
+
+    if ($.isNotNull(row.id)) {
+        let param = {};
+        param.id = row.id;
+        $.ajax({
+            url: "/schedule/form/delete",
+            type: 'post',
+            dataType: 'json',
+            contentType: 'application/json',
+            data: JSON.stringify(param),
+            success: function (responseDto) {
+                $.ajaxMassage(responseDto);
+            },
+            error: function () {
+                console.log("请求处理失败!");
+                $.errorMassage("请求处理失败!");
+            }
+        });
+    }
+
+    $("#form_table").bootstrapTable('remove', {
+        field: 'index',
+        values: [index]
+    })
 }

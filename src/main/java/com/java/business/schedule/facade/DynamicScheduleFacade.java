@@ -1,8 +1,11 @@
 package com.java.business.schedule.facade;
 
 import com.github.pagehelper.PageInfo;
+import com.java.business.schedule.dto.FormTableRequestDto;
 import com.java.business.schedule.dto.ScheduleSaveRequestDto;
 import com.java.business.schedule.dto.ScheduleTableRequestDto;
+import com.java.business.schedule.dto.TaskFormSaveRequestDto;
+import com.java.business.schedule.entity.ScheduledTaskForm;
 
 /**
  * description :
@@ -25,4 +28,23 @@ public interface DynamicScheduleFacade {
      * @param requestDto
      */
     void save(ScheduleSaveRequestDto requestDto);
+
+    /**
+     * 查询form表格
+     * @param requestDto
+     * @return
+     */
+    PageInfo queryFormTable(FormTableRequestDto requestDto);
+
+    /**
+     * 保存任务表单
+     * @param requestDto
+     */
+    ScheduledTaskForm formSave(TaskFormSaveRequestDto requestDto);
+
+    /**
+     * 参数表单
+     * @param requestDto
+     */
+    void formDelete(TaskFormSaveRequestDto requestDto);
 }

@@ -1,8 +1,10 @@
 package com.java.business.schedule.service;
 
 import com.github.pagehelper.PageInfo;
+import com.java.business.schedule.dto.FormTableRequestDto;
 import com.java.business.schedule.dto.ScheduleTableRequestDto;
 import com.java.business.schedule.entity.ScheduledTask;
+import com.java.business.schedule.entity.ScheduledTaskForm;
 
 /**
  * description :
@@ -25,4 +27,18 @@ public interface DynamicScheduleService {
      * @param scheduledTask
      */
     void save(ScheduledTask scheduledTask);
+
+    /**
+     * 查询form 表格
+     * @param requestDto
+     * @return
+     */
+    PageInfo queryFormTable(FormTableRequestDto requestDto);
+
+    /**
+     * 保存表单
+     * @param taskForm
+     * @return
+     */
+    ScheduledTaskForm formSave(ScheduledTaskForm taskForm);
 }

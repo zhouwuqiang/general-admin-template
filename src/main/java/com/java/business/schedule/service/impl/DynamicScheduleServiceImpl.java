@@ -2,12 +2,14 @@ package com.java.business.schedule.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.java.business.schedule.dto.FormTableRequestDto;
 import com.java.business.schedule.dto.ScheduleTableRequestDto;
 import com.java.business.schedule.entity.ScheduledTask;
+import com.java.business.schedule.entity.ScheduledTaskForm;
 import com.java.business.schedule.mapper.ScheduledTaskFormMapper;
 import com.java.business.schedule.mapper.ScheduledTaskMapper;
 import com.java.business.schedule.service.DynamicScheduleService;
-import com.java.business.wordbook.entity.Wordbook;
+import com.java.general.constant.SystemCommonConstant;
 import com.java.general.utils.UuidCodeWorker;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,11 +58,35 @@ public class DynamicScheduleServiceImpl implements DynamicScheduleService {
 
     @Override
     public void save(ScheduledTask scheduledTask) {
-        if (scheduledTask.getId() == null){
+        if (scheduledTask.getId() == null) {
             scheduledTask.setTaskCode(UuidCodeWorker.nextCode("TASK"));
             scheduledTaskMapper.insertSelective(scheduledTask);
-        }else{
+        } else {
             scheduledTaskMapper.updateByPrimaryKeySelective(scheduledTask);
         }
+    }
+
+    @Override
+    public PageInfo queryFormTable(FormTableRequestDto requestDto) {
+        ScheduledTaskForm taskForm = new ScheduledTaskForm();
+        taskForm.setDeleteFlag(SystemCommonConstant.DeleteFlag.NORMAL);
+        taskForm.setTaskCode(requestDto.getTaskCode());
+
+        PageHelper.startPage(requestDto.getPageNum(), requestDto.getPageSize());
+
+        List<ScheduledTaskForm> queryList = scheduledTaskFormMapper.select(taskForm);
+
+        return new PageInfo<>(queryList);
+    }
+
+    @Override
+    public ScheduledTaskForm formSave(ScheduledTaskForm taskForm) {
+        if (taskForm.getId() == null){
+            taskForm.setInputName(UuidCodeWorker.nextCode("FORM"));
+            scheduledTaskFormMapper.insertSelective(taskForm);
+        }else{
+            scheduledTaskFormMapper.updateByPrimaryKeySelective(taskForm);
+        }
+        return taskForm;
     }
 }

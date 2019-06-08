@@ -18,6 +18,11 @@
     <link rel="stylesheet" href="/static/vendor/bootstrap-table/bootstrap-table.min.css">
     <link rel="stylesheet" href="/static/vendor/jquery-toast-plugin/jquery.toast.min.css">
 
+    <style type="text/css">
+        #form_table td{
+            padding: 0px;
+        }
+    </style>
 
 </head>
 
@@ -183,7 +188,7 @@
 <!--数据模态框-->
 <div class="modal fade" id="form_mode" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false"
      aria-hidden="false">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
@@ -195,42 +200,43 @@
             </div>
 
             <div class="modal-body">
-                <form class="form-horizontal" role="form" id="attribute_form">
+                <!--<form class="form-horizontal" role="form" id="attribute_form">-->
 
-                    <input type="hidden" name="id"/>
+                    <!--<input type="hidden" name="id"/>-->
 
-                    <input type="hidden" name="taskCode"/>
+                    <!--<input type="hidden" name="taskCode"/>-->
 
-                    <div class="form-group">
-                        <label for="input_name" class="col-sm-4 control-label">任务表单名称:</label>
-                        <div class="col-sm-4">
-                            <input type="text" class="form-control" id="input_name" name="inputName">
-                        </div>
-                    </div>
+                    <!--<div class="form-group">-->
+                        <!--<label for="input_name" class="col-sm-4 control-label">任务表单名称:</label>-->
+                        <!--<div class="col-sm-6">-->
+                            <!--<input type="text" class="form-control" id="input_name" name="inputName">-->
+                        <!--</div>-->
+                    <!--</div>-->
 
-                    <div class="form-group">
-                        <label for="input_label" class="col-sm-4 control-label">任务表单label:</label>
-                        <div class="col-sm-4">
-                            <input type="text" class="form-control" id="input_label" name="inputLabel">
-                        </div>
-                    </div>
+                    <!--<div class="form-group">-->
+                        <!--<label for="input_label" class="col-sm-4 control-label">任务表单label:</label>-->
+                        <!--<div class="col-sm-6">-->
+                            <!--<input type="text" class="form-control" id="input_label" name="inputLabel">-->
+                        <!--</div>-->
+                    <!--</div>-->
 
-                    <div class="form-group">
-                        <label for="input_not_null" class="col-sm-4 control-label">是否必填:</label>
-                        <div class="col-sm-4">
-                            <input type="text" class="form-control" id="input_not_null" name="inputNotNull">
-                        </div>
-                    </div>
+                    <!--<div class="form-group">-->
+                        <!--<label for="input_not_null" class="col-sm-4 control-label">是否必填:</label>-->
+                        <!--<div class="col-sm-6">-->
+                            <!--<input type="text" class="form-control" id="input_not_null" name="inputNotNull">-->
+                        <!--</div>-->
+                    <!--</div>-->
 
-
-
-                    <div class="form-group">
-                        <label for="input_memo" class="col-sm-4 control-label">备注:</label>
-                        <div class="col-sm-4">
-                            <input type="text" class="form-control" id="input_memo" name="inputMemo">
-                        </div>
-                    </div>
-                </form>
+                    <!--<div class="form-group">-->
+                        <!--<label for="input_memo" class="col-sm-4 control-label">备注:</label>-->
+                        <!--<div class="col-sm-6">-->
+                            <!--<input type="text" class="form-control" id="input_memo" name="inputMemo">-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</form>-->
+                <div class="form-group panel-body" id="attribute_table_div">
+                    <table id="form_table"></table>
+                </div>
             </div>
 
             <div class="modal-footer">
@@ -261,6 +267,7 @@
 <script src="/static/vendor/bootstrap-table/bootstrap-table.min.js"></script>
 <script src="/static/vendor/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
 <script src="/static/vendor/jquery-toast-plugin/jquery.toast.min.js"></script>
+<script src="/static/vendor/admin/js/editTable.js?v=1.0.0"></script>
 <script src="/static/vendor/admin/js/common.js?v=1.0.0"></script>
 <script src="/static/js/schedule/manager.js"></script>
 </html>
