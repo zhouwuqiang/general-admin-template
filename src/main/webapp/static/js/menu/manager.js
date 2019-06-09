@@ -4,6 +4,7 @@ $(function () {
 
     $.initSelect("menu_type", "menu_type", true);
 
+    $("#menu_icon").initIconSelect();
 });
 
 
