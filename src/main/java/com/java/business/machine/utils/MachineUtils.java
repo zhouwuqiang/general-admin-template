@@ -74,7 +74,6 @@ public class MachineUtils {
      * @return
      */
     public static JvmMemoryInfo getJvmHeapMemory() {
-        JvmMemoryInfo memoryInfo = new JvmMemoryInfo();
 
         MemoryMXBean memory = ManagementFactory.getMemoryMXBean();
         MemoryUsage memoryUsage = memory.getHeapMemoryUsage();
