@@ -1,5 +1,8 @@
 package com.java.business.machine.facade;
 
+import com.java.business.machine.dto.MachineInfo;
+import com.java.business.machine.dto.MemoryInfo;
+
 /**
  * description :
  *
@@ -9,4 +12,15 @@ package com.java.business.machine.facade;
  */
 public interface MachineFacade {
 
+    /**
+     * 获取机器信息
+     * @return
+     */
+    MachineInfo getMachineInfo();
+
+    /**
+     * 获取jvm 内存信息
+     * @return
+     */
+    MemoryInfo getMemoryInfo();
 }

@@ -38,16 +38,4 @@ public class JvmMemoryInfo {
      */
     private long max;
 
-    /**
-     * 使用率
-     */
-    private Double usageRate;
-
-
-    public JvmMemoryInfo(MemoryUsage memoryUsage) {
-        this.init = memoryUsage.getInit() / 1024 / 1024;
-        this.used = memoryUsage.getUsed() / 1024 / 1024;
-        this.committed = memoryUsage.getCommitted() / 1024 / 1024;
-        this.usageRate = memoryUsage.getUsed() * 100.0 / memoryUsage.getCommitted();
-    }
 }

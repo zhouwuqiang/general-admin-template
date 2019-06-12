@@ -1,4 +1,4 @@
-package com.java.business.machine;
+package com.java.business.machine.utils;
 
 
 import java.lang.management.ClassLoadingMXBean;

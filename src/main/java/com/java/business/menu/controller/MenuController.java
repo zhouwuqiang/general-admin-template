@@ -1,23 +1,15 @@
 package com.java.business.menu.controller;
 
-import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.PageInfo;
 import com.java.business.menu.dto.MenuListRequestDto;
 import com.java.business.menu.dto.MenuSaveRequestDto;
 import com.java.business.menu.dto.MenuTableRequestDto;
-import com.java.business.menu.entity.MenuBasicFace;
 import com.java.business.menu.facade.MenuFacade;
-import com.java.business.organization.dto.OrganizationSaveRequestDto;
-import com.java.business.user.dto.UserTableRequestDto;
 import com.java.business.utils.tree.dto.Tree;
 import com.java.general.config.security.dto.User;
-import com.java.general.config.security.service.CustomUserService;
 import com.java.general.interceptors.controller.ControllerRecorder;
-import com.java.general.interceptors.log.LoggerRecorder;
 import com.java.general.response.dto.ResponseDto;
 import com.java.general.response.utils.ResponseUtil;
-import com.java.general.validation.dto.ValidResult;
-import com.java.general.validation.utils.ValidationUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,10 +17,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**

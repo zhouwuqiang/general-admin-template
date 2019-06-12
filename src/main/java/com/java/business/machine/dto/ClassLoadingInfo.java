@@ -4,8 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.lang.management.ClassLoadingMXBean;
-
 /**
  * description :
  *
@@ -33,9 +31,4 @@ public class ClassLoadingInfo {
      */
     private long unloadedClassCount;
 
-    public ClassLoadingInfo( ClassLoadingMXBean classLoad) {
-        this.totalLoadedClassCount = classLoad.getTotalLoadedClassCount();
-        this.loadedClassCount = classLoad.getLoadedClassCount();
-        this.unloadedClassCount = classLoad.getUnloadedClassCount();
-    }
 }

@@ -9,6 +9,7 @@ import com.sun.management.OperatingSystemMXBean;
 import java.lang.management.ClassLoadingMXBean;
 import java.lang.management.ManagementFactory;
 import java.lang.management.MemoryMXBean;
+import java.lang.management.MemoryUsage;
 
 
 /**
@@ -25,7 +26,7 @@ public class MachineUtils {
 
     public static void main(String[] args) throws InterruptedException {
 
-        while (true){
+        while (true) {
             Thread.sleep(1000);
             System.out.println(MachineUtils.getMachineInfo());
 //            Thread.sleep(1000);
@@ -38,15 +39,33 @@ public class MachineUtils {
     }
 
 
-
     /**
      * 获取系统信息
      *
      * @return
      */
     public static MachineInfo getMachineInfo() {
+        MachineInfo machineInfo = new MachineInfo();
+
         OperatingSystemMXBean operatingSystemMXBean = (OperatingSystemMXBean) ManagementFactory.getOperatingSystemMXBean();
-        return new MachineInfo(operatingSystemMXBean);
+
+        machineInfo.setSystemName(operatingSystemMXBean.getName());
+
+        machineInfo.setSystemVersion(operatingSystemMXBean.getVersion());
+
+        machineInfo.setSystemArch(operatingSystemMXBean.getArch());
+
+        machineInfo.setAvailableProcessors(operatingSystemMXBean.getAvailableProcessors());
+
+        machineInfo.setTotalPhysicalMemory(operatingSystemMXBean.getTotalPhysicalMemorySize());
+
+        machineInfo.setFreePhysicalMemorySize(operatingSystemMXBean.getFreePhysicalMemorySize());
+
+        machineInfo.setProcessCpuLoad(operatingSystemMXBean.getProcessCpuLoad());
+
+        machineInfo.setSystemCpuLoad(operatingSystemMXBean.getSystemCpuLoad());
+
+        return machineInfo;
     }
 
     /**
@@ -55,26 +74,55 @@ public class MachineUtils {
      * @return
      */
     public static JvmMemoryInfo getJvmHeapMemory() {
+        JvmMemoryInfo memoryInfo = new JvmMemoryInfo();
+
         MemoryMXBean memory = ManagementFactory.getMemoryMXBean();
-        return new JvmMemoryInfo(memory.getHeapMemoryUsage());
+        MemoryUsage memoryUsage = memory.getHeapMemoryUsage();
+
+        return conventMemoryInfo(memoryUsage);
     }
 
     /**
-     *获取jvm 非堆内存情况使用
+     * 获取jvm 非堆内存情况使用
      *
      * @return
      */
-    public static JvmMemoryInfo getJvmNoHeapMemory() {
+    public static JvmMemoryInfo getJvmNonHeapMemory() {
+
         MemoryMXBean memory = ManagementFactory.getMemoryMXBean();
-        return new JvmMemoryInfo(memory.getNonHeapMemoryUsage());
+        MemoryUsage memoryUsage = memory.getNonHeapMemoryUsage();
+
+        return conventMemoryInfo(memoryUsage);
+    }
+
+
+    private static JvmMemoryInfo conventMemoryInfo(MemoryUsage memoryUsage) {
+        JvmMemoryInfo memoryInfo = new JvmMemoryInfo();
+        memoryInfo.setInit(memoryUsage.getInit() / MB);
+        memoryInfo.setUsed(memoryUsage.getUsed() / MB);
+        memoryInfo.setCommitted(memoryUsage.getCommitted() / MB);
+        memoryInfo.setMax(memoryUsage.getMax() / MB);
+        return memoryInfo;
     }
 
     /**
      * 获得类加载情况
+     *
      * @return
      */
     public static ClassLoadingInfo getClassLoadingInfo() {
-        ClassLoadingMXBean classLoad = ManagementFactory.getClassLoadingMXBean();;
-        return new ClassLoadingInfo(classLoad);
+        ClassLoadingInfo classLoadingInfo = new ClassLoadingInfo();
+        ClassLoadingMXBean classLoad = ManagementFactory.getClassLoadingMXBean();
+
+        classLoadingInfo.setTotalLoadedClassCount(classLoad.getTotalLoadedClassCount());
+        classLoadingInfo.setLoadedClassCount(classLoad.getLoadedClassCount());
+        classLoadingInfo.setUnloadedClassCount(classLoad.getUnloadedClassCount());
+
+        return classLoadingInfo;
     }
+
+
+
+
+
 }

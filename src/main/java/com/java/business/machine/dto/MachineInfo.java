@@ -1,6 +1,5 @@
 package com.java.business.machine.dto;
 
-import com.sun.management.OperatingSystemMXBean;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -48,10 +47,6 @@ public class MachineInfo {
      */
     private long freePhysicalMemorySize;
 
-    /**
-     * 内存使用率
-     */
-    private Double memoryUsageRate;
 
     /**
      * 进程cpu负载
@@ -63,25 +58,4 @@ public class MachineInfo {
      */
     private double systemCpuLoad;
 
-    public MachineInfo(OperatingSystemMXBean operatingSystemMXBean) {
-
-        this.systemName = operatingSystemMXBean.getName();
-
-        this.systemVersion = operatingSystemMXBean.getVersion();
-
-        this.systemArch = operatingSystemMXBean.getArch();
-
-        this.availableProcessors = operatingSystemMXBean.getAvailableProcessors();
-
-        this.totalPhysicalMemory = operatingSystemMXBean.getTotalPhysicalMemorySize();
-
-        this.freePhysicalMemorySize = operatingSystemMXBean.getFreePhysicalMemorySize();
-
-        this.memoryUsageRate = (1 - this.freePhysicalMemorySize * 1.0 / this.totalPhysicalMemory) * 100;
-
-        this.processCpuLoad= operatingSystemMXBean.getProcessCpuLoad();
-
-        this.systemCpuLoad= operatingSystemMXBean.getSystemCpuLoad();
-
-    }
 }
