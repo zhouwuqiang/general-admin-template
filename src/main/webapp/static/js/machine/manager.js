@@ -199,7 +199,7 @@ function getMemoryChartOperation(name, date, usedData, committedData) {
             {
                 name: '提交的内存(已申请)(M)',
                 type: 'line',
-                areaStyle: {},
+                areaStyle: {color: 'rgb(252, 232, 205)'},
                 data: committedData
             }]
     };
@@ -247,6 +247,7 @@ function updateMemoryChart(responseDto) {
     nonHeapUsed.shift();
     nonHeapCommitted.shift();
 
+    let heapMax = "堆(最大:" + heap.max + "MB)";
     let heapUsedItem = randomData(heap.used);
     let committedItem = randomData(heap.committed);
 
@@ -262,7 +263,7 @@ function updateMemoryChart(responseDto) {
 
 
     echarts.getInstanceById(document.getElementById("heap_memory_chart").getAttribute('_echarts_instance_'))
-        .setOption(getMemoryChartOperation("堆", date, heapUsed, heapCommitted), true);
+        .setOption(getMemoryChartOperation(heapMax, date, heapUsed, heapCommitted), true);
 
     echarts.getInstanceById(document.getElementById("non_heap_memory_chart").getAttribute('_echarts_instance_'))
         .setOption(getMemoryChartOperation("metaspace", date, nonHeapUsed, nonHeapCommitted), true);
