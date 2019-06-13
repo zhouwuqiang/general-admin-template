@@ -209,13 +209,14 @@ let heapUsed = [];
 let heapCommitted = [];
 let nonHeapUsed = [];
 let nonHeapCommitted = [];
+let initEmpty = 600;
 
 /**
  * 初始jvmMemory情况
  */
 function initMemoryChart() {
 
-    for (let i = 0; i < 600; i++) {
+    for (let i = 0; i < initEmpty; i++) {
         date.push('');
         heapUsed.push('');
         heapCommitted.push('');
@@ -237,19 +238,23 @@ function initMemoryChart() {
 function updateMemoryChart(responseDto) {
 
     let heap = responseDto.jvmHeapMemory;
-    let nonheap = responseDto.jvmNonHeapMemory;
-    date.shift();
-    heapUsed.shift();
-    heapCommitted.shift();
-    nonHeapUsed.shift();
-    nonHeapCommitted.shift();
+    let nonHeap = responseDto.jvmNonHeapMemory;
+    if (initEmpty > 0) {
+        date.shift();
+        heapUsed.shift();
+        heapCommitted.shift();
+        nonHeapUsed.shift();
+        nonHeapCommitted.shift();
+        initEmpty--;
+    }
+
 
     let heapMax = "堆(最大:" + heap.max + "MB)";
     let heapUsedItem = randomData(heap.used);
     let committedItem = randomData(heap.committed);
 
-    let nonHeapUsedItem = randomData(nonheap.used);
-    let nonHeapCommittedItem = randomData(nonheap.committed);
+    let nonHeapUsedItem = randomData(nonHeap.used);
+    let nonHeapCommittedItem = randomData(nonHeap.committed);
 
     date.push(heapUsedItem.value[0]);
 
