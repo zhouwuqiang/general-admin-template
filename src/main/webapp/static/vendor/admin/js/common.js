@@ -8,6 +8,7 @@ $(function () {
             window.top.Pace.restart();
         }
     });
+
     $(document).ajaxStop(function () {
         if ($.isNotNull(window.top.Pace)) {
             window.top.Pace.stop();

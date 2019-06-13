@@ -2,6 +2,7 @@ package com.java.business.machine.facade.impl;
 
 import com.java.business.machine.dto.MachineInfo;
 import com.java.business.machine.dto.MemoryInfo;
+import com.java.business.machine.dto.RuntimeInfo;
 import com.java.business.machine.facade.MachineFacade;
 import com.java.business.machine.utils.MachineUtils;
 import org.springframework.stereotype.Service;
@@ -28,5 +29,10 @@ public class MachineFacadeImpl implements MachineFacade {
         memoryInfo.setJvmHeapMemory(MachineUtils.getJvmHeapMemory());
         memoryInfo.setJvmNonHeapMemory(MachineUtils.getJvmNonHeapMemory());
         return memoryInfo;
+    }
+
+    @Override
+    public RuntimeInfo getRuntimeInfo() {
+        return MachineUtils.getRuntimeInfo();
     }
 }

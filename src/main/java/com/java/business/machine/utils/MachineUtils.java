@@ -4,12 +4,12 @@ package com.java.business.machine.utils;
 import com.java.business.machine.dto.ClassLoadingInfo;
 import com.java.business.machine.dto.JvmMemoryInfo;
 import com.java.business.machine.dto.MachineInfo;
+import com.java.business.machine.dto.RuntimeInfo;
+import com.java.general.utils.DateUtils;
 import com.sun.management.OperatingSystemMXBean;
 
-import java.lang.management.ClassLoadingMXBean;
-import java.lang.management.ManagementFactory;
-import java.lang.management.MemoryMXBean;
-import java.lang.management.MemoryUsage;
+import java.lang.management.*;
+import java.util.Date;
 
 
 /**
@@ -28,12 +28,13 @@ public class MachineUtils {
 
         while (true) {
             Thread.sleep(1000);
-            System.out.println(MachineUtils.getMachineInfo());
+//            System.out.println(MachineUtils.getMachineInfo());
 //            Thread.sleep(1000);
 //            System.out.println(MachineUtils.getJvmHeapMemory());
 //            System.out.println(MachineUtils.getJvmNoHeapMemory());
 //            Thread.sleep(1000);
 //            System.out.println(MachineUtils.getClassLoadingInfo());
+            System.out.println(MachineUtils.getRuntimeInfo());
         }
 
     }
@@ -121,7 +122,33 @@ public class MachineUtils {
     }
 
 
+    /**
+     * 获取运行信息
+     *
+     * @return
+     */
+    public static RuntimeInfo getRuntimeInfo() {
 
+        RuntimeInfo runtimeInfo = new RuntimeInfo();
+        RuntimeMXBean runtime = ManagementFactory.getRuntimeMXBean();
+
+        runtimeInfo.setName(runtime.getName().split("@")[0]);
+        runtimeInfo.setSpecName(runtime.getSpecName());
+        runtimeInfo.setSpecVendor(runtime.getSpecVendor());
+        runtimeInfo.setSpecVersion(runtime.getSpecVersion());
+        runtimeInfo.setStartTime(DateUtils.parseDateStr(DateUtils.DateFormat.YYYY_MM_DD_HH_MM_SS,new Date(runtime.getStartTime())));
+        runtimeInfo.setSystemProperties(runtime.getSystemProperties());
+        runtimeInfo.setUptime(DateUtils.getDatePoor(runtime.getUptime()));
+        runtimeInfo.setVmName(runtime.getVmName());
+        runtimeInfo.setVmVendor(runtime.getVmVendor());
+        runtimeInfo.setVmVersion(runtime.getVmVersion());
+        runtimeInfo.setArgs(runtime.getInputArguments());
+        runtimeInfo.setClassPath(runtime.getClassPath());
+        runtimeInfo.setBootClassPath(runtime.getBootClassPath());
+        runtimeInfo.setLibraryPath(runtime.getLibraryPath());
+
+        return runtimeInfo;
+    }
 
 
 }

@@ -2,6 +2,7 @@ package com.java.business.machine.controller;
 
 import com.java.business.machine.dto.MachineInfo;
 import com.java.business.machine.dto.MemoryInfo;
+import com.java.business.machine.dto.RuntimeInfo;
 import com.java.business.machine.facade.MachineFacade;
 import com.java.general.interceptors.controller.ControllerRecorder;
 import com.java.general.response.dto.ResponseDto;
@@ -47,6 +48,18 @@ public class MachineController {
     public ResponseDto memoryInfo() {
         MemoryInfo memoryInfo = machineFacade.getMemoryInfo();
         return ResponseUtil.bindSuccessResponse(memoryInfo);
+    }
+
+    /**
+     * 获取运行信息
+     *
+     * @return
+     */
+    @RequestMapping(value = "/runtime/Info")
+    @ControllerRecorder(path = "/machine/runtime/Info")
+    public ResponseDto runtimeInfo() {
+        RuntimeInfo runtimeInfo = machineFacade.getRuntimeInfo();
+        return ResponseUtil.bindSuccessResponse(runtimeInfo);
     }
 
 

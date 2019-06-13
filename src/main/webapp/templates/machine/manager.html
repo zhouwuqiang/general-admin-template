@@ -39,61 +39,164 @@
                     </div>
                     <div id="machine_collapse" class="panel-collapse collapse in">
                         <div class="panel-body">
-                            <form class="form-horizontal" role="form" id="machine_info_form">
+                            <div class="col-sm-6">
+                                <form class="form-horizontal" role="form" id="machine_info_form">
+
+                                    <div class="form-group">
+                                        <label for="systemName" class="col-sm-4 control-label">系统名称:</label>
+                                        <div class="col-sm-6">
+                                            <input type="text" class="form-control input-show" id="systemName"
+                                                   name="systemName">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="systemVersion" class="col-sm-4 control-label">系统版本:</label>
+                                        <div class="col-sm-6">
+                                            <input type="text" class="form-control input-show" id="systemVersion"
+                                                   name="systemVersion">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="systemArch" class="col-sm-4 control-label">系统架构:</label>
+                                        <div class="col-sm-6">
+                                            <input type="text" class="form-control input-show" id="systemArch"
+                                                   name="systemArch">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="availableProcessors" class="col-sm-4 control-label">可用的内核数:</label>
+                                        <div class="col-sm-6">
+                                            <input type="text" class="form-control input-show" id="availableProcessors"
+                                                   name="availableProcessors">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="totalPhysicalMemory" class="col-sm-4 control-label">总物理内存:</label>
+                                        <div class="col-sm-6">
+                                            <input type="text" class="form-control input-show" id="totalPhysicalMemory"
+                                                   name="totalPhysicalMemory">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="freePhysicalMemorySize"
+                                               class="col-sm-4 control-label">剩余物理内存:</label>
+                                        <div class="col-sm-6">
+                                            <input type="text" class="form-control input-show"
+                                                   id="freePhysicalMemorySize" name="freePhysicalMemorySize">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="processCpuLoad" class="col-sm-4 control-label">进程cpu负载:</label>
+                                        <div class="col-sm-6">
+                                            <input type="text" class="form-control input-show" id="processCpuLoad"
+                                                   name="processCpuLoad">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="systemCpuLoad" class="col-sm-4 control-label">系统cpu负载:</label>
+                                        <div class="col-sm-6">
+                                            <input type="text" class="form-control input-show" id="systemCpuLoad"
+                                                   name="systemCpuLoad">
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+
+                            <div class="col-sm-6 center-block">
+                                <div id="system_cpu_load_chart" class="col-sm-6" style="height:392px;"></div>
+                                <div id="system_memory_load_chart" class="col-sm-6" style="height:392px;"></div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel-group" id="runtime_Info">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#runtime_Info" href="#runtime_info_collapse">
+                                运行信息
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="runtime_info_collapse" class="panel-collapse collapse in">
+                        <div class="panel-body">
+                            <form class="form-horizontal" role="form" id="runtime_info_form">
 
                                 <div class="form-group">
-                                    <label for="systemName" class="col-sm-2 control-label">系统名称:</label>
+                                    <label for="name" class="col-sm-2 control-label">进程ID:</label>
                                     <div class="col-sm-4">
-                                        <input type="text" class="form-control input-show" id="systemName" name="systemName">
+                                        <input type="text" class="form-control input-show" id="name" name="name">
                                     </div>
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="systemVersion" class="col-sm-2 control-label">系统版本:</label>
+                                    <label for="specName" class="col-sm-2 control-label">jvm规范名称:</label>
                                     <div class="col-sm-4">
-                                        <input type="text" class="form-control input-show" id="systemVersion" name="systemVersion">
+                                        <input type="text" class="form-control input-show" id="specName"
+                                               name="specName">
                                     </div>
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="systemArch" class="col-sm-2 control-label">系统架构:</label>
+                                    <label for="specVendor" class="col-sm-2 control-label">jvm规范运营商:</label>
                                     <div class="col-sm-4">
-                                        <input type="text" class="form-control input-show" id="systemArch" name="systemArch">
+                                        <input type="text" class="form-control input-show" id="specVendor"
+                                               name="specVendor">
                                     </div>
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="availableProcessors" class="col-sm-2 control-label">可用的内核数:</label>
+                                    <label for="specVersion" class="col-sm-2 control-label">jvm规范版本:</label>
                                     <div class="col-sm-4">
-                                        <input type="text" class="form-control input-show" id="availableProcessors" name="availableProcessors">
+                                        <input type="text" class="form-control input-show" id="specVersion"
+                                               name="specVersion">
                                     </div>
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="totalPhysicalMemory" class="col-sm-2 control-label">总物理内存:</label>
+                                    <label for="startTime" class="col-sm-2 control-label">启动时间:</label>
                                     <div class="col-sm-4">
-                                        <input type="text" class="form-control input-show" id="totalPhysicalMemory" name="totalPhysicalMemory">
+                                        <input type="text" class="form-control input-show" id="startTime"
+                                               name="startTime">
                                     </div>
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="freePhysicalMemorySize" class="col-sm-2 control-label">剩余物理内存:</label>
+                                    <label for="uptime" class="col-sm-2 control-label">运行时间:</label>
                                     <div class="col-sm-4">
-                                        <input type="text" class="form-control input-show" id="freePhysicalMemorySize" name="freePhysicalMemorySize">
+                                        <input type="text" class="form-control input-show" id="uptime" name="uptime">
                                     </div>
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="processCpuLoad" class="col-sm-2 control-label">进程cpu负载:</label>
+                                    <label for="vmName" class="col-sm-2 control-label">jvm名称:</label>
                                     <div class="col-sm-4">
-                                        <input type="text" class="form-control input-show" id="processCpuLoad" name="processCpuLoad">
+                                        <input type="text" class="form-control input-show" id="vmName" name="vmName">
                                     </div>
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="systemCpuLoad" class="col-sm-2 control-label">系统cpu负载:</label>
+                                    <label for="vmVendor" class="col-sm-2 control-label">jvm运营商:</label>
                                     <div class="col-sm-4">
-                                        <input type="text" class="form-control input-show" id="systemCpuLoad" name="systemCpuLoad">
+                                        <input type="text" class="form-control input-show" id="vmVendor"
+                                               name="vmVendor">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="vmVersion" class="col-sm-2 control-label">jvm实现版本:</label>
+                                    <div class="col-sm-4">
+                                        <input type="text" class="form-control input-show" id="vmVersion"
+                                               name="vmVersion">
                                     </div>
                                 </div>
                             </form>
@@ -126,25 +229,30 @@
                                     <div class="form-group">
                                         <label for="non_heap_init" class="col-sm-4 control-label">初始(M):</label>
                                         <div class="col-sm-8">
-                                            <input type="text" class="form-control input-show" id="non_heap_init" name="init">
+                                            <input type="text" class="form-control input-show" id="non_heap_init"
+                                                   name="init">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="non_heap_used" class="col-sm-4 control-label">当前(已使用)(M):</label>
                                         <div class="col-sm-8">
-                                            <input type="text" class="form-control input-show" id="non_heap_used" name="used">
+                                            <input type="text" class="form-control input-show" id="non_heap_used"
+                                                   name="used">
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="non_heap_committed" class="col-sm-4 control-label">提交的内存(已申请)(M):</label>
+                                        <label for="non_heap_committed"
+                                               class="col-sm-4 control-label">提交的内存(已申请)(M):</label>
                                         <div class="col-sm-8">
-                                            <input type="text" class="form-control input-show" id="non_heap_committed" name="committed">
+                                            <input type="text" class="form-control input-show" id="non_heap_committed"
+                                                   name="committed">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="non_heap_max" class="col-sm-4 control-label">最大(上限)(M):</label>
                                         <div class="col-sm-8">
-                                            <input type="text" class="form-control input-show" id="non_heap_max" name="max">
+                                            <input type="text" class="form-control input-show" id="non_heap_max"
+                                                   name="max">
                                         </div>
                                     </div>
 
@@ -161,19 +269,23 @@
                                     <div class="form-group">
                                         <label for="heap_init" class="col-sm-4 control-label">初始(M):</label>
                                         <div class="col-sm-8">
-                                            <input type="text" class="form-control input-show" id="heap_init" name="init">
+                                            <input type="text" class="form-control input-show" id="heap_init"
+                                                   name="init">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="heap_used" class="col-sm-4 control-label">当前(已使用)(M):</label>
                                         <div class="col-sm-8">
-                                            <input type="text" class="form-control input-show" id="heap_used" name="used">
+                                            <input type="text" class="form-control input-show" id="heap_used"
+                                                   name="used">
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="heap_committed" class="col-sm-4 control-label">提交的内存(已申请)(M):</label>
+                                        <label for="heap_committed"
+                                               class="col-sm-4 control-label">提交的内存(已申请)(M):</label>
                                         <div class="col-sm-8">
-                                            <input type="text" class="form-control input-show" id="heap_committed" name="committed">
+                                            <input type="text" class="form-control input-show" id="heap_committed"
+                                                   name="committed">
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -185,23 +297,6 @@
 
                                 </form>
                             </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="panel-group" id="runtime_Info">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4 class="panel-title">
-                            <a data-toggle="collapse" data-parent="#runtime_Info" href="#runtime_Info_collapse">
-                                运行信息
-                            </a>
-                        </h4>
-                    </div>
-                    <div id="runtime_Info_collapse" class="panel-collapse collapse in">
-                        <div class="panel-body">
-
                         </div>
                     </div>
                 </div>
@@ -231,6 +326,8 @@
 <script src="/static/vendor/jquery/jquery.js?v=2.2.4"></script>
 <script src="/static/vendor/bootstrap/js/bootstrap.js?v=3.3.7"></script>
 <script src="/static/vendor/jquery-toast-plugin/jquery.toast.min.js"></script>
+
+<script src="/static/vendor/echarts/echarts.min.js"></script>
 <script src="/static/vendor/admin/js/common.js?v=1.0.0"></script>
 
 <script src="/static/js/machine/manager.js"></script>

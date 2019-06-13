@@ -2,6 +2,7 @@ package com.java.business.machine.facade;
 
 import com.java.business.machine.dto.MachineInfo;
 import com.java.business.machine.dto.MemoryInfo;
+import com.java.business.machine.dto.RuntimeInfo;
 
 /**
  * description :
@@ -23,4 +24,10 @@ public interface MachineFacade {
      * @return
      */
     MemoryInfo getMemoryInfo();
+
+    /**
+     * 获取运行信息
+     * @return
+     */
+    RuntimeInfo getRuntimeInfo();
 }
