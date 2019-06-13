@@ -10,19 +10,25 @@
     <title>菜单管理</title>
     <meta name="keywords" content="">
     <meta name="description" content="">
-
     <link rel="shortcut icon" href="/static/img/favicon.ico">
     <link rel="stylesheet" href="/static/vendor/admin/css/reset.css?v=2.0">
     <link rel="stylesheet" href="/static/vendor/bootstrap/css/bootstrap.css?v=3.3.7">
     <link rel="stylesheet" href="/static/vendor/font-awesome/css/font-awesome.css?v=4.7.0">
     <link rel="stylesheet" href="/static/vendor/jquery-toast-plugin/jquery.toast.min.css">
 
-    <style>
+    <script type="text/javascript" th:inline="javascript">
+        /*<![CDATA[*/
+        contextPath = /*[[@{/}]]*/ '';
+        basePath = /*[[${#httpServletRequest.getScheme() + "://" + #httpServletRequest.getServerName() + ":" + #httpServletRequest.getServerPort() + #httpServletRequest.getContextPath()}]]*/;
+        path = /*[[${#httpServletRequest.getServerName() + ":" + #httpServletRequest.getServerPort() + #httpServletRequest.getContextPath()}]]*/;
+        /*]]>*/
+    </script>
 
-    </style>
 </head>
 
 <body class="gray-bg">
+
+<input type="hidden" th:value="${#httpServletRequest}">
 
 <div class="container-fluid">
     <div class="row clearfix">
@@ -330,5 +336,6 @@
 <script src="/static/vendor/echarts/echarts.min.js"></script>
 <script src="/static/vendor/admin/js/common.js?v=1.0.0"></script>
 
+<script src="/static/js/machine/socket.js"></script>
 <script src="/static/js/machine/manager.js"></script>
 </html>
