@@ -22,7 +22,8 @@ $(function () {
 //接收到消息的回调方法
     Machine.socket.onmessage = function (event) {
         updateLoanChart(JSON.parse(event.data).machineInfo);
-        updateMemoryChart(JSON.parse(event.data).memoryInfo)
+        updateMemoryChart(JSON.parse(event.data).memoryInfo);
+        updateThreadChart(JSON.parse(event.data).threadData);
         // console.log("websocket receive" + event.data);
     };
 

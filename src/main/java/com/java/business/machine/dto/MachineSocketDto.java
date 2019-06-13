@@ -23,4 +23,9 @@ public class MachineSocketDto<T> {
      * jvm内存信息
      */
     private MemoryInfo memoryInfo;
+
+    /**
+     * 线程信息
+     */
+    private ThreadData threadData;
 }

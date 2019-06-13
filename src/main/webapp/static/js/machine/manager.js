@@ -250,11 +250,11 @@ function updateMemoryChart(responseDto) {
 
 
     let heapMax = "堆(最大:" + heap.max + "MB)";
-    let heapUsedItem = randomData(heap.used);
-    let committedItem = randomData(heap.committed);
+    let heapUsedItem = formatData(heap.used);
+    let committedItem = formatData(heap.committed);
 
-    let nonHeapUsedItem = randomData(nonHeap.used);
-    let nonHeapCommittedItem = randomData(nonHeap.committed);
+    let nonHeapUsedItem = formatData(nonHeap.used);
+    let nonHeapCommittedItem = formatData(nonHeap.committed);
 
     date.push(heapUsedItem.value[0]);
 
@@ -276,7 +276,7 @@ function updateMemoryChart(responseDto) {
  * @param value
  * @returns {{value: any[]}}
  */
-function randomData(value) {
+function formatData(value) {
     let now = new Date();
     return {
         value: [
@@ -287,7 +287,196 @@ function randomData(value) {
 }
 
 /********************************************** jvm线程图 *****************************************/
+let threadDate = [];
+let newData = [];
+let runnableData = [];
+let blockedData = [];
+let waitingData = [];
+let timedWaitingData = [];
+let terminatedData = [];
+let initThreadEmpty = 600;
 
+/**
+ * 初始化线程数据
+ */
 function initThreadChart() {
 
+    for (let i = 0; i < initThreadEmpty; i++) {
+        threadDate.push('');
+        newData.push('');
+        runnableData.push('');
+        blockedData.push('');
+        waitingData.push('');
+        timedWaitingData.push('');
+        terminatedData.push('');
+    }
+
+    let dom = document.getElementById("thread_chart");
+    window.echarts.init(dom).setOption(getThreadChartOperation(threadDate,newData,runnableData,blockedData,waitingData,timedWaitingData,terminatedData), true);
+
+}
+
+
+/**
+* 更新线程数据
+*/
+function updateThreadChart(responseDto) {
+
+  responseDto;
+
+    if (initThreadEmpty > 0) {
+        threadDate.shift();
+        newData.shift();
+        runnableData.shift();
+        blockedData.shift();
+        waitingData.shift();
+        timedWaitingData.shift();
+        terminatedData.shift();
+        initThreadEmpty--;
+    }
+
+
+
+
+    let newDataItem=formatThreadData(responseDto.newData);
+    threadDate.push(newDataItem.value[0]);
+    newData.push(newDataItem);
+    runnableData.push(formatThreadData(responseDto.runnableData));
+    blockedData.push(formatThreadData(responseDto.blockedData));
+    waitingData.push(formatThreadData(responseDto.waitingData));
+    timedWaitingData.push(formatThreadData(responseDto.timedWaitingData));
+    terminatedData.push(formatThreadData(responseDto.terminatedData));
+
+    echarts.getInstanceById(document.getElementById("thread_chart").getAttribute('_echarts_instance_'))
+        .setOption(getThreadChartOperation(threadDate,newData,runnableData,blockedData,waitingData,timedWaitingData,terminatedData), true);
+
+}
+
+/**
+ * 格式化数据
+ * @param value
+ * @returns {{value: any[]}}
+ */
+function formatThreadData(value) {
+    let now = new Date();
+    return {
+        value: [
+            [now.getHours(), now.getMinutes(), now.getSeconds()].join(':'),
+            Math.round(value)
+        ]
+    }
+}
+
+/**
+ * 获取线程配置数据
+ * @param date
+ * @param newData
+ * @param runnableData
+ * @param blockedData
+ * @param waitingData
+ * @param timedWaitingData
+ * @param terminatedData
+ * @returns {{yAxis: {type: string}[], xAxis: {data: *, type: string, boundaryGap: boolean}[], legend: {data: string[]}, grid: {left: string, bottom: string, right: string, containLabel: boolean}, series: *[], tooltip: {axisPointer: {label: {backgroundColor: string}, type: string}, trigger: string}, toolbox: {feature: {saveAsImage: {}}}, title: {text: string}}}
+ */
+function getThreadChartOperation(date,newData,runnableData,blockedData,waitingData,timedWaitingData,terminatedData) {
+
+
+   let  option = {
+        title: {
+            text: '线程状态'
+        },
+        tooltip : {
+            trigger: 'axis',
+            axisPointer: {
+                type: 'cross',
+                label: {
+                    backgroundColor: '#6a7985'
+                }
+            }
+        },
+        legend: {
+            data:['NEW','RUNNABLE','BLOCKED','WAITING','TIMED_WAITING','TERMINATED']
+        },
+        toolbox: {
+            // feature: {
+            //     saveAsImage: {}
+            // }
+        },
+        grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
+        },
+        xAxis : [
+            {
+                type : 'category',
+                boundaryGap : false,
+                data : date
+            }
+        ],
+        yAxis : [
+            {
+                type : 'value'
+            }
+        ],
+        series : [
+            {
+                name:'NEW',
+                type:'line',
+                stack: '总量',
+                areaStyle: {},
+                data:newData
+            },
+            {
+                name:'RUNNABLE',
+                type:'line',
+                stack: '总量',
+                areaStyle: {},
+                data:runnableData
+            },
+            {
+                name:'BLOCKED',
+                type:'line',
+                stack: '总量',
+                areaStyle: {},
+                data:blockedData
+            },
+            {
+                name:'WAITING',
+                type:'line',
+                stack: '总量',
+                areaStyle: {normal: {}},
+                data:waitingData
+            },
+            {
+                name:'TIMED_WAITING',
+                type:'line',
+                stack: '总量',
+                label: {
+                    normal: {
+                        show: true,
+                        position: 'top'
+                    }
+                },
+                areaStyle: {normal: {}},
+                data:timedWaitingData
+            },
+            {
+                name:'TERMINATED',
+                type:'line',
+                stack: '总量',
+                label: {
+                    normal: {
+                        show: true,
+                        position: 'top'
+                    }
+                },
+                areaStyle: {normal: {}},
+                data:terminatedData
+            }
+        ]
+    };
+
+    return option;
 }
