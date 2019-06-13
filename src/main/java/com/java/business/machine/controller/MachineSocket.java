@@ -6,7 +6,6 @@ import com.java.general.utils.SpringContextUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.websocket.*;
@@ -75,7 +74,7 @@ public class MachineSocket {
      */
     @OnMessage
     public void onMessage(String message, Session session) {
-        LOGGER.info("来自客户端的消息", message);
+        LOGGER.info("来自客户端的消息{}", message);
         if (StringUtils.equals(message, MACHINE)) {
             if (machineFacade == null) {
                 initMachineFacade();
