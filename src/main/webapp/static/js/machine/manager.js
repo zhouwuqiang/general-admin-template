@@ -3,10 +3,10 @@ $(function () {
     initMachineInfo();
 
     initLoanChart();
-    setInterval(function () {
-        updateLoanChart();
-    }, 1000);
 
+    setInterval(function () {
+        Machine.socket.send("machine");
+    }, 1000);
 
     initMemoryInfo();
 
@@ -49,30 +49,16 @@ function initLoanChart() {
 /**
  * 更新负载情况
  */
-function updateLoanChart() {
+function updateLoanChart(responseDto) {
 
-    $.ajax({
-        url: "/machine/info",
-        type: 'post',
-        dataType: 'json',
-        contentType: 'application/json',
-        success: function (responseDto) {
-            if (responseDto.success) {
-                let cpuValue = (responseDto.data.systemCpuLoad * 100).toFixed(2);
-                let memoryValue = ((1-(responseDto.data.freePhysicalMemorySize / responseDto.data.totalPhysicalMemory)) * 100).toFixed(2);
+    let cpuValue = (responseDto.systemCpuLoad * 100).toFixed(2);
+    let memoryValue = ((1 - (responseDto.freePhysicalMemorySize / responseDto.totalPhysicalMemory)) * 100).toFixed(2);
 
-                echarts.getInstanceById(document.getElementById("system_cpu_load_chart").getAttribute('_echarts_instance_'))
-                    .setOption(getLoanChartOptin("CPU使用率", cpuValue), true);
+    echarts.getInstanceById(document.getElementById("system_cpu_load_chart").getAttribute('_echarts_instance_'))
+        .setOption(getLoanChartOptin("CPU使用率", cpuValue), true);
 
-                echarts.getInstanceById(document.getElementById("system_memory_load_chart").getAttribute('_echarts_instance_'))
-                    .setOption(getLoanChartOptin("内存使用率", memoryValue), true);
-            }
-        },
-        error: function () {
-            console.log("请求处理失败!");
-            $.errorMassage("请求处理失败!");
-        }
-    });
+    echarts.getInstanceById(document.getElementById("system_memory_load_chart").getAttribute('_echarts_instance_'))
+        .setOption(getLoanChartOptin("内存使用率", memoryValue), true);
 }
 
 /**

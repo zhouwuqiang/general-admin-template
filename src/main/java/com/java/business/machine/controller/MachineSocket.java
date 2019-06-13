@@ -1,6 +1,11 @@
 package com.java.business.machine.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.java.business.machine.facade.MachineFacade;
+import com.java.general.utils.SpringContextUtil;
+import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -20,6 +25,9 @@ import java.util.concurrent.CopyOnWriteArraySet;
 @Component
 public class MachineSocket {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(MachineSocket.class);
+
+    private static final String MACHINE = "machine";
     /**
      * 静态变量，用来记录当前在线连接数。应该把它设计成线程安全的。
      */
@@ -36,7 +44,6 @@ public class MachineSocket {
      */
     private Session session;
 
-    @Autowired
     private MachineFacade machineFacade;
 
     /**
@@ -45,14 +52,9 @@ public class MachineSocket {
     @OnOpen
     public void onOpen(Session session) {
         this.session = session;
-        webSocketSet.add(this);     //加入set中
-        addOnlineCount();           //在线数加1
-        System.out.println("有新连接加入！当前在线人数为" + getOnlineCount());
-        try {
-            sendMessage("你已经连接上了!");
-        } catch (IOException e) {
-            System.out.println("IO异常");
-        }
+        webSocketSet.add(this);
+        addOnlineCount();
+        LOGGER.info("有新连接加入！当前在线人数为{}", getOnlineCount());
     }
 
     /**
@@ -60,9 +62,9 @@ public class MachineSocket {
      */
     @OnClose
     public void onClose() {
-        webSocketSet.remove(this);  //从set中删除
-        subOnlineCount();           //在线数减1
-        System.out.println("有一连接关闭！当前在线人数为" + getOnlineCount());
+        webSocketSet.remove(this);
+        subOnlineCount();
+        LOGGER.info("有一连接关闭！当前在线人数为{}", getOnlineCount());
     }
 
 
@@ -73,14 +75,12 @@ public class MachineSocket {
      */
     @OnMessage
     public void onMessage(String message, Session session) {
-        System.out.println("来自客户端的消息:" + message);
-        //群发消息
-        for (MachineSocket item : webSocketSet) {
-            try {
-                item.sendMessage(message);
-            } catch (IOException e) {
-                e.printStackTrace();
+        LOGGER.info("来自客户端的消息", message);
+        if (StringUtils.equals(message, MACHINE)) {
+            if (machineFacade == null) {
+                initMachineFacade();
             }
+            sendMessage(JSON.toJSONString(machineFacade.getMachineInfo()));
         }
     }
 
@@ -94,21 +94,20 @@ public class MachineSocket {
     }
 
 
-    private void sendMessage(String message) throws IOException {
-        this.session.getBasicRemote().sendText(message);
-        //this.session.getAsyncRemote().sendText(message);
+    private void sendMessage(String message) {
+        try {
+            this.session.getBasicRemote().sendText(message);
+        } catch (IOException e) {
+            LOGGER.error("发送信息异常:", e);
+        }
     }
 
     /**
      * 群发自定义消息
      */
-    private static void sendInfo(String message) throws IOException {
+    private static void sendInfo(String message) {
         for (MachineSocket item : webSocketSet) {
-            try {
-                item.sendMessage(message);
-            } catch (IOException e) {
-                continue;
-            }
+            item.sendMessage(message);
         }
     }
 
@@ -122,5 +121,9 @@ public class MachineSocket {
 
     private static synchronized void subOnlineCount() {
         MachineSocket.onlineCount--;
+    }
+
+    private synchronized void initMachineFacade() {
+        machineFacade = SpringContextUtil.getBean(MachineFacade.class);
     }
 }
