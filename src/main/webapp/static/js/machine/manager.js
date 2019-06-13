@@ -2,17 +2,15 @@ $(function () {
 
     initMachineInfo();
 
+    initRuntimeInfo();
+
     initLoanChart();
+    initMemoryChart();
+    initThreadChart();
 
     setInterval(function () {
         Machine.socket.send("start");
     }, 1000);
-
-    initMemoryInfo();
-
-    initRuntimeInfo();
-
-    initMemoryChart();
 });
 
 /**
@@ -238,7 +236,6 @@ function initMemoryChart() {
  */
 function updateMemoryChart(responseDto) {
 
-    debugger;
     let heap = responseDto.jvmHeapMemory;
     let nonheap = responseDto.jvmNonHeapMemory;
     date.shift();
@@ -282,4 +279,10 @@ function randomData(value) {
             Math.round(value)
         ]
     }
+}
+
+/********************************************** jvm线程图 *****************************************/
+
+function initThreadChart() {
+
 }
