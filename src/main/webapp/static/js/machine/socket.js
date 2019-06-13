@@ -21,9 +21,9 @@ $(function () {
 
 //接收到消息的回调方法
     Machine.socket.onmessage = function (event) {
-        debugger;
-        updateLoanChart(JSON.parse(event.data));
-        console.log("websocket receive" + event.data);
+        updateLoanChart(JSON.parse(event.data).machineInfo);
+        updateMemoryChart(JSON.parse(event.data).memoryInfo)
+        // console.log("websocket receive" + event.data);
     };
 
 //连接关闭的回调方法

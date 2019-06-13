@@ -97,27 +97,27 @@
                                         </div>
                                     </div>
 
-                                    <div class="form-group">
-                                        <label for="processCpuLoad" class="col-sm-4 control-label">进程cpu负载:</label>
-                                        <div class="col-sm-6">
-                                            <input type="text" class="form-control input-show" id="processCpuLoad"
-                                                   name="processCpuLoad">
-                                        </div>
-                                    </div>
+                                    <!--<div class="form-group">-->
+                                        <!--<label for="processCpuLoad" class="col-sm-4 control-label">进程cpu负载:</label>-->
+                                        <!--<div class="col-sm-6">-->
+                                            <!--<input type="text" class="form-control input-show" id="processCpuLoad"-->
+                                                   <!--name="processCpuLoad">-->
+                                        <!--</div>-->
+                                    <!--</div>-->
 
-                                    <div class="form-group">
-                                        <label for="systemCpuLoad" class="col-sm-4 control-label">系统cpu负载:</label>
-                                        <div class="col-sm-6">
-                                            <input type="text" class="form-control input-show" id="systemCpuLoad"
-                                                   name="systemCpuLoad">
-                                        </div>
-                                    </div>
+                                    <!--<div class="form-group">-->
+                                        <!--<label for="systemCpuLoad" class="col-sm-4 control-label">系统cpu负载:</label>-->
+                                        <!--<div class="col-sm-6">-->
+                                            <!--<input type="text" class="form-control input-show" id="systemCpuLoad"-->
+                                                   <!--name="systemCpuLoad">-->
+                                        <!--</div>-->
+                                    <!--</div>-->
                                 </form>
                             </div>
 
                             <div class="col-sm-6 center-block">
-                                <div id="system_cpu_load_chart" class="col-sm-6" style="height:392px;"></div>
-                                <div id="system_memory_load_chart" class="col-sm-6" style="height:392px;"></div>
+                                <div id="system_cpu_load_chart" class="col-sm-6" style="height:360px;"></div>
+                                <div id="system_memory_load_chart" class="col-sm-6" style="height:360px;"></div>
                             </div>
 
                         </div>
@@ -319,7 +319,14 @@
                     </div>
                     <div id="memory_chart_collapse" class="panel-collapse collapse in">
                         <div class="panel-body">
-
+                            <div class="panel-body">
+                                <div class="col-md-6">
+                                    <div id="heap_memory_chart" style="height:360px;"></div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div id="non_heap_memory_chart" style="height:360px;"></div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

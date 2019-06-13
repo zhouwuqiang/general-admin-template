@@ -1,6 +1,7 @@
 package com.java.business.machine.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.java.business.machine.dto.MachineSocketDto;
 import com.java.business.machine.facade.MachineFacade;
 import com.java.general.utils.SpringContextUtil;
 import org.apache.commons.lang3.StringUtils;
@@ -27,6 +28,7 @@ public class MachineSocket {
     private static final Logger LOGGER = LoggerFactory.getLogger(MachineSocket.class);
 
     private static final String MACHINE = "machine";
+
     /**
      * 静态变量，用来记录当前在线连接数。应该把它设计成线程安全的。
      */
@@ -36,7 +38,6 @@ public class MachineSocket {
      * concurrent包的线程安全Set，用来存放每个客户端对应的MyWebSocket对象。
      */
     private static CopyOnWriteArraySet<MachineSocket> webSocketSet = new CopyOnWriteArraySet<>();
-
 
     /**
      * 与某个客户端的连接会话，需要通过它来给客户端发送数据
@@ -53,6 +54,11 @@ public class MachineSocket {
         this.session = session;
         webSocketSet.add(this);
         addOnlineCount();
+
+        if (machineFacade == null) {
+            initMachineFacade();
+        }
+
         LOGGER.info("有新连接加入！当前在线人数为{}", getOnlineCount());
     }
 
@@ -75,12 +81,12 @@ public class MachineSocket {
     @OnMessage
     public void onMessage(String message, Session session) {
         LOGGER.info("来自客户端的消息{}", message);
-        if (StringUtils.equals(message, MACHINE)) {
-            if (machineFacade == null) {
-                initMachineFacade();
-            }
-            sendMessage(JSON.toJSONString(machineFacade.getMachineInfo()));
-        }
+        MachineSocketDto socketDto = new MachineSocketDto();
+
+        socketDto.setMachineInfo(machineFacade.getMachineInfo());
+        socketDto.setMemoryInfo(machineFacade.getMemoryInfo());
+
+        sendMessage(JSON.toJSONString(socketDto));
     }
 
     /**
