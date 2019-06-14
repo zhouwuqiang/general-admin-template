@@ -157,7 +157,8 @@ function addOrganization() {
 function editOrganization(row) {
     $.initModel("main_mode", "编辑结构", "main_form", "edit-show");
     $.formReview("main_form", row);
-    $("#paren_code").attr("readonly", "readonly");
+    $("#paren_code").val(row.parenCode);
+    $("#paren_name").val(row.parentName);
     $('#main_mode').modal('show');
 }
 
