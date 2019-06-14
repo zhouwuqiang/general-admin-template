@@ -47,4 +47,5 @@ public interface UserFacade {
      * @return
      */
     ResponseCode checkExist(UserDetailRequestDto requestDto);
+
 }

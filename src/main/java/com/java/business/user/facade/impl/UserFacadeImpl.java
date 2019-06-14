@@ -19,8 +19,11 @@ import com.java.general.utils.SpringContextUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * description :
@@ -41,6 +44,7 @@ public class UserFacadeImpl implements UserFacade {
 
     @Autowired
     private OrganizationService organizationService;
+
 
     @Override
     public PageInfo queryTable(UserTableRequestDto requestDto) {
@@ -132,11 +136,12 @@ public class UserFacadeImpl implements UserFacade {
         userBasicFace.setUserName(requestDto.getUserName());
         userBasicFace = userService.queryBasicInfo(userBasicFace);
 
-        if (userBasicFace != null){
+        if (userBasicFace != null) {
             return UserResponseEnum.USER_NAME_EXIST;
         }
         return UserResponseEnum.USER_NAME_NOT_EXIST;
     }
+
 
     private void savePowerInfo(UserSaveRequestDto requestDto, String userCode) {
         UserPowerInfoRequestDto powerInfo = requestDto.getPowerInfo();
@@ -145,7 +150,7 @@ public class UserFacadeImpl implements UserFacade {
         roleRelation.setUserCode(userCode);
         userService.deleteRoleRelation(roleRelation);
 
-        if (StringUtils.isNotBlank(powerInfo.getRoleCode())){
+        if (StringUtils.isNotBlank(powerInfo.getRoleCode())) {
             roleRelation.setRoleCode(powerInfo.getRoleCode());
             userService.saveRoleRelation(roleRelation);
         }
@@ -154,7 +159,7 @@ public class UserFacadeImpl implements UserFacade {
         organizationRelation.setUserCode(userCode);
         userService.deleteOrganizationRelation(organizationRelation);
 
-        if (StringUtils.isNotBlank(powerInfo.getOrganizationCode())){
+        if (StringUtils.isNotBlank(powerInfo.getOrganizationCode())) {
             organizationRelation.setOrganizationCode(powerInfo.getOrganizationCode());
             organizationRelation.setPostName(powerInfo.getPostName());
             userService.saveOrganizationRelation(organizationRelation);
