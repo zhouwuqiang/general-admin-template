@@ -5,6 +5,7 @@ import com.java.business.menu.dto.MenuListRequestDto;
 import com.java.business.menu.dto.MenuSaveRequestDto;
 import com.java.business.menu.dto.MenuTableRequestDto;
 import com.java.business.utils.tree.dto.Tree;
+import com.java.general.config.security.dto.Menu;
 
 import java.util.List;
 
@@ -41,5 +42,5 @@ public interface MenuFacade {
      * @param menuListRequestDto
      * @return
      */
-    List<Tree> queryListTree(MenuListRequestDto menuListRequestDto);
+    List<Menu> queryListTree(MenuListRequestDto menuListRequestDto);
 }

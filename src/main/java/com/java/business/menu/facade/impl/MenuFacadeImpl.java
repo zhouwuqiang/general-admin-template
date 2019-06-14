@@ -67,7 +67,7 @@ public class MenuFacadeImpl implements MenuFacade {
     }
 
     @Override
-    public List<Tree> queryListTree(MenuListRequestDto menuListRequestDto) {
+    public List<Menu> queryListTree(MenuListRequestDto menuListRequestDto) {
 
         List<MenuBasicFace> allMenu = menuService.queryList();
         List<Menu> menuList = MenuUtils.buildMenu(allMenu);
@@ -118,26 +118,18 @@ public class MenuFacadeImpl implements MenuFacade {
      * @param codeSet
      * @return
      */
-    private List<Tree> convent(List<Menu> menuList, Set<String> codeSet) {
+    private List<Menu> convent(List<Menu> menuList, Set<String> codeSet) {
 
-        List<Tree> result = new ArrayList<>();
 
         for (Menu item : menuList) {
-            Tree tree = new Tree();
-            tree.setText(item.getMenuName());
-            tree.setCode(item.getMenuCode());
             if (codeSet.contains(item.getMenuCode())) {
-                tree.setChecked();
+                item.setChecked();
             }
             if (item.isRoot()) {
-                tree.setExpanded();
+                item.setExpanded();
             }
-            if (item.isHasChild()) {
-                tree.setNodes(convent(item.getChildMenus(), codeSet));
-            }
-            result.add(tree);
         }
 
-        return result;
+        return menuList;
     }
 }

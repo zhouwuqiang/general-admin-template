@@ -21,7 +21,7 @@ let inputSelectFactory = function ($) {
 
         let option = Object.assign({}, defaultConfig, config);
 
-        let $div = {};
+        let $div;
 
         /**
          * 创建文件对象

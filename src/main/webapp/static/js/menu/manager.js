@@ -6,11 +6,24 @@ $(function () {
 
     $("#menu_icon").initIconSelect();
 
+    //
+    // let defaultConfig = {
+    //     getData: getTree({})
+    // };
+    //
+    // $("#parent_menu_name").initTreeSelect(defaultConfig);
 
     let defaultConfig = {
-        getData: getTree({})
+        getData: getTree({}),
+        onNodeSelected: function (event, node) {
+            $("#parent_menu_code").val(node.menuCode);
+            $("#parent_menu_name").val(node.menuName);
+        },
+        onNodeUnselected: function (event, node) {
+            $("#parent_menu_code").val("");
+            $("#parent_menu_name").val("");
+        }
     };
-
     $("#parent_menu_name").initTreeSelect(defaultConfig);
 });
 

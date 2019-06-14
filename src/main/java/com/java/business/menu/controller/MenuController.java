@@ -6,6 +6,7 @@ import com.java.business.menu.dto.MenuSaveRequestDto;
 import com.java.business.menu.dto.MenuTableRequestDto;
 import com.java.business.menu.facade.MenuFacade;
 import com.java.business.utils.tree.dto.Tree;
+import com.java.general.config.security.dto.Menu;
 import com.java.general.config.security.dto.User;
 import com.java.general.interceptors.controller.ControllerRecorder;
 import com.java.general.response.dto.ResponseDto;
@@ -110,7 +111,7 @@ public class MenuController {
     @ControllerRecorder(path = "/menu/list/tree")
     public ResponseDto listTree(@RequestBody MenuListRequestDto menuListRequestDto) {
 
-        List<Tree> list = menuFacade.queryListTree(menuListRequestDto);
+        List<Menu> list = menuFacade.queryListTree(menuListRequestDto);
 
         return ResponseUtil.bindSuccessResponse(list);
     }

@@ -29,6 +29,7 @@ public class MenuUtils {
             if (StringUtils.isBlank(item.getParentMenuCode())) {
                 Menu menu = new Menu();
                 BeanUtils.copyProperties(item, menu);
+                menu.setText(item.getMenuName());
                 menu.setRoot(true);
                 result.add(menu);
             }

@@ -1,6 +1,7 @@
 package com.java.general.config.security.dto;
 
 import com.java.business.menu.entity.MenuBasicFace;
+import com.java.business.utils.tree.dto.State;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.commons.lang3.StringUtils;
@@ -20,6 +21,7 @@ import java.util.List;
 @Setter
 public class Menu {
 
+    private String text;
 
     /**
      * 是否有子菜单
@@ -69,7 +71,12 @@ public class Menu {
     /**
      * 子对象
      */
-    private List<Menu> childMenus = new ArrayList<>();
+    private List<Menu> nodes;
+
+    /**
+     * 一个节点的初始状态。
+     */
+    private State state = new State();
 
     /**
      * 添加子菜单
@@ -79,16 +86,30 @@ public class Menu {
     public void addChild(List<MenuBasicFace> menuList) {
         for (MenuBasicFace item : menuList) {
             if (StringUtils.equals(item.getParentMenuCode(), this.menuCode)) {
+
+                if (!this.hasChild) {
+                    this.hasChild = true;
+                    this.nodes = new ArrayList<>();
+                }
+
                 Menu menu = new Menu();
                 BeanUtils.copyProperties(item, menu);
-                this.childMenus.add(menu);
-                this.hasChild = true;
+                menu.setText(item.getMenuName());
+                this.nodes.add(menu);
             }
         }
-        if (childMenus.size() > 0) {
-            for (Menu childMenu : childMenus) {
+        if (this.hasChild && nodes.size() > 0) {
+            for (Menu childMenu : nodes) {
                 childMenu.addChild(menuList);
             }
         }
+    }
+
+    public void setChecked() {
+        this.state.setChecked(true);
+    }
+
+    public void setExpanded() {
+        this.state.setExpanded(true);
     }
 }

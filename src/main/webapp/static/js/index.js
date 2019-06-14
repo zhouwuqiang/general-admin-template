@@ -55,8 +55,8 @@ function buildMenu(item) {
             "    </a>" +
             "    <ul>";
 
-        for (var i = 0; i < item.childMenus.length; i++) {
-            html += buildMenu(item.childMenus[i]);
+        for (var i = 0; i < item.nodes.length; i++) {
+            html += buildMenu(item.nodes[i]);
         }
 
         html = html +
