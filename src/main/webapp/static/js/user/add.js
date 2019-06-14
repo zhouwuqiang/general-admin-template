@@ -193,6 +193,7 @@ function getSelectRole() {
 function checkUserNameExist() {
     let name = $("#user_name").val();
     if ($.isNull(name)) {
+        $("#exist_message_div").hide();
         return;
     }
 
