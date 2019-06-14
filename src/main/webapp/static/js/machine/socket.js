@@ -21,10 +21,10 @@ $(function () {
 
 //接收到消息的回调方法
     Machine.socket.onmessage = function (event) {
-        updateLoanChart(JSON.parse(event.data).machineInfo);
-        updateMemoryChart(JSON.parse(event.data).memoryInfo);
-        updateThreadChart(JSON.parse(event.data).threadData);
-        // console.log("websocket receive" + event.data);
+        let data = JSON.parse(event.data);
+        updateLoanChart(data.machineInfo);
+        updateMemoryChart(data.memoryInfo);
+        updateThreadChart(data.threadDto);
     };
 
 //连接关闭的回调方法

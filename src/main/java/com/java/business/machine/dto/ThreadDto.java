@@ -4,10 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import javax.management.ObjectName;
-import java.lang.management.ThreadInfo;
-import java.util.List;
-
 /**
  * description :
  *
@@ -18,12 +14,7 @@ import java.util.List;
 @Getter
 @Setter
 @ToString
-public class ThreadData {
-
-    /**
-     * 名称
-     */
-    private ObjectName objectName;
+public class ThreadDto {
 
     /**
      * 活动的线程总数
@@ -45,9 +36,35 @@ public class ThreadData {
      */
     private int daemonThreadCount;
 
+
     /**
-     * 线程结合
+     * 新增状态
      */
-    private ThreadInfo[] threadArray;
+    private Integer newData;
+
+    /**
+     * 运行状态
+     */
+    private Integer runnableData;
+
+    /**
+     * 阻塞状态
+     */
+    private Integer blockedData;
+
+    /**
+     * 等待状态
+     */
+    private Integer waitingData;
+
+    /**
+     * 定时等待状态
+     */
+    private Integer timedWaitingData;
+
+    /**
+     * 终止状态
+     */
+    private Integer terminatedData;
 
 }

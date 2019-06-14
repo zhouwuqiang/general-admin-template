@@ -1,10 +1,7 @@
 package com.java.business.machine.utils;
 
 
-import com.java.business.machine.dto.ClassLoadingInfo;
-import com.java.business.machine.dto.JvmMemoryInfo;
-import com.java.business.machine.dto.MachineInfo;
-import com.java.business.machine.dto.RuntimeInfo;
+import com.java.business.machine.dto.*;
 import com.java.general.utils.DateUtils;
 import com.sun.management.OperatingSystemMXBean;
 
@@ -28,13 +25,11 @@ public class MachineUtils {
 
         while (true) {
             Thread.sleep(1000);
-//            System.out.println(MachineUtils.getMachineInfo());
-//            Thread.sleep(1000);
-//            System.out.println(MachineUtils.getJvmHeapMemory());
-//            System.out.println(MachineUtils.getJvmNoHeapMemory());
-//            Thread.sleep(1000);
-//            System.out.println(MachineUtils.getClassLoadingInfo());
+            System.out.println(MachineUtils.getMachineInfo());
+            System.out.println(MachineUtils.getJvmHeapMemory());
+            System.out.println(MachineUtils.getClassLoadingInfo());
             System.out.println(MachineUtils.getRuntimeInfo());
+            System.out.println(MachineUtils.getThreadInfo());
         }
 
     }
@@ -150,5 +145,29 @@ public class MachineUtils {
         return runtimeInfo;
     }
 
+
+    /**
+     * 获取运行信息
+     *
+     * @return
+     */
+    public static ThreadData getThreadInfo() {
+
+        ThreadData threadDto = new ThreadData();
+        ThreadMXBean thread = ManagementFactory.getThreadMXBean();
+        threadDto.setObjectName(thread.getObjectName());
+        threadDto.setThreadCount(thread.getThreadCount());
+        threadDto.setPeakThreadCount(thread.getPeakThreadCount());
+        threadDto.setTotalStartedThreadCount(thread.getTotalStartedThreadCount());
+        threadDto.setDaemonThreadCount(thread.getDaemonThreadCount());
+
+        long[] threadIds = thread.getAllThreadIds();
+        if (threadIds != null && threadIds.length > 0) {
+            ThreadInfo[] threadInfos = thread.getThreadInfo(threadIds);
+            threadDto.setThreadArray(threadInfos);
+        }
+
+        return threadDto;
+    }
 
 }

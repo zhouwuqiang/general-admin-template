@@ -4,7 +4,6 @@ import com.alibaba.fastjson.JSON;
 import com.java.business.machine.dto.MachineSocketDto;
 import com.java.business.machine.facade.MachineFacade;
 import com.java.general.utils.SpringContextUtil;
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -26,8 +25,6 @@ import java.util.concurrent.CopyOnWriteArraySet;
 public class MachineSocket {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MachineSocket.class);
-
-    private static final String MACHINE = "machine";
 
     /**
      * 静态变量，用来记录当前在线连接数。应该把它设计成线程安全的。
@@ -85,7 +82,8 @@ public class MachineSocket {
 
         socketDto.setMachineInfo(machineFacade.getMachineInfo());
         socketDto.setMemoryInfo(machineFacade.getMemoryInfo());
-        socketDto.setThreadData(machineFacade.getThreadData());
+        socketDto.setThreadDto(machineFacade.getThreadDto());
+
         sendMessage(JSON.toJSONString(socketDto));
     }
 

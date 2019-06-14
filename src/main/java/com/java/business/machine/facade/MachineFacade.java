@@ -3,7 +3,7 @@ package com.java.business.machine.facade;
 import com.java.business.machine.dto.MachineInfo;
 import com.java.business.machine.dto.MemoryInfo;
 import com.java.business.machine.dto.RuntimeInfo;
-import com.java.business.machine.dto.ThreadData;
+import com.java.business.machine.dto.ThreadDto;
 
 /**
  * description :
@@ -36,5 +36,5 @@ public interface MachineFacade {
      * 获取线程信息
      * @return
      */
-    ThreadData getThreadData();
+    ThreadDto getThreadDto();
 }

@@ -1,12 +1,11 @@
 package com.java.business.machine.facade.impl;
 
-import com.java.business.machine.dto.MachineInfo;
-import com.java.business.machine.dto.MemoryInfo;
-import com.java.business.machine.dto.RuntimeInfo;
-import com.java.business.machine.dto.ThreadData;
+import com.java.business.machine.dto.*;
 import com.java.business.machine.facade.MachineFacade;
 import com.java.business.machine.utils.MachineUtils;
 import org.springframework.stereotype.Service;
+
+import java.lang.management.ThreadInfo;
 
 /**
  * description :
@@ -26,7 +25,7 @@ public class MachineFacadeImpl implements MachineFacade {
 
     @Override
     public MemoryInfo getMemoryInfo() {
-        MemoryInfo memoryInfo= new MemoryInfo();
+        MemoryInfo memoryInfo = new MemoryInfo();
         memoryInfo.setJvmHeapMemory(MachineUtils.getJvmHeapMemory());
         memoryInfo.setJvmNonHeapMemory(MachineUtils.getJvmNonHeapMemory());
         return memoryInfo;
@@ -38,14 +37,57 @@ public class MachineFacadeImpl implements MachineFacade {
     }
 
     @Override
-    public ThreadData getThreadData() {
-        ThreadData threadData= new ThreadData();
-        threadData.setNewData(1);
-        threadData.setBlockedData(2);
-        threadData.setRunnableData(3);
-        threadData.setTerminatedData(3);
-        threadData.setWaitingData(3);
-        threadData.setTimedWaitingData(2);
-        return threadData;
+    public ThreadDto getThreadDto() {
+        ThreadDto threadDto = new ThreadDto();
+
+        ThreadData threadData = MachineUtils.getThreadInfo();
+
+        threadDto.setThreadCount(threadData.getThreadCount());
+        threadDto.setDaemonThreadCount(threadData.getDaemonThreadCount());
+        threadDto.setPeakThreadCount(threadData.getPeakThreadCount());
+        threadDto.setTotalStartedThreadCount(threadData.getTotalStartedThreadCount());
+
+        ThreadInfo[] threadArray = threadData.getThreadArray();
+        int newData = 0;
+        int blockedData = 0;
+        int runnableData = 0;
+        int terminatedData = 0;
+        int waitingData = 0;
+        int timedWaitingData = 0;
+
+
+        for (ThreadInfo item : threadArray) {
+            switch (item.getThreadState()) {
+                case NEW:
+                    newData++;
+                    break;
+                case BLOCKED:
+                    blockedData++;
+                    break;
+                case RUNNABLE:
+                    runnableData++;
+                    break;
+                case TERMINATED:
+                    terminatedData++;
+                    break;
+                case WAITING:
+                    waitingData++;
+                    break;
+                case TIMED_WAITING:
+                    timedWaitingData++;
+                    break;
+                default:
+
+            }
+        }
+
+        threadDto.setNewData(newData);
+        threadDto.setBlockedData(blockedData);
+        threadDto.setRunnableData(runnableData);
+        threadDto.setTerminatedData(terminatedData);
+        threadDto.setWaitingData(waitingData);
+        threadDto.setTimedWaitingData(timedWaitingData);
+
+        return threadDto;
     }
 }

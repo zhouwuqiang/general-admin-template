@@ -322,22 +322,6 @@ function initThreadChart() {
 */
 function updateThreadChart(responseDto) {
 
-  responseDto;
-
-    if (initThreadEmpty > 0) {
-        threadDate.shift();
-        newData.shift();
-        runnableData.shift();
-        blockedData.shift();
-        waitingData.shift();
-        timedWaitingData.shift();
-        terminatedData.shift();
-        initThreadEmpty--;
-    }
-
-
-
-
     let newDataItem=formatThreadData(responseDto.newData);
     threadDate.push(newDataItem.value[0]);
     newData.push(newDataItem);
@@ -349,6 +333,7 @@ function updateThreadChart(responseDto) {
 
     echarts.getInstanceById(document.getElementById("thread_chart").getAttribute('_echarts_instance_'))
         .setOption(getThreadChartOperation(threadDate,newData,runnableData,blockedData,waitingData,timedWaitingData,terminatedData), true);
+
 
 }
 

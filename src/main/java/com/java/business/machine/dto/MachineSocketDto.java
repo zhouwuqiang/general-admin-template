@@ -27,5 +27,5 @@ public class MachineSocketDto<T> {
     /**
      * 线程信息
      */
-    private ThreadData threadData;
+    private ThreadDto threadDto;
 }
