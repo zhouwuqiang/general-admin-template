@@ -76,18 +76,19 @@ function initTable() {
                 title: '菜单编号',
                 align: 'center',
                 valign: 'middle',
-                // visible: false
+                visible: false
             }, {
                 field: 'menuName',
                 title: '菜单名称',
-                align: 'left',
+                align: 'center',
                 valign: 'middle',
                 fixed: 'left'
             }, {
                 field: 'menuIcon',
                 title: '菜单图标',
                 align: 'center',
-                valign: 'middle'
+                valign: 'middle',
+                formatter: menuIconFormatter
             }, {
                 field: 'menuAction',
                 title: '访问地址',
@@ -98,7 +99,7 @@ function initTable() {
                 title: '上级菜单编号',
                 align: 'center',
                 valign: 'middle',
-                // visible: false
+                visible: false
             }, {
                 field: 'menuType',
                 title: '菜单类型',
@@ -124,7 +125,6 @@ function initTable() {
                 title: '操作',
                 align: 'center',
                 valign: 'middle',
-                width: '20%',
                 formatter: operateFormatter
             }
         ]
@@ -140,6 +140,9 @@ function operateFormatter(value, row, index) {
     return $.formatterOperateButton(result);
 }
 
+function menuIconFormatter(value, row, index) {
+    return "<i class='" + value + "'></i>";
+}
 
 /**
  * 展开/折叠
@@ -171,7 +174,7 @@ function addSubMenu(menu) {
     $.initModel("main_mode", "添加子菜单", "main_form", "add-show");
     $("#parent_menu_code").val(menu.menuCode);
     $("#parent_menu_name").val(menu.menuName);
-    $("#parent_menu_name").attr("readonly","readonly");
+    $("#parent_menu_name").attr("readonly", "readonly");
 
     $('#main_mode').modal('show');
 }
@@ -182,7 +185,7 @@ function addSubMenu(menu) {
 function editMenu(menu) {
     $.initModel("main_mode", "编辑菜单", "main_form", "edit-show");
     $.formReview("main_form", menu);
-    $("#parent_menu_name").val(menu.parentMenuName);
+    $("#parent_menu_name").val(menu.parentMenuCode);
     $('#main_mode').modal('show');
 }
 
