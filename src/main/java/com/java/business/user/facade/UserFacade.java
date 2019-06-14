@@ -40,4 +40,11 @@ public interface UserFacade {
      * @return
      */
     ResponseCode loginPassword(UserPasswordRequestDto requestDto);
+
+    /**
+     * 检查用户是否存在
+     * @param requestDto
+     * @return
+     */
+    ResponseCode checkExist(UserDetailRequestDto requestDto);
 }

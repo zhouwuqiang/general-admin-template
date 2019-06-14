@@ -28,6 +28,16 @@ public enum UserResponseEnum implements ResponseCode {
     PASSWORD_SAME(0,"新密码不能和原密码相同!",false),
 
 
+
+    /**
+     * 用户名已存在
+     */
+    USER_NAME_EXIST(10,"用户名已存在!",false),
+    /**
+     * 用户名不存在
+     */
+    USER_NAME_NOT_EXIST(20,"用户名不存在!",true),
+
     ;
 
     UserResponseEnum(Integer code, String message, boolean success) {

@@ -3,8 +3,8 @@ $(function () {
 
     if ($.isNull($("#page_readonly").val())) {
         $(".detail-show").hide();
-        $("#organization_name").bind("focus",selectOrganization);
-        $("#user_role_name").bind("focus",selectRole);
+        $("#organization_name").bind("focus", selectOrganization);
+        $("#user_role_name").bind("focus", selectRole);
     } else {
         $(".add-show").hide();
     }
@@ -27,20 +27,20 @@ function initPage(userCode) {
         type: 'post',
         dataType: 'json',
         contentType: 'application/json',
-        data: JSON.stringify({"userCode":userCode}),
+        data: JSON.stringify({"userCode": userCode}),
         success: function (responseDto) {
             if (responseDto.success) {
-                $.formReview("main_form",responseDto.data.basicInfo);
-                $.formReview("power_form",responseDto.data.powerInfo);
-                if ($.isNotNull($("#page_readonly").val())){
+                $.formReview("main_form", responseDto.data.basicInfo);
+                $.formReview("power_form", responseDto.data.powerInfo);
+                if ($.isNotNull($("#page_readonly").val())) {
                     $.formReadOnly("main_form");
                     $.formReadOnly("power_form");
                 }
 
-                if ($.isNotNull(responseDto.data.basicInfo.id)){
+                if ($.isNotNull(responseDto.data.basicInfo.id)) {
                     $(".edit-hidden").remove();
                 }
-            }else{
+            } else {
                 $.ajaxMassage(responseDto);
             }
         },
@@ -185,4 +185,37 @@ function getSelectRole() {
             bgColor: '#5bc0de'
         });
     }
+}
+
+/**
+ * 检查用户是否已经存在
+ */
+function checkUserNameExist() {
+    let name = $("#user_name").val();
+    if ($.isNull(name)) {
+        return;
+    }
+
+
+    let param = {};
+    param.userName = name;
+
+    $.ajax({
+        url: "/user/check/exist",
+        type: 'post',
+        dataType: 'json',
+        contentType: 'application/json',
+        data: JSON.stringify(param),
+        success: function (responseDto) {
+            if (responseDto.success) {
+                $("#exist_message_div").hide();
+            }else{
+                $("#exist_message_div").show();
+            }
+        },
+        error: function () {
+            console.log("请求处理失败!");
+            $.errorMassage("请求处理失败!");
+        }
+    });
 }

@@ -375,8 +375,7 @@ $.extend({
         } else {
             $.toast({
                 text: responseDto.message,
-                allowToastClose: true,
-                hideAfter: 1000,
+                allowToastClose: false,
                 position: messagePosition,
                 bgColor: '#AC2925'
             });
@@ -390,8 +389,7 @@ $.extend({
 
         $.toast({
             text: message,
-            allowToastClose: true,
-            hideAfter: 1000,
+            allowToastClose: false,
             position: messagePosition,
             bgColor: '#AC2925'
         });

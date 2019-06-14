@@ -127,5 +127,20 @@ public class UserController {
         return ResponseUtil.bindResponseEnum(response);
     }
 
+    /**
+     * 检查是否存在
+     *
+     * @param requestDto
+     * @return
+     */
+    @RequestMapping(value = "/check/exist")
+    @ControllerRecorder(path = "/user/check/exist")
+    public ResponseDto checkExist(@RequestBody UserDetailRequestDto requestDto) {
+
+        ResponseCode response = userFacade.checkExist(requestDto);
+
+        return ResponseUtil.bindResponseEnum(response);
+    }
+
 
 }

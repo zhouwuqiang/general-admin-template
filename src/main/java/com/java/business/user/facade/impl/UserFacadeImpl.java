@@ -100,6 +100,7 @@ public class UserFacadeImpl implements UserFacade {
 
     @Override
     public ResponseCode loginPassword(UserPasswordRequestDto requestDto) {
+
         //检查旧密码
         User loginUser = SpringContextUtil.getLoginUser();
         UserBasicFace userBasicFace = new UserBasicFace();
@@ -123,6 +124,18 @@ public class UserFacadeImpl implements UserFacade {
         userBasicFace.setLoginPassword(MD5Util.MD5(requestDto.getNewPassword()));
         userService.save(userBasicFace);
         return ResponseEnum.SUCCESS;
+    }
+
+    @Override
+    public ResponseCode checkExist(UserDetailRequestDto requestDto) {
+        UserBasicFace userBasicFace = new UserBasicFace();
+        userBasicFace.setUserName(requestDto.getUserName());
+        userBasicFace = userService.queryBasicInfo(userBasicFace);
+
+        if (userBasicFace != null){
+            return UserResponseEnum.USER_NAME_EXIST;
+        }
+        return UserResponseEnum.USER_NAME_NOT_EXIST;
     }
 
     private void savePowerInfo(UserSaveRequestDto requestDto, String userCode) {

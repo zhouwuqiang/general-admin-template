@@ -17,4 +17,6 @@ import lombok.ToString;
 public class UserDetailRequestDto {
 
     private String userCode;
+
+    private String userName;
 }

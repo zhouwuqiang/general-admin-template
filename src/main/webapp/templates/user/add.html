@@ -40,7 +40,10 @@
                         <label for="user_name" class="col-sm-2 control-label">用户账号:</label>
                         <div class="col-sm-4">
                             <input type="text" class="form-control" id="user_name" name="userName"
-                                   placeholder="请输入用户账号">
+                                   placeholder="请输入用户账号" onblur="checkUserNameExist()">
+                        </div>
+                        <div id="exist_message_div" hidden>
+                            <span style="color: red">用户名已存在,请重新输入!</span>
                         </div>
                     </div>
 
