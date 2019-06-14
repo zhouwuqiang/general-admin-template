@@ -169,8 +169,8 @@ function addMenu() {
  */
 function addSubMenu(menu) {
     $.initModel("main_mode", "添加子菜单", "main_form", "add-show");
-    $("#parent_menu_code").val(menu.parentMenuCode);
-    $("#parent_menu_name").val(menu.parentMenuName);
+    $("#parent_menu_code").val(menu.menuCode);
+    $("#parent_menu_name").val(menu.menuName);
     $("#parent_menu_name").attr("readonly","readonly");
 
     $('#main_mode').modal('show');
@@ -182,7 +182,7 @@ function addSubMenu(menu) {
 function editMenu(menu) {
     $.initModel("main_mode", "编辑菜单", "main_form", "edit-show");
     $.formReview("main_form", menu);
-    $("#parent_menu_name").val(menu.);
+    $("#parent_menu_name").val(menu.parentMenuName);
     $('#main_mode').modal('show');
 }
 
