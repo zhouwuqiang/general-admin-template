@@ -109,11 +109,12 @@
                             <input type="hidden" id="menu_id" name="id">
 
                             <input type="hidden" id="menu_code" name="menuCode">
+                            <input type="hidden" id="parent_menu_code" name="parentMenuCode">
 
                             <div class="form-group">
-                                <label for="parent_menu_code" class="col-sm-4 control-label">上级菜单:</label>
+                                <label for="parent_menu_name" class="col-sm-4 control-label">上级菜单:</label>
                                 <div class="col-sm-6">
-                                    <input type="text" class="form-control" id="parent_menu_code" name="parentMenuCode">
+                                    <input type="text" class="form-control" id="parent_menu_name" name="parentMenuName">
                                 </div>
                             </div>
 
@@ -175,8 +176,12 @@
     <!-- 全局js -->
     <script src="/static/vendor/jquery/jquery.js?v=2.2.4"></script>
     <script src="/static/vendor/bootstrap/js/bootstrap.js?v=3.3.7"></script>
+    <script src="/static/vendor/bootstrap-treeview/js/bootstrap-treeview.min.js"></script>
     <script src="/static/vendor/bootstrap-table-tree/bootstrap-treetable.js"></script>
     <script src="/static/vendor/jquery-toast-plugin/jquery.toast.min.js"></script>
+
+    <script src="/static/js/menu/menuTree.js"></script>
+    <script src="/static/vendor/admin/js/inputSelect.js"></script>
     <script src="/static/vendor/admin/js/iconSelect.js?v=1.0.0"></script>
     <script src="/static/vendor/admin/js/common.js?v=1.0.0"></script>
 

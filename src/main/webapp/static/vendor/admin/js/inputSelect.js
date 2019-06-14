@@ -40,6 +40,7 @@ let inputSelectFactory = function ($) {
             createDom();
             initTree();
             clickOtherToHide();
+            $div.show();
         };
 
         /**
@@ -61,6 +62,7 @@ let inputSelectFactory = function ($) {
         };
 
         let proxyOnNodeSelected = function (event, node) {
+            debugger;
             option.onNodeSelected(event, node);
             hideDom();
         };
