@@ -191,7 +191,7 @@ function getMemoryChartOperation(name, date, usedData, committedData) {
             {
                 name: '当前(已使用)(M)',
                 type: 'line',
-                areaStyle: {},
+                areaStyle: {color: 'rgb(109, 124, 135)'},
                 data: usedData
             },
             {
@@ -312,17 +312,17 @@ function initThreadChart() {
     }
 
     let dom = document.getElementById("thread_chart");
-    window.echarts.init(dom).setOption(getThreadChartOperation(threadDate,newData,runnableData,blockedData,waitingData,timedWaitingData,terminatedData), true);
+    window.echarts.init(dom).setOption(getThreadChartOperation(threadDate, newData, runnableData, blockedData, waitingData, timedWaitingData, terminatedData), true);
 
 }
 
 
 /**
-* 更新线程数据
-*/
+ * 更新线程数据
+ */
 function updateThreadChart(responseDto) {
 
-    let newDataItem=formatThreadData(responseDto.newData);
+    let newDataItem = formatThreadData(responseDto.newData);
     threadDate.push(newDataItem.value[0]);
     newData.push(newDataItem);
     runnableData.push(formatThreadData(responseDto.runnableData));
@@ -332,9 +332,12 @@ function updateThreadChart(responseDto) {
     terminatedData.push(formatThreadData(responseDto.terminatedData));
 
     echarts.getInstanceById(document.getElementById("thread_chart").getAttribute('_echarts_instance_'))
-        .setOption(getThreadChartOperation(threadDate,newData,runnableData,blockedData,waitingData,timedWaitingData,terminatedData), true);
+        .setOption(getThreadChartOperation(threadDate, newData, runnableData, blockedData, waitingData, timedWaitingData, terminatedData), true);
 
-
+    $("#totalStartedThreadCount").html(responseDto.totalStartedThreadCount);
+    $("#peakThreadCount").html(responseDto.peakThreadCount);
+    $("#threadCount").html(responseDto.threadCount);
+    $("#daemonThreadCount").html(responseDto.daemonThreadCount);
 }
 
 /**
@@ -363,14 +366,14 @@ function formatThreadData(value) {
  * @param terminatedData
  * @returns {{yAxis: {type: string}[], xAxis: {data: *, type: string, boundaryGap: boolean}[], legend: {data: string[]}, grid: {left: string, bottom: string, right: string, containLabel: boolean}, series: *[], tooltip: {axisPointer: {label: {backgroundColor: string}, type: string}, trigger: string}, toolbox: {feature: {saveAsImage: {}}}, title: {text: string}}}
  */
-function getThreadChartOperation(date,newData,runnableData,blockedData,waitingData,timedWaitingData,terminatedData) {
+function getThreadChartOperation(date, newData, runnableData, blockedData, waitingData, timedWaitingData, terminatedData) {
 
 
-   let  option = {
+    let option = {
         title: {
             text: '线程状态'
         },
-        tooltip : {
+        tooltip: {
             trigger: 'axis',
             axisPointer: {
                 type: 'cross',
@@ -380,7 +383,7 @@ function getThreadChartOperation(date,newData,runnableData,blockedData,waitingDa
             }
         },
         legend: {
-            data:['NEW','RUNNABLE','BLOCKED','WAITING','TIMED_WAITING','TERMINATED']
+            data: ['NEW', 'RUNNABLE', 'BLOCKED', 'WAITING', 'TIMED_WAITING', 'TERMINATED']
         },
         toolbox: {
             // feature: {
@@ -393,50 +396,50 @@ function getThreadChartOperation(date,newData,runnableData,blockedData,waitingDa
             bottom: '3%',
             containLabel: true
         },
-        xAxis : [
+        xAxis: [
             {
-                type : 'category',
-                boundaryGap : false,
-                data : date
+                type: 'category',
+                boundaryGap: false,
+                data: date
             }
         ],
-        yAxis : [
+        yAxis: [
             {
-                type : 'value'
+                type: 'value'
             }
         ],
-        series : [
+        series: [
             {
-                name:'NEW',
-                type:'line',
+                name: 'NEW',
+                type: 'line',
                 stack: '总量',
                 areaStyle: {},
-                data:newData
+                data: newData
             },
             {
-                name:'RUNNABLE',
-                type:'line',
+                name: 'RUNNABLE',
+                type: 'line',
                 stack: '总量',
                 areaStyle: {},
-                data:runnableData
+                data: runnableData
             },
             {
-                name:'BLOCKED',
-                type:'line',
+                name: 'BLOCKED',
+                type: 'line',
                 stack: '总量',
                 areaStyle: {},
-                data:blockedData
+                data: blockedData
             },
             {
-                name:'WAITING',
-                type:'line',
+                name: 'WAITING',
+                type: 'line',
                 stack: '总量',
                 areaStyle: {normal: {}},
-                data:waitingData
+                data: waitingData
             },
             {
-                name:'TIMED_WAITING',
-                type:'line',
+                name: 'TIMED_WAITING',
+                type: 'line',
                 stack: '总量',
                 label: {
                     normal: {
@@ -445,11 +448,11 @@ function getThreadChartOperation(date,newData,runnableData,blockedData,waitingDa
                     }
                 },
                 areaStyle: {normal: {}},
-                data:timedWaitingData
+                data: timedWaitingData
             },
             {
-                name:'TERMINATED',
-                type:'line',
+                name: 'TERMINATED',
+                type: 'line',
                 stack: '总量',
                 label: {
                     normal: {
@@ -458,7 +461,7 @@ function getThreadChartOperation(date,newData,runnableData,blockedData,waitingDa
                     }
                 },
                 areaStyle: {normal: {}},
-                data:terminatedData
+                data: terminatedData
             }
         ]
     };
