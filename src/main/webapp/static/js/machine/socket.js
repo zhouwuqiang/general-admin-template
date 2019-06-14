@@ -25,6 +25,7 @@ $(function () {
         updateLoanChart(data.machineInfo);
         updateMemoryChart(data.memoryInfo);
         updateThreadChart(data.threadDto);
+        updateRuntimeInfo(data.runtimeInfo);
     };
 
 //连接关闭的回调方法

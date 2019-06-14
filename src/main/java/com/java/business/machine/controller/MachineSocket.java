@@ -83,6 +83,7 @@ public class MachineSocket {
         socketDto.setMachineInfo(machineFacade.getMachineInfo());
         socketDto.setMemoryInfo(machineFacade.getMemoryInfo());
         socketDto.setThreadDto(machineFacade.getThreadDto());
+        socketDto.setRuntimeInfo(machineFacade.getRuntimeInfo());
 
         sendMessage(JSON.toJSONString(socketDto));
     }

@@ -28,4 +28,9 @@ public class MachineSocketDto<T> {
      * 线程信息
      */
     private ThreadDto threadDto;
+
+    /**
+     * 运行信息
+     */
+    private RuntimeInfo runtimeInfo;
 }

@@ -1,39 +1,16 @@
 $(function () {
 
-    initMachineInfo();
-
     initRuntimeInfo();
 
     initLoanChart();
     initMemoryChart();
     initThreadChart();
 
+
     setInterval(function () {
         Machine.socket.send("start");
     }, 1000);
 });
-
-/**
- * 初始化机器信息
- */
-function initMachineInfo() {
-    $.ajax({
-        url: "/machine/info",
-        type: 'post',
-        dataType: 'json',
-        contentType: 'application/json',
-        success: function (responseDto) {
-            if (responseDto.success) {
-                $.formReview("machine_info_form", responseDto.data);
-                $.formReadOnly("machine_info_form");
-            }
-        },
-        error: function () {
-            console.log("请求处理失败!");
-            $.errorMassage("请求处理失败!");
-        }
-    });
-}
 
 
 /********************************************** 机器负载图 *****************************************/
@@ -53,6 +30,10 @@ function initLoanChart() {
  * 更新负载情况
  */
 function updateLoanChart(responseDto) {
+
+    //更新机器信息
+    $.formReview("machine_info_form",responseDto);
+    $.formReadOnly("machine_info_form");
 
     let cpuValue = (responseDto.systemCpuLoad * 100).toFixed(2);
     let memoryValue = ((1 - (responseDto.freePhysicalMemorySize / responseDto.totalPhysicalMemory)) * 100).toFixed(2);
@@ -131,25 +112,9 @@ function initRuntimeInfo() {
 /**
  * 初始内存信息
  */
-function initMemoryInfo() {
-    $.ajax({
-        url: "/machine/memory",
-        type: 'post',
-        dataType: 'json',
-        contentType: 'application/json',
-        success: function (responseDto) {
-            if (responseDto.success) {
-                $.formReview("heap_memory_info_form", responseDto.data.jvmHeapMemory);
-                $.formReadOnly("heap_memory_info_form");
-                $.formReview("non_heap_memory_info_form", responseDto.data.jvmNonHeapMemory);
-                $.formReadOnly("non_heap_memory_info_form");
-            }
-        },
-        error: function () {
-            console.log("请求处理失败!");
-            $.errorMassage("请求处理失败!");
-        }
-    });
+function updateRuntimeInfo(data) {
+    $.formReview("runtime_info_form", data);
+    $.formReadOnly("runtime_info_form");
 }
 
 /********************************************** jvm内存图 *****************************************/
