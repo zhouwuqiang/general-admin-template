@@ -171,10 +171,9 @@ function getSelectRole() {
     if (rows.length === 1) {
 
         console.log(JSON.stringify(rows[0]));
+
         $("#role_code").val(rows[0].roleCode);
         $("#user_role_name").val(rows[0].roleName);
-
-
         $("#role_mode").modal("hide");
 
     } else {

@@ -132,16 +132,21 @@ public class UserFacadeImpl implements UserFacade {
         roleRelation.setUserCode(userCode);
         userService.deleteRoleRelation(roleRelation);
 
-        roleRelation.setRoleCode(powerInfo.getRoleCode());
-        userService.saveRoleRelation(roleRelation);
+        if (StringUtils.isNotBlank(powerInfo.getRoleCode())){
+            roleRelation.setRoleCode(powerInfo.getRoleCode());
+            userService.saveRoleRelation(roleRelation);
+        }
 
         UserOrganizationRelation organizationRelation = new UserOrganizationRelation();
         organizationRelation.setUserCode(userCode);
         userService.deleteOrganizationRelation(organizationRelation);
 
-        organizationRelation.setOrganizationCode(powerInfo.getOrganizationCode());
-        organizationRelation.setPostName(powerInfo.getPostName());
-        userService.saveOrganizationRelation(organizationRelation);
+        if (StringUtils.isNotBlank(powerInfo.getOrganizationCode())){
+            organizationRelation.setOrganizationCode(powerInfo.getOrganizationCode());
+            organizationRelation.setPostName(powerInfo.getPostName());
+            userService.saveOrganizationRelation(organizationRelation);
+        }
+
     }
 
     private UserBasicFace saveBasicInfo(UserSaveRequestDto requestDto) {
