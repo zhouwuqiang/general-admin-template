@@ -4,6 +4,19 @@ $(function () {
 
     $.initSelect("organization_type", "organization_type", true);
     $.initSelect("param_organization_type", "organization_type", true);
+
+    let defaultConfig = {
+        getData: getData({}),
+        onNodeSelected: function (event, node) {
+            $("#paren_code").val(node.organizationCode);
+            $("#paren_name").val(node.organizationName);
+        },
+        onNodeUnselected: function (event, node) {
+            $("#paren_code").val("");
+            $("#paren_name").val("");
+        }
+    };
+    $("#paren_name").initTreeSelect(defaultConfig);
 });
 
 
@@ -154,8 +167,10 @@ function editOrganization(row) {
 function addSubOrganization(row) {
     $.initModel("main_mode", "添加子结构", "main_form", "add-show");
     $("#paren_code").val(row.organizationCode);
-    $("#paren_name").val(row.organizationName);
-    $("#paren_name").attr("readonly", "readonly");
+    let $paren = $("#paren_name");
+    $paren.val(row.organizationName);
+    $paren.attr("readonly", "readonly");
+
     $('#main_mode').modal('show');
 }
 
@@ -215,7 +230,7 @@ function deleteOrganization(row) {
  */
 function organizationAuthorization(row) {
 
-    initAuthorizationTree("menu_tree",{"organizationCode": row.organizationCode});
+    initAuthorizationTree("menu_tree", {"organizationCode": row.organizationCode});
 
     $("#organization_relation_code").val(row.organizationCode);
 
