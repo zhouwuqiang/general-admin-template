@@ -128,6 +128,9 @@ public class MenuFacadeImpl implements MenuFacade {
             if (item.isRoot()) {
                 item.setExpanded();
             }
+            if (item.isHasChild()){
+                item.setNodes(convent(item.getNodes(),codeSet));
+            }
         }
 
         return menuList;

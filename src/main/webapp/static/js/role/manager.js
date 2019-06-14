@@ -159,7 +159,7 @@ function saveAuthorization() {
     let selected = $('#menu_tree').treeview('getChecked');
     let selectCodeList = [];
     for (let i in selected) {
-        selectCodeList.push(selected[i].code);
+        selectCodeList.push(selected[i].menuCode);
     }
     console.log(JSON.stringify(selectCodeList));
 
