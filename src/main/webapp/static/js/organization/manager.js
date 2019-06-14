@@ -55,15 +55,15 @@ function initTable() {
                 align: 'center',
                 visible: false
             }, {
-                field: 'organizationCode',
-                title: '组织编号',
-                align: 'left',
-                valign: 'middle',
-                fixed: 'left'
-            }, {
                 field: 'organizationName',
                 title: '组织名称',
                 align: 'center',
+                valign: 'middle',
+                fixed: 'left'
+            }, {
+                field: 'organizationCode',
+                title: '组织编号',
+                align: 'left',
                 valign: 'middle'
             }, {
                 field: 'organizationType',
@@ -154,7 +154,8 @@ function editOrganization(row) {
 function addSubOrganization(row) {
     $.initModel("main_mode", "添加子结构", "main_form", "add-show");
     $("#paren_code").val(row.organizationCode);
-    $("#paren_code").attr("readonly", "readonly");
+    $("#paren_name").val(row.organizationName);
+    $("#paren_name").attr("readonly", "readonly");
     $('#main_mode').modal('show');
 }
 
