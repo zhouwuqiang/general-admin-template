@@ -182,7 +182,8 @@ public class LocalIpUtil {
             }
         }
         // 当通过多个代理时，第一个IP为客户端真实IP,多个IP按照','分割处理
-        if (ipAddress != null && ipAddress.length() > 15) { // "***.***.***.***".length() = 15
+        // "***.***.***.***".length() = 15
+        if (ipAddress != null && ipAddress.length() > 15) {
             if (ipAddress.indexOf(",") > 0) {
                 ipAddress = ipAddress.substring(0, ipAddress.indexOf(","));
             }

@@ -45,6 +45,7 @@ public class SpringContextUtil implements ApplicationContextAware {
     public static Object getBean(String name) throws BeansException {
         return applicationContext.getBean(name);
     }
+
     /**
      * 获取对象
      *
@@ -118,7 +119,6 @@ public class SpringContextUtil implements ApplicationContextAware {
      */
     public static User getLoginUser(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        User userDetails = (User) authentication.getPrincipal();
-        return userDetails;
+        return (User) authentication.getPrincipal();
     }
 }

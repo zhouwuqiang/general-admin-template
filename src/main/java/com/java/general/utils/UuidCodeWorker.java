@@ -63,12 +63,9 @@ public class UuidCodeWorker {
 
         if (StringUtils.isNotBlank(prefix)){
             code.append(prefix);
-        }else{
-            code.append(BUSINESS_CODE);
         }
 
         code.append(IP_ADDRESS);
-
 
         long timestamp = timeGen();
 

@@ -13,7 +13,10 @@ import java.security.NoSuchAlgorithmException;
  */
 public class MD5Util {
 
+
     private static final Logger log = LoggerFactory.getLogger(MD5Util.class);
+
+
     /**
      * MD5 32位加密
      *
@@ -27,7 +30,7 @@ public class MD5Util {
             md.update(sourceStr.getBytes("UTF-8"));
             byte b[] = md.digest();
             int i;
-            StringBuffer buf = new StringBuffer("");
+            StringBuffer buf = new StringBuffer();
             for (int offset = 0; offset < b.length; offset++) {
                 i = b[offset];
                 if (i < 0) {
