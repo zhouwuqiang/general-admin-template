@@ -50,7 +50,6 @@ function initTable() {
                 title: '操作',
                 align: 'center',
                 valign: 'middle',
-                width: '20%',
                 formatter: operateFormatter
             }
         ]

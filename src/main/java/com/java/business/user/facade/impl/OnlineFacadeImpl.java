@@ -37,13 +37,16 @@ public class OnlineFacadeImpl implements OnlineFacade {
 
         List<Object> userList = sessionRegistry.getAllPrincipals();
 
+        int start = (requestDto.getPageNum() - 1) * requestDto.getPageSize();
+        int end = requestDto.getPageNum() * requestDto.getPageSize();
+        userList = userList.subList(start, end);
+
         for (Object item : userList) {
             List<SessionInformation> sessionInformationList = sessionRegistry.getAllSessions(item, false);
             JSONObject user = (JSONObject) JSON.toJSON(item);
-            user.put("loginSession",sessionInformationList.get(0).getSessionId());
+            user.put("loginSession", sessionInformationList.get(0).getSessionId());
             result.add(user);
         }
-
 
         pageInfo.setList(result);
         pageInfo.setTotal(result.size());
