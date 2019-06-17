@@ -26,6 +26,7 @@ public interface RedisService {
      *
      * @param key
      * @param value
+     * @param expireTime
      * @return
      */
     boolean set(final String key, Object value, Long expireTime);
@@ -130,7 +131,7 @@ public interface RedisService {
      *
      * @param key
      * @param value
-     * @param scoure
+     * @param scoure  不同的是每个元素都会关联一个double类型的分数。redis正是通过分数来为集合中的成员进行从小到大的排序。
      */
     void zAdd(String key, Object value, double scoure);
 
