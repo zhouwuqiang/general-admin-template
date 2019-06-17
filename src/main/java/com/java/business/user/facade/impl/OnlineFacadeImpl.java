@@ -1,12 +1,14 @@
 package com.java.business.user.facade.impl;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageInfo;
 import com.java.business.user.dto.UserOnlineTableRequestDto;
-import com.java.business.user.dto.UserTableRequestDto;
-import com.java.business.user.dto.UserkickOutRequestDto;
+import com.java.business.user.dto.UserKickOutRequestDto;
 import com.java.business.user.facade.OnlineFacade;
 import com.java.general.config.security.dto.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.session.SessionInformation;
 import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.stereotype.Service;
 
@@ -31,14 +33,17 @@ public class OnlineFacadeImpl implements OnlineFacade {
     public PageInfo onlineSessionTable(UserOnlineTableRequestDto requestDto) {
         PageInfo pageInfo = new PageInfo();
 
-        List<User> result = new ArrayList<>();
+        List<JSONObject> result = new ArrayList<>();
 
         List<Object> userList = sessionRegistry.getAllPrincipals();
 
         for (Object item : userList) {
-            User user = (User) item;
+            List<SessionInformation> sessionInformationList = sessionRegistry.getAllSessions(item, false);
+            JSONObject user = (JSONObject) JSON.toJSON(item);
+            user.put("loginSession",sessionInformationList.get(0).getSessionId());
             result.add(user);
         }
+
 
         pageInfo.setList(result);
         pageInfo.setTotal(result.size());
@@ -46,8 +51,9 @@ public class OnlineFacadeImpl implements OnlineFacade {
     }
 
     @Override
-    public User kickOutUser(UserkickOutRequestDto requestDto) {
+    public void kickOutUser(UserKickOutRequestDto requestDto) {
 
-        return null;
+        SessionInformation sessionInformation = sessionRegistry.getSessionInformation(requestDto.getSessionId());
+        sessionInformation.expireNow();
     }
 }

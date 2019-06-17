@@ -1,8 +1,8 @@
 package com.java.business.user.controller;
 
 import com.github.pagehelper.PageInfo;
+import com.java.business.user.dto.UserKickOutRequestDto;
 import com.java.business.user.dto.UserOnlineTableRequestDto;
-import com.java.business.user.dto.UserTableRequestDto;
 import com.java.business.user.facade.OnlineFacade;
 import com.java.general.interceptors.controller.ControllerRecorder;
 import com.java.general.response.dto.ResponseDto;
@@ -39,6 +39,20 @@ public class OnlineController {
         PageInfo pageInfo  = onlineFacade.onlineSessionTable(requestDto);
 
         return ResponseUtil.bindSuccessResponse(pageInfo);
+    }
+
+    /**
+     * 在线用户session
+     *
+     * @return
+     */
+    @RequestMapping(value = "/kick")
+    @ControllerRecorder(path = "/online/kick")
+    public ResponseDto onlineKick(@RequestBody UserKickOutRequestDto requestDto) {
+
+        onlineFacade.kickOutUser(requestDto);
+
+        return ResponseUtil.bindSuccessResponse();
     }
 
 }

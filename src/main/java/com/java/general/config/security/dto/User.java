@@ -6,10 +6,7 @@ import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * description :
@@ -86,6 +83,20 @@ public class User implements UserDetails {
      * 用户菜单地址集合
      */
     Set<String> urls = new HashSet<>();
+
+
+    /********************************************** 登录信息 ***************************************/
+
+    /**
+     * 登录时间
+     */
+    private Date loginDate;
+
+    /**
+     * 登录ip地址
+     */
+    private String loginIp;
+
 
 
     @Override

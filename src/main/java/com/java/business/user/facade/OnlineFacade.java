@@ -1,10 +1,9 @@
 package com.java.business.user.facade;
 
 import com.github.pagehelper.PageInfo;
+import com.java.business.user.dto.UserKickOutRequestDto;
 import com.java.business.user.dto.UserOnlineTableRequestDto;
-import com.java.business.user.dto.UserTableRequestDto;
-import com.java.business.user.dto.UserkickOutRequestDto;
-import com.java.general.config.security.dto.User;
+
 
 /**
  * description :
@@ -29,5 +28,5 @@ public interface OnlineFacade {
      * @param requestDto
      * @return
      */
-    User kickOutUser(UserkickOutRequestDto requestDto);
+    void kickOutUser(UserKickOutRequestDto requestDto);
 }

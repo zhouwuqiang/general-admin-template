@@ -3,20 +3,16 @@ package com.java.general.config.security.service;
 import com.java.business.menu.entity.MenuBasicFace;
 import com.java.business.menu.mapper.MenuBasicFaceMapper;
 import com.java.business.organization.entity.OrganizationBasicFace;
-import com.java.business.organization.entity.OrganizationMenuRelation;
 import com.java.business.organization.mapper.OrganizationBasicFaceMapper;
 import com.java.business.role.entity.RoleBasicFace;
 import com.java.business.role.mapper.RoleBasicFaceMapper;
 import com.java.business.user.entity.UserBasicFace;
 import com.java.business.user.mapper.UserBasicFaceMapper;
-import com.java.general.config.security.dto.Menu;
 import com.java.general.config.security.dto.User;
 import com.java.general.config.security.utils.MenuUtils;
 import com.java.general.constant.SystemCommonConstant;
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -24,11 +20,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import javax.servlet.http.HttpServletRequest;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -72,6 +68,11 @@ public class CustomUserService implements UserDetailsService {
             authorities.add(new SimpleGrantedAuthority(role.getRoleCode()));
         }
         user.setAuthorities(authorities);
+
+        HttpServletRequest request = ((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest();
+        user.setLoginDate(new Date());
+        user.setLoginIp(request.getRemoteAddr());
+
         return user;
     }
 

@@ -16,33 +16,33 @@ function initTable() {
         pagination: true,
         columns: [
             {
-                field: 'wordbookCode',
-                title: '字典编码',
+                field: 'loginSession',
+                title: 'session',
                 align: 'center',
                 valign: 'middle'
             }, {
-                field: 'wordbookName',
-                title: '字典名称',
+                field: 'userCode',
+                title: '用户编号',
                 align: 'center',
                 valign: 'middle'
             }, {
-                field: 'wordbookStatus',
-                title: '字典状态',
+                field: 'username',
+                title: '用户账号',
                 align: 'center',
                 valign: 'middle'
             }, {
-                field: 'memo',
-                title: '备注',
+                field: 'userLabel',
+                title: '用户名称',
                 align: 'center',
                 valign: 'middle'
             }, {
-                field: 'createTime',
-                title: '创建时间',
+                field: 'loginDate',
+                title: '登录时间',
                 align: 'center',
                 valign: 'middle'
             }, {
-                field: 'createUser',
-                title: '创建用户',
+                field: 'loginIp',
+                title: '登录IP',
                 align: 'center',
                 valign: 'middle'
             }, {
@@ -64,6 +64,25 @@ function operateFormatter(value, row, index) {
     return $.formatterOperateButton(result);
 }
 
-function kickOut() {
-    alert("踢出用户")
+function kickOut(row) {
+    let param = {};
+    param.sessionId = row.loginSession;
+
+    $.ajax({
+        url: "/online/kick",
+        type: 'post',
+        dataType: 'json',
+        contentType: 'application/json',
+        data: JSON.stringify(param),
+        success: function (responseDto) {
+            $.ajaxMassage(responseDto);
+            if (responseDto.success) {
+                initTable();
+            }
+        },
+        error: function () {
+            console.log("请求处理失败!");
+            $.errorMassage("请求处理失败!");
+        }
+    });
 }
