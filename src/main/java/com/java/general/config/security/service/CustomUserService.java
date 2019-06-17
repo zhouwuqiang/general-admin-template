@@ -60,7 +60,6 @@ public class CustomUserService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) {
 
-
         User user = findByUserName(username);
 
         Set<GrantedAuthority> authorities = new HashSet<>();
@@ -68,10 +67,6 @@ public class CustomUserService implements UserDetailsService {
             authorities.add(new SimpleGrantedAuthority(role.getRoleCode()));
         }
         user.setAuthorities(authorities);
-
-        HttpServletRequest request = ((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest();
-        user.setLoginDate(new Date());
-        user.setLoginIp(request.getRemoteAddr());
 
         return user;
     }

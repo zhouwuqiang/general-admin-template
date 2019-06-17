@@ -85,20 +85,6 @@ public class User implements UserDetails {
     Set<String> urls = new HashSet<>();
 
 
-    /********************************************** 登录信息 ***************************************/
-
-    /**
-     * 登录时间
-     */
-    private Date loginDate;
-
-    /**
-     * 登录ip地址
-     */
-    private String loginIp;
-
-
-
     @Override
     public String toString() {
         return userCode;

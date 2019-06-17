@@ -28,7 +28,6 @@ public class OnlineFacadeImpl implements OnlineFacade {
     @Autowired
     private SessionRegistry sessionRegistry;
 
-
     @Override
     public PageInfo onlineSessionTable(UserOnlineTableRequestDto requestDto) {
         PageInfo pageInfo = new PageInfo();
@@ -39,6 +38,10 @@ public class OnlineFacadeImpl implements OnlineFacade {
 
         int start = (requestDto.getPageNum() - 1) * requestDto.getPageSize();
         int end = requestDto.getPageNum() * requestDto.getPageSize();
+        if (end > userList.size()) {
+            end = userList.size();
+        }
+
         userList = userList.subList(start, end);
 
         for (Object item : userList) {
@@ -55,7 +58,6 @@ public class OnlineFacadeImpl implements OnlineFacade {
 
     @Override
     public void kickOutUser(UserKickOutRequestDto requestDto) {
-
         SessionInformation sessionInformation = sessionRegistry.getSessionInformation(requestDto.getSessionId());
         sessionInformation.expireNow();
     }
