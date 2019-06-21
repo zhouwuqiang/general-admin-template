@@ -3,7 +3,7 @@ $(function () {
     initTable();
 
     $.initSelect("organization_type", "organization_type", true);
-    $.initSelect("param_organization_type", "organization_type", true);
+    $.initSelect("param_organization_type", "organization_type", false);
 
     let defaultConfig = {
         getData: getData({}),

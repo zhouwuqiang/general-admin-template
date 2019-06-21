@@ -35,16 +35,16 @@ function initTable() {
                 title: '用户名称',
                 align: 'center',
                 valign: 'middle'
-            }, {
-                field: 'loginDate',
-                title: '登录时间',
-                align: 'center',
-                valign: 'middle'
-            }, {
-                field: 'loginIp',
-                title: '登录IP',
-                align: 'center',
-                valign: 'middle'
+            // }, {
+            //     field: 'loginDate',
+            //     title: '登录时间',
+            //     align: 'center',
+            //     valign: 'middle'
+            // }, {
+            //     field: 'loginIp',
+            //     title: '登录IP',
+            //     align: 'center',
+            //     valign: 'middle'
             }, {
                 field: 'storageServer',
                 title: '操作',
