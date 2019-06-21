@@ -27,13 +27,14 @@ public class AjaxAuthFailHandler extends SimpleUrlAuthenticationFailureHandler {
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
         String message = "账号或密码输入错误,请重新输入!";
 
-        if(exception instanceof SessionAuthenticationException){
-            message="账号已在其他设备登录,请先退出!";
+        if (exception instanceof SessionAuthenticationException) {
+            message = "账号已在其他设备登录,请先退出!";
         }
 
         response.setCharacterEncoding("utf-8");
         response.setContentType("application/json; charset=utf-8");
         PrintWriter writer = response.getWriter();
         writer.write(JSON.toJSONString(ResponseUtil.bindFailResponse(message)));
+        response.flushBuffer();
     }
 }

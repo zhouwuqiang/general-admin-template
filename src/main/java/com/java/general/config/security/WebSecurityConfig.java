@@ -2,6 +2,7 @@ package com.java.general.config.security;
 
 import com.java.general.config.security.handler.AjaxAuthFailHandler;
 import com.java.general.config.security.handler.AjaxAuthSuccessHandler;
+import com.java.general.config.security.handler.AjaxSessionInformationExpiredStrategy;
 import com.java.general.config.security.service.CustomPasswordEncoder;
 import com.java.general.config.security.service.CustomUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +41,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private LogoutHandler logoutHandler;
 
+    @Autowired
+    private AjaxSessionInformationExpiredStrategy ajaxSessionInformationExpiredStrategy;
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()//配置权限
@@ -68,7 +72,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .invalidSessionUrl("/view/login?error=2")
                 .maximumSessions(1)
                 .maxSessionsPreventsLogin(false)
-                .sessionRegistry(sessionRegistry);
+                .sessionRegistry(sessionRegistry)
+                .expiredSessionStrategy(ajaxSessionInformationExpiredStrategy);
     }
 
     /**

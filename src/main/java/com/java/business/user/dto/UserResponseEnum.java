@@ -14,46 +14,45 @@ public enum UserResponseEnum implements ResponseCode {
     /**
      * 用户不存在
      */
-    USER_ERROR(0,"用户不存在!",false),
+    USER_ERROR("010001","用户不存在!",false),
 
     /**
      * 密码不正确
      */
-    PASSWORD_ERROR(0,"旧密码输入不正确!",false),
+    PASSWORD_ERROR("010002","旧密码输入不正确!",false),
 
 
     /**
      * 修改密码相同
      */
-    PASSWORD_SAME(0,"新密码不能和原密码相同!",false),
-
-
+    PASSWORD_SAME("010003","新密码不能和原密码相同!",false),
 
     /**
      * 用户名已存在
      */
-    USER_NAME_EXIST(10,"用户名已存在!",false),
+    USER_NAME_EXIST("010003","用户名已存在!",false),
+
     /**
      * 用户名不存在
      */
-    USER_NAME_NOT_EXIST(20,"用户名不存在!",true),
+    USER_NAME_NOT_EXIST("010005","用户名不存在!",true),
 
     ;
 
-    UserResponseEnum(Integer code, String message, boolean success) {
+    UserResponseEnum(String code, String message, boolean success) {
         this.code = code;
         this.message = message;
         this.success = success;
     }
 
-    private Integer code;
+    private String code;
 
     private String message;
 
     private boolean success;
 
     @Override
-    public Integer getCode() {
+    public String getCode() {
         return code;
     }
 

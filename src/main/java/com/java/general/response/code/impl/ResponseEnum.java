@@ -14,39 +14,44 @@ public enum ResponseEnum implements ResponseCode {
     /**
      * 处理成功
      */
-    SUCCESS(0,"处理成功!",true),
+    SUCCESS("000000","处理成功!",true),
 
     /**
      * 已接收 后台处理中
      */
-    RECEIVED(100000,"已接收!",true),
+    RECEIVED("000001","已接收!",true),
 
     /**
      * 参数校验失败
      */
-    PARAM_ERROR(-2,"参数异常!",false),
+    PARAM_ERROR("000002","参数异常!",false),
 
     /**
      * 处理失败
      */
-    FAIL(1,"处理失败!",false)
+    FAIL("000003","处理失败!",false),
 
+
+    /**
+     * 登录超时
+     */
+    USER_SESSION_TIME_OUT("000004","用户登录超时!",false)
     ;
 
-    ResponseEnum(Integer code, String message, boolean success) {
+    ResponseEnum(String code, String message, boolean success) {
         this.code = code;
         this.message = message;
         this.success = success;
     }
 
-    private Integer code;
+    private String code;
 
     private String message;
 
     private boolean success;
 
     @Override
-    public Integer getCode() {
+    public String getCode() {
         return code;
     }
 

@@ -16,7 +16,7 @@ public class ResponseDto <T> {
     /**
      * 响应编号
      */
-    private Integer code;
+    private String code;
 
     /**
      * 响应消息
@@ -25,11 +25,11 @@ public class ResponseDto <T> {
 
     private T data;
 
-    public Integer getCode() {
+    public String getCode() {
         return code;
     }
 
-    public void setCode(Integer code) {
+    public void setCode(String code) {
         this.code = code;
     }
 

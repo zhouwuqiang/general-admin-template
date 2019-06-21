@@ -27,5 +27,6 @@ public class AjaxAuthSuccessHandler extends SimpleUrlAuthenticationSuccessHandle
         response.setContentType("application/json; charset=utf-8");
         PrintWriter writer = response.getWriter();
         writer.write(JSON.toJSONString(ResponseUtil.bindSuccessResponse()));
+        response.flushBuffer();
     }
 }

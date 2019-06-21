@@ -3,16 +3,31 @@
  */
 $(function () {
 
-    $(document).ajaxStart(function () {
+    $(document).ajaxStart(function (event, xhr, options) {
         if ($.isNotNull(window.top.Pace)) {
             window.top.Pace.restart();
         }
     });
 
-    $(document).ajaxStop(function () {
+    $(document).ajaxStop(function (event, xhr, options) {
         if ($.isNotNull(window.top.Pace)) {
             window.top.Pace.stop();
         }
+    });
+
+    $(document).ajaxComplete(function (event, xhr, options) {
+        if (xhr.status === 200) {
+            let response = status.responseJSON;
+            if (!response.success) {
+                switch (response.code) {
+                    case "010005":
+                        alert(response.message);
+                }
+            }
+        }
+        // console.log(JSON.stringify(event));
+        // console.log(JSON.stringify(xhr));
+        // console.log(JSON.stringify(options));
     });
 
     window.document.addEventListener("click", function (event) {
