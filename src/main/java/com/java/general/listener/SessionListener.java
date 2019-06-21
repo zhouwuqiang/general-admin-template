@@ -1,7 +1,10 @@
 package com.java.general.listener;
 
+import com.java.general.config.security.dto.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import javax.servlet.annotation.WebListener;
 import javax.servlet.http.HttpSessionEvent;
@@ -21,11 +24,13 @@ public class SessionListener implements HttpSessionListener {
 
     @Override
     public void sessionCreated(HttpSessionEvent httpSessionEvent) {
-        LOGGER.info("监听器：Session >>>> 创建");
+        LOGGER.info("监听器：Session >>>> 创建{}",httpSessionEvent.getSession().getId());
     }
 
     @Override
     public void sessionDestroyed(HttpSessionEvent httpSessionEvent) {
-        LOGGER.info("监听器：Session >>>> 销毁");
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User userDetails = (User) authentication.getPrincipal();
+        LOGGER.info("监听器：Session >>>> 销毁{}",httpSessionEvent.getSession().getId());
     }
 }

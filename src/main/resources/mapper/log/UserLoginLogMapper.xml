@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.java.business.log.mapper.UserLoginLogMapper">
+  <resultMap id="BaseResultMap" type="com.java.business.log.entity.UserLoginLog">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="USER_NAME" jdbcType="VARCHAR" property="userName" />
+    <result column="IP_ADDRESS" jdbcType="VARCHAR" property="ipAddress" />
+    <result column="SYSTEM_TYPE" jdbcType="VARCHAR" property="systemType" />
+    <result column="BROWSER_TYPE" jdbcType="VARCHAR" property="browserType" />
+    <result column="LOGIN_STATUS" jdbcType="VARCHAR" property="loginStatus" />
+    <result column="REMARK" jdbcType="VARCHAR" property="remark" />
+    <result column="LOGIN_TIME" jdbcType="TIMESTAMP" property="loginTime" />
+    <result column="LOGIN_OUT_TIME" jdbcType="TIMESTAMP" property="loginOutTime" />
+  </resultMap>
+</mapper>
