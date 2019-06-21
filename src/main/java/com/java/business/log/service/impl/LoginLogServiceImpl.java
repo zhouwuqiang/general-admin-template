@@ -30,6 +30,8 @@ public class LoginLogServiceImpl implements LoginLogService {
     @Override
     public PageInfo queryTable(LoginLogTableRequestDto requestDto) {
         Example example = new Example(UserLoginLog.class);
+        example.setOrderByClause("LOGIN_TIME DESC");
+
         Example.Criteria criteria = example.createCriteria();
         criteria.andEqualTo("userName", requestDto.getUserName());
 
