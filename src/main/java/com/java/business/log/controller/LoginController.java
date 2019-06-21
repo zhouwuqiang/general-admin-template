@@ -37,7 +37,7 @@ public class LoginController {
 
         PageInfo pageInfo = loginFacade.queryTable(requestDto);
 
-        return ResponseUtil.bindSuccessResponse(pageInfo.getList());
+        return ResponseUtil.bindSuccessResponse(pageInfo);
     }
 
 }

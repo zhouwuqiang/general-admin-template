@@ -39,4 +39,9 @@ public class LoginLogServiceImpl implements LoginLogService {
         return new PageInfo<>(queryList);
 
     }
+
+    @Override
+    public void save(UserLoginLog loginLog) {
+        userLoginLogMapper.insertSelective(loginLog);
+    }
 }

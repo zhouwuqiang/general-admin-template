@@ -2,6 +2,7 @@ package com.java.business.log.service;
 
 import com.github.pagehelper.PageInfo;
 import com.java.business.log.dto.LoginLogTableRequestDto;
+import com.java.business.log.entity.UserLoginLog;
 
 /**
  * description :
@@ -18,4 +19,10 @@ public interface LoginLogService {
      * @return
      */
     PageInfo queryTable(LoginLogTableRequestDto requestDto);
+
+    /**
+     * 保存登录日志
+     * @param loginLog
+     */
+    void save(UserLoginLog loginLog);
 }

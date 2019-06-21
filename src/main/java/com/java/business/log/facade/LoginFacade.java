@@ -2,6 +2,9 @@ package com.java.business.log.facade;
 
 import com.github.pagehelper.PageInfo;
 import com.java.business.log.dto.LoginLogTableRequestDto;
+import org.springframework.security.core.Authentication;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * description :
@@ -18,4 +21,11 @@ public interface LoginFacade {
      * @return
      */
     PageInfo queryTable(LoginLogTableRequestDto requestDto);
+
+    /**
+     * 登录记录
+     * @param request
+     * @param authentication
+     */
+    void logging(HttpServletRequest request, Authentication authentication);
 }
