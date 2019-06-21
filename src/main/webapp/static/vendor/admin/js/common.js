@@ -17,10 +17,10 @@ $(function () {
 
     $(document).ajaxComplete(function (event, xhr, options) {
         if (xhr.status === 200) {
-            let response = status.responseJSON;
+            let response = xhr.responseJSON;
             if (!response.success) {
                 switch (response.code) {
-                    case "010005":
+                    case "000004":
                         alert(response.message);
                 }
             }

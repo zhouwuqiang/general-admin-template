@@ -73,7 +73,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .maximumSessions(1)
                 .maxSessionsPreventsLogin(false)
                 .sessionRegistry(sessionRegistry)
-                .expiredSessionStrategy(ajaxSessionInformationExpiredStrategy);
+                .expiredUrl("/view/login?error=3");
+//                .expiredSessionStrategy(ajaxSessionInformationExpiredStrategy)
     }
 
     /**
