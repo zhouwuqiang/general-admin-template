@@ -47,11 +47,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()//配置权限
-                .antMatchers("/api/**").permitAll()
+                .antMatchers("/api/**","/view/login").permitAll()
                 .anyRequest().authenticated()
                 .and()//配置登录表
                 .formLogin()
-                .loginPage("/view/login?error=0").permitAll()
+                .loginPage("/view/login").permitAll()
                 .successHandler(ajaxAuthSuccessHandler)
                 .failureHandler(ajaxauthfailhandler)
                 .loginProcessingUrl("/login")
@@ -59,8 +59,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .passwordParameter("password")
                 .and()//配置注销
                 .logout()
-                .logoutUrl("/logout")
-                .logoutSuccessUrl("/view/login?error=1").permitAll()
+                .logoutUrl("/logout").permitAll()
+                .logoutSuccessUrl("/view/login?error=1")
                 .deleteCookies("myCookie")
                 .addLogoutHandler(logoutHandler)
                 .and()
@@ -69,7 +69,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         //只允许登录1个用户
         http.sessionManagement()
-                .invalidSessionUrl("/view/login?error=2")
+//                .invalidSessionUrl("/view/login?error=2")  覆盖退出登录页面
                 .maximumSessions(1)
                 .maxSessionsPreventsLogin(false)
                 .sessionRegistry(sessionRegistry)
