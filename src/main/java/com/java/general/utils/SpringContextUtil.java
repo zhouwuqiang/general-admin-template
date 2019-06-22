@@ -9,6 +9,11 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
+/**
+ * SpringContext工具类 方便在非spring管理环境中获取bean
+ *
+ * @author alger
+ */
 @Component
 public class SpringContextUtil implements ApplicationContextAware {
 
@@ -112,13 +117,4 @@ public class SpringContextUtil implements ApplicationContextAware {
         return applicationContext.getAliases(name);
     }
 
-
-    /**
-     * 获取当前登录用户
-     * @return
-     */
-    public static User getLoginUser(){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        return (User) authentication.getPrincipal();
-    }
 }

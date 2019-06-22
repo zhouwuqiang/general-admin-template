@@ -1,6 +1,7 @@
 package com.java.general.config.security.service;
 
-import com.java.general.utils.MD5Util;
+
+import com.java.general.utils.Md5Utils;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
@@ -13,11 +14,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class CustomPasswordEncoder implements PasswordEncoder {
     @Override
     public String encode(CharSequence charSequence) {
-        return  MD5Util.MD5(charSequence.toString());
+        return  Md5Utils.hash(charSequence.toString());
     }
 
     @Override
     public boolean matches(CharSequence charSequence, String s) {
-        return s.equals(MD5Util.MD5(charSequence.toString()));
+        return s.equals(Md5Utils.hash(charSequence.toString()));
     }
 }

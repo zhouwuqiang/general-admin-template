@@ -7,7 +7,7 @@ import com.java.general.interceptors.controller.ControllerRecorder;
 import com.java.general.response.code.ResponseCode;
 import com.java.general.response.dto.ResponseDto;
 import com.java.general.response.utils.ResponseUtil;
-import com.java.general.utils.SpringContextUtil;
+import com.java.general.utils.SpringSecurityUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,7 +75,7 @@ public class UserController {
     @ControllerRecorder(path = "/user/center")
     public ResponseDto center() {
         UserDetailRequestDto requestDto = new UserDetailRequestDto();
-        requestDto.setUserCode(SpringContextUtil.getLoginUser().getUserCode());
+        requestDto.setUserCode(SpringSecurityUtil.getLoginUser().getUserCode());
         UserDetailResponseDto responseDto = userFacade.detail(requestDto);
 
         return ResponseUtil.bindSuccessResponse(responseDto);

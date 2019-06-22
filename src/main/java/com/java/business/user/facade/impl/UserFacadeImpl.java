@@ -11,19 +11,14 @@ import com.java.business.user.entity.UserRoleRelation;
 import com.java.business.user.facade.UserFacade;
 import com.java.business.user.service.UserService;
 import com.java.general.config.security.dto.User;
-import com.java.general.constant.SystemCommonConstant;
 import com.java.general.response.code.ResponseCode;
 import com.java.general.response.code.impl.ResponseEnum;
-import com.java.general.utils.MD5Util;
-import com.java.general.utils.SpringContextUtil;
+import com.java.general.utils.Md5Utils;
+import com.java.general.utils.SpringSecurityUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.session.SessionRegistry;
-import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 /**
  * description :
@@ -106,7 +101,7 @@ public class UserFacadeImpl implements UserFacade {
     public ResponseCode loginPassword(UserPasswordRequestDto requestDto) {
 
         //检查旧密码
-        User loginUser = SpringContextUtil.getLoginUser();
+        User loginUser = SpringSecurityUtil.getLoginUser();
         UserBasicFace userBasicFace = new UserBasicFace();
         userBasicFace.setUserCode(loginUser.getUserCode());
 
@@ -116,16 +111,16 @@ public class UserFacadeImpl implements UserFacade {
             return UserResponseEnum.USER_ERROR;
         }
 
-        if (!StringUtils.equals(userBasicFace.getLoginPassword(), MD5Util.MD5(requestDto.getOldPassword()))) {
+        if (!StringUtils.equals(userBasicFace.getLoginPassword(), Md5Utils.hash(requestDto.getOldPassword()))) {
             return UserResponseEnum.PASSWORD_ERROR;
         }
 
-        if (StringUtils.equals(userBasicFace.getLoginPassword(), MD5Util.MD5(requestDto.getNewPassword()))) {
+        if (StringUtils.equals(userBasicFace.getLoginPassword(), Md5Utils.hash(requestDto.getNewPassword()))) {
             return UserResponseEnum.PASSWORD_SAME;
         }
 
         //更新密码
-        userBasicFace.setLoginPassword(MD5Util.MD5(requestDto.getNewPassword()));
+        userBasicFace.setLoginPassword(Md5Utils.hash(requestDto.getNewPassword()));
         userService.save(userBasicFace);
         return ResponseEnum.SUCCESS;
     }
@@ -177,7 +172,7 @@ public class UserFacadeImpl implements UserFacade {
         userBasicFace.setUserLabel(basicInfo.getUserLabel());
         userBasicFace.setIsLock(powerInfo.getIsLock());
 
-        User loginUser = SpringContextUtil.getLoginUser();
+        User loginUser = SpringSecurityUtil.getLoginUser();
         if (StringUtils.isBlank(basicInfo.getUserCode())) {
             userBasicFace.setCreateUser(loginUser.getUsername());
         } else {
@@ -185,7 +180,7 @@ public class UserFacadeImpl implements UserFacade {
         }
 
         if (StringUtils.isNotBlank(basicInfo.getLoginPassword())) {
-            userBasicFace.setLoginPassword(MD5Util.MD5(basicInfo.getLoginPassword()));
+            userBasicFace.setLoginPassword(Md5Utils.hash(basicInfo.getLoginPassword()));
         }
 
         return userService.save(userBasicFace);
