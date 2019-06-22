@@ -1,5 +1,6 @@
 package com.java.general.utils;
 
+import com.java.general.utils.text.CharsetConstant;
 import com.java.general.utils.text.CharsetKit;
 import org.apache.commons.lang3.StringUtils;
 
@@ -762,7 +763,7 @@ public class Convert
      */
     public static String utf8Str(Object obj)
     {
-        return str(obj, CharsetKit.CHARSET_UTF_8);
+        return str(obj, CharsetConstant.CHARSET_UTF_8);
     }
 
     /**
