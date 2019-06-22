@@ -39,21 +39,23 @@ public class BigDecimalUtils {
 
     /**
      * 四舍五入格式化位数
+     *
      * @param value
      * @return
      */
-    public static BigDecimal format(Object value){
-        return getBigDecimal(value).setScale(2,BigDecimal.ROUND_HALF_UP);
+    public static <T> BigDecimal format(T value) {
+        return getBigDecimal(value).setScale(2, BigDecimal.ROUND_HALF_UP);
     }
 
     /**
      * 四舍五入格式化位数
+     *
      * @param value
      * @param scale
      * @return
      */
-    public static BigDecimal format(Object value,int scale){
-        return getBigDecimal(value).setScale(scale,BigDecimal.ROUND_HALF_UP);
+    public static <T> BigDecimal format(T value, int scale) {
+        return getBigDecimal(value).setScale(scale, BigDecimal.ROUND_HALF_UP);
     }
 
     /**
@@ -77,21 +79,21 @@ public class BigDecimalUtils {
      * @param addend
      * @return
      */
-    public static BigDecimal add(Object value, Object addend) {
+    public static <T, E> BigDecimal add(T value, E addend) {
         return getBigDecimal(value).add(getBigDecimal(addend));
     }
 
 
     /**
      * 两个数相除 四舍五入
-     *  精确到10位
+     * 精确到10位
      *
      * @param value
      * @param divisor
      * @return
      */
-    public static BigDecimal divide(Object value, Object divisor) {
-        return getBigDecimal(value).divide(getBigDecimal(divisor),10,BigDecimal.ROUND_HALF_UP);
+    public static <T, E> BigDecimal divide(T value, E divisor) {
+        return getBigDecimal(value).divide(getBigDecimal(divisor), 10, BigDecimal.ROUND_HALF_UP);
     }
 }
 
