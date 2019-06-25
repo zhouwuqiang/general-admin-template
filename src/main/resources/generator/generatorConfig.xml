@@ -16,14 +16,17 @@
             <property name="lombok" value="Getter,Setter,Data,ToString"/>
         </plugin>
 
-        <!--自定义插件-->
-        <plugin type="com.java.general.generator.JavaPlugin">
-            <property name="targetPackage" value="com.java.business"/>
+        <!--根据模板生成单个文件,每个文件都需要单独配置-->
+        <plugin type="tk.mybatis.mapper.generator.TemplateFilePlugin">
+            <property name="singleMode" value="false"/>
             <property name="targetProject" value="src/main/java"/>
-            <property name="author" value="alger"/>
-            <property name="version" value="1.0.0"/>
-            <property name="date" value="2019/6/25 11:57"/>
+            <property name="targetPackage" value="test.mapper"/>
+            <property name="templatePath" value="generator/formwork/Demo.ftl"/>
+            <property name="fileName" value="TestAll.txt"/>
+            <!--默认值是下面这个，可以不配置-->
+            <property name="templateFormatter" value="tk.mybatis.mapper.generator.formatter.FreemarkerTemplateFormatter"/>
         </plugin>
+
 
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
                         connectionURL="jdbc:mysql://127.0.0.1:3306/admin?useUnicode=true&amp;characterEncoding=utf-8&amp;useSSL=false&amp;serverTimezone=GMT%2B8"

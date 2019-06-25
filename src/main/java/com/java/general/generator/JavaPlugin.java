@@ -1,8 +1,8 @@
 package com.java.general.generator;
 
 import com.alibaba.fastjson.JSON;
-import org.apache.commons.lang3.StringUtils;
-import org.mybatis.generator.api.FullyQualifiedTable;
+import com.java.general.generator.entity.GeneratorConfiguration;
+import org.mybatis.generator.api.GeneratedJavaFile;
 import org.mybatis.generator.api.IntrospectedColumn;
 import org.mybatis.generator.api.IntrospectedTable;
 import org.mybatis.generator.api.PluginAdapter;
@@ -19,31 +19,17 @@ import java.util.Properties;
  */
 public class JavaPlugin extends PluginAdapter {
 
-    private String targetPackage;
-
-    private String targetProject;
-
-    private String author = "";
-
-    private String date = "";
-
-    private String version = "";
-
+    private GeneratorConfiguration configuration;
 
     @Override
     public void setProperties(Properties properties) {
-        targetPackage = properties.getProperty("targetPackage");
-        targetProject = properties.getProperty("targetProject");
-        author = properties.getProperty("author");
-        date = properties.getProperty("date");
-        version = properties.getProperty("version");
         this.properties.putAll(properties);
     }
 
 
     @Override
     public boolean validate(List<String> warnings) {
-        return !(StringUtils.isBlank(targetPackage) || StringUtils.isBlank(targetProject));
+        return true;
     }
 
     @Override
@@ -52,5 +38,8 @@ public class JavaPlugin extends PluginAdapter {
         System.out.println(JSON.toJSONString(allColumns));
     }
 
-
+    @Override
+    public List<GeneratedJavaFile> contextGenerateAdditionalJavaFiles() {
+        return null;
+    }
 }
