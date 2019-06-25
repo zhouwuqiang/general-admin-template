@@ -8,11 +8,21 @@
         <property name="javaFileEncoding" value="UTF-8"/>
         <property name="useMapperCommentGenerator" value="true"/>
 
+        <!--通用mybatis 插件-->
         <plugin type="tk.mybatis.mapper.generator.MapperPlugin">
             <property name="mappers" value="tk.mybatis.mapper.common.Mapper"/>
             <property name="caseSensitive" value="true"/>
             <property name="forceAnnotation" value="true"/>
             <property name="lombok" value="Getter,Setter,Data,ToString"/>
+        </plugin>
+
+        <!--自定义插件-->
+        <plugin type="com.java.general.generator.JavaPlugin">
+            <property name="targetPackage" value="com.java.business"/>
+            <property name="targetProject" value="src/main/java"/>
+            <property name="author" value="alger"/>
+            <property name="version" value="1.0.0"/>
+            <property name="date" value="2019/6/25 11:57"/>
         </plugin>
 
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
@@ -43,9 +53,9 @@
         <table tableName="user_login_log">
             <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
         </table>
-        <!--<table tableName="scheduled_task_form">-->
-            <!--<generatedKey column="id" sqlStatement="Mysql" identity="true"/>-->
-        <!--</table>-->
+        <table tableName="scheduled_task_form">
+            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
+        </table>
 
 
     </context>
