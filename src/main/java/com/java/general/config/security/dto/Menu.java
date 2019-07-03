@@ -7,6 +7,7 @@ import lombok.Setter;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +20,7 @@ import java.util.List;
  */
 @Getter
 @Setter
-public class Menu {
+public class Menu implements Serializable {
 
     private String text;
 

@@ -1,10 +1,11 @@
 package com.java.business.role.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.*;
 
 @Table(name = "role_basic_face")
-public class RoleBasicFace {
+public class RoleBasicFace implements Serializable {
 
     @Id
     @Column(name = "id")

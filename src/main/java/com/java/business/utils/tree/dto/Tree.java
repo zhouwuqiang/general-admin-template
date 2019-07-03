@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +18,7 @@ import java.util.List;
 @Getter
 @Setter
 @ToString
-public class Tree {
+public class Tree implements Serializable {
 
     /**
      * 携带的参数

@@ -4,6 +4,8 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.io.Serializable;
+
 /**
  * description :
  *
@@ -14,7 +16,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class State {
+public class State implements Serializable {
 
     /**
      * 指示一个节点是否处于checked状态，用一个checkbox图标表示
