@@ -1,8 +1,12 @@
 package com.java.general.config.redis.service.impl;
 
 import com.java.general.config.redis.service.RedisService;
+import com.java.general.exception.BusinessException;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
+import org.springframework.data.redis.connection.RedisConnection;
 import org.springframework.data.redis.core.*;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +25,17 @@ import java.util.concurrent.TimeUnit;
 @Service
 @Slf4j
 public class RedisServiceImpl implements RedisService {
+
+
+    /**
+     * 默认超时时间 单位秒
+     */
+    private static final Long DEFAULT_EXPIRATION_SECOND = 30L;
+
+    /**
+     * 线程等待休眠时间
+     */
+    private static final Long DEFAULT_SLEEP_MILLIS = 500L;
 
 
     @Autowired
@@ -135,5 +150,91 @@ public class RedisServiceImpl implements RedisService {
         return zset.rangeByScore(key, scoure, scoure1);
     }
 
+    @Override
+    public boolean lock(String owner, String lockKey) {
+        return lock(owner, lockKey, DEFAULT_EXPIRATION_SECOND);
+    }
+
+    @Override
+    public boolean lock(String owner, String lockKey, Long expiration) {
+
+        return (Boolean) redisTemplate.execute((RedisCallback) connection -> {
+
+            Boolean acquire = connection.setNX(lockKey.getBytes(), owner.getBytes());
+            if (acquire) {
+                connection.setEx(lockKey.getBytes(), expiration, owner.getBytes());
+                return true;
+            } else {
+                return false;
+            }
+
+        });
+
+    }
+
+    @Override
+    public boolean tryLock(String owner, String lockKey) {
+        return tryLock(owner, lockKey, DEFAULT_EXPIRATION_SECOND);
+    }
+
+    @Override
+    public boolean tryLock(String owner, String lockKey, Long expiration) {
+        int count = 0;
+        while (true) {
+
+            if (lock(owner, lockKey, expiration)) {
+                return true;
+            }
+
+            if (count > 30) {
+                log.info("redis 获取锁等待超时,所有者:{},锁定key:{}", owner, lockKey);
+                return false;
+            }
+            count++;
+
+            sleepByMillis(DEFAULT_SLEEP_MILLIS);
+        }
+    }
+
+    @Override
+    public boolean unLock(String owner, String lockKey) {
+        return (Boolean) redisTemplate.execute((RedisCallback) connection -> {
+            String lockOwner = new String(connection.get(lockKey.getBytes()));
+            if (StringUtils.equals(owner,lockOwner)) {
+                connection.del(lockKey.getBytes());
+                return true;
+            } else {
+                return false;
+            }
+        });
+    }
+
+    @Override
+    public boolean renewal(String owner, String lockKey, Long expiration) {
+        return (Boolean) redisTemplate.execute((RedisCallback) connection -> {
+            String lockOwner = new String(connection.get(lockKey.getBytes()));
+            if (StringUtils.equals(owner,lockOwner)) {
+                connection.setEx(lockKey.getBytes(), expiration, owner.getBytes());
+                return true;
+            } else {
+                return false;
+            }
+        });
+    }
+
+
+    /**
+     * 线程休眠
+     *
+     * @param millis
+     */
+    private void sleepByMillis(long millis) {
+        try {
+            Thread.sleep(millis);
+        } catch (InterruptedException e) {
+            log.error("线程休眠异常!", e);
+            throw new BusinessException("获取锁等待失败!{}", e.getMessage());
+        }
+    }
 
 }

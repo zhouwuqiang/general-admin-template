@@ -2,6 +2,7 @@ package com.java.general.config.redis.service.impl;
 
 import com.java.AppApplicationTest;
 import com.java.general.config.redis.service.RedisService;
+import com.java.general.utils.DateUtils;
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -159,5 +160,44 @@ public class RedisServiceImplTest extends AppApplicationTest {
         Set<Object> result = redisService.rangeByScore("test",0,5);
         Assert.assertNotNull(result);
         redisService.remove("test");
+    }
+
+    @Test
+    public void lock() {
+        Assert.assertTrue(redisService.lock("owner1","key"));
+        Assert.assertFalse(redisService.lock("owner2","key"));
+        Assert.assertFalse(redisService.unLock("owner2","key"));
+        Assert.assertTrue(redisService.unLock("owner1","key"));
+        Assert.assertTrue(redisService.lock("owner2","key"));
+        Assert.assertTrue(redisService.unLock("owner2","key"));
+    }
+
+    @Test
+    public void tryLock() {
+        Assert.assertTrue(redisService.lock("owner1","key"));
+        Assert.assertFalse(redisService.tryLock("owner2","key"));
+        DateUtils.sleepByMillis(30*1000);
+        Assert.assertTrue(redisService.tryLock("owner2","key"));
+        Assert.assertTrue(redisService.unLock("owner2","key"));
+    }
+
+    @Test
+    public void unLock() {
+        Assert.assertTrue(redisService.lock("owner1","key"));
+        Assert.assertFalse(redisService.unLock("owner2","key"));
+        Assert.assertTrue(redisService.unLock("owner1","key"));
+    }
+
+    @Test
+    public void renewal() {
+        Assert.assertTrue(redisService.lock("owner1","key",2L));
+        Assert.assertFalse(redisService.lock("owner2","key"));
+        DateUtils.sleepByMillis(1000);
+        Assert.assertTrue(redisService.renewal("owner1","key",3L));
+        DateUtils.sleepByMillis(2000);
+        Assert.assertFalse(redisService.lock("owner2","key"));
+        DateUtils.sleepByMillis(2000);
+        Assert.assertTrue(redisService.lock("owner2","key"));
+        Assert.assertTrue(redisService.unLock("owner2","key"));
     }
 }

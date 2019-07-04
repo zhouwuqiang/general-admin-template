@@ -144,4 +144,57 @@ public interface RedisService {
      * @return
      */
     Set<Object> rangeByScore(String key, double scoure, double scoure1);
+
+
+    /**
+     * 锁定
+     * @param owner
+     * @param lockKey
+     * @return
+     */
+    boolean lock(String owner,String lockKey);
+
+    /**
+     * 锁定
+     * @param owner
+     * @param lockKey
+     * @param expiration 超时时间单位 秒
+     * @return
+     */
+    boolean lock(String owner,String lockKey,Long expiration);
+
+    /**
+     * 锁定 线程等待
+     * @param owner
+     * @param lockKey
+     * @return
+     */
+    boolean tryLock(String owner,String lockKey);
+
+    /**
+     * 锁定 线程等待
+     * @param owner
+     * @param lockKey
+     * @param expiration 超时时间单位 秒
+     * @return
+     */
+    boolean tryLock(String owner,String lockKey,Long expiration);
+
+    /**
+     * 解锁
+     * @param owner
+     * @param lockKey
+     * @return
+     */
+    boolean unLock(String owner,String lockKey);
+
+
+    /**
+     * 续期
+     * @param owner
+     * @param lockKey
+     * @param expiration
+     * @return
+     */
+    boolean renewal(String owner,String lockKey, Long expiration);
 }

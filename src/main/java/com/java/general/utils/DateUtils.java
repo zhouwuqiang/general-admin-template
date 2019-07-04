@@ -1,5 +1,6 @@
 package com.java.general.utils;
 
+import com.java.general.exception.BusinessException;
 import org.apache.commons.lang3.time.DateFormatUtils;
 
 import java.lang.management.ManagementFactory;
@@ -240,6 +241,20 @@ public class DateUtils extends org.apache.commons.lang3.time.DateUtils {
         return sdf.parse(last);
     }
 
+
+
+    /**
+     * 线程休眠
+     *
+     * @param millis
+     */
+    public static void sleepByMillis(long millis) {
+        try {
+            Thread.sleep(millis);
+        } catch (InterruptedException e) {
+            throw new BusinessException("线程等待休眠异常!{}", e.getMessage());
+        }
+    }
     public static void main(String[] args) throws ParseException {
         DateUtils.dateDiff();
     }
