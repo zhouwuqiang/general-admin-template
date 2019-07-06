@@ -1,5 +1,6 @@
 package com.java.general.generator;
 
+import com.java.general.generator.entity.TemplateTable;
 import org.apache.commons.lang3.StringUtils;
 import org.mybatis.generator.api.GeneratedJavaFile;
 import org.mybatis.generator.api.IntrospectedColumn;
@@ -18,11 +19,6 @@ import java.util.*;
 public class TemplatePlugin extends PluginAdapter {
 
     /**
-     * 作者
-     */
-    private String author;
-
-    /**
      * 模块名称
      */
     private String model;
@@ -38,21 +34,18 @@ public class TemplatePlugin extends PluginAdapter {
     private String targetProject;
 
     /**
-     * 模板地址
+     * 表格
      */
-    private List<String> templatePath = new ArrayList<>();
+    private Set<TemplateTable> cacheTableSet;
+
 
 
     @Override
     public void setProperties(Properties properties) {
         this.properties.putAll(properties);
-        this.author = properties.getProperty("author");
         this.model = properties.getProperty("model");
         this.targetPackage = properties.getProperty("targetPackage");
         this.targetProject = properties.getProperty("targetProject");
-
-        templatePath.add("controller/Controller.ftl");
-        templatePath.add("dto/RequestDto.ftl");
     }
 
 

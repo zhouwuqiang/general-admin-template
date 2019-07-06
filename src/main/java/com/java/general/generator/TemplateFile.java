@@ -43,7 +43,6 @@ public class TemplateFile extends GeneratedJavaFile {
     public TemplateFile(String tempSource,Properties properties,
                         Map<String, Object> params,
                         TemplateFormatter templateFormatter) {
-
         super(null, properties.getProperty("targetProject"), ENCODING, null);
         this.targetPackage = properties.getProperty("targetPackage");
         this.templateFormatter = templateFormatter;
