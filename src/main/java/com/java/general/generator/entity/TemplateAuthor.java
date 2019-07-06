@@ -12,7 +12,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class GeneratorConfiguration {
+public class TemplateAuthor {
 
     /**
      * 作者
@@ -28,15 +28,5 @@ public class GeneratorConfiguration {
      * 版本
      */
     private String version;
-
-    /**
-     * 目标目录根目录
-     */
-    private String targetPackage;
-
-    /**
-     * 项目根目录
-     */
-    private String targetProject;
 
 }

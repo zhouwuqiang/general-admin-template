@@ -51,8 +51,6 @@ public class TemplatePlugin extends PluginAdapter {
         this.targetPackage = properties.getProperty("targetPackage");
         this.targetProject = properties.getProperty("targetProject");
 
-
-
         templatePath.add("controller/Controller.ftl");
         templatePath.add("dto/RequestDto.ftl");
     }
@@ -60,6 +58,17 @@ public class TemplatePlugin extends PluginAdapter {
 
     @Override
     public boolean validate(List<String> warnings) {
+
+        if (StringUtils.isBlank(model)) {
+            warnings.add("model 未配置,不会生成任何文件!");
+            return false;
+        }
+
+        if (StringUtils.isBlank(targetPackage)) {
+            warnings.add("targetPackage 未配置,不会生成任何文件!");
+            return false;
+        }
+
         if (StringUtils.isBlank(targetProject)) {
             warnings.add("targetProject 未配置,不会生成任何文件!");
             return false;
@@ -76,7 +85,13 @@ public class TemplatePlugin extends PluginAdapter {
     public List<GeneratedJavaFile> contextGenerateAdditionalJavaFiles(IntrospectedTable introspectedTable) {
         List<GeneratedJavaFile> list = new ArrayList<>();
         Map params = new HashMap();
-        list.add(new TemplateFile(templatePath.get(1), "demo", properties, params, new TemplateFormatter()));
+
+        //service
+        list.add(new TemplateFile("/dto/service.ftl", properties, params, new TemplateFormatter()));
+
+
+        //serviceImpl
+        list.add(new TemplateFile("/dto/service.ftl", properties, params, new TemplateFormatter()));
         return list;
     }
 
