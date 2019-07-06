@@ -18,13 +18,25 @@
 
         <!--模板生成插件 每个表都会生成一个对应的文件-->
         <plugin type="tk.mybatis.mapper.generator.TemplateFilePlugin">
+            <!--定义参数 start-->
+            <property name="lowerCaseModelName" value="demo"/>
+            <property name="classModelName" value="Demo"/>
+            <property name="modelPath" value="com.java.business"/>
+            <!--定义参数 end-->
             <property name="singleMode" value="false"/>
             <property name="targetProject" value="src/main/java"/>
-            <property name="targetPackage" value="com.java.business.template.Controller"/>
+            <property name="targetPackage" value="com.java.business.demo.controller"/>
             <property name="templatePath" value="generator/template/controller/Controller.ftl"/>
-            <property name="fileName" value="TemplateController.java"/>
+            <property name="fileName" value="${classModelName}Controller.java"/>
             <!--默认值是下面这个，可以不配置-->
             <property name="templateFormatter" value="tk.mybatis.mapper.generator.formatter.FreemarkerTemplateFormatter"/>
+        </plugin>
+
+        <!--模板生成插件 每个表都会生成一个对应的文件-->
+        <plugin type="com.java.general.generator.TemplatePlugin">
+            <property name="modelName" value="demo"/>
+            <property name="modelPath" value="com.java.business"/>
+            <property name="targetProject" value="src/main/java"/>
         </plugin>
 
 

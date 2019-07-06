@@ -1,25 +1,20 @@
-package com.java.business.menu.controller;
+package ${targetPackage};
+
 
 import com.github.pagehelper.PageInfo;
-import com.java.business.menu.dto.MenuListRequestDto;
-import com.java.business.menu.dto.MenuSaveRequestDto;
-import com.java.business.menu.dto.MenuTableRequestDto;
-import com.java.business.menu.facade.MenuFacade;
-import com.java.general.config.security.dto.Menu;
-import com.java.general.config.security.dto.User;
 import com.java.general.interceptors.controller.ControllerRecorder;
 import com.java.general.response.dto.ResponseDto;
 import com.java.general.response.utils.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+import ${modelPath}.${lowerCaseModelName}.dto.${classModelName}TableRequestDto;
+import ${modelPath}.${lowerCaseModelName}.dto.${classModelName}SaveRequestDto;
+import ${modelPath}.${lowerCaseModelName}.facade.${classModelName}Facade;
 
 /**
  * description :
@@ -29,13 +24,13 @@ import java.util.List;
  * @date 2019/3/7 12:41
  */
 @RestController
-@RequestMapping("/menu")
-public class Controller {
+@RequestMapping("/${lowerCaseModelName}")
+public class ${classModelName}Controller {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(MenuController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(${classModelName}Controller.class);
 
     @Autowired
-    private MenuFacade menuFacade;
+    private ${classModelName}Facade ${lowerCaseModelName}Facade;
 
     /**
      * 获取主表数据
@@ -44,10 +39,10 @@ public class Controller {
      * @return
      */
     @RequestMapping(value = "/table")
-    @ControllerRecorder(path = "/menu/table", validateClass = MenuTableRequestDto.class)
-    public ResponseDto table(@RequestBody MenuTableRequestDto requestDto) {
+    @ControllerRecorder(path = "/menu/table", validateClass = ${classModelName}TableRequestDto.class)
+    public ResponseDto table(@RequestBody ${classModelName}TableRequestDto requestDto) {
 
-        PageInfo pageInfo = menuFacade.queryTable(requestDto);
+        PageInfo pageInfo = ${lowerCaseModelName}Facade.queryTable(requestDto);
 
         return ResponseUtil.bindSuccessResponse(pageInfo.getList());
     }
@@ -60,10 +55,10 @@ public class Controller {
      * @return
      */
     @RequestMapping(value = "/save")
-    @ControllerRecorder(path = "/menu/save")
-    public ResponseDto save(@RequestBody MenuSaveRequestDto requestDto) {
+    @ControllerRecorder(path = "/${classModelName}/save")
+    public ResponseDto save(@RequestBody ${classModelName}SaveRequestDto requestDto) {
 
-        menuFacade.save(requestDto);
+        ${lowerCaseModelName}Facade.save(requestDto);
 
         return ResponseUtil.bindSuccessResponse();
     }
@@ -75,10 +70,10 @@ public class Controller {
      * @return
      */
     @RequestMapping(value = "/delete")
-    @ControllerRecorder(path = "/menu/delete")
-    public ResponseDto delete(@RequestBody MenuSaveRequestDto requestDto) {
+    @ControllerRecorder(path = "/${classModelName}/delete")
+    public ResponseDto delete(@RequestBody ${classModelName}SaveRequestDto requestDto) {
 
-        menuFacade.delete(requestDto);
+        ${lowerCaseModelName}Facade.delete(requestDto);
 
         return ResponseUtil.bindSuccessResponse();
     }
