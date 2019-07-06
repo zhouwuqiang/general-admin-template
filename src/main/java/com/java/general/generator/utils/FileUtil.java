@@ -1,6 +1,5 @@
 package com.java.general.generator.utils;
 
-import com.alibaba.fastjson.JSONObject;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 
@@ -17,6 +16,20 @@ import java.io.*;
 public class FileUtil {
 
     private static final String CHARSET_NAME = "UTF-8";
+
+
+
+    /**
+     *
+     * @param templatePath
+     * @param params
+     */
+    public static String generateContext(String templatePath, Object params) throws IOException, TemplateException {
+        Template template = getTemplate(templatePath);
+        Writer writer = new StringWriter();
+        template.process(params, writer);
+        return writer.toString();
+    }
 
     /**
      * @param name     模板名称
@@ -56,7 +69,7 @@ public class FileUtil {
      * @return
      * @throws IOException
      */
-    private static Template getTemplate(String name) throws IOException {
+    public static Template getTemplate(String name) throws IOException {
         return FreemarkerConfigUtils.getInstance().getTemplate(name);
     }
 

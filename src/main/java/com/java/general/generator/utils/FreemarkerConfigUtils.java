@@ -15,7 +15,7 @@ import java.util.Locale;
  */
 public class FreemarkerConfigUtils {
 
-    private static String BASE_PACKAGE_PATH = "generator/formwork";
+    private static String BASE_PACKAGE_PATH = "generator/template";
 
     private static String path = new File(FreemarkerConfigUtils.class.getClassLoader().getResource(BASE_PACKAGE_PATH).getFile()).getPath();
 
@@ -37,5 +37,7 @@ public class FreemarkerConfigUtils {
         }
         return configuration;
     }
+
+
 
 }
