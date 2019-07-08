@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.java.business.${module}.facade.${classModelName}Facade;
-import com.java.business.${module}.service.${classModelName}service;
+import com.java.business.${module}.service.${classModelName}Service;
 import com.java.business.${module}.dto.${classModelName}TableRequestDto;
 import com.java.business.${module}.dto.${classModelName}SaveRequestDto;
 

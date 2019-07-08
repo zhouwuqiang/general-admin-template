@@ -38,7 +38,7 @@ public class ${classModelName}Controller {
      * @return
      */
     @RequestMapping(value = "/table")
-    @ControllerRecorder(path = "/menu/table", validateClass = ${classModelName}TableRequestDto.class)
+    @ControllerRecorder(path = "/${module}/table", validateClass = ${classModelName}TableRequestDto.class)
     public ResponseDto table(@RequestBody ${classModelName}TableRequestDto requestDto) {
 
         PageInfo pageInfo = ${module}Facade.queryTable(requestDto);
