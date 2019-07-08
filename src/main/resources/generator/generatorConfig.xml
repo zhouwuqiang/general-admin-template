@@ -51,13 +51,13 @@
 
 
         <!--entity 生成位置-->
-        <javaModelGenerator targetPackage="com.java.business.log.entity"
+        <javaModelGenerator targetPackage="com.java.business.demo.entity"
                             targetProject="src/main/java"/>
         <!--xml 文件生成位置-->
-        <sqlMapGenerator targetPackage="mapper.log"
+        <sqlMapGenerator targetPackage="mapper.demo"
                          targetProject="src/main/resources"/>
         <!--mapper接口生成位置-->
-        <javaClientGenerator targetPackage="com.java.business.log.mapper"
+        <javaClientGenerator targetPackage="com.java.business.demo.mapper"
                              targetProject="src/main/java"
                              type="XMLMAPPER"/>
 

@@ -52,6 +52,8 @@ public class TemplatePlugin extends PluginAdapter {
     public void setProperties(Properties properties) {
         this.properties.putAll(properties);
         this.model = properties.getProperty("model");
+        properties.put("modelClassName", model.substring(0, 1).toUpperCase() + model.substring(1));
+
         this.targetPackage = properties.getProperty("targetPackage");
         this.targetProject = properties.getProperty("targetProject");
         cacheTableSet = new HashSet<>();
