@@ -34,8 +34,8 @@ public class TemplateFormatter {
 
     public String getFileName(TemplateDto templateDto, Properties properties) {
 
-        String model = properties.getProperty("model");
-        model = model.substring(0, 1).toUpperCase() + model.substring(1);
+        String module = properties.getProperty("module");
+        module = module.substring(0, 1).toUpperCase() + module.substring(1);
 
         switch (templateDto.getTemplateType()) {
             case TemplateConstant.TemplateType.VIEW_MANAGER:
@@ -43,19 +43,19 @@ public class TemplateFormatter {
             case TemplateConstant.TemplateType.VIEW_MANAGER_JS:
                 return "manager.js";
             case TemplateConstant.TemplateType.CONTROLLER:
-                return model + "Controller.java";
+                return module + "Controller.java";
             case TemplateConstant.TemplateType.FACADE:
-                return model + "Facade.java";
+                return module + "Facade.java";
             case TemplateConstant.TemplateType.FACADE_IMPL:
-                return model + "FacadeImpl.java";
+                return module + "FacadeImpl.java";
             case TemplateConstant.TemplateType.SERVICE:
-                return model + "Service.java";
+                return module + "Service.java";
             case TemplateConstant.TemplateType.SERVICE_IMPL:
-                return model + "ServiceImpl.java";
+                return module + "ServiceImpl.java";
             case TemplateConstant.TemplateType.SAVE_REQUEST_DTO:
-                return model + "SaveRequestDto.java";
+                return module + "SaveRequestDto.java";
             case TemplateConstant.TemplateType.TABLE_REQUEST_DTO:
-                return model + "TableRequestDto.java";
+                return module + "TableRequestDto.java";
             default:
                 throw new BusinessException("模板类型不正确!");
         }
@@ -63,27 +63,27 @@ public class TemplateFormatter {
 
     public String getTargetPackage(TemplateDto templateDto, Properties properties) {
 
-        String model = properties.getProperty("model");
+        String module = properties.getProperty("module");
 
         switch (templateDto.getTemplateType()) {
             case TemplateConstant.TemplateType.VIEW_MANAGER:
-                return "templates." + model;
+                return "templates." + module;
             case TemplateConstant.TemplateType.VIEW_MANAGER_JS:
-                return "static.js." + model;
+                return "static.js." + module;
             case TemplateConstant.TemplateType.CONTROLLER:
-                return "com.java.business." + model + ".controller";
+                return "com.java.business." + module + ".controller";
             case TemplateConstant.TemplateType.FACADE:
-                return "com.java.business." + model + ".facade";
+                return "com.java.business." + module + ".facade";
             case TemplateConstant.TemplateType.FACADE_IMPL:
-                return "com.java.business." + model + ".facade.impl";
+                return "com.java.business." + module + ".facade.impl";
             case TemplateConstant.TemplateType.SERVICE:
-                return "com.java.business." + model + ".service";
+                return "com.java.business." + module + ".service";
             case TemplateConstant.TemplateType.SERVICE_IMPL:
-                return "com.java.business." + model + ".service.impl";
+                return "com.java.business." + module + ".service.impl";
             case TemplateConstant.TemplateType.SAVE_REQUEST_DTO:
-                return  "com.java.business." + model + ".dto";
+                return  "com.java.business." + module + ".dto";
             case TemplateConstant.TemplateType.TABLE_REQUEST_DTO:
-                return  "com.java.business." + model + ".dto";
+                return  "com.java.business." + module + ".dto";
             default:
                 throw new BusinessException("模板类型不正确!");
         }

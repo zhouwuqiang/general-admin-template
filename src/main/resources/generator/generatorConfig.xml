@@ -34,7 +34,7 @@
 
         <!--模板生成插件 每个表都会生成一个对应的文件-->
         <plugin type="com.java.general.generator.TemplatePlugin">
-            <property name="model" value="demo"/>
+            <property name="module" value="generator"/>
             <property name="author" value="author"/>
             <property name="targetPackage" value="com.java.business"/>
             <property name="targetProject" value="src/main/java"/>
@@ -51,13 +51,13 @@
 
 
         <!--entity 生成位置-->
-        <javaModelGenerator targetPackage="com.java.business.demo.entity"
+        <javaModelGenerator targetPackage="com.java.business.generator.entity"
                             targetProject="src/main/java"/>
         <!--xml 文件生成位置-->
-        <sqlMapGenerator targetPackage="mapper.demo"
+        <sqlMapGenerator targetPackage="mapper.generator"
                          targetProject="src/main/resources"/>
         <!--mapper接口生成位置-->
-        <javaClientGenerator targetPackage="com.java.business.demo.mapper"
+        <javaClientGenerator targetPackage="com.java.business.generator.mapper"
                              targetProject="src/main/java"
                              type="XMLMAPPER"/>
 
@@ -66,7 +66,7 @@
         <!--<table tableName="wordbook">-->
             <!--<generatedKey column="id" sqlStatement="Mysql" identity="true"/>-->
         <!--</table>-->
-        <table tableName="user_login_log">
+        <table tableName="generator_demo">
             <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
         </table>
         <!--<table tableName="scheduled_task_form">-->

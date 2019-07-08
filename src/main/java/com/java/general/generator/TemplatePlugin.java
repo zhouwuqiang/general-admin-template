@@ -26,7 +26,7 @@ public class TemplatePlugin extends PluginAdapter {
     /**
      * 模块名称
      */
-    private String model;
+    private String module;
 
     /**
      * 目标目录根目录
@@ -51,8 +51,8 @@ public class TemplatePlugin extends PluginAdapter {
     @Override
     public void setProperties(Properties properties) {
         this.properties.putAll(properties);
-        this.model = properties.getProperty("model");
-        properties.put("modelClassName", model.substring(0, 1).toUpperCase() + model.substring(1));
+        this.module = properties.getProperty("module");
+        this.properties.put("classModelName", module.substring(0, 1).toUpperCase() + module.substring(1));
 
         this.targetPackage = properties.getProperty("targetPackage");
         this.targetProject = properties.getProperty("targetProject");
@@ -64,8 +64,8 @@ public class TemplatePlugin extends PluginAdapter {
     @Override
     public boolean validate(List<String> warnings) {
 
-        if (StringUtils.isBlank(model)) {
-            warnings.add("model 未配置,不会生成任何文件!");
+        if (StringUtils.isBlank(module)) {
+            warnings.add("module 未配置,不会生成任何文件!");
             return false;
         }
 
