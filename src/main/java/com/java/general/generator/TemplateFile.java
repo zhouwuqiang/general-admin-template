@@ -1,11 +1,15 @@
 package com.java.general.generator;
 
+import com.java.general.generator.entity.TemplateColumn;
+import com.java.general.generator.entity.TemplateDto;
+import com.java.general.generator.entity.TemplateTable;
 import org.mybatis.generator.api.GeneratedJavaFile;
 import org.mybatis.generator.api.dom.java.CompilationUnit;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
+import java.util.Set;
 
 /**
  * description :
@@ -18,43 +22,40 @@ public class TemplateFile extends GeneratedJavaFile {
 
     private static final String ENCODING = "UTF-8";
 
-    private String targetPackage;
 
     private TemplateFormatter templateFormatter;
 
     /**
-     * 系统产生
+     * 配置变量信息
      */
     private Properties properties;
 
     /**
-     * 模板地址
+     * 替换参数信息
      */
-    private String tempSource;
-    /**
-     * 模板地址
-     */
-    private String targetFilename;
-    /**
-     * 模板参数
-     */
-    private Map<String, Object> params;
+    private Map<String, Object> paramMap;
 
-    public TemplateFile(String tempSource,Properties properties,
-                        Map<String, Object> params,
-                        TemplateFormatter templateFormatter) {
-        super(null, properties.getProperty("targetProject"), ENCODING, null);
-        this.targetPackage = properties.getProperty("targetPackage");
+    /**
+     * 模板信息
+     */
+    private TemplateDto templateDto;
+
+
+    public TemplateFile(TemplateDto templateDto, Set<TemplateTable> cacheTableSet,
+                        Set<TemplateColumn> cacheColumnSet, Properties properties,
+                        String targetProject, TemplateFormatter templateFormatter) {
+        super(null, targetProject, ENCODING, null);
+
         this.templateFormatter = templateFormatter;
-        this.tempSource = tempSource;
-        if (params == null) {
-            params = new HashMap<>();
-        }
+        this.templateDto = templateDto;
+        this.properties = properties;
 
+        this.paramMap = new HashMap<>();
         for (Object o : properties.keySet()) {
-            params.put(String.valueOf(o), properties.get(o));
+            paramMap.put(String.valueOf(o), properties.get(o));
         }
-        this.params = params;
+        paramMap.put("tableSet", cacheTableSet);
+        paramMap.put("columnSet", cacheColumnSet);
     }
 
     @Override
@@ -64,17 +65,17 @@ public class TemplateFile extends GeneratedJavaFile {
 
     @Override
     public String getFileName() {
-        return this.targetFilename;
+        return templateFormatter.getFileName(templateDto, properties);
     }
 
     @Override
     public String getFormattedContent() {
-        return templateFormatter.getContext(tempSource, params);
+        return templateFormatter.getContext(templateDto, paramMap);
     }
 
     @Override
     public String getTargetPackage() {
-        return targetPackage;
+        return templateFormatter.getTargetPackage(templateDto, properties);
     }
 
     @Override

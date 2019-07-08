@@ -1,5 +1,8 @@
 package com.java.general.generator.entity;
 
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * description :
  *
@@ -7,36 +10,27 @@ package com.java.general.generator.entity;
  * @version 1.0.0
  * @date 2019/7/6 18:16
  */
+@Getter
+@Setter
 public class TemplateColumn {
 
     /**
-     * 表名
+     * 字段名
      */
-    private String tableName;
+    private String columnName;
 
     /**
-     * 变量名
+     * 字段类型
      */
-    private String variableName;
+    private String columnType;
 
     /**
-     * 小写名
+     * 字段类型包
      */
-    private String lowerCaseName;
+    private String columnTypePackage;
 
     /**
-     * 类名
+     * 字段注释
      */
-    private String shortClassName;
-
-    /**
-     * 全名
-     */
-    private String fullClassName;
-
-    /**
-     * 包名
-     */
-    private String packageName;
-
+    private String remarks;
 }

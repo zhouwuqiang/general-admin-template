@@ -1,9 +1,14 @@
 package com.java.general.generator;
 
+import com.java.general.exception.BusinessException;
+import com.java.general.generator.constant.TemplateConstant;
+import com.java.general.generator.entity.TemplateColumn;
+import com.java.general.generator.entity.TemplateDto;
 import com.java.general.generator.entity.TemplateTable;
+import com.java.general.generator.utils.TableBuilder;
+import com.java.general.generator.utils.TemplateUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.mybatis.generator.api.GeneratedJavaFile;
-import org.mybatis.generator.api.IntrospectedColumn;
 import org.mybatis.generator.api.IntrospectedTable;
 import org.mybatis.generator.api.PluginAdapter;
 
@@ -38,7 +43,10 @@ public class TemplatePlugin extends PluginAdapter {
      */
     private Set<TemplateTable> cacheTableSet;
 
-
+    /**
+     * 表格
+     */
+    private Set<TemplateColumn> cacheColumnSet;
 
     @Override
     public void setProperties(Properties properties) {
@@ -46,6 +54,8 @@ public class TemplatePlugin extends PluginAdapter {
         this.model = properties.getProperty("model");
         this.targetPackage = properties.getProperty("targetPackage");
         this.targetProject = properties.getProperty("targetProject");
+        cacheTableSet = new HashSet<>();
+        cacheColumnSet = new HashSet<>();
     }
 
 
@@ -71,26 +81,51 @@ public class TemplatePlugin extends PluginAdapter {
 
     @Override
     public void initialized(IntrospectedTable introspectedTable) {
-        List<IntrospectedColumn> allColumns = introspectedTable.getAllColumns();
+        cacheTableSet.add(TableBuilder.buildTable(introspectedTable));
+        cacheColumnSet.addAll(TableBuilder.buildColumn(introspectedTable));
     }
 
     @Override
     public List<GeneratedJavaFile> contextGenerateAdditionalJavaFiles(IntrospectedTable introspectedTable) {
         List<GeneratedJavaFile> list = new ArrayList<>();
-        Map params = new HashMap();
 
-        //service
-        list.add(new TemplateFile("/dto/service.ftl", properties, params, new TemplateFormatter()));
-
-
-        //serviceImpl
-        list.add(new TemplateFile("/dto/service.ftl", properties, params, new TemplateFormatter()));
         return list;
     }
 
 
     @Override
     public List<GeneratedJavaFile> contextGenerateAdditionalJavaFiles() {
-        return null;
+        List<GeneratedJavaFile> list = new ArrayList<>();
+        List<TemplateDto> templateDtoList = TemplateUtils.getTemplateList();
+        for (TemplateDto templateDto : templateDtoList) {
+            list.add(new TemplateFile(templateDto, cacheTableSet, cacheColumnSet, properties, judgeTargetProject(templateDto), new TemplateFormatter()));
+        }
+        return list;
+    }
+
+
+    private String judgeTargetProject(TemplateDto templateDto) {
+        switch (templateDto.getTemplateType()) {
+            case TemplateConstant.TemplateType.VIEW_MANAGER:
+                return "src/main/webapp";
+            case TemplateConstant.TemplateType.VIEW_MANAGER_JS:
+                return "src/main/webapp";
+            case TemplateConstant.TemplateType.CONTROLLER:
+                return "src/main/java";
+            case TemplateConstant.TemplateType.FACADE:
+                return "src/main/java";
+            case TemplateConstant.TemplateType.FACADE_IMPL:
+                return "src/main/java";
+            case TemplateConstant.TemplateType.SERVICE:
+                return "src/main/java";
+            case TemplateConstant.TemplateType.SERVICE_IMPL:
+                return "src/main/java";
+            case TemplateConstant.TemplateType.SAVE_REQUEST_DTO:
+                return "src/main/java";
+            case TemplateConstant.TemplateType.TABLE_REQUEST_DTO:
+                return "src/main/java";
+            default:
+                throw new BusinessException("模板类型不正确!");
+        }
     }
 }

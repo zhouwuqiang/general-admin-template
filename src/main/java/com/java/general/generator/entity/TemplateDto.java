@@ -28,7 +28,7 @@ public class TemplateDto {
     public TemplateDto() {
     }
 
-    public TemplateDto(String templatePath, String templateType) {
+    public TemplateDto(String templateType, String templatePath) {
         this.templatePath = templatePath;
         this.templateType = templateType;
     }
