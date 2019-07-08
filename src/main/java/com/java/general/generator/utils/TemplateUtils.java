@@ -31,7 +31,7 @@ public class TemplateUtils {
         TEMPLATE_CACHE.put(TemplateConstant.TemplateType.FACADE_IMPL, new TemplateDto(TemplateConstant.TemplateType.FACADE_IMPL, "/facade/FacadeImpl.ftl"));
         TEMPLATE_CACHE.put(TemplateConstant.TemplateType.SERVICE, new TemplateDto(TemplateConstant.TemplateType.SERVICE, "/service/Service.ftl"));
         TEMPLATE_CACHE.put(TemplateConstant.TemplateType.SERVICE_IMPL, new TemplateDto(TemplateConstant.TemplateType.SERVICE_IMPL, "/service/ServiceImpl.ftl"));
-        TEMPLATE_CACHE.put(TemplateConstant.TemplateType.SAVE_REQUEST_DTO, new TemplateDto(TemplateConstant.TemplateType.VIEW_MANAGER, "/dto/Save.ftl"));
+        TEMPLATE_CACHE.put(TemplateConstant.TemplateType.SAVE_REQUEST_DTO, new TemplateDto(TemplateConstant.TemplateType.SAVE_REQUEST_DTO, "/dto/Save.ftl"));
         TEMPLATE_CACHE.put(TemplateConstant.TemplateType.TABLE_REQUEST_DTO, new TemplateDto(TemplateConstant.TemplateType.TABLE_REQUEST_DTO, "/dto/TableRequestDto.ftl"));
     }
 
