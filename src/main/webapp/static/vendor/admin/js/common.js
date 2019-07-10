@@ -158,8 +158,9 @@ $.extend({
             onLoadSuccess: function (data) {
                 //console.log("表格加载成功!" + JSON.stringify(data));
             },
-            onLoadError: function () {
+            onLoadError: function (status, jqXHR) {
                 //console.log("表格加载异常!");
+                debugger;
                 alert("网络异常!请稍候再试!");
             }
         });

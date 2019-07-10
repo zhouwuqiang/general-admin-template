@@ -6,6 +6,21 @@ $(function () {
         }
     });
 
+    if($.getUrlPath("error")==="1"){
+        swal({
+            text: "已退出登录",
+            type: 'success',
+            confirmButtonText: '确定'
+        });
+    }
+
+    if($.getUrlPath("error")==="3"){
+        swal({
+            text: "登录超时,请重新登陆!",
+            type: 'error',
+            confirmButtonText: '确定'
+        });
+    }
 });
 
 
