@@ -10,7 +10,7 @@ $(function () {
 function initTable() {
     $.tableExpand({
         tableId: "main_table",
-        url: "/online/table",
+        url: "/${module}/table",
         searchFormId: "main_table_search_form",
         uniqueId: "",
         pagination: true,
