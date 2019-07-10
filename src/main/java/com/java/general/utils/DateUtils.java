@@ -255,7 +255,4 @@ public class DateUtils extends org.apache.commons.lang3.time.DateUtils {
             throw new BusinessException("线程等待休眠异常!{}", e.getMessage());
         }
     }
-    public static void main(String[] args) throws ParseException {
-        DateUtils.dateDiff();
-    }
 }
