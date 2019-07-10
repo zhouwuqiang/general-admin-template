@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0"/>
+
+    <title>系统管理</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+
+    <link rel="shortcut icon" href="/static/img/favicon.ico">
+    <link rel="stylesheet" href="/static/vendor/admin/css/reset.css?v=2.0">
+    <link rel="stylesheet" href="/static/vendor/bootstrap/css/bootstrap.css?v=3.3.7">
+    <link rel="stylesheet" href="/static/vendor/font-awesome/css/font-awesome.css?v=4.7.0">
+    <link rel="stylesheet" href="/static/vendor/bootstrap-table/bootstrap-table.min.css">
+    <link rel="stylesheet" href="/static/vendor/jquery-toast-plugin/jquery.toast.min.css">
+    <link rel="stylesheet" href="/static/vendor/jquery-treegrid/css/jquery.treegrid.css">
+</head>
+
+<body class="gray-bg">
+
+<div class="container-fluid">
+    <div class="row clearfix">
+        <div class="col-md-12 column">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="search-form-div clearfix">
+                        <form role="form" id="main_table_search_form">
+                            <div class="col-xs-2">
+                                <input type="text" autocomplete="off" id="search_workbook_code" name="wordbookCode"
+                                       placeholder="字典编号"
+                                       class="col-sm-6  form-control"/>
+                            </div>
+                            <div class="col-xs-2">
+                                <input type="text" autocomplete="off" id="search_workbook_name" name="wordbookName"
+                                       placeholder="字典名称" class="form-control"/>
+                            </div>
+                            <div class="col-md-1">
+                                <a href="javascript:void(0);" class="btn btn-info" onclick="initTable()">
+                                    <i class="fa fa-search fa-icon"></i>搜索
+                                </a>
+                            </div>
+                            <div class="col-md-1">
+                                <a href="javascript:void(0);" class="btn btn-warning"
+                                   onclick="$.formRest('main_table_search_form')">
+                                    <i class="fa fa-undo fa-icon"></i>重置
+                                </a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row clearfix">
+        <div class="col-md-12 column">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="main-table-div clearfix">
+                        <div id="toolbar">
+                            <button id="add_button" class="btn btn-info" onclick="addWordbook()">
+                                <i class="fa fa-plus fa-icon"></i>添加
+                            </button>
+                        </div>
+                        <table id="main_table"></table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+<script src="/static/vendor/jquery/jquery.min.js?v=2.2.4"></script>
+<script src="/static/vendor/bootstrap/js/bootstrap.js?v=3.3.7"></script>
+<script src="/static/vendor/bootstrap-table/bootstrap-table.min.js"></script>
+<script src="/static/vendor/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
+<script src="/static/vendor/bootstrap-table/extensions/treegrid/bootstrap-table-treegrid.js"></script>
+<script src="/static/vendor/jquery-treegrid/js/jquery.treegrid.min.js"></script>
+<script src="/static/vendor/admin/js/common.js?v=1.0.0"></script>
+<script type="text/javascript">
+
+    let $table = $('#main_table');
+
+    let data = JSON.parse(
+        '[{"id":1,"pid":0,"status":1,"name":"用户管理","permissionValue":"open:user:manage"},' +
+        '{"id":2,"pid":0,"status":1,"name":"系统管理","permissionValue":"open:system:manage"},' +
+        '{"id":3,"pid":1,"status":1,"name":"新增用户","permissionValue":"open:user:add"},' +
+        '{"id":4,"pid":1,"status":1,"name":"修改用户","permissionValue":"open:user:edit"},' +
+        '{"id":5,"pid":1,"status":0,"name":"删除用户","permissionValue":"open:user:del"},' +
+        '{"id":6,"pid":2,"status":1,"name":"系统配置管理","permissionValue":"open:systemconfig:manage"},' +
+        '{"id":7,"pid":6,"status":1,"name":"新增配置","permissionValue":"open:systemconfig:add"},' +
+        '{"id":8,"pid":6,"status":1,"name":"修改配置","permissionValue":"open:systemconfig:edit"},' +
+        '{"id":9,"pid":6,"status":0,"name":"删除配置","permissionValue":"open:systemconfig:del"},' +
+        '{"id":10,"pid":2,"status":1,"name":"系统日志管理","permissionValue":"open:log:manage"},' +
+        '{"id":11,"pid":10,"status":1,"name":"新增日志","permissionValue":"open:log:add"},' +
+        '{"id":12,"pid":10,"status":1,"name":"修改日志","permissionValue":"open:log:edit"},' +
+        '{"id":13,"pid":10,"status":0,"name":"删除日志","permissionValue":"open:log:del"}]');
+
+    $(function () {
+
+        $table.bootstrapTable({
+            toolbar: "#toolbar",
+            data: data,
+            idField: 'id',
+            dataType: 'jsonp',
+            treeShowField: 'name',//在哪一列展开树形
+            parentIdField: 'pid',//指定父id列
+            columns: [
+                {
+                    field: 'check',
+                    checkbox: true,
+                    formatter: function (value, row, index) {
+                        if (row.check === true) {
+                            return {checked: true};
+                        }
+                    }
+                }, {
+                    field: 'name',
+                    title: '名称'
+                }, {
+                    field: 'status',
+                    title: '状态',
+                    align: 'center',
+                    formatter: statusFormatter
+                }, {
+                    field: 'permissionValue',
+                    title: '权限值'
+                }, {
+                    field: 'operate',
+                    title: '操作',
+                    align: 'center',
+                    events: operateEvents,
+                    formatter: operateFormatter
+                }
+            ],
+
+            onResetView: function (data) {
+                //console.log('load');
+                $table.treegrid({
+                    initialState: 'collapsed',// 所有节点都折叠
+                    // initialState: 'expanded',// 所有节点都展开，默认展开
+                    treeColumn: 1,
+                    // expanderExpandedClass: 'glyphicon glyphicon-minus',  //图标样式
+                    // expanderCollapsedClass: 'glyphicon glyphicon-plus',
+                    onChange: function () {
+                        $table.bootstrapTable('resetWidth');
+                    }
+                });
+
+                //只展开树形的第一级节点
+                $table.treegrid('getRootNodes').treegrid('expand');
+
+            },
+            onCheck: function (row) {
+                let datas = $table.bootstrapTable('getData');
+                // 勾选子类
+                selectChilds(datas, row, "id", "pid", true);
+
+                // 勾选父类
+                selectParentChecked(datas, row, "id", "pid");
+
+                // 刷新数据
+                $table.bootstrapTable('load', datas);
+            },
+
+            onUncheck: function (row) {
+                let datas = $table.bootstrapTable('getData');
+                selectChilds(datas, row, "id", "pid", false);
+                $table.bootstrapTable('load', datas);
+            },
+        });
+    });
+
+    /**
+     * 格式化类型
+     * @param value
+     * @param row
+     * @param index
+     * @returns {string}
+     */
+    function typeFormatter(value, row, index) {
+        if (value === 'menu') {
+            return '菜单';
+        }
+        if (value === 'button') {
+            return '按钮';
+        }
+        if (value === 'api') {
+            return '接口';
+        }
+        return '-';
+    }
+
+    /**
+     * 格式化状态
+     * @param value
+     * @param row
+     * @param index
+     * @returns {string}
+     */
+    function statusFormatter(value, row, index) {
+        if (value === 1) {
+            return '<span class="label label-success">正常</span>';
+        } else {
+            return '<span class="label label-default">锁定</span>';
+        }
+    }
+
+    /**
+     * 格式化操作
+     * @param value
+     * @param row
+     * @param index
+     * @returns {string}
+     */
+    function operateFormatter(value, row, index) {
+        let result = [];
+        result.push("<a href='javascript:void(0)' class='add'>添加</a>");
+        result.push("<a href='javascript:void(0)' class='edit'>修改</a>");
+        result.push("<a href='javascript:void(0)' class='delete'>删除</a>");
+        return $.formatterOperateButton(result);
+    }
+
+    //初始化操作按钮的方法
+    window.operateEvents = {
+        'click .add': function (e, value, row, index) {
+            add(row.id);
+        },
+        'click .edit': function (e, value, row, index) {
+            del(row.id);
+        },
+        'click .delete': function (e, value, row, index) {
+            update(row.id);
+        }
+    };
+
+</script>
+
+<script>
+    /**
+     * 选中父项时，同时选中子项
+     * @param datas 所有的数据
+     * @param row 当前数据
+     * @param id id 字段名
+     * @param pid 父id字段名
+     */
+    function selectChilds(datas, row, id, pid, checked) {
+        for (let i in datas) {
+            if (datas[i][pid] === row[id]) {
+                datas[i].check = checked;
+                selectChilds(datas, datas[i], id, pid, checked);
+            }
+        }
+    }
+
+    function selectParentChecked(datas, row, id, pid) {
+        for (let i in datas) {
+            if (datas[i][id] === row[pid]) {
+                datas[i].check = true;
+                selectParentChecked(datas, datas[i], id, pid);
+            }
+        }
+    }
+
+    function test() {
+        let selRows = $table.bootstrapTable("getSelections");
+        if (selRows.length === 0) {
+            alert("请至少选择一行");
+            return;
+        }
+
+        let postData = "";
+        $.each(selRows, function (i) {
+            postData += this.id;
+            if (i < selRows.length - 1) {
+                postData += "， ";
+            }
+        });
+        alert("你选中行的 id 为：" + postData);
+
+    }
+
+    function add(id) {
+        alert("add 方法 , id = " + id);
+    }
+
+    function del(id) {
+        alert("del 方法 , id = " + id);
+    }
+
+    function update(id) {
+        alert("update 方法 , id = " + id);
+    }
+
+
+</script>
+</html>
