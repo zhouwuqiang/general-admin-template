@@ -31,7 +31,7 @@ public class ExecutorManagerUtils {
             ExecutorConstant.ThreadPoolConfig.MAXIMUM_POOL_SIZE,
             ExecutorConstant.ThreadPoolConfig.KEEP_ALIVE_TIME,
             ExecutorConstant.ThreadPoolConfig.TIME_UNIT,
-            new LinkedBlockingQueue<>(), new ThreadFactoryBuilder().setUncaughtExceptionHandler(
+            new LinkedBlockingQueue<>(1024), new ThreadFactoryBuilder().setUncaughtExceptionHandler(
             new Thread.UncaughtExceptionHandler() {
                 @Override
                 public void uncaughtException(Thread t, Throwable e) {
