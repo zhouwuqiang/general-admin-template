@@ -11,11 +11,22 @@
  Target Server Version : 50714
  File Encoding         : 65001
 
- Date: 22/06/2019 12:59:23
+ Date: 17/08/2019 11:35:04
 */
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
+
+-- ----------------------------
+-- Table structure for generator_demo
+-- ----------------------------
+DROP TABLE IF EXISTS `generator_demo`;
+CREATE TABLE `generator_demo`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL COMMENT '名称',
+  `value` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL COMMENT '数据',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_bin ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for menu_basic_face
@@ -36,7 +47,7 @@ CREATE TABLE `menu_basic_face`  (
   `CREATE_USER` varchar(64) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT 'sys' COMMENT '创建用户编号',
   `DELETE_FLAG` varchar(2) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT '00' COMMENT '删除标识(00-正常 01-删除)',
   PRIMARY KEY (`ID`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 31 CHARACTER SET = utf8 COLLATE = utf8_bin COMMENT = '菜单基础信息表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 32 CHARACTER SET = utf8 COLLATE = utf8_bin COMMENT = '菜单基础信息表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of menu_basic_face
@@ -71,6 +82,7 @@ INSERT INTO `menu_basic_face` VALUES (27, 'MENU21100120190609020325062000', '流
 INSERT INTO `menu_basic_face` VALUES (28, 'MENU21100120190609020343281000', '工作流管理', 'fa fa-th-list', 'http://127.0.0.1:9528/view/model/manager', 'MENU21100120190609020325062000', '00', 0, '2019-06-09 23:01:47', 'sys', '2019-06-09 02:03:43', 'sys', '00');
 INSERT INTO `menu_basic_face` VALUES (29, 'MENU21100120190609020404686000', '任务管理', 'fa fa-list-ol', 'http://127.0.0.1:9528/view/process/manager', 'MENU21100120190609020325062000', '00', 0, '2019-06-09 23:02:11', 'sys', '2019-06-09 02:04:04', 'sys', '00');
 INSERT INTO `menu_basic_face` VALUES (30, 'MENU21100120190609020419192000', '历史记录', 'fa fa-th', 'http://127.0.0.1:9528/view/history/manager', 'MENU21100120190609020325062000', '00', 0, '2019-06-09 23:02:33', 'sys', '2019-06-09 02:04:19', 'sys', '00');
+INSERT INTO `menu_basic_face` VALUES (31, 'MENU21100120190708142842623000', '测试自动生成', 'fa fa-address-book', '/view/table/manager', 'MENUCO07500120190314161720782115', '02', 1, '2019-07-10 15:52:01', 'sys', '2019-07-08 14:28:42', 'sys', '00');
 
 -- ----------------------------
 -- Table structure for organization_basic_face
@@ -122,7 +134,7 @@ CREATE TABLE `organization_menu_relation`  (
   `CREATE_USER` varchar(64) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT 'sys' COMMENT '创建用户编号',
   `DELETE_FLAG` varchar(2) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT '00' COMMENT '删除标识(00-正常 01-删除)',
   PRIMARY KEY (`ID`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 68 CHARACTER SET = utf8 COLLATE = utf8_bin ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 72 CHARACTER SET = utf8 COLLATE = utf8_bin ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of organization_menu_relation
@@ -185,15 +197,19 @@ INSERT INTO `organization_menu_relation` VALUES (55, 'ORG21100120190604173234419
 INSERT INTO `organization_menu_relation` VALUES (56, 'ORG21100120190604173234419000', 'MENU21100120190609020343281000', '2019-06-14 17:08:27', 'sys', '2019-06-14 17:05:23', 'sys', '00');
 INSERT INTO `organization_menu_relation` VALUES (57, 'ORG21100120190604173234419000', 'MENU21100120190609020404686000', '2019-06-14 17:08:27', 'sys', '2019-06-14 17:05:23', 'sys', '00');
 INSERT INTO `organization_menu_relation` VALUES (58, 'ORG21100120190604173234419000', 'MENU21100120190609020419192000', '2019-06-14 17:08:27', 'sys', '2019-06-14 17:05:23', 'sys', '00');
-INSERT INTO `organization_menu_relation` VALUES (59, 'ORG21100120190604173721912000', 'MENUCO07500120190314161720782115', '2019-06-14 17:08:01', 'sys', '2019-06-14 17:08:01', 'sys', '00');
-INSERT INTO `organization_menu_relation` VALUES (60, 'ORG21100120190604173721912000', 'MENUCO07500120190314161720782116', '2019-06-14 17:08:01', 'sys', '2019-06-14 17:08:01', 'sys', '00');
-INSERT INTO `organization_menu_relation` VALUES (61, 'ORG21100120190604173721912000', 'MENUCO07500120190314161720782117', '2019-06-14 17:08:01', 'sys', '2019-06-14 17:08:01', 'sys', '00');
-INSERT INTO `organization_menu_relation` VALUES (62, 'ORG21100120190604173721912000', 'MENUCO07500120190314161720782121', '2019-06-14 17:08:01', 'sys', '2019-06-14 17:08:01', 'sys', '00');
-INSERT INTO `organization_menu_relation` VALUES (63, 'ORG21100120190604173721912000', 'MENUCO07500120190314161720782122', '2019-06-14 17:08:01', 'sys', '2019-06-14 17:08:01', 'sys', '00');
-INSERT INTO `organization_menu_relation` VALUES (64, 'ORG21100120190604173721912000', 'MENUCO07500120190314161720782123', '2019-06-14 17:08:01', 'sys', '2019-06-14 17:08:01', 'sys', '00');
-INSERT INTO `organization_menu_relation` VALUES (65, 'ORG21100120190604173721912000', 'MENU21100120190608000144976000', '2019-06-14 17:08:01', 'sys', '2019-06-14 17:08:01', 'sys', '00');
+INSERT INTO `organization_menu_relation` VALUES (59, 'ORG21100120190604173721912000', 'MENUCO07500120190314161720782115', '2019-07-02 14:01:15', 'sys', '2019-06-14 17:08:01', 'sys', '00');
+INSERT INTO `organization_menu_relation` VALUES (60, 'ORG21100120190604173721912000', 'MENUCO07500120190314161720782116', '2019-07-02 14:01:15', 'sys', '2019-06-14 17:08:01', 'sys', '00');
+INSERT INTO `organization_menu_relation` VALUES (61, 'ORG21100120190604173721912000', 'MENUCO07500120190314161720782117', '2019-07-02 14:01:15', 'sys', '2019-06-14 17:08:01', 'sys', '00');
+INSERT INTO `organization_menu_relation` VALUES (62, 'ORG21100120190604173721912000', 'MENUCO07500120190314161720782121', '2019-07-02 14:01:15', 'sys', '2019-06-14 17:08:01', 'sys', '00');
+INSERT INTO `organization_menu_relation` VALUES (63, 'ORG21100120190604173721912000', 'MENUCO07500120190314161720782122', '2019-07-02 14:01:15', 'sys', '2019-06-14 17:08:01', 'sys', '00');
+INSERT INTO `organization_menu_relation` VALUES (64, 'ORG21100120190604173721912000', 'MENUCO07500120190314161720782123', '2019-07-02 14:01:15', 'sys', '2019-06-14 17:08:01', 'sys', '00');
+INSERT INTO `organization_menu_relation` VALUES (65, 'ORG21100120190604173721912000', 'MENU21100120190608000144976000', '2019-07-02 14:01:15', 'sys', '2019-06-14 17:08:01', 'sys', '00');
 INSERT INTO `organization_menu_relation` VALUES (66, 'ORG21100120190604173234419000', 'MENU21100120190607011116860000', '2019-06-14 17:08:27', 'sys', '2019-06-14 17:08:22', 'sys', '00');
 INSERT INTO `organization_menu_relation` VALUES (67, 'ORG21100120190604173234419000', 'MENU21100120190608000144976000', '2019-06-14 17:08:27', 'sys', '2019-06-14 17:08:27', 'sys', '00');
+INSERT INTO `organization_menu_relation` VALUES (68, 'ORG21100120190604173721912000', 'MENU21100120190604194638872000', '2019-07-02 14:01:15', 'sys', '2019-07-02 14:01:12', 'sys', '01');
+INSERT INTO `organization_menu_relation` VALUES (69, 'ORG21100120190604173721912000', 'MENU21100120190604194655500000', '2019-07-02 14:01:15', 'sys', '2019-07-02 14:01:12', 'sys', '01');
+INSERT INTO `organization_menu_relation` VALUES (70, 'ORG21100120190604173721912000', 'MENU21100120190604194714259000', '2019-07-02 14:01:15', 'sys', '2019-07-02 14:01:12', 'sys', '01');
+INSERT INTO `organization_menu_relation` VALUES (71, 'ORG21100120190604173721912000', 'MENU21100120190607011116860000', '2019-07-02 14:01:15', 'sys', '2019-07-02 14:01:12', 'sys', '01');
 
 -- ----------------------------
 -- Table structure for role_basic_face
@@ -237,7 +253,7 @@ CREATE TABLE `role_menu_relation`  (
   `CREATE_USER` varchar(64) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT 'sys' COMMENT '创建用户编号',
   `DELETE_FLAG` varchar(2) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT '00' COMMENT '删除标识(00-正常 01-删除)',
   PRIMARY KEY (`ID`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 25 CHARACTER SET = utf8 COLLATE = utf8_bin COMMENT = '角色菜单关联表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 33 CHARACTER SET = utf8 COLLATE = utf8_bin COMMENT = '角色菜单关联表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of role_menu_relation
@@ -261,11 +277,19 @@ INSERT INTO `role_menu_relation` VALUES (16, 'ROLE21100120190604204326914000', '
 INSERT INTO `role_menu_relation` VALUES (17, 'ROLE21100120190604204326914000', 'MENU21100120190605185731997000', '2019-06-14 17:17:39', 'sys', '2019-06-05 21:30:46', 'sys', '01');
 INSERT INTO `role_menu_relation` VALUES (18, 'ROLE21100120190604204326914000', 'MENU21100120190605185750981000', '2019-06-14 17:17:39', 'sys', '2019-06-05 21:30:46', 'sys', '01');
 INSERT INTO `role_menu_relation` VALUES (19, 'ROLE21100120190604204326914000', 'MENU21100120190605185804813000', '2019-06-14 17:17:39', 'sys', '2019-06-05 21:30:46', 'sys', '01');
-INSERT INTO `role_menu_relation` VALUES (20, 'ROLE21100120190606011116366000', 'MENU21100120190604194638872000', '2019-06-07 01:11:45', 'sys', '2019-06-06 21:56:14', 'sys', '00');
-INSERT INTO `role_menu_relation` VALUES (21, 'ROLE21100120190606011116366000', 'MENU21100120190604194655500000', '2019-06-07 01:11:45', 'sys', '2019-06-06 21:56:14', 'sys', '00');
-INSERT INTO `role_menu_relation` VALUES (22, 'ROLE21100120190606011116366000', 'MENU21100120190604194714259000', '2019-06-07 01:11:45', 'sys', '2019-06-06 21:56:14', 'sys', '00');
-INSERT INTO `role_menu_relation` VALUES (23, 'ROLE21100120190606011116366000', 'MENU21100120190607011116860000', '2019-06-07 01:11:46', 'sys', '2019-06-07 01:11:46', 'sys', '00');
+INSERT INTO `role_menu_relation` VALUES (20, 'ROLE21100120190606011116366000', 'MENU21100120190604194638872000', '2019-07-08 14:30:10', 'sys', '2019-06-06 21:56:14', 'sys', '00');
+INSERT INTO `role_menu_relation` VALUES (21, 'ROLE21100120190606011116366000', 'MENU21100120190604194655500000', '2019-07-08 14:30:10', 'sys', '2019-06-06 21:56:14', 'sys', '00');
+INSERT INTO `role_menu_relation` VALUES (22, 'ROLE21100120190606011116366000', 'MENU21100120190604194714259000', '2019-07-08 14:30:10', 'sys', '2019-06-06 21:56:14', 'sys', '00');
+INSERT INTO `role_menu_relation` VALUES (23, 'ROLE21100120190606011116366000', 'MENU21100120190607011116860000', '2019-07-08 14:30:10', 'sys', '2019-06-07 01:11:46', 'sys', '00');
 INSERT INTO `role_menu_relation` VALUES (24, 'ROLE21100120190604204326914000', 'MENU21100120190608000144976000', '2019-06-14 17:18:22', 'sys', '2019-06-14 17:18:22', 'sys', '00');
+INSERT INTO `role_menu_relation` VALUES (25, 'ROLE21100120190606011116366000', 'MENUCO07500120190314161720782115', '2019-07-08 14:30:10', 'sys', '2019-07-08 14:30:10', 'sys', '00');
+INSERT INTO `role_menu_relation` VALUES (26, 'ROLE21100120190606011116366000', 'MENUCO07500120190314161720782116', '2019-07-08 14:30:10', 'sys', '2019-07-08 14:30:10', 'sys', '00');
+INSERT INTO `role_menu_relation` VALUES (27, 'ROLE21100120190606011116366000', 'MENUCO07500120190314161720782117', '2019-07-08 14:30:10', 'sys', '2019-07-08 14:30:10', 'sys', '00');
+INSERT INTO `role_menu_relation` VALUES (28, 'ROLE21100120190606011116366000', 'MENUCO07500120190314161720782121', '2019-07-08 14:30:10', 'sys', '2019-07-08 14:30:10', 'sys', '00');
+INSERT INTO `role_menu_relation` VALUES (29, 'ROLE21100120190606011116366000', 'MENUCO07500120190314161720782122', '2019-07-08 14:30:10', 'sys', '2019-07-08 14:30:10', 'sys', '00');
+INSERT INTO `role_menu_relation` VALUES (30, 'ROLE21100120190606011116366000', 'MENUCO07500120190314161720782123', '2019-07-08 14:30:10', 'sys', '2019-07-08 14:30:10', 'sys', '00');
+INSERT INTO `role_menu_relation` VALUES (31, 'ROLE21100120190606011116366000', 'MENU21100120190608000144976000', '2019-07-08 14:30:10', 'sys', '2019-07-08 14:30:10', 'sys', '00');
+INSERT INTO `role_menu_relation` VALUES (32, 'ROLE21100120190606011116366000', 'MENU21100120190708142842623000', '2019-07-08 14:30:10', 'sys', '2019-07-08 14:30:10', 'sys', '00');
 
 -- ----------------------------
 -- Table structure for scheduled_task
@@ -347,16 +371,18 @@ CREATE TABLE `user_basic_face`  (
   `CREATE_USER` varchar(64) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT 'sys' COMMENT '创建用户编号',
   `DELETE_FLAG` varchar(2) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT '00' COMMENT '删除标识(00-正常 01-删除)',
   PRIMARY KEY (`ID`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 58 CHARACTER SET = utf8 COLLATE = utf8_bin COMMENT = '用户基础信息表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 60 CHARACTER SET = utf8 COLLATE = utf8_bin COMMENT = '用户基础信息表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of user_basic_face
 -- ----------------------------
 INSERT INTO `user_basic_face` VALUES (1, 'USER21100120190524180222553000', '管理员', 'admin', 'e10adc3949ba59abbe56e057f20f883e', 'e10adc3949ba59abbe56e057f20f883e', '00', '00', '01', '2019-06-14 17:32:54', 'demo', '2019-03-07 12:31:02', 'admin', '00');
-INSERT INTO `user_basic_face` VALUES (54, 'USER21100120190606214547882000', '测试', 'demo', 'e10adc3949ba59abbe56e057f20f883e', '', '00', '00', '01', '2019-06-14 17:49:23', 'demo', '2019-06-06 21:45:47', 'admin', '00');
+INSERT INTO `user_basic_face` VALUES (54, 'USER21100120190606214547882000', '测试', 'demo12', 'e10adc3949ba59abbe56e057f20f883e', '', '00', '00', '01', '2019-08-06 11:52:20', 'demo', '2019-06-06 21:45:47', 'admin', '00');
 INSERT INTO `user_basic_face` VALUES (55, 'USER21100120190613104859922000', '测试用', 'test', 'e10adc3949ba59abbe56e057f20f883e', '', '00', '00', '01', '2019-06-13 10:49:01', 'sys', '2019-06-13 10:49:01', 'admin', '00');
-INSERT INTO `user_basic_face` VALUES (56, 'USER21100120190614170951816000', 'alger', 'alger', 'e10adc3949ba59abbe56e057f20f883e', '', '01', '00', '01', '2019-06-14 17:15:37', 'demo', '2019-06-14 17:09:51', 'demo', '00');
+INSERT INTO `user_basic_face` VALUES (56, 'USER21100120190614170951816000', 'alger', 'alger123', 'e10adc3949ba59abbe56e057f20f883e', '', '01', '00', '01', '2019-07-02 18:37:11', 'demo', '2019-06-14 17:09:51', 'demo', '00');
 INSERT INTO `user_basic_face` VALUES (57, 'USER21100120190614172041546000', '测试12', '测试12', 'e10adc3949ba59abbe56e057f20f883e', '', '00', '00', '01', '2019-06-14 17:20:41', 'sys', '2019-06-14 17:20:41', 'demo', '00');
+INSERT INTO `user_basic_face` VALUES (58, 'USER21100120190727015955542000', '', '', '', '', '00', '00', '01', '2019-07-27 01:59:55', 'sys', '2019-07-27 01:59:55', 'demo', '00');
+INSERT INTO `user_basic_face` VALUES (59, 'USER21100120190806115115381000', '请问', 'qew', 'e10adc3949ba59abbe56e057f20f883e', '', '00', '00', '01', '2019-08-06 11:51:15', 'sys', '2019-08-06 11:51:15', 'demo', '00');
 
 -- ----------------------------
 -- Table structure for user_login_log
@@ -373,7 +399,7 @@ CREATE TABLE `user_login_log`  (
   `LOGIN_TIME` datetime(0) DEFAULT CURRENT_TIMESTAMP COMMENT '登录时间',
   `LOGIN_OUT_TIME` datetime(0) DEFAULT CURRENT_TIMESTAMP COMMENT '退出时间',
   PRIMARY KEY (`ID`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 15 CHARACTER SET = utf8 COLLATE = utf8_bin ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 70 CHARACTER SET = utf8 COLLATE = utf8_bin ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of user_login_log
@@ -392,6 +418,61 @@ INSERT INTO `user_login_log` VALUES (11, 'demo', '127.0.0.1', 'Windows 10', 'Chr
 INSERT INTO `user_login_log` VALUES (12, 'admin', '127.0.0.1', 'Windows 10', 'Chrome', NULL, NULL, '2019-06-22 10:10:00', '2019-06-22 10:10:00');
 INSERT INTO `user_login_log` VALUES (13, 'admin', '127.0.0.1', 'Windows 10', 'Chrome', NULL, NULL, '2019-06-22 10:11:08', '2019-06-22 10:11:08');
 INSERT INTO `user_login_log` VALUES (14, 'admin', '127.0.0.1', 'Windows 10', 'Chrome', NULL, NULL, '2019-06-22 10:11:52', '2019-06-22 10:11:52');
+INSERT INTO `user_login_log` VALUES (15, 'demo', '127.0.0.1', 'Windows 10', 'Chrome', NULL, NULL, '2019-06-22 14:07:37', '2019-06-22 14:07:37');
+INSERT INTO `user_login_log` VALUES (16, 'demo', '127.0.0.1', 'Windows 10', 'Chrome', NULL, NULL, '2019-06-22 14:09:33', '2019-06-22 14:09:33');
+INSERT INTO `user_login_log` VALUES (17, 'demo', '127.0.0.1', 'Windows 10', 'Chrome', NULL, NULL, '2019-06-25 17:22:22', '2019-06-25 17:22:22');
+INSERT INTO `user_login_log` VALUES (18, 'demo', '127.0.0.1', 'Windows 10', 'Chrome', NULL, NULL, '2019-06-25 17:26:45', '2019-06-25 17:26:45');
+INSERT INTO `user_login_log` VALUES (19, 'demo', '127.0.0.1', 'Windows 10', 'Chrome', NULL, NULL, '2019-07-02 12:50:14', '2019-07-02 12:50:14');
+INSERT INTO `user_login_log` VALUES (20, 'demo', '127.0.0.1', 'Windows 10', 'Chrome', NULL, NULL, '2019-07-03 17:05:45', '2019-07-03 17:05:45');
+INSERT INTO `user_login_log` VALUES (21, 'demo', '127.0.0.1', 'Windows 10', 'Chrome', NULL, NULL, '2019-07-03 17:07:54', '2019-07-03 17:07:54');
+INSERT INTO `user_login_log` VALUES (22, 'demo', '127.0.0.1', 'Windows 10', 'Chrome', NULL, NULL, '2019-07-03 17:08:52', '2019-07-03 17:08:52');
+INSERT INTO `user_login_log` VALUES (23, 'demo', '127.0.0.1', 'Windows 10', 'Chrome', NULL, NULL, '2019-07-03 17:11:00', '2019-07-03 17:11:00');
+INSERT INTO `user_login_log` VALUES (24, 'admin', '127.0.0.1', 'Windows 10', 'Chrome', NULL, NULL, '2019-07-03 17:15:29', '2019-07-03 17:15:29');
+INSERT INTO `user_login_log` VALUES (25, 'demo', '127.0.0.1', 'Windows 10', 'Chrome', NULL, NULL, '2019-07-04 13:36:26', '2019-07-04 13:36:26');
+INSERT INTO `user_login_log` VALUES (26, 'demo', '127.0.0.1', 'Windows 10', 'Chrome', NULL, NULL, '2019-07-08 11:14:32', '2019-07-08 11:14:32');
+INSERT INTO `user_login_log` VALUES (27, 'demo', '127.0.0.1', 'Windows 10', 'Chrome', NULL, NULL, '2019-07-08 14:27:54', '2019-07-08 14:27:54');
+INSERT INTO `user_login_log` VALUES (28, 'demo', '127.0.0.1', 'Windows 10', 'Chrome', NULL, NULL, '2019-07-08 14:29:16', '2019-07-08 14:29:16');
+INSERT INTO `user_login_log` VALUES (29, 'admin', '127.0.0.1', 'Windows 10', 'Chrome', NULL, NULL, '2019-07-08 14:30:20', '2019-07-08 14:30:20');
+INSERT INTO `user_login_log` VALUES (30, 'demo', '127.0.0.1', 'Windows 10', 'Chrome', NULL, NULL, '2019-07-08 14:31:16', '2019-07-08 14:31:16');
+INSERT INTO `user_login_log` VALUES (31, 'admin', '127.0.0.1', 'Windows 10', 'Chrome', NULL, NULL, '2019-07-08 14:31:24', '2019-07-08 14:31:24');
+INSERT INTO `user_login_log` VALUES (32, 'demo', '127.0.0.1', 'Windows 10', 'Chrome', NULL, NULL, '2019-07-10 14:54:36', '2019-07-10 14:54:36');
+INSERT INTO `user_login_log` VALUES (33, 'demo', '127.0.0.1', 'Windows 10', 'Chrome', NULL, NULL, '2019-07-10 14:57:10', '2019-07-10 14:57:10');
+INSERT INTO `user_login_log` VALUES (34, 'demo', '127.0.0.1', 'Windows 10', 'Chrome', NULL, NULL, '2019-07-10 15:39:25', '2019-07-10 15:39:25');
+INSERT INTO `user_login_log` VALUES (35, 'demo', '127.0.0.1', 'Windows 10', 'Chrome', NULL, NULL, '2019-07-10 15:39:57', '2019-07-10 15:39:57');
+INSERT INTO `user_login_log` VALUES (36, 'demo', '127.0.0.1', 'Windows 10', 'Chrome', NULL, NULL, '2019-07-10 15:51:24', '2019-07-10 15:51:24');
+INSERT INTO `user_login_log` VALUES (37, 'demo', '127.0.0.1', 'Windows 10', 'Chrome', NULL, NULL, '2019-07-10 15:52:04', '2019-07-10 15:52:04');
+INSERT INTO `user_login_log` VALUES (38, 'demo', '127.0.0.1', 'Windows 10', 'Chrome', NULL, NULL, '2019-07-10 17:01:34', '2019-07-10 17:01:34');
+INSERT INTO `user_login_log` VALUES (39, 'admin', '127.0.0.1', 'Windows 10', 'Chrome', NULL, NULL, '2019-07-10 17:01:51', '2019-07-10 17:01:51');
+INSERT INTO `user_login_log` VALUES (40, 'demo', '127.0.0.1', 'Windows 10', 'Chrome', NULL, NULL, '2019-07-10 17:03:10', '2019-07-10 17:03:10');
+INSERT INTO `user_login_log` VALUES (41, 'demo', '127.0.0.1', 'Windows 10', 'Chrome', NULL, NULL, '2019-07-10 17:05:08', '2019-07-10 17:05:08');
+INSERT INTO `user_login_log` VALUES (42, 'demo', '127.0.0.1', 'Windows 10', 'Chrome', NULL, NULL, '2019-07-10 17:10:59', '2019-07-10 17:10:59');
+INSERT INTO `user_login_log` VALUES (43, 'demo', '127.0.0.1', 'Windows 10', 'Chrome', NULL, NULL, '2019-07-10 17:14:54', '2019-07-10 17:14:54');
+INSERT INTO `user_login_log` VALUES (44, 'demo', '127.0.0.1', 'Windows 10', 'Chrome', NULL, NULL, '2019-07-10 17:15:01', '2019-07-10 17:15:01');
+INSERT INTO `user_login_log` VALUES (45, 'demo', '127.0.0.1', 'Windows 10', 'Chrome', NULL, NULL, '2019-07-10 17:15:35', '2019-07-10 17:15:35');
+INSERT INTO `user_login_log` VALUES (46, 'demo', '127.0.0.1', 'Windows 10', 'Chrome', NULL, NULL, '2019-07-10 17:15:58', '2019-07-10 17:15:58');
+INSERT INTO `user_login_log` VALUES (47, 'demo', '127.0.0.1', 'Windows 10', 'Chrome', NULL, NULL, '2019-07-10 17:16:16', '2019-07-10 17:16:16');
+INSERT INTO `user_login_log` VALUES (48, 'demo', '127.0.0.1', 'Windows 10', 'Chrome', NULL, NULL, '2019-07-10 17:16:29', '2019-07-10 17:16:29');
+INSERT INTO `user_login_log` VALUES (49, 'demo', '127.0.0.1', 'Windows 10', 'Chrome', NULL, NULL, '2019-07-10 17:16:35', '2019-07-10 17:16:35');
+INSERT INTO `user_login_log` VALUES (50, 'demo', '127.0.0.1', 'Windows 10', 'Chrome', NULL, NULL, '2019-07-10 17:16:43', '2019-07-10 17:16:43');
+INSERT INTO `user_login_log` VALUES (51, 'demo', '127.0.0.1', 'Windows 10', 'Chrome', NULL, NULL, '2019-07-10 17:19:46', '2019-07-10 17:19:46');
+INSERT INTO `user_login_log` VALUES (52, 'demo', '127.0.0.1', 'Windows 10', 'Chrome', NULL, NULL, '2019-07-10 17:19:50', '2019-07-10 17:19:50');
+INSERT INTO `user_login_log` VALUES (53, 'demo', '127.0.0.1', 'Windows 10', 'Chrome', NULL, NULL, '2019-07-10 17:19:57', '2019-07-10 17:19:57');
+INSERT INTO `user_login_log` VALUES (54, 'admin', '127.0.0.1', 'Windows 10', 'Chrome', NULL, NULL, '2019-07-10 17:20:30', '2019-07-10 17:20:30');
+INSERT INTO `user_login_log` VALUES (55, 'admin', '127.0.0.1', 'Windows 10', 'Chrome', NULL, NULL, '2019-07-10 17:20:35', '2019-07-10 17:20:35');
+INSERT INTO `user_login_log` VALUES (56, 'admin', '127.0.0.1', 'Windows 10', 'Chrome', NULL, NULL, '2019-07-10 17:20:49', '2019-07-10 17:20:49');
+INSERT INTO `user_login_log` VALUES (57, 'demo', '127.0.0.1', 'Windows 10', 'Chrome', NULL, NULL, '2019-07-10 17:22:03', '2019-07-10 17:22:03');
+INSERT INTO `user_login_log` VALUES (58, 'admin', '127.0.0.1', 'Windows 10', 'Chrome', NULL, NULL, '2019-07-10 17:22:24', '2019-07-10 17:22:24');
+INSERT INTO `user_login_log` VALUES (59, 'admin', '127.0.0.1', 'Windows 10', 'Chrome', NULL, NULL, '2019-07-10 17:22:41', '2019-07-10 17:22:41');
+INSERT INTO `user_login_log` VALUES (60, 'demo', '127.0.0.1', 'Windows 10', 'Chrome', NULL, NULL, '2019-07-10 17:22:46', '2019-07-10 17:22:46');
+INSERT INTO `user_login_log` VALUES (61, 'demo', '127.0.0.1', 'Windows 10', 'Chrome', NULL, NULL, '2019-07-10 17:24:02', '2019-07-10 17:24:02');
+INSERT INTO `user_login_log` VALUES (62, 'demo', '127.0.0.1', 'Windows 10', 'Chrome', NULL, NULL, '2019-07-15 18:25:55', '2019-07-15 18:25:55');
+INSERT INTO `user_login_log` VALUES (63, 'admin', '127.0.0.1', 'Windows 10', 'Chrome', NULL, NULL, '2019-07-24 16:31:41', '2019-07-24 16:31:41');
+INSERT INTO `user_login_log` VALUES (64, 'demo', '127.0.0.1', 'Windows 10', 'Chrome', NULL, NULL, '2019-07-27 01:59:41', '2019-07-27 01:59:41');
+INSERT INTO `user_login_log` VALUES (65, 'demo', '127.0.0.1', 'Windows 10', 'Chrome', NULL, NULL, '2019-07-29 14:16:57', '2019-07-29 14:16:57');
+INSERT INTO `user_login_log` VALUES (66, 'demo', '127.0.0.1', 'Windows 10', 'Chrome', NULL, NULL, '2019-08-01 19:51:18', '2019-08-01 19:51:18');
+INSERT INTO `user_login_log` VALUES (67, 'demo', '127.0.0.1', 'Windows 10', 'Chrome', NULL, NULL, '2019-08-02 10:01:34', '2019-08-02 10:01:34');
+INSERT INTO `user_login_log` VALUES (68, 'demo', '127.0.0.1', 'Windows 10', 'Chrome', NULL, NULL, '2019-08-02 10:01:39', '2019-08-02 10:01:39');
+INSERT INTO `user_login_log` VALUES (69, 'demo', '127.0.0.1', 'Windows 10', 'Chrome', NULL, NULL, '2019-08-06 11:49:42', '2019-08-06 11:49:42');
 
 -- ----------------------------
 -- Table structure for user_organization_relation
@@ -408,7 +489,7 @@ CREATE TABLE `user_organization_relation`  (
   `CREATE_USER` varchar(64) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT 'sys' COMMENT '创建用户编号',
   `DELETE_FLAG` varchar(2) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT '00' COMMENT '删除标识(00-正常 01-删除)',
   PRIMARY KEY (`ID`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 27 CHARACTER SET = utf8 COLLATE = utf8_bin ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 29 CHARACTER SET = utf8 COLLATE = utf8_bin ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of user_organization_relation
@@ -438,7 +519,9 @@ INSERT INTO `user_organization_relation` VALUES (22, 'ORG21100120190604173234419
 INSERT INTO `user_organization_relation` VALUES (23, 'ORG21100120190604173234419000', 'USER21100120190614170951816000', '后台科技', '2019-06-14 17:15:37', 'sys', '2019-06-14 17:15:37', 'sys', '00');
 INSERT INTO `user_organization_relation` VALUES (24, 'ORG21100120190604173345879000', 'USER21100120190614172041546000', '财务部', '2019-06-14 17:20:41', 'sys', '2019-06-14 17:20:41', 'sys', '00');
 INSERT INTO `user_organization_relation` VALUES (25, 'ORG21100120190604173835471000', 'USER21100120190524180222553000', '开发部\\开发经理', '2019-06-14 17:32:54', 'sys', '2019-06-14 17:32:54', 'sys', '00');
-INSERT INTO `user_organization_relation` VALUES (26, 'ORG21100120190604173835471000', 'USER21100120190606214547882000', '开发部\\开发经理', '2019-06-14 17:49:23', 'sys', '2019-06-14 17:49:23', 'sys', '00');
+INSERT INTO `user_organization_relation` VALUES (26, 'ORG21100120190604173835471000', 'USER21100120190606214547882000', '开发部\\开发经理', '2019-08-06 11:52:20', 'sys', '2019-06-14 17:49:23', 'sys', '01');
+INSERT INTO `user_organization_relation` VALUES (27, 'ORG21100120190604173345879000', 'USER21100120190806115115381000', '财务部', '2019-08-06 11:51:15', 'sys', '2019-08-06 11:51:15', 'sys', '00');
+INSERT INTO `user_organization_relation` VALUES (28, 'ORG21100120190604173835471000', 'USER21100120190606214547882000', '开发部\\开发经理', '2019-08-06 11:52:21', 'sys', '2019-08-06 11:52:21', 'sys', '00');
 
 -- ----------------------------
 -- Table structure for user_role_relation
@@ -454,7 +537,7 @@ CREATE TABLE `user_role_relation`  (
   `CREATE_USER` varchar(64) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT 'sys' COMMENT '创建用户编号',
   `DELETE_FLAG` varchar(2) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT '00' COMMENT '删除标识(00-正常 01-删除)',
   PRIMARY KEY (`ID`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 16 CHARACTER SET = utf8 COLLATE = utf8_bin COMMENT = '用户角色关联表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 18 CHARACTER SET = utf8 COLLATE = utf8_bin COMMENT = '用户角色关联表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of user_role_relation
@@ -471,7 +554,9 @@ INSERT INTO `user_role_relation` VALUES (11, 'ROLE21100120190604204326914000', '
 INSERT INTO `user_role_relation` VALUES (12, 'ROLE21100120190606011116366000', 'USER21100120190614170951816000', '2019-06-14 17:15:37', 'sys', '2019-06-14 17:15:29', 'sys', '01');
 INSERT INTO `user_role_relation` VALUES (13, 'ROLE21100120190606011116366000', 'USER21100120190614170951816000', '2019-06-14 17:15:37', 'sys', '2019-06-14 17:15:37', 'sys', '00');
 INSERT INTO `user_role_relation` VALUES (14, 'ROLE21100120190606011116366000', 'USER21100120190524180222553000', '2019-06-14 17:32:54', 'sys', '2019-06-14 17:32:54', 'sys', '00');
-INSERT INTO `user_role_relation` VALUES (15, 'ROLE21100120190606011116366000', 'USER21100120190606214547882000', '2019-06-14 17:49:23', 'sys', '2019-06-14 17:49:23', 'sys', '00');
+INSERT INTO `user_role_relation` VALUES (15, 'ROLE21100120190606011116366000', 'USER21100120190606214547882000', '2019-08-06 11:52:20', 'sys', '2019-06-14 17:49:23', 'sys', '01');
+INSERT INTO `user_role_relation` VALUES (16, 'ROLE21100120190604204326914000', 'USER21100120190806115115381000', '2019-08-06 11:51:15', 'sys', '2019-08-06 11:51:15', 'sys', '00');
+INSERT INTO `user_role_relation` VALUES (17, 'ROLE21100120190606011116366000', 'USER21100120190606214547882000', '2019-08-06 11:52:20', 'sys', '2019-08-06 11:52:20', 'sys', '00');
 
 -- ----------------------------
 -- Table structure for wordbook

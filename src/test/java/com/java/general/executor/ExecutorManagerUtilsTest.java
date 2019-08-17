@@ -17,7 +17,7 @@ public class ExecutorManagerUtilsTest {
     @Test
     public void executorTest() {
 
-        for (int i = 0; i < 137; i++) {
+        for (int i = 0; i < 1040; i++) {
             ExecutorManagerUtils.doExecutor(getRunnable());
         }
 
@@ -27,7 +27,7 @@ public class ExecutorManagerUtilsTest {
 
     private Runnable getRunnable() {
         Runnable runnable = () -> {
-            DateUtils.sleepByMillis(60 * 1000L);
+            DateUtils.sleepByMillis(2000L);
         };
         return runnable;
     }
