@@ -12,7 +12,9 @@ import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.DependsOn;
 
+import javax.annotation.PostConstruct;
 import javax.sql.DataSource;
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -30,33 +32,31 @@ public class DruidConfiguration {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(DruidConfiguration.class);
 
-//
-//    /**
-//     * 配置数据库连接池 单数据源
-//     * @return
-//     */
-//    @Bean
-//    @ConfigurationProperties(prefix = "spring.datasource.druid")
-//    public DataSource druidDataSource() {
-//        return new DruidDataSource();
-//    }
+    private DruidDataSource druidDataSource;
+
+    /**
+     * 配置数据库连接池 单数据源
+     *
+     * @return
+     */
+    @PostConstruct
+    @ConfigurationProperties(prefix = "spring.datasource.druid")
+    public void druidDataSource() {
+        druidDataSource = new DruidDataSource();
+    }
 
 
     /**
      * 系统默认的数据库连接对象 多数据源
+     *
      * @return
      */
     @Bean
-    public MultipleDataSource druidDataSource() throws SQLException {
-        MultipleDataSource multipleDataSource=new MultipleDataSource();
-        DruidDataSource druidDataSource = DruidDataSourceBuilder.create().build();
-        druidDataSource.setUrl("jdbc:mysql://127.0.0.1:3306/admin?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=GMT%2B8");
-        druidDataSource.setUsername("root");
-        druidDataSource.setPassword("root");
-        druidDataSource.setFilters("stat,wall,log4j");
+    public MultipleDataSource druidMultipleDataSource() throws SQLException {
+        MultipleDataSource multipleDataSource = new MultipleDataSource();
         multipleDataSource.setDefaultTargetDataSource(druidDataSource);
         Map<Object, Object> targetDataSources = new HashMap<>();
-        targetDataSources.put("default",druidDataSource);
+        targetDataSources.put("default", druidDataSource);
         multipleDataSource.setTargetDataSources(targetDataSources);
         return multipleDataSource;
     }
