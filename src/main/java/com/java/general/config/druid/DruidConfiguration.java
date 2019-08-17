@@ -13,6 +13,7 @@ import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
+import org.springframework.context.annotation.Primary;
 
 import javax.annotation.PostConstruct;
 import javax.sql.DataSource;
@@ -32,17 +33,18 @@ public class DruidConfiguration {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(DruidConfiguration.class);
 
-    private DruidDataSource druidDataSource;
+
 
     /**
      * 配置数据库连接池 单数据源
      *
      * @return
      */
-    @PostConstruct
+    @Bean(name = "defaultDataSource")
     @ConfigurationProperties(prefix = "spring.datasource.druid")
-    public void druidDataSource() {
-        druidDataSource = new DruidDataSource();
+    public DruidDataSource druidDataSource() {
+        DruidDataSource druidDataSource = new DruidDataSource();
+        return druidDataSource;
     }
 
 
@@ -52,7 +54,9 @@ public class DruidConfiguration {
      * @return
      */
     @Bean
-    public MultipleDataSource druidMultipleDataSource() throws SQLException {
+    @Primary
+    @DependsOn("defaultDataSource")
+    public MultipleDataSource druidMultipleDataSource(DruidDataSource druidDataSource){
         MultipleDataSource multipleDataSource = new MultipleDataSource();
         multipleDataSource.setDefaultTargetDataSource(druidDataSource);
         Map<Object, Object> targetDataSources = new HashMap<>();
