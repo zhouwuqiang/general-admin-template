@@ -62,6 +62,12 @@
             </div>
             <!--登录用户信息-->
             <div class="pull-right head-nav-hover head-nav-item dropdown">
+                <div sec:authorize="hasAuthority('admin')">
+                    管理员:
+                </div>
+                <div sec:authorize="hasAuthority('business')">
+                    业务员:
+                </div>
                 <div class="dropdown-toggle clickable" id="login_user" >
                     <span sec:authentication="principal.userLabel"></span>
                 </div>
