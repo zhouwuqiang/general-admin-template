@@ -13,7 +13,7 @@ tomcat:8+
 3. 启动 AdminApplication.java
 
 ##使用技术
-前端:HTML CSS thymeleaf bootStrap jquery   
+前端:HTML CSS thymeleaf bootStrap jquery echart  
 后端:spring springBoot mybatis mysql redis
 
 ##实现功能
