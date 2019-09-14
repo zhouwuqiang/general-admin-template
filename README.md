@@ -1,6 +1,6 @@
 管理系统(admin)
 ===========================
-该项目基于springboot实现了一个简单的单体应用;
+该项目基于springBoot实现了一个简单的单体应用;
 
 ##环境依赖
 jdk:1.8.0+
@@ -9,8 +9,24 @@ tomcat:8+
 ##部署步骤
 1. 导入IDE
 2. 执行数据库sql并修改数据库连接
-3. 配置reids连接
+3. 配置redis连接
 3. 启动 AdminApplication.java
+
+##使用技术
+前端:HTML CSS thymeleaf bootStrap jquery   
+后端:spring springBoot mybatis mysql redis
+
+##实现功能
+1. 用户管理
+2. 菜单管理
+3. 组织管理
+4. 角色管理
+5. 字典管理
+6. 任务管理(未完成)
+7. 代码自动生成
+8. 登录日志
+9. 在线用户
+10. 系统监控
 
 ##基础目录结构描述
 ├── Readme.md                             // 自述文件  
