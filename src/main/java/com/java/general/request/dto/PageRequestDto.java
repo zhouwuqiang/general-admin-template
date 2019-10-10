@@ -1,5 +1,6 @@
 package com.java.general.request.dto;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -18,21 +19,25 @@ public class PageRequestDto {
     /**
      * 每页大小
      */
+    @ApiModelProperty(value = "每页大小",example = "10",required = false)
     private int pageSize;
 
     /**
      * 当前页码
      */
+    @ApiModelProperty(value = "当前页码",example = "1",required = false)
     private int pageNum;
 
     /**
      * 排序字段
      */
+    @ApiModelProperty(value = "排序字段",example = "name",required = false)
     private String sort;
 
     /**
      * 排序方式
      */
+    @ApiModelProperty(value = "排序方式",example = "desc",required = false)
     private String order;
 
 }
