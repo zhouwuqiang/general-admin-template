@@ -5,7 +5,6 @@ import com.java.business.menu.dto.MenuListRequestDto;
 import com.java.business.menu.dto.MenuSaveRequestDto;
 import com.java.business.menu.dto.MenuTableRequestDto;
 import com.java.business.menu.facade.MenuFacade;
-import com.java.business.utils.tree.dto.Tree;
 import com.java.general.config.security.dto.Menu;
 import com.java.general.config.security.dto.User;
 import com.java.general.interceptors.controller.ControllerRecorder;
@@ -13,6 +12,7 @@ import com.java.general.response.dto.ResponseDto;
 import com.java.general.response.utils.ResponseUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +24,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-
 /**
  * description :
  *
@@ -35,7 +33,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/menu")
-@Api(value = "菜单管理value",tags="菜单管理tags")
+@Api(value = "菜单管理value",tags="菜单管理")
 public class MenuController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MenuController.class);
@@ -81,7 +79,8 @@ public class MenuController {
      * @param requestDto
      * @return
      */
-    @RequestMapping(value = "/save")
+    @ApiOperation(value = "保存组织结构",notes = "保存组织结构")
+    @PostMapping(value = "/save")
     @ControllerRecorder(path = "/menu/save")
     public ResponseDto save(@RequestBody MenuSaveRequestDto requestDto) {
 
@@ -96,7 +95,8 @@ public class MenuController {
      * @param requestDto
      * @return
      */
-    @RequestMapping(value = "/delete")
+    @ApiOperation(value = "删除组织结构",notes = "删除组织结构")
+    @PostMapping(value = "/delete")
     @ControllerRecorder(path = "/menu/delete")
     public ResponseDto delete(@RequestBody MenuSaveRequestDto requestDto) {
 
@@ -114,7 +114,8 @@ public class MenuController {
      *
      * @return
      */
-    @RequestMapping(value = "/list/tree")
+    @ApiOperation(value = "获取菜单结构树",notes = "获取菜单结构树")
+    @PostMapping(value = "/list/tree")
     @ControllerRecorder(path = "/menu/list/tree")
     public ResponseDto listTree(@RequestBody MenuListRequestDto menuListRequestDto) {
 

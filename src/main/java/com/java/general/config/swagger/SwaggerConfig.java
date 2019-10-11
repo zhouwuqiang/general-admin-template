@@ -21,10 +21,11 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @Configuration
 @EnableSwagger2
 public class SwaggerConfig {
+
     @Bean
     public Docket controllerApi() {
         return new Docket(DocumentationType.SWAGGER_2)
-            .groupName("")
+            .groupName("group")
             .apiInfo(apiInfo())
             .select()
             .apis(RequestHandlerSelectors.basePackage("com.java"))
@@ -35,9 +36,9 @@ public class SwaggerConfig {
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-            .title("**平台对外接口")
-            .description("1.提供**后台使用的接口 2.提供对其他服务调用的服务")
-            .contact(new Contact("", "", ""))
+            .title("管理后台对外接口")
+            .description("1.提供对其他服务调用的服务")
+            .contact(new Contact("联系人", "连接", "邮箱"))
             .version("1.0")
             .build();
     }
