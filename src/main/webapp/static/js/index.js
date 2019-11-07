@@ -14,7 +14,7 @@ $(function () {
 function getMenu() {
     $.ajax({
         url: "/menu/list",
-        type: 'post',
+        type: 'GET',
         dataType: 'json',
         contentType: 'application/json',
         success: function (responseDto) {
