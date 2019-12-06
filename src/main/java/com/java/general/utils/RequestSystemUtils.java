@@ -78,9 +78,9 @@ public class RequestSystemUtils {
         }
         //得到用户的操作系统
         if (header.indexOf("NT 6.0") > 0){
-            systenInfo = "Windows Vista/Server 2008";
+            systenInfo = "Windows Vista/SkyDriveServer 2008";
         } else if (header.indexOf("NT 5.2") > 0){
-            systenInfo = "Windows Server 2003";
+            systenInfo = "Windows SkyDriveServer 2003";
         } else if (header.indexOf("NT 5.1") > 0){
             systenInfo = "Windows XP";
         } else if (header.indexOf("NT 6.1") > 0){

@@ -2,7 +2,6 @@ package com.java.general.filters;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.core.annotation.Order;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
@@ -32,7 +31,7 @@ public class ExecutorTimeFilter implements Filter {
         long start = System.currentTimeMillis();
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         filterChain.doFilter(servletRequest,servletResponse);
-        LOGGER.info("{} >> 执行时间 :{}" ,request.getRequestURI(),(System.currentTimeMillis()-start));
+        LOGGER.debug("{} >> ExecutorTime :{}" ,request.getRequestURI(),(System.currentTimeMillis()-start));
     }
 
     @Override
